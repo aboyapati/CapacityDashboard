@@ -1,0 +1,104 @@
+.data-center {
+    color: #3b4147;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    padding: 6px 0 4px;
+}
+.tab-tile:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}
+.data-center-body {
+    color: #73787d;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 1px;
+    font-weight: 600;
+}
+.tab-tile {
+    padding: 15px 0px 15px;
+}
+.tab-tile-active {
+    padding: 0px 0px 15px;
+    background-color: #fff; 
+}
+.tab-tile-table {
+    background-color: #fff;
+    padding: 30px;
+}
+th {
+    color: #3b4147;
+}
+td {
+    color: #73787d;
+}
+.img-thumbnail {
+    width: 100px;
+    height: 100px;
+    background-color: unset;
+    border: 0px;
+}
+.rsddropdown {
+    text-align: right;
+    padding-right: 15px;
+    height: 15px;
+}
+.rsddropdown-span {
+    cursor:pointer;
+    color:#b0bec5;
+    font-size:20px;
+}
+.rsddropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 10%;
+    border-radius: 6px;
+    border: 1px solid aliceblue;
+    cursor: pointer;
+    text-align: left;
+} 
+.rsddropdown-content a {
+    color: #08070799;
+    padding: 5px 12px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+} 
+.rsddropdown a:hover {
+    background-color: #ddd;
+}
+.btn-primary {
+    background-color: #203c66;
+    border-color: #203c66;
+    font-weight: 600;
+}
+.btn-left {
+    background-color: #203c6661;
+    border-color: #203c6661;border: 0px solid transparent;
+    position: absolute;
+    top: 155px;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    height: 40px;
+    width: 50px;
+    font-size: 26px;
+}
+.btn-right {
+    background-color: #203c6661;
+    border-color: #203c6661;border: 0px solid transparent;
+    position: absolute;
+    top: 155px;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    height: 40px;
+    width: 50px;
+    font-size: 26px;
+}

@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-md-10 col-sm-8 col-xs-8" style="font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;">
+        onPOINT HCS.Capacity
+    </div>
+    <div class="col-md-2 col-sm-4 col-xs-4">
+        <button class="btn btn-primary btn-sm">
+            <i class="fa fa-plus"></i> Add Data Center</button>
+    </div>
+</div>
+<div class="row">
+    <button (click)="moveLeft()" class="btn btn-primary btn-sm btn-left" style="display: none;">
+        <i class="fa fa-arrow-left"></i>
+    </button>
+    <button (click)="moveRight()" class="btn btn-primary btn-sm btn-right" style="display: none;">
+        <i class="fa fa-arrow-right"></i>
+    </button>
+    <div *ngFor="let dataCenter of dataCenters, let i = index" class="col-md-3 col-sm-6 tab-tile {{ i==0 ? 'tab-tile-active' : ''}}" id="{{i}}"(click)="dataCenterClick(i)">
+        <div *ngIf="i==0; then thenDiv;else elseDiv">
+        </div>
+        <ng-template #thenDiv>
+            <div class="rsddropdown" id="rsddropdown{{i}}">
+                <span class="rsddropdown-span" (click)="callMatricsClick(i)">...</span>
+                <div id="callMatricsDropdown{{i}}" class="rsddropdown-content">
+                    <a>Edit</a>
+                    <a>Delete</a>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #elseDiv>
+            <div class="rsddropdown" id="rsddropdown{{i}}" style="display: none;">
+                <span class="rsddropdown-span" (click)="callMatricsClick(i)">...</span>
+                <div id="callMatricsDropdown{{i}}" class="rsddropdown-content">
+                    <a>Edit</a>
+                    <a>Delete</a>
+                </div>
+            </div>
+        </ng-template>
+        <div class="data-center-image d-flex justify-content-center">
+            <img bind-src="imgUrl" class="img-thumbnail">
+        </div>
+        <p class="data-center">{{dataCenter.name}}</p>
+        <p *ngFor="let data of dataCenter.datas" class="data-center-body">{{data}}</p>
+    </div>
+    <div class="col-md-12 tab-tile-table table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Component Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Version</th>
+                    <th scope="col">IP Address</th>
+                    <th scope="col">Credentials</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of dataCentersDetails">
+                    <td>{{ data.cName }}</td>
+                    <td>{{ data.type }}</td>
+                    <td>{{ data.version }}</td>
+                    <td>{{ data.ip }}</td>
+                    <td class="text-center">
+                        <a href="{{ data.credential }}">View</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

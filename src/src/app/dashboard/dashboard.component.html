@@ -1,0 +1,216 @@
+<div class="row">
+  <div class="col-sm-12" style="font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;">
+    onPOINT HCS.Capacity
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3 col-sm-6 block">
+    <div class="card table-card">
+        <div class="row-table">
+          <div class="col-md-12 card-block-big card-block-pd">
+            <div class="row">
+              <div class="col-sm-5 blk1">
+                  <span class="round-block rb-1 img-circle pull-left" style="float:right;">
+                    <span class="round-text" style="font-size: 23px"> 4 </span>
+                  </span>
+                </div>
+              <div class="col-sm-7 blk2" style="text-align:right;padding-right:13%;">
+                <div class="tile-head">
+          Data Centers<br />
+          <span class="tile-count" style="font-size:30px;font-weight:normal;min-height:45px;"></span>
+        </div>
+              </div>
+              <div class="col-md-12" style="padding-right:13%;">
+                  <p class="tile-footer-p" style="margin-top:7px;"><span style="color: green;"><i class="fa fa-arrow-up" style="font-size:15px;"></i> 2</span> more than last month</p>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  
+  <div class="col-md-3 col-sm-6 block">
+    <div class="card table-card">
+        <div class="row-table">
+          <div class="col-md-12 card-block-big card-block-pd">
+            <div class="row">
+              <div class="col-sm-5 blk1">
+                  <span class="round-block rb-2 img-circle pull-left" style="float:right;">
+                    <span class="round-text" style="font-size: 23px"> 8 </span>
+                  </span>
+                </div>
+              <div class="col-sm-7 blk2" style="text-align:right;padding-right:13%;">
+                <div class="tile-head">
+          New Reports<br />
+          <span class="tile-count" style="font-size:30px;font-weight:normal;min-height:45px;"></span>
+        </div>
+              </div>
+              <div class="col-md-12" style="padding-right:13%;">
+                  <p class="tile-footer-p" style="margin-top:7px;"><span style="color: green;"><i class="fa fa-arrow-up" style="font-size:15px;"></i> 1</span> more than last month</p>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  
+  <div class="col-md-3 col-sm-6 block">
+    <div class="card table-card">
+        <div class="row-table">
+          <div class="col-md-12 card-block-big card-block-pd">
+            <div class="row">
+              <div class="col-sm-5 blk1">
+                  <span class="round-block rb-3 img-circle pull-left" style="float:right;">
+                    <span class="round-text" style="font-size: 23px"><i class="fa fa-users"></i></span>
+                  </span>
+                </div>
+              <div class="col-sm-7 blk2" style="text-align:right;padding-right:13%;">
+                <div class="tile-head">
+          Active Users<br />
+          <span class="tile-count" style="font-size:30px;font-weight:normal;">6381</span>
+        </div>
+              </div>
+              <div class="col-md-12" style="padding-right:13%;">
+                  <p class="tile-footer-p" style="margin-top:7px;"><span style="color: red;"><i class="fa fa-arrow-down" style="font-size:15px;"></i> 534</span> more than last month</p>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  
+  <div class="col-md-3 col-sm-6 block">
+    <div class="card table-card">
+        <div class="row-table">
+          <div class="col-md-12 card-block-big card-block-pd">
+            <div class="row">
+              <div class="col-sm-5 blk1">
+                  <span class="round-block rb-4 img-circle pull-left" style="float:right;">
+                    <span class="round-text" style="font-size: 23px"><i class="fa fa-user-circle"></i></span>
+                  </span>
+                </div>
+              <div class="col-sm-7 blk2" style="text-align:right;padding-right:13%;">
+                <div class="tile-head">
+          Customers<br />
+          <span class="tile-count" style="font-size:30px;font-weight:normal;">132</span>
+        </div>
+              </div>
+              <div class="col-md-12" style="padding-right:13%;">
+                  <p class="tile-footer-p" style="margin-top:7px;"><span style="color: green;"><i class="fa fa-arrow-up" style="font-size:15px;"></i> 47</span> more than last month</p>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div id="map_part1" class="col-lg-7">
+    <div class="card part1_div">
+      <div class="card-block">
+        <app-world-map></app-world-map>
+      </div>
+    </div>
+  </div>
+  <div id="map_part2" class="col-lg-5">
+    <div class="card" style="height: 541px;">
+      <div class="card-block">
+      <div class="" style="opacity: 1;">
+        <div class="" style="">
+        <div class="card-body table-border-style">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+              <tr>
+                <th style="border-bottom: 0;border-top: 0;">Call Metrics</th>
+                <th style="border-bottom: 0;border-top: 0;font-size: 13px;color: #C0BEBE;">Last 24 hrs</th>
+                <th style="border-bottom: 0;border-top: 0;text-align:right;">
+                  <div class="rsddropdown">
+                    <span (click)="callMatricsClick()" style="cursor:pointer;color:#b0bec5;font-size:20px;">...</span>
+                    <div id="callMatricsDropdown" class="rsddropdown-content">
+                    <a (click)="getCallMatrics('today')" style="text-align:center;font-size:14px;">Today</a>
+                    <a (click)="getCallMatrics('yesterday')" style="text-align:center;font-size:14px;">Yesterday</a>
+                    <a (click)="getCallMatrics('week')" style="text-align:center;font-size:14px;">1 Week</a>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let data of datas">
+                <th style="vertical-align: middle;" scope="row"><span style="margin-left: 10px;color: #2cd2ef;font-size: 18px;">{{data.name}}</span></th>
+                <td>
+                <span style="display: block;">Total Calls</span>
+                <span style="color: #2cd2ef; font-size: 20px;">{{data.total}}</span>
+                </td>
+                <td>
+                <span style="display: block;">Concurrent Calls</span>
+                <span style="color: #2cd2ef; font-size: 20px;">{{data.concurrent}}</span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width: 150px;border-bottom: 0;">Notifications</th>
+                  <th style="width: 800px;border-bottom: 0;font-size: 13px;color: #C0BEBE;">Today</th>
+                  <th style="text-align:right;border-bottom: 0;">
+                    <div class="rsddropdown">
+                        <span (click)="notificationClick()" style="cursor:pointer;color:#b0bec5;font-size:20px;">...</span>
+                        <div id="notificationDropDown" class="rsddropdown-content">
+                          <a (click)="getNotification('today')" style="text-align:center;font-size:14px;">Today</a>
+                          <a (click)="getNotification('yesterday')" style="text-align:center;font-size:14px;">Yesterday</a>
+                          <a (click)="getNotification('week')" style="text-align:center;font-size:14px;">1 Week</a>
+                        </div>
+                      </div>
+                  </th>
+                </tr>
+        <tr>
+                  <th style="width: 150px;border-top: 0;border-bottom:1px;">Data Center</th>
+                  <th style="width: 800px;border-top: 0;border-bottom:1px;">Alert</th>
+                  <th style="border-top: 0;border-bottom:1px;">Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><input type="checkbox"><span style="margin-left: 10px;color: red;">DC 4</span></th>
+                  <td>CPU utilization high on host-01</td>
+                  <td>12:12 PM</td>
+                </tr>
+                <tr style="background-color:#fafafa;">
+                  <th scope="row"><input type="checkbox"><span style="margin-left: 10px;color:#ec7a07;">DC 2</span></th>
+                  <td>Datastore threshold crossed SAN-01</td>
+                  <td>2:17 AM</td>
+                </tr>
+                <tr>
+                  <th scope="row"><input type="checkbox"><span style="margin-left: 10px;color:#ec7a07;">DC 2</span></th>
+                  <td>CPU count on the VMs exceed the total cores on host-02</td>
+                  <td>12:12 PM</td>
+                </tr>
+                <tr style="background-color:#fafafa;">
+                  <th scope="row"><input type="checkbox"><span style="margin-left: 10px;color: red;">DC 4</span></th>
+                  <td>CPU utilization high on host-01</td>
+                  <td>2:17 PM</td>
+                </tr>
+                <tr>
+                  <th scope="row"><input type="checkbox"><span style="margin-left: 10px;color: red;">DC 4</span></th>
+                  <td>Datastore threshold crossed SAN-01</td>
+                  <td>12:12 PM</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+  </div>
+</div>

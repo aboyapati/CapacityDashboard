@@ -1,0 +1,111 @@
+@media screen and (min-width: 992px) {
+	#map_part1 {
+		padding-right: 0px;
+	}
+	#map_part2 {
+		padding-left: 0px;
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.part1_div {
+		margin-bottom:0px;
+	}
+}
+.tile-head {
+  color: #000;
+  font-weight:bold;
+  font-size: 15px;
+  margin-bottom: 0px;
+}
+.tile-count {
+  float: right;
+  font-size: 30px;
+}
+.tile-footer-p {
+  text-align: right;
+  margin-bottom: 0px;
+}
+.card-block-pd {
+  padding: .80rem;
+}
+.round-block {
+  display: inline-block;
+  box-shadow: -1px 3px 5px #5f5a5a66;
+}
+.rb-1 {
+  padding: 10px 22px;
+  background: #2dd2ef;
+}
+.rb-2 {
+  padding: 10px 22px;
+  background: #a327d1;
+}
+.rb-3 {
+  padding: 10px 14px;
+  background: #33b86c;
+}
+.rb-4 {
+  padding: 10px 14px;
+  background: #ffae00;
+}
+.round-text {
+  color: #ffff;
+  font-size: 23px;
+}
+@media screen and (max-width: 1251px) {
+	.block {
+		flex: 0 0 50%;
+		max-width: 50%;
+	}
+}
+@media screen and (max-width: 595px) {
+	.block {
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+	.blk1 {
+		width: 41%;
+	}
+	.blk2 {
+		width: 59%;
+	}
+}
+.rsddropbtn {
+  background-color: #fff;
+  color: white;
+  padding: 7px;
+  border: none;
+  cursor: pointer;
+}
+ 
+.rsddropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.rsddropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 10%;
+  border-radius: 6px;
+  border: 1px solid aliceblue;
+  cursor: pointer;
+  text-align: left;
+}
+
+.rsddropdown-content a {
+  color: #08070799;
+  padding: 5px 12px;
+  text-decoration: none;
+  display: block;
+  font-size: 12px;
+}
+
+.rsddropdown a:hover {background-color: #ddd}
+
+.rsdshow {display:block;}
