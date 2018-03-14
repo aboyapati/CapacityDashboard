@@ -65,7 +65,7 @@ var AuthenticationRoutes = [
         path: '',
         children: [
             {
-                path: 'login',
+                path: '',
                 loadChildren: './login/login.module#LoginModule',
                 data: {
                     breadcrumb: 'Login'

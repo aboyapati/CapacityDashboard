@@ -85,7 +85,7 @@ module.exports = __webpack_require__.p + "icofont.4abc402d95b5c1510848.woff";
 /***/ "../../../../../src/assets/images/bg.png":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "bg.8d7dec58c1fc2c15dba3.png";
+module.exports = __webpack_require__.p + "bg.6066e107e70f82388214.png";
 
 /***/ }),
 

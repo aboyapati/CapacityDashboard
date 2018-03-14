@@ -156,7 +156,23 @@ var WithSocialComponent = (function () {
     WithSocialComponent.prototype.verifyLogin = function (e) {
         var username = e.target.elements[0].value;
         var password = e.target.elements[1].value;
-        if (username == 'admin' && password == 'admin') {
+        var checkLogin = function () {
+            var tmp = null;
+            $.ajax({
+                'async': false,
+                'type': "POST",
+                'global': false,
+                'dataType': 'html',
+                'url': "assets/webservices/verifyLogin.php",
+                'data': { username: username, password: password },
+                'success': function (data) {
+                    tmp = data;
+                }
+            });
+            return tmp;
+        }();
+        var loginObject = JSON.parse(checkLogin);
+        if (loginObject.status == 1) {
             this.login_status = true;
             this.router.navigate(['dashboard']);
         }
