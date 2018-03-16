@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild, ViewEncapsulation, ElementRef, AfterViewInit} from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import {state, style, transition, animate, trigger, AUTO_STYLE} from '@angular/animations';
+import { state, style, transition, animate, trigger, AUTO_STYLE } from '@angular/animations';
 import { CookieService } from 'ngx-cookie-service';
 
 import { MenuItems } from '../../shared/menu-items/menu-items';
@@ -19,20 +19,20 @@ export interface Options {
   encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('mobileMenuTop', [
-        state('no-block, void',
-            style({
-                overflow: 'hidden',
-                height: '0px',
-            })
-        ),
-        state('yes-block',
-            style({
-                height: AUTO_STYLE,
-            })
-        ),
-        transition('no-block <=> yes-block', [
-            animate('400ms ease-in-out')
-        ])
+      state('no-block, void',
+        style({
+          overflow: 'hidden',
+          height: '0px',
+        })
+      ),
+      state('yes-block',
+        style({
+          height: AUTO_STYLE,
+        })
+      ),
+      transition('no-block <=> yes-block', [
+        animate('400ms ease-in-out')
+      ])
     ])
   ]
 })
@@ -56,23 +56,28 @@ export class AdminLayoutComponent implements OnInit {
     this.setMenuAttributs(this.windowWidth);
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  rsdClick(){
+  rsdClick() {
     this.router.navigate(['dashboard']);
   }
 
-  logoutClicked(e){
+  logoutClicked(e) {
     e.preventDefault();
-    this.cookieService.set('logout_clicked', 'yes' );
+    this.cookieService.set('logout_clicked', 'yes');
     this.router.navigate(['login']);
   }
 
+  disableRouterAction(e) {
+    e.preventDefault();
+    return false;
+  }
+
   onClickedOutside(e: Event) {
-      if (this.windowWidth < 768 && this.toggleOn && this.verticalNavType !== 'offcanvas') {
-          this.toggleOn = true;
-          this.verticalNavType = 'offcanvas';
-      }
+    if (this.windowWidth < 768 && this.toggleOn && this.verticalNavType !== 'offcanvas') {
+      this.toggleOn = true;
+      this.verticalNavType = 'offcanvas';
+    }
   }
 
   onResize(event) {
@@ -92,27 +97,27 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   setMenuAttributs(windowWidth) {
-      if (windowWidth >= 768 && windowWidth <= 1024) {
-        this.deviceType = 'tablet';
-        this.verticalNavType = 'collapsed';
-        this.verticalEffect = 'push';
-      } else if (windowWidth < 768) {
-        this.deviceType = 'mobile';
-        this.verticalNavType = 'offcanvas';
-        this.verticalEffect = 'overlay';
-      } else {
-        this.deviceType = 'desktop';
-        this.verticalNavType = 'expanded';
-        this.verticalEffect = 'shrink';
-      }
+    if (windowWidth >= 768 && windowWidth <= 1024) {
+      this.deviceType = 'tablet';
+      this.verticalNavType = 'collapsed';
+      this.verticalEffect = 'push';
+    } else if (windowWidth < 768) {
+      this.deviceType = 'mobile';
+      this.verticalNavType = 'offcanvas';
+      this.verticalEffect = 'overlay';
+    } else {
+      this.deviceType = 'desktop';
+      this.verticalNavType = 'expanded';
+      this.verticalEffect = 'shrink';
+    }
   }
 
   toggleOpened() {
     if (this.windowWidth < 768) {
-        this.toggleOn = this.verticalNavType === 'offcanvas' ? true : this.toggleOn;
-        this.verticalNavType = this.verticalNavType === 'expanded' ? 'offcanvas' : 'expanded';
+      this.toggleOn = this.verticalNavType === 'offcanvas' ? true : this.toggleOn;
+      this.verticalNavType = this.verticalNavType === 'expanded' ? 'offcanvas' : 'expanded';
     } else {
-        this.verticalNavType = this.verticalNavType === 'expanded' ? 'collapsed' : 'expanded';
+      this.verticalNavType = this.verticalNavType === 'expanded' ? 'collapsed' : 'expanded';
     }
   }
 

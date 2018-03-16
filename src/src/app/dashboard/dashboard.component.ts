@@ -17,8 +17,6 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
-
     this.datas = function () {
       var tmp = null;
       $.ajax({
@@ -39,28 +37,26 @@ export class DashboardComponent implements OnInit {
 
     var dataset = [];
 
-    for(var data in details){
+    for (var data in details) {
       var name = details[data].name;
       var total = details[data].total_calls;
       var concurrent = details[data].concurrent_calls;
 
       var unit = {
-        name:name,
-        total:total,
-        concurrent:concurrent
+        name: name,
+        total: total,
+        concurrent: concurrent
       }
 
       dataset.push(unit);
     }
 
-
-      this.datas = dataset;
-
+    this.datas = dataset;
   }
 
   callMatricsClick() {
     this.callMatricsFilter = !this.callMatricsFilter;
-    if(this.callMatricsFilter){
+    if (this.callMatricsFilter) {
       $('#callMatricsDropdown').show();
     } else {
       $('#callMatricsDropdown').hide();
@@ -69,19 +65,19 @@ export class DashboardComponent implements OnInit {
 
   notificationClick() {
     this.notificationFilter = !this.notificationFilter;
-    if(this.notificationFilter){
+    if (this.notificationFilter) {
       $('#notificationDropDown').show();
     } else {
       $('#notificationDropDown').hide();
     }
   }
 
-  getCallMatrics(id){
+  getCallMatrics(id) {
     $('#callMatricsDropdown').hide();
     alert(id);
   }
 
-  getNotification(id){
+  getNotification(id) {
     $('#notificationDropDown').hide();
     alert(id);
   }

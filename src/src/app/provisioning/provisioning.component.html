@@ -1,9 +1,9 @@
 <div class="row">
-    <div class="col-md-10 col-sm-8 col-xs-8" style="font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;">
+    <div class="col-md-8 col-sm-8" style="font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;">
         onPOINT HCS.Capacity
     </div>
-    <div class="col-md-2 col-sm-4 col-xs-4">
-        <button class="btn btn-primary btn-sm">
+    <div class="col-md-4 col-sm-4 btn-top-bar">
+        <button class="btn btn-primary btn-sm btn-add-data" (click)="open(content)">
             <i class="fa fa-plus"></i> Add Data Center</button>
     </div>
 </div>
@@ -14,15 +14,16 @@
     <button (click)="moveRight()" class="btn btn-primary btn-sm btn-right" style="display: none;">
         <i class="fa fa-arrow-right"></i>
     </button>
-    <div *ngFor="let dataCenter of dataCenters, let i = index" class="col-md-3 col-sm-6 tab-tile {{ i==0 ? 'tab-tile-active' : ''}}" id="{{i}}"(click)="dataCenterClick(i)">
+    <div *ngFor="let dataCenter of dataCenters, let i = index" class="col-md-3 col-sm-6 tab-tile {{ i==0 ? 'tab-tile-active' : ''}}"
+        id="{{i}}" (click)="dataCenterClick(i)">
         <div *ngIf="i==0; then thenDiv;else elseDiv">
         </div>
         <ng-template #thenDiv>
             <div class="rsddropdown" id="rsddropdown{{i}}">
                 <span class="rsddropdown-span" (click)="callMatricsClick(i)">...</span>
                 <div id="callMatricsDropdown{{i}}" class="rsddropdown-content">
-                    <a>Edit</a>
-                    <a>Delete</a>
+                    <a (click)="open(editDataCenter)">Edit</a>
+                    <a (click)="open(deleteDataCenter)">Delete</a>
                 </div>
             </div>
         </ng-template>
@@ -30,8 +31,8 @@
             <div class="rsddropdown" id="rsddropdown{{i}}" style="display: none;">
                 <span class="rsddropdown-span" (click)="callMatricsClick(i)">...</span>
                 <div id="callMatricsDropdown{{i}}" class="rsddropdown-content">
-                    <a>Edit</a>
-                    <a>Delete</a>
+                    <a (click)="open(editDataCenter)">Edit</a>
+                    <a (click)="open(deleteDataCenter)">Delete</a>
                 </div>
             </div>
         </ng-template>
@@ -39,7 +40,9 @@
             <img bind-src="imgUrl" class="img-thumbnail">
         </div>
         <p class="data-center">{{dataCenter.name}}</p>
-        <p *ngFor="let data of dataCenter.datas" class="data-center-body">{{data}}</p>
+        <p class="data-center-body">{{dataCenter.city}}, {{dataCenter.state}}</p>
+        <p class="data-center-body">{{dataCenter.country}}</p>
+        <p class="data-center-body">{{dataCenter.timezone}}</p>
     </div>
     <div class="col-md-12 tab-tile-table table-responsive">
         <table class="table table-striped">
@@ -54,15 +57,181 @@
             </thead>
             <tbody>
                 <tr *ngFor="let data of dataCentersDetails">
-                    <td>{{ data.cName }}</td>
+                    <td>{{ data.name }}</td>
                     <td>{{ data.type }}</td>
                     <td>{{ data.version }}</td>
                     <td>{{ data.ip }}</td>
                     <td class="text-center">
-                        <a href="{{ data.credential }}">View</a>
+                        <span style="color: #0056b3;cursor: pointer;">View</span>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <div class="modalForm">
+            <div class="form-modal">
+                <div class="header_title">Add a data center</div>
+                <p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
+                    <a style="color:#007bff;">contact us</a>.</p>
+            </div>
+            <form (submit)="onSubmit()">
+                <div class="form-modal" style="padding-top: 0;">
+                    <div class="form-group" style="margin-top: 0;">
+                        <input type="text" required="required" [(ngModel)]="name" name="name" />
+                        <label class="control-label" for="input">Data center name*</label>
+                        <i class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <select [(ngModel)]="country" name="country">
+                            <option class="modal_placeholder">Country*</option>
+                            <option>United States</option>
+                            <option>Australia</option>
+                            <option>Canada</option>
+                            <option>India</option>
+                        </select>
+                        <label class="control-label" for="select"></label>
+                        <i class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required="required" [(ngModel)]="state" name="state" />
+                        <label class="control-label" for="input">State*</label>
+                        <i class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required="required" [(ngModel)]="city" name="city" />
+                        <label class="control-label" for="input">City*</label>
+                        <i class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <select [(ngModel)]="timezone" name="timezone">
+                            <option class="modal_placeholder">Time zone*</option>
+                            <option>PST</option>
+                            <option>EST</option>
+                            <option>MST</option>
+                        </select>
+                        <label class="control-label" for="select"></label>
+                        <i class="bar"></i>
+                    </div>
+                </div>
+                <div class="col-md-12 form-modal">
+                    <div class="row">
+                        <div class="col-md-6 pull-left modal-buttons">
+                            <button type="button" class="btn btn-default btn-edit-cancel" (click)="c('Close click')">Cancel</button>
+                        </div>
+                        <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
+                            <input type="submit" class="btn btn-primary save_btn btn-edit-save" value="Save" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div style="display: none;" class="apiResponseDiv">
+            <div class="apiSuccess">
+                <div class="form-modal">
+                    <div style="color: green;" class="apiMsg">Data center added successfully !</div>
+                </div>
+                <div class="col-md-12 form-modal">
+                    <div style="margin: 0 auto;" class="row">
+                        <button type="button" class="btn btn-primary btn-edit-cancel" (click)="c('Close click')">Close</button>
+                    </div>
+                </div>
+            </div>
+            <div class="apiFailed" style="display: none">
+                <div class="form-modal">
+                    <div style="color: red;" class="apiMsg">Something went wrong !</div>
+                    <p id="apiErrorMsg"></p>
+                </div>
+                <div class="col-md-12 form-modal">
+                    <div style="margin: 0 auto;" class="row">
+                        <button type="button" class="btn btn-primary btn-edit-cancel" (click)="c('Close click')">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-template>
+
+<ng-template #editDataCenter let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <div class="form-modal">
+            <div class="header_title">Edit data center</div>
+            <p class="modal_description">Edit data center 1 of your network. It's quick and easy. If you need any assistance please
+                <a style="color:#007bff;">contact us</a>.</p>
+        </div>
+        <form>
+            <div class="form-modal" style="padding-top: 0;">
+                <div class="form-group" style="margin-top: 0;">
+                    <input type="text" required="required" />
+                    <label class="control-label" for="input">Data center name*</label>
+                    <i class="bar"></i>
+                </div>
+                <div class="form-group">
+                    <select>
+                        <option class="modal_placeholder">Country*</option>
+                        <option>United States</option>
+                        <option>Australia</option>
+                        <option>Canada</option>
+                        <option>India</option>
+                    </select>
+                    <label class="control-label" for="select"></label>
+                    <i class="bar"></i>
+                </div>
+                <div class="form-group">
+                    <input type="text" required="required" />
+                    <label class="control-label" for="input">State*</label>
+                    <i class="bar"></i>
+                </div>
+                <div class="form-group">
+                    <input type="text" required="required" />
+                    <label class="control-label" for="input">City*</label>
+                    <i class="bar"></i>
+                </div>
+                <div class="form-group">
+                    <select>
+                        <option class="modal_placeholder">Time zone*</option>
+                        <option>PST</option>
+                        <option>EST</option>
+                        <option>MST</option>
+                    </select>
+                    <label class="control-label" for="select"></label>
+                    <i class="bar"></i>
+                </div>
+            </div>
+        </form>
+        <div class="col-md-12 form-modal">
+            <div class="row">
+                <div class="col-md-6 pull-left modal-buttons">
+                    <button type="button" class="btn btn-default btn-edit btn-edit-cancel" (click)="c('Close click')">Cancel</button>
+                </div>
+                <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
+                    <button type="button" class="btn btn-primary btn-edit btn-edit-save" (click)="c('Close click')">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-template>
+
+<ng-template #deleteDataCenter let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <div class="form-modal">
+            <div class="header_title" style="font-weight: 400;font-size: 30px; ">Are you sure you want to delete Data Center 1?</div>
+        </div>
+        <div class="col-md-12 form-modal">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 modal-buttons">
+                    <button type="button" class="btn btn-default" (click)="c('Close click')">Do not delete</button>
+                </div>
+                <div class="col-md-6 col-sm-12 modal-buttons" style="text-align: right;">
+                    <button type="button" class="btn btn-primary save_btn" (click)="c('Close click')">Yes, delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-template>

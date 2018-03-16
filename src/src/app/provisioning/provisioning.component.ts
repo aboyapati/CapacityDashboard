@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 declare const $: any;
 
 @Component({
@@ -7,192 +8,146 @@ declare const $: any;
   styleUrls: ['./provisioning.component.css']
 })
 export class ProvisioningComponent implements OnInit {
-
+  closeResult: string;
   imgUrl: string = "assets/images/icon-cube.png";
   callMatricsFilter: boolean = false;
   dataCenters: Datacenter[];
   dataCentersDetails: DatacenterDetails[];
+  apiStatus: boolean = false;
+  apiStatusMsg: boolean = false;
 
-  constructor() { }
+  name: string = '';
+  country: string = 'Country*';
+  state: string = '';
+  city: string = '';
+  timezone: string = 'Time zone*';
+
+  constructor(private modalService: NgbModal) { }
+
+  open(content) {
+    this.modalService.open(content, { windowClass: 'custom_modal' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 
   callMatricsClick(i) {
     this.callMatricsFilter = !this.callMatricsFilter;
     if (this.callMatricsFilter) {
-      $('#callMatricsDropdown'+i).show();
+      $('#callMatricsDropdown' + i).show();
     } else {
-      $('#callMatricsDropdown'+i).hide();
+      $('#callMatricsDropdown' + i).hide();
     }
   }
 
   ngOnInit() {
-    this.dataCenters = [{
-      name: 'Data Center 1',
-      datas: ['Plano, Texas', 'United States', 'IST'],
-    },
-    {
-      name: 'Data Center 2',
-      datas: ['Melbourne, Victoria', 'Australia', 'ATC'],
-    },
-    {
-      name: 'Data Center 3',
-      datas: ['Toronto, Ontario', 'Canada', 'CNT'],
-    },
-    {
-      name: 'Data Center 4',
-      datas: ['Hyderabad, Telangana', 'India', 'IST'],
-    }];
+    var dcData = function () {
+      var tmp = null;
+      $.ajax({
+        'async': false,
+        'type': "POST",
+        'global': false,
+        'dataType': 'html',
+        'url': "assets/webservices/dataCenterList.php",
+        'success': function (data) {
+          tmp = data;
+        }
+      });
+      return tmp;
+    }();
 
-    this.dataCentersDetails = [{
-      cName: 'NEXUS A',
-      type: 'NEXUS',
-      version: '75-K',
-      ip: '10.201.124.11',
-      credential: '',
-    },
-    {
-      cName: 'ASA-1',
-      type: 'ASA',
-      version: '5-1.0',
-      ip: '10.201.124.14',
-      credential: '',
-    },
-    {
-      cName: 'VCENTER-1',
-      type: 'VCENTER',
-      version: '5-5.0.0',
-      ip: '10.201.124.100',
-      credential: '',
-    },
-    {
-      cName: 'NEXUS B',
-      type: 'NEXUS	',
-      version: '75-K',
-      ip: '10.201.124.11',
-      credential: 'string',
-    },
-    {
-      cName: 'ASA-2',
-      type: 'ASA',
-      version: '5-1.0',
-      ip: '10.201.124.14',
-      credential: '',
-    }];
+    this.dataCenters = JSON.parse(dcData);
+    this.dataCentersDetails = this.dataCenters[0].components;
   }
 
-  moveRight() {
-    this.deactivateCard();
-    this.dataCenters.push({
-      name: 'Data Center 5',
-      datas: ['Plano, Texas', 'United States', 'IST'],
-    });
-    this.dataCenters.splice(0, 1);
-  }
+  // moveRight() {
+  //   this.deactivateCard();
+  //   this.dataCenters.push({
+  //     name: 'Data Center 5',
+  //     country: 'United States',
+  //     state: 'Texas',
+  //     city: 'Plano',
+  //     timezone: 'IST',
+  //     components: ''
+  //   });
+  //   this.dataCenters.splice(0, 1);
+  // }
 
-  moveLeft() {
-    this.deactivateCard();
-    this.dataCenters.push({
-      name: 'Data Center 2',
-      datas: ['Plano, Texas', 'United States', 'IST'],
+  // moveLeft() {
+  //   this.deactivateCard();
+  //   this.dataCenters.push({
+  //     name: 'Data Center 2',
+  //     country: 'United States',
+  //     state: 'Texas',
+  //     city: 'Plano',
+  //     timezone: 'IST',
+  //     components: ''
+  //   });
+  //   this.dataCenters.splice(3, 1);
+  // }
+
+  onSubmit() {
+    $.ajax({
+      url: 'assets/webservices/addDataCenter.php',
+      type: 'post',
+      data: {
+        name: this.name,
+        country: this.country,
+        state: this.state,
+        city: this.city,
+        timezone: this.timezone,
+      },
+      success: function (data) {
+        data = JSON.parse(data);
+        $('.modalForm').hide();
+        $('.apiResponseDiv').show();
+        if (data.status == 'success') {
+          $('.apiSuccess').show();
+        } else {
+          $('#apiErrorMsg').html(data.message);
+          $('.apiSuccess').hide();
+          $('.apiFailed').show();
+        }
+      }
     });
-    this.dataCenters.splice(3, 1);
+    this.name = '';
+    this.country = '';
+    this.state = '';
+    this.city = '';
+    this.timezone = '';
   }
 
   activateCard(id) {
     var preId = $('.tab-tile-active').attr('id');
-    $('#'+preId).attr('class','col-md-3 col-sm-6 tab-tile');
-    $('#rsddropdown'+preId).hide();
-    $('#rsddropdown'+id).show();
+    $('#' + preId).attr('class', 'col-md-3 col-sm-6 tab-tile');
+    $('#rsddropdown' + preId).hide();
+    $('#rsddropdown' + id).show();
   }
   deactivateCard() {
     var preId = $('.tab-tile-active').attr('id');
-    $('#'+preId).attr('class','col-md-3 col-sm-6 tab-tile');
-    $('#rsddropdown'+preId).hide();
+    $('#' + preId).attr('class', 'col-md-3 col-sm-6 tab-tile');
+    $('#rsddropdown' + preId).hide();
   }
 
   dataCenterClick(id) {
     this.activateCard(id);
-    $('#'+id).attr('class','col-md-3 col-sm-6 tab-tile tab-tile-active');
-    if(id==0) {
-      this.dataCentersDetails = [{
-        cName: 'NEXUS A',
-        type: 'NEXUS',
-        version: '75-K',
-        ip: '10.201.124.11',
-        credential: '',
-      },
-      {
-        cName: 'ASA-1',
-        type: 'ASA',
-        version: '5-1.0',
-        ip: '10.201.124.14',
-        credential: '',
-      },
-      {
-        cName: 'VCENTER-1',
-        type: 'VCENTER',
-        version: '5-5.0.0',
-        ip: '10.201.124.100',
-        credential: '',
-      },
-      {
-        cName: 'NEXUS B',
-        type: 'NEXUS	',
-        version: '75-K',
-        ip: '10.201.124.11',
-        credential: 'string',
-      },
-      {
-        cName: 'ASA-2',
-        type: 'ASA',
-        version: '5-1.0',
-        ip: '10.201.124.14',
-        credential: '',
-      }]
-    } else if(id==1) {
-      this.dataCentersDetails = [{
-        cName: 'ASA-1',
-        type: 'ASA',
-        version: '5-1.0',
-        ip: '10.201.124.14',
-        credential: '',
-      },
-      {
-        cName: 'VCENTER-1',
-        type: 'VCENTER',
-        version: '5-5.0.0',
-        ip: '10.201.124.100',
-        credential: '',
-      }]
-    } else if(id==2) {
-      this.dataCentersDetails = [{
-        cName: 'NEXUS B',
-        type: 'NEXUS	',
-        version: '75-K',
-        ip: '10.201.124.11',
-        credential: 'string',
-      },
-      {
-        cName: 'ASA-1',
-        type: 'ASA',
-        version: '5-1.0',
-        ip: '10.201.124.14',
-        credential: '',
-      }]
+    $('#' + id).attr('class', 'col-md-3 col-sm-6 tab-tile tab-tile-active');
+    if (this.dataCenters[id].components) {
+      this.dataCentersDetails = this.dataCenters[id].components;
     } else {
-      this.dataCentersDetails = [{
-        cName: 'ASA-2',
-        type: 'ASA',
-        version: '5-1.0',
-        ip: '10.201.124.14',
-        credential: '',
-      },
-      {
-        cName: 'NEXUS B',
-        type: 'NEXUS	',
-        version: '75-K',
-        ip: '10.201.124.11',
-        credential: 'string',
-      }]
+      this.dataCentersDetails = [];
     }
   }
 
@@ -200,11 +155,15 @@ export class ProvisioningComponent implements OnInit {
 
 interface Datacenter {
   name: string;
-  datas: string[];
+  country: string;
+  state: string;
+  city: string;
+  timezone: string;
+  components: any;
 }
 
 interface DatacenterDetails {
-  cName: string;
+  name: string;
   type: string;
   version: string;
   ip: any;
