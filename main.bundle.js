@@ -121,12 +121,14 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__scroll_scroll_module__ = __webpack_require__("../../../../../src/app/scroll/scroll.module.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_ngx_cookie_service__ = __webpack_require__("../../../../ngx-cookie-service/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__config_service__ = __webpack_require__("../../../../../src/app/config.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -165,7 +167,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_12__shared_shared_module__["a" /* SharedModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_router__["g" /* RouterModule */].forRoot(__WEBPACK_IMPORTED_MODULE_8__app_routing__["a" /* AppRoutes */], { useHash: false }),
             __WEBPACK_IMPORTED_MODULE_4__angular_forms__["FormsModule"],
-            __WEBPACK_IMPORTED_MODULE_5__angular_http__["a" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_5__angular_http__["b" /* HttpModule */],
             __WEBPACK_IMPORTED_MODULE_15__scroll_scroll_module__["a" /* ScrollModule */],
             __WEBPACK_IMPORTED_MODULE_6__amcharts_amcharts3_angular__["a" /* AmChartsModule */],
             __WEBPACK_IMPORTED_MODULE_7_angular_font_awesome__["a" /* AngularFontAwesomeModule */]
@@ -173,7 +175,8 @@ AppModule = __decorate([
         exports: [__WEBPACK_IMPORTED_MODULE_15__scroll_scroll_module__["a" /* ScrollModule */]],
         providers: [
             __WEBPACK_IMPORTED_MODULE_17_ngx_cookie_service__["a" /* CookieService */],
-            { provide: __WEBPACK_IMPORTED_MODULE_16__angular_common__["LocationStrategy"], useClass: __WEBPACK_IMPORTED_MODULE_16__angular_common__["HashLocationStrategy"] }
+            { provide: __WEBPACK_IMPORTED_MODULE_16__angular_common__["LocationStrategy"], useClass: __WEBPACK_IMPORTED_MODULE_16__angular_common__["HashLocationStrategy"] },
+            __WEBPACK_IMPORTED_MODULE_18__config_service__["a" /* ConfigService */]
         ],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* AppComponent */]]
     })
@@ -244,6 +247,53 @@ var AppRoutes = [{
         redirectTo: 'error/404'
     }];
 //# sourceMappingURL=app.routing.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/config.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConfigService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var ConfigService = (function () {
+    function ConfigService(http) {
+        var _this = this;
+        this.http = http;
+        this.BASE_URL = window.location.protocol + '//' + window.location.hostname;
+        this.http.get('assets/config.json')
+            .map(function (result) { return result.json(); }).subscribe(function (result) {
+            _this.getDashboardDataUrl = _this.BASE_URL + result[0].callMetricsUrl;
+        });
+    }
+    ConfigService.prototype.getDashboardData = function () {
+        return this.http.get(this.getDashboardDataUrl)
+            .map(function (result) { return result.json(); });
+    };
+    return ConfigService;
+}());
+ConfigService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]) === "function" && _a || Object])
+], ConfigService);
+
+var _a;
+//# sourceMappingURL=config.service.js.map
 
 /***/ }),
 

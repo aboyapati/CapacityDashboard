@@ -20,7 +20,7 @@
     padding: 15px 0px 15px;
 }
 .tab-tile-active {
-    padding: 0px 0px 15px;
+    padding: 0px 0px 31px;
     background-color: #fff; 
 }
 .tab-tile-table {
@@ -213,7 +213,7 @@ body *::before {
 
 body {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#e6e6e6));
-  background-image: linear-gradient(top, #f2f2f2, #e6e6e6);
+  background-image: linear-gradient(to bottom, #f2f2f2, #e6e6e6);
 }
 
 h1 {

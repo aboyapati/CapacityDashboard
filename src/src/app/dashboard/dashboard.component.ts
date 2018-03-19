@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfigService } from '../config.service';
 declare const $: any;
 declare var Morris: any;
 
@@ -14,44 +15,34 @@ export class DashboardComponent implements OnInit {
   notificationFilter: boolean = false;
   datas: any;
 
-  constructor() { }
+  constructor(private config: ConfigService) { }
 
   ngOnInit() {
-    this.datas = function () {
-      var tmp = null;
-      $.ajax({
-        'async': false,
-        'type': "POST",
-        'global': false,
-        'dataType': 'html',
-        'url': "assets/webservices/datacenters.php",
-        'data': {},
-        'success': function (data) {
-          tmp = data;
-        }
-      });
-      return tmp;
-    }();
 
-    var details = JSON.parse(this.datas);
+    setTimeout(() => {
+      this.config.getDashboardData()
+        .subscribe(res => {
 
-    var dataset = [];
+          var dataset = [];
 
-    for (var data in details) {
-      var name = details[data].name;
-      var total = details[data].total_calls;
-      var concurrent = details[data].concurrent_calls;
+          for (var data in res) {
+            var name = res[data].name;
+            var total = res[data].total_calls;
+            var concurrent = res[data].concurrent_calls;
 
-      var unit = {
-        name: name,
-        total: total,
-        concurrent: concurrent
-      }
+            var unit = {
+              name: name,
+              total: total,
+              concurrent: concurrent
+            }
 
-      dataset.push(unit);
-    }
+            dataset.push(unit);
+          }
 
-    this.datas = dataset;
+          this.datas = dataset;
+        });
+    }, 1);
+
   }
 
   callMatricsClick() {

@@ -52,6 +52,34 @@ export class ProvisioningComponent implements OnInit {
     }
   }
 
+  validateEdit(e){
+    if($('#editDataCenterName').val() == ''){
+      $('#nameBar').css('border-bottom','0.0625rem solid red');
+    } else {
+     $('#nameBar').css('border-bottom','0.0625rem solid #999');
+       }
+       if($('#editDataCenterCountry').val() == 'Country*'){
+        $('#countryBar').css('border-bottom','0.0625rem solid red');
+      } else {
+       $('#countryBar').css('border-bottom','0.0625rem solid #999');
+     }
+     if($('#editDataCenterState').val() == ''){
+      $('#stateBar').css('border-bottom','0.0625rem solid red');
+    } else {
+     $('#stateBar').css('border-bottom','0.0625rem solid #999');
+    }
+    if($('#editDataCenterCity').val() == ''){
+      $('#cityBar').css('border-bottom','0.0625rem solid red');
+    } else {
+     $('#cityBar').css('border-bottom','0.0625rem solid #999');
+    }
+    if($('#editDataCenterTimezone').val() == 'Time zone*'){
+      $('#timezoneBar').css('border-bottom','0.0625rem solid red');
+    } else {
+     $('#timezoneBar').css('border-bottom','0.0625rem solid #999');
+    }
+}
+
   ngOnInit() {
     var dcData = function () {
       var tmp = null;
@@ -99,34 +127,64 @@ export class ProvisioningComponent implements OnInit {
   // }
 
   onSubmit() {
-    $.ajax({
-      url: 'assets/webservices/addDataCenter.php',
-      type: 'post',
-      data: {
-        name: this.name,
-        country: this.country,
-        state: this.state,
-        city: this.city,
-        timezone: this.timezone,
-      },
-      success: function (data) {
-        data = JSON.parse(data);
-        $('.modalForm').hide();
-        $('.apiResponseDiv').show();
-        if (data.status == 'success') {
-          $('.apiSuccess').show();
-        } else {
-          $('#apiErrorMsg').html(data.message);
-          $('.apiSuccess').hide();
-          $('.apiFailed').show();
-        }
-      }
-    });
-    this.name = '';
-    this.country = '';
-    this.state = '';
-    this.city = '';
-    this.timezone = '';
+    var flag = false;
+
+    if($('#addDataCenterName').val() == ''){
+      $('#addnameBar').css('border-bottom','0.0625rem solid red');
+      var flag = true;
+    } else {
+     $('#addnameBar').css('border-bottom','0.0625rem solid #999');
+   }
+   if($('#addDataCenterCountry').val() == 'Country*'){
+    $('#addcountryBar').css('border-bottom','0.0625rem solid red');
+    var flag = true;
+   } else {
+     $('#addcountryBar').css('border-bottom','0.0625rem solid #999');
+   }
+   if($('#addDataCenterState').val() == ''){
+    $('#addstateBar').css('border-bottom','0.0625rem solid red');
+    var flag = true;
+  } else {
+   $('#addstateBar').css('border-bottom','0.0625rem solid #999');
+  }
+  if($('#addDataCenterCity').val() == ''){
+    $('#addcityBar').css('border-bottom','0.0625rem solid red');
+    var flag = true;
+  } else {
+   $('#addcityBar').css('border-bottom','0.0625rem solid #999');
+  }
+  if($('#addDataCenterTimezone').val() == 'Time zone*'){
+    $('#addtimezoneBar').css('border-bottom','0.0625rem solid red');
+    var flag = true;
+  } else {
+   $('#addtimezoneBar').css('border-bottom','0.0625rem solid #999');
+  }
+
+  if(flag != true) {
+		$.ajax({
+		  url: 'assets/webservices/addDataCenter.php',
+		  type: 'post',
+		  data: {
+			name: this.name,
+			country: this.country,
+			state: this.state,
+			city: this.city,
+			timezone: this.timezone,
+		  },
+		  success: function (data) {
+			data = JSON.parse(data);
+			$('.modalForm').hide();
+			$('.apiResponseDiv').show();
+			if (data.status == 'success') {
+			  $('.apiSuccess').show();
+			} else {
+			  $('#apiErrorMsg').html(data.message);
+			  $('.apiSuccess').hide();
+			  $('.apiFailed').show();
+			}
+		  }
+		});
+	}
   }
 
   activateCard(id) {

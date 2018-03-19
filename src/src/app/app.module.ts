@@ -17,6 +17,7 @@ import { TitleComponent } from './layouts/admin/title/title.component';
 import { ScrollModule } from './scroll/scroll.module';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { ConfigService } from './config.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CookieService } from 'ngx-cookie-service';
   exports: [ScrollModule],
   providers: [
     CookieService,
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    ConfigService
   ],
   bootstrap: [AppComponent]
 })
