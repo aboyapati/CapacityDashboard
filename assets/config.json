@@ -1,5 +1,9 @@
 [
     {
-        "callMetricsUrl": "/assets/webservices/mapinfo.php"
+        "callMetricsUrl": "/assets/webservices/mapinfo.php",
+        "verifyLoginUrl": "/assets/webservices/verifyLogin.php",
+        "mapUrl": "/assets/webservices/map.php",
+        "getProvisioningListUrl": "/assets/webservices/dataCenterList.php",
+        "addDataCenterUrl": "/assets/webservices/addDataCenter.php"
     }
 ]

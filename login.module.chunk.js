@@ -85,7 +85,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/authentication/login/with-social/with-social.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<section *ngIf=\"loading_status; else loading_div\" class=\"login p-fixed d-flex text-center bg-primary common-img-bg rsdLoginBg\">\r\n  <!-- starts -->\r\n  <div class=\"auth-fluid\">\r\n    <div class=\"row\" style=\"display:block;\">\r\n      <div class=\"col-sm-12\">\r\n        <!-- Authentication card start -->\r\n        <div class=\"login-card card-body auth-body\">\r\n          <form (submit)=\"verifyLogin($event)\" class=\"md-float-material\">\r\n            <div class=\"text-center\">\r\n              <img src=\"assets/images/logo_1.png\" alt=\"logo.png\">\r\n            </div>\r\n            <div class=\"auth-box\">\r\n              <div class=\"rsdSignIn\">SIGN IN</div>\r\n              <p class=\"text-inverse b-b-default text-left p-b-5\"></p>\r\n\r\n              <style>\r\n                  .rsdAlert {\r\n                      display: none;\r\n                      color: white;\r\n                      padding: 10px 10px;\r\n                      margin-bottom: 10px;\r\n                      text-align: center;\r\n                      font-size: 16px;\r\n                  }\r\n              </style>\r\n              <div class=\"rsdAlert\"></div>\r\n              <div style=\"color:#868e96;padding-bottom:4%;font-size:15px;\">\r\n                Welcome to\r\n                <span style=\"color:red;\">on</span><span style=\"color: black;\">POINT</span>\r\n              </div>\r\n\r\n\r\n              <div class=\"input-group\">\r\n                <span style=\"background-color: white;\" class=\"input-group-addon\">\r\n                  <img width=\"14\" height=\"16\" src=\"assets/images/icon_user.png\">\r\n                </span>\r\n                <input type=\"email\" class=\"form-control rsdInputField\" placeholder=\"Login ID\">\r\n                <span class=\"md-line\"></span>\r\n              </div>\r\n              <div class=\"input-group\">\r\n                <span style=\"background-color: white;\" class=\"input-group-addon\">\r\n                  <img width=\"14\" height=\"16\" src=\"assets/images/lock_user.png\">\r\n                </span>\r\n                <input type=\"password\" class=\"form-control rsdInputField\" placeholder=\"Password\">\r\n                <span class=\"md-line\"></span>\r\n              </div>\r\n              <div class=\"row m-t-25 text-left\">\r\n                <div class=\"col-sm-6 col-xs-12\">\r\n                  <div class=\"checkbox-fade fade-in-primary\">\r\n                    <label class=\"checkbox_container\">\r\n\t\t\t\t\t  <input class=\"rsdCheckBox\" type=\"checkbox\" value=\"\">\r\n                      <span class=\"rsdCheckBox\"></span>\r\n                      <span class=\"rsdRememberMe\" style=\"font-size:15px;margin-left:35px;\">Remember me</span>\r\n                    </label>\r\n                  </div>\r\n                </div>\r\n                <div class=\"col-sm-6 col-xs-12 forgot-phone text-right\">\r\n                  <a [routerLink]=\"['']\" class=\"rsdForgotPassword\"> I forgot my password</a>\r\n                </div>\r\n              </div>\r\n              <div class=\"row m-t-30\">\r\n                <div class=\"col-md-12\">\r\n                  <button type=\"submit\" class=\"rsdLoginButton btn btn-primary btn-md btn-block waves-effect text-center m-b-20\">Login</button>\r\n                </div>\r\n              </div>\r\n              <div class=\"rsdDisclaimer\">\r\n                By clicking Login, I agree to the\r\n                <b><i>Privacy and Acceptable Use Policy</i></b><br /> and\r\n                <b><i>Terms and Conditions.</i></b>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </div>\r\n      </div>\r\n\t  \r\n\t  <p class=\"\" style=\"color:#5d858d;text-align:center;clear:both;margin:0 auto;\">\r\n\t\t&#169; 2017 tekvizion PVS inc. All Rights Reserved\r\n\t  </p>\r\n    </div>\r\n  </div>\r\n</section>\r\n<ng-template #loading_div>\r\n  <style type=\"text/css\">\r\n    #content {\r\n      width: 100%;\r\n      height: 1px;\r\n      background: #283c41;\r\n    }\r\n  \r\n    .fullwidth .expand {\r\n      width: 100%;\r\n      height: 1px;\r\n      background: #2187e7;\r\n      position: absolute;\r\n      box-shadow: 0px 0px 10px 1px rgba(0, 198, 255, 0.7);\r\n      -moz-animation: fullexpand 10s;\r\n      -webkit-animation: fullexpand 10s;\r\n    }\r\n  \r\n    @-moz-keyframes fullexpand {\r\n      0% {\r\n        width: 0px;\r\n      }\r\n      100% {\r\n        width: 100%;\r\n      }\r\n    }\r\n  \r\n    @-webkit-keyframes fullexpand {\r\n      0% {\r\n        width: 0px;\r\n      }\r\n      100% {\r\n        width: 100%;\r\n      }\r\n    }\r\n  \r\n    .rsdLoginBg {\r\n      background-size: cover;\r\n    }\r\n  \r\n    .loadingLogo {\r\n      position: absolute;\r\n      top: 40%;\r\n      width: 100%;\r\n    }\r\n  \r\n    .loadingPercentage {\r\n      position: absolute;\r\n      top: 52%;\r\n      width: 100%;\r\n    }\r\n  \r\n    @media screen and (max-width: 400px) {\r\n      .content {\r\n        padding-top: 14px;\r\n      }\r\n    }\r\n  \r\n    #counter_percent {\r\n      font-family: \"Open Sans\", Light;\r\n    }\r\n  \r\n    #loading {\r\n      color: #5d858d;\r\n      font-size: 14px;\r\n      font-family: \"Open Sans\", Regular;\r\n    }\r\n  </style>\r\n  \r\n  <section class=\"login p-fixed d-flex bg-primary common-img-bg rsdLoginBg\">\r\n    <div class=\"text-center loadingLogo\">\r\n      <img src=\"assets/images/logo_1.png\" alt=\"Logo\">\r\n    </div>\r\n    <div id=\"content\" class=\"fullwidth\">\r\n      <div class=\"expand\"></div>\r\n    </div>\r\n    <div class=\"loadingPercentage text-center\" style=\"font-size:25px;\">\r\n      <span id=\"counter_percent\">0</span>%\r\n      <br>\r\n      <span id=\"loading\">Loading...</span>\r\n    </div>\r\n    <p class=\"\" style=\"color:#5d858d;text-align:center;clear:both;margin:0 auto;right:0%;top:80%;position:absolute;width:100%;\">\r\n      &#169; 2017 tekvizion PVS inc. All Rights Reserved\r\n    </p>\r\n  </section>\r\n</ng-template>"
+module.exports = "<section *ngIf=\"loading_status; else loading_div\" class=\"login p-fixed d-flex text-center bg-primary common-img-bg rsdLoginBg\">\n  <!-- starts -->\n  <div class=\"auth-fluid\">\n    <div class=\"row\" style=\"display:block;\">\n      <div class=\"col-sm-12\">\n        <!-- Authentication card start -->\n        <div class=\"login-card card-body auth-body\">\n          <form (submit)=\"verifyLogin($event)\" class=\"md-float-material\">\n            <div class=\"text-center\">\n              <img src=\"assets/images/logo_1.png\" alt=\"logo.png\">\n            </div>\n            <div class=\"auth-box\">\n              <div class=\"rsdSignIn\">SIGN IN</div>\n              <p class=\"text-inverse b-b-default text-left p-b-5\"></p>\n\n              <style>\n                  .rsdAlert {\n                      display: none;\n                      color: white;\n                      padding: 10px 10px;\n                      margin-bottom: 10px;\n                      text-align: center;\n                      font-size: 16px;\n                  }\n              </style>\n              <div class=\"rsdAlert\"></div>\n              <div style=\"color:#868e96;padding-bottom:4%;font-size:15px;\">\n                Welcome to\n                <span style=\"color:red;\">on</span><span style=\"color: black;\">POINT</span>\n              </div>\n\n\n              <div class=\"input-group\">\n                <span style=\"background-color: white;\" class=\"input-group-addon\">\n                  <img width=\"14\" height=\"16\" src=\"assets/images/icon_user.png\">\n                </span>\n                <input type=\"email\" class=\"form-control rsdInputField\" placeholder=\"Login ID\">\n                <span class=\"md-line\"></span>\n              </div>\n              <div class=\"input-group\">\n                <span style=\"background-color: white;\" class=\"input-group-addon\">\n                  <img width=\"14\" height=\"16\" src=\"assets/images/lock_user.png\">\n                </span>\n                <input type=\"password\" class=\"form-control rsdInputField\" placeholder=\"Password\">\n                <span class=\"md-line\"></span>\n              </div>\n              <div class=\"row m-t-25 text-left\">\n                <div class=\"col-sm-6 col-xs-12\">\n                  <div class=\"checkbox-fade fade-in-primary\">\n                    <label class=\"checkbox_container\">\n\t\t\t\t\t  <input class=\"rsdCheckBox\" type=\"checkbox\" value=\"\">\n                      <span class=\"rsdCheckBox\"></span>\n                      <span class=\"rsdRememberMe\" style=\"font-size:15px;margin-left:35px;\">Remember me</span>\n                    </label>\n                  </div>\n                </div>\n                <div class=\"col-sm-6 col-xs-12 forgot-phone text-right\">\n                  <a [routerLink]=\"['/authentication/forgot']\" class=\"rsdForgotPassword\"> I forgot my password</a>\n                </div>\n              </div>\n              <div class=\"row m-t-30\">\n                <div class=\"col-md-12\">\n                  <button type=\"submit\" class=\"rsdLoginButton btn btn-primary btn-md btn-block waves-effect text-center m-b-20\">Login</button>\n                </div>\n              </div>\n              <div class=\"rsdDisclaimer\">\n                By clicking Login, I agree to the\n                <b><i>Privacy and Acceptable Use Policy</i></b><br /> and\n                <b><i>Terms and Conditions.</i></b>\n              </div>\n            </div>\n          </form>\n        </div>\n      </div>\n\t  \n\t  <p class=\"\" style=\"color:#5d858d;text-align:center;clear:both;margin:0 auto;\">\n\t\t&#169; 2017 tekvizion PVS inc. All Rights Reserved\n\t  </p>\n    </div>\n  </div>\n</section>\n<ng-template #loading_div>\n  <style type=\"text/css\">\n    #content {\n      width: 100%;\n      height: 1px;\n      background: #283c41;\n    }\n  \n    .fullwidth .expand {\n      width: 100%;\n      height: 1px;\n      background: #2187e7;\n      position: absolute;\n      box-shadow: 0px 0px 10px 1px rgba(0, 198, 255, 0.7);\n      -moz-animation: fullexpand 10s;\n      -webkit-animation: fullexpand 10s;\n    }\n  \n    @-moz-keyframes fullexpand {\n      0% {\n        width: 0px;\n      }\n      100% {\n        width: 100%;\n      }\n    }\n  \n    @-webkit-keyframes fullexpand {\n      0% {\n        width: 0px;\n      }\n      100% {\n        width: 100%;\n      }\n    }\n  \n    .rsdLoginBg {\n      background-size: cover;\n    }\n  \n    .loadingLogo {\n      position: absolute;\n      top: 40%;\n      width: 100%;\n    }\n  \n    .loadingPercentage {\n      position: absolute;\n      top: 52%;\n      width: 100%;\n    }\n  \n    @media screen and (max-width: 400px) {\n      .content {\n        padding-top: 14px;\n      }\n    }\n  \n    #counter_percent {\n      font-family: \"Open Sans\", Light;\n    }\n  \n    #loading {\n      color: #5d858d;\n      font-size: 14px;\n      font-family: \"Open Sans\", Regular;\n    }\n  </style>\n  \n  <section class=\"login p-fixed d-flex bg-primary common-img-bg rsdLoginBg\">\n    <div class=\"text-center loadingLogo\">\n      <img src=\"assets/images/logo_1.png\" alt=\"Logo\">\n    </div>\n    <div id=\"content\" class=\"fullwidth\">\n      <div class=\"expand\"></div>\n    </div>\n    <div class=\"loadingPercentage text-center\" style=\"font-size:25px;\">\n      <span id=\"counter_percent\">0</span>%\n      <br>\n      <span id=\"loading\">Loading...</span>\n    </div>\n    <p class=\"\" style=\"color:#5d858d;text-align:center;clear:both;margin:0 auto;right:0%;top:80%;position:absolute;width:100%;\">\n      &#169; 2017 tekvizion PVS inc. All Rights Reserved\n    </p>\n  </section>\n</ng-template>"
 
 /***/ }),
 
@@ -97,6 +97,7 @@ module.exports = "<section *ngIf=\"loading_status; else loading_div\" class=\"lo
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ngx_cookie_service__ = __webpack_require__("../../../../ngx-cookie-service/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_service__ = __webpack_require__("../../../../../src/app/config.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -109,10 +110,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var WithSocialComponent = (function () {
-    function WithSocialComponent(router, cookieService) {
+    function WithSocialComponent(router, cookieService, config) {
         this.router = router;
         this.cookieService = cookieService;
+        this.config = config;
         this.login_status = false;
         this.loading_status = false;
     }
@@ -154,31 +157,20 @@ var WithSocialComponent = (function () {
         });
     };
     WithSocialComponent.prototype.verifyLogin = function (e) {
+        var _this = this;
         var username = e.target.elements[0].value;
         var password = e.target.elements[1].value;
-        var checkLogin = function () {
-            var tmp = null;
-            $.ajax({
-                'async': false,
-                'type': "POST",
-                'global': false,
-                'dataType': 'html',
-                'url': "assets/webservices/verifyLogin.php",
-                'data': { username: username, password: password },
-                'success': function (data) {
-                    tmp = data;
+        setTimeout(function () {
+            _this.config.verifyLogin(username, password).subscribe(function (res) {
+                if (res.status == 1) {
+                    _this.login_status = true;
+                    _this.router.navigate(['dashboard']);
+                }
+                else {
+                    $('.rsdAlert').slideDown().text('Invalid Username or Password').css('background', 'red').slideUp(2000);
                 }
             });
-            return tmp;
-        }();
-        var loginObject = JSON.parse(checkLogin);
-        if (loginObject.status == 1) {
-            this.login_status = true;
-            this.router.navigate(['dashboard']);
-        }
-        else {
-            $('.rsdAlert').slideDown().text('Invalid Username or Password').css('background', 'red').slideUp(2000);
-        }
+        }, 100);
     };
     return WithSocialComponent;
 }());
@@ -188,10 +180,10 @@ WithSocialComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/authentication/login/with-social/with-social.component.html"),
         styles: [__webpack_require__("../../../../../src/app/authentication/login/with-social/with-social.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ngx_cookie_service__["a" /* CookieService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ngx_cookie_service__["a" /* CookieService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ngx_cookie_service__["a" /* CookieService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ngx_cookie_service__["a" /* CookieService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__config_service__["a" /* ConfigService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__config_service__["a" /* ConfigService */]) === "function" && _c || Object])
 ], WithSocialComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=with-social.component.js.map
 
 /***/ })
