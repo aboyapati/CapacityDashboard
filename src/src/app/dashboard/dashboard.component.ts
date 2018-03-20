@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
 
           this.datas = dataset;
         });
-    }, 1);
+    }, 100);
 
   }
 

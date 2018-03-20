@@ -132,23 +132,29 @@
         </div>
         <div style="display: none;" class="apiResponseDiv">
             <div class="apiSuccess">
-                <div class="form-modal">
+                <div class="form-modal" style="padding-bottom: 40px;" >
+                <div class="header_title" > Add a data center</div>
+                <p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
+                    <a style="color:#007bff;">contact us</a>.</p>
                     <div style="color: green;" class="apiMsg">Data center added successfully !</div>
                 </div>
-                <div class="col-md-12 form-modal">
-                    <div style="margin: 0 auto;" class="row">
-                        <button type="button" class="btn btn-primary btn-edit-cancel" (click)="c('Close click')">Close</button>
+                <div class="col-md-12 form-modal" style="padding-bottom: 30px;" >
+                    <div style=" position: absolute; top:13%; left:50%; transform: translate(-50%,-50%);" class="clearfix">
+                        <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="c('Close click')">Close</button>
                     </div>
                 </div>
             </div>
             <div class="apiFailed" style="display: none">
-                <div class="form-modal">
+                <div class="form-modal" style="padding-bottom: 40px;" >
+                     <div class="header_title" > Add a data center</div>
+                <p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
+                    <a style="color:#007bff;">contact us</a>.</p>
                     <div style="color: red;" class="apiMsg">Something went wrong !</div>
-                    <p id="apiErrorMsg"></p>
+                    <p id="apiErrorMsg" style="color: red;"></p>
                 </div>
-                <div class="col-md-12 form-modal">
-                    <div style="margin: 0 auto;" class="row">
-                        <button type="button" class="btn btn-primary btn-edit-cancel" (click)="c('Close click')">Close</button>
+                <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
+                    <div style="position: absolute; top:13%; left:50%; transform: translate(-50%,-50%);" class="">
+                        <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="c('Close click')">Close</button>
                     </div>
                 </div>
             </div>
