@@ -4,6 +4,8 @@
         "verifyLoginUrl": "/verifyLogin.php",
         "mapUrl": "/map.php",
         "getProvisioningListUrl": "/dataCenterList.php",
-        "addDataCenterUrl": "/addDataCenter.php"
+        "addDataCenterUrl": "/addDataCenter.php",
+		"editDataCenterUrl": "/assets/webservices/editDataCenter.php",
+		"deleteDataCenterUrl": "/assets/webservices/deleteDataCenter.php"
     }
 ]

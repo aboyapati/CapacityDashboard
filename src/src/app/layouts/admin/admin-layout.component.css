@@ -24,3 +24,16 @@ footer{
     height: 62px;
 	background: rgb(255, 255, 255);
 }
+.pcoded-main-container {
+    background-color: #d9dde0;
+}
+.pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item > li > a{
+    color: #56BACA;
+}
+.pcoded .pcoded-navbar[active-item-theme="theme5"] .pcoded-item li:hover > a{
+    color:#FFF !important;
+}
+.pcoded .pcoded-navbar[active-item-theme="theme5"] .pcoded-item > li.active > a:before
+{
+    border-left-color:black !important;
+}

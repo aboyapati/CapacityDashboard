@@ -39,6 +39,9 @@ export const AppRoutes: Routes = [{
     {
       path: 'alert',
       loadChildren: './alert/alert.module#AlertModule'
+    },{
+      path: 'data',
+      loadChildren: './components/data/data.module#DataModule'
     }
   ]
 }, {

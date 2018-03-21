@@ -125,7 +125,7 @@ td {
    font-weight: bold;
    color: #3d4657;
 }
-.modal_description{
+.modal_description {
 	font-family: "Open Sans", Bold;
 	color: #7b879e;
 	font-size: 15px;
@@ -616,7 +616,6 @@ fieldset {
 .button:focus {
   outline: none;
 }
-
 .apiMsg {
   font-size: 20px;
   font-weight: bold;

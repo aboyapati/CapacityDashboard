@@ -22,8 +22,8 @@
             <div class="rsddropdown" id="rsddropdown{{i}}">
                 <span class="rsddropdown-span" (click)="callMatricsClick(i)">...</span>
                 <div id="callMatricsDropdown{{i}}" class="rsddropdown-content">
-                    <a (click)="open(editDataCenter)">Edit</a>
-                    <a (click)="open(deleteDataCenter)">Delete</a>
+                    <a (click)="open(editDataCenter,i,'edit')">Edit</a>
+                    <a (click)="open(deleteDataCenter,i,'delete')">Delete</a>
                 </div>
             </div>
         </ng-template>
@@ -31,8 +31,8 @@
             <div class="rsddropdown" id="rsddropdown{{i}}" style="display: none;">
                 <span class="rsddropdown-span" (click)="callMatricsClick(i)">...</span>
                 <div id="callMatricsDropdown{{i}}" class="rsddropdown-content">
-                    <a (click)="open(editDataCenter)">Edit</a>
-                    <a (click)="open(deleteDataCenter)">Delete</a>
+                    <a (click)="open(editDataCenter,i,'edit')">Edit</a>
+                    <a (click)="open(deleteDataCenter,i,'delete')">Delete</a>
                 </div>
             </div>
         </ng-template>
@@ -45,6 +45,7 @@
         <p class="data-center-body">{{dataCenter.time_zone}}</p>
     </div>
     <div class="col-md-12 tab-tile-table table-responsive">
+        <app-addnewcomponent></app-addnewcomponent>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -110,9 +111,9 @@
                         <!-- <select [(ngModel)]="timezone" name="timezone" id="addDataCenterTimezone"> -->
                         <select [(ngModel)]="timezone" name="timezone" id="addDataCenterTimezone">
                             <option class="modal_placeholder">Time zone*</option>
-                            <option>PST</option>
-                            <option>EST</option>
-                            <option>MST</option>
+                            <option>IST</option>
+                            <option>ATC</option>
+                            <option>CNT</option>
                         </select>
                         <label class="control-label" for="select"></label>
                         <i id="addtimezoneBar" class="bar"></i>
@@ -132,23 +133,23 @@
         </div>
         <div style="display: none;" class="apiResponseDiv">
             <div class="apiSuccess">
-                <div class="form-modal" style="padding-bottom: 40px;" >
-                <div class="header_title" > Add a data center</div>
-                <p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
-                    <a style="color:#007bff;">contact us</a>.</p>
+                <div class="form-modal" style="padding-bottom: 40px;">
+                    <div class="header_title"> Add a data center</div>
+                    <p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
+                        <a style="color:#007bff;">contact us</a>.</p>
                     <div style="color: green;" class="apiMsg">Data center added successfully !</div>
                 </div>
-                <div class="col-md-12 form-modal" style="padding-bottom: 30px;" >
+                <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
                     <div style=" position: absolute; top:13%; left:50%; transform: translate(-50%,-50%);" class="clearfix">
                         <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="c('Close click')">Close</button>
                     </div>
                 </div>
             </div>
             <div class="apiFailed" style="display: none">
-                <div class="form-modal" style="padding-bottom: 40px;" >
-                     <div class="header_title" > Add a data center</div>
-                <p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
-                    <a style="color:#007bff;">contact us</a>.</p>
+                <div class="form-modal" style="padding-bottom: 40px;">
+                    <div class="header_title"> Add a data center</div>
+                    <p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
+                        <a style="color:#007bff;">contact us</a>.</p>
                     <div style="color: red;" class="apiMsg">Something went wrong !</div>
                     <p id="apiErrorMsg" style="color: red;"></p>
                 </div>
@@ -163,82 +164,134 @@
 
 </ng-template>
 
-    <ng-template #editDataCenter let-c="close" let-d="dismiss">
-        <div class="modal-body">
+<ng-template #editDataCenter let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <div class="modalForm">
             <div class="form-modal">
                 <div class="header_title">Edit data center</div>
                 <p class="modal_description">Edit data center 1 of your network. It's quick and easy. If you need any assistance please
                     <a style="color:#007bff;">contact us</a>.</p>
-                </div>
-                <form>
-                    <div class="form-modal" style="padding-top: 0;">
-                        <div class="form-group" style="margin-top: 0;">
-                            <input id="editDataCenterName" type="text" required="required" />
-                            <label class="control-label" for="input">Data center name*</label>
-                            <i id='nameBar' class="bar"></i>
-                        </div>
-                        <div class="form-group">
-                            <select id="editDataCenterCountry">
-                                <option class="modal_placeholder" value="Country*">Country*</option>
-                                <option>United States</option>
-                                <option>Australia</option>
-                                <option>Canada</option>
-                                <option>India</option>
-                            </select>
-                            <label class="control-label" for="select"></label>
-                            <i id="countryBar" class="bar"></i>
-                        </div>
-                        <div class="form-group">
-                            <input id="editDataCenterState" type="text" required="required" />
-                            <label class="control-label" for="input">State*</label>
-                            <i id="stateBar" class="bar"></i>
-                        </div>
-                        <div class="form-group">
-                            <input id="editDataCenterCity" type="text" required="required" />
-                            <label class="control-label" for="input">City*</label>
-                            <i id="cityBar" class="bar"></i>
-                        </div>
-                        <div class="form-group">
-                            <select id="editDataCenterTimezone">
-                                <option class="modal_placeholder" value="Time zone*">Time zone*</option>
-                                <option>PST</option>
-                                <option>EST</option>
-                                <option>MST</option>
-                            </select>
-                            <label class="control-label" for="select"></label>
-                            <i id="timezoneBar" class="bar"></i>
-                        </div>
+            </div>
+            <form (submit)="validateEdit()">
+                <div class="form-modal" style="padding-top: 0;">
+                    <div class="form-group" style="margin-top: 0;">
+                        <input id="editDataCenterName" type="text" required="required" value="{{editData.name}}" />
+                        <label class="control-label" for="input">Data center name*</label>
+                        <i id='nameBar' class="bar"></i>
                     </div>
-                </form>
+                    <div class="form-group">
+                        <select id="editDataCenterCountry">
+                            <option class="modal_placeholder" value="Country*">Country*</option>
+                            <option *ngFor='let element of country_list' [selected]="element === editData.country" [value]="element">{{element}}</option>
+                        </select>
+                        <label class="control-label" for="select"></label>
+                        <i id="countryBar" class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <input id="editDataCenterState" type="text" required="required" value="{{editData.state}}" />
+                        <label class="control-label" for="input">State*</label>
+                        <i id="stateBar" class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <input id="editDataCenterCity" type="text" required="required" value="{{editData.city}}" />
+                        <label class="control-label" for="input">City*</label>
+                        <i id="cityBar" class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <select id="editDataCenterTimezone">
+                            <option class="modal_placeholder" value="Time zone*">Time zone*</option>
+                            <option *ngFor='let element of time_zone_list' [selected]="element === editData.time_zone" [value]="element">{{element}}</option>
+                        </select>
+                        <label class="control-label" for="select"></label>
+                        <i id="timezoneBar" class="bar"></i>
+                    </div>
+                </div>
                 <div class="col-md-12 form-modal">
                     <div class="row">
                         <div class="col-md-6 pull-left modal-buttons">
                             <button type="button" class="btn btn-default btn-edit btn-edit-cancel" (click)="c('Close click')">Cancel</button>
                         </div>
                         <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
-                            <button id='test' type="button" class="btn btn-primary btn-edit btn-edit-save" (click)="validateEdit($event)">Save</button>
+                            <button type="button" class="btn btn-primary btn-edit btn-edit-save" (click)="validateEdit($event)">Save</button>
                         </div>
                     </div>
                 </div>
-            </div>
-
-        </ng-template>
-
-        <ng-template #deleteDataCenter let-c="close" let-d="dismiss">
-            <div class="modal-body">
-                <div class="form-modal">
-                    <div class="header_title" style="font-weight: 400;font-size: 30px; ">Are you sure you want to delete Data Center 1?</div>
+            </form>
+        </div>
+        <div style="display: none;" class="apiResponseDiv">
+            <div class="apiSuccess">
+                <div class="form-modal" style="padding-bottom: 40px;">
+                    <div class="header_title">Edit data center</div>
+                    <p class="modal_description">Edit data center 1 of your network. It's quick and easy. If you need any assistance please
+                        <a style="color:#007bff;">contact us</a>.</p>
+                    <div style="color: green;" class="apiMsg">Data center edited successfully !</div>
                 </div>
-                <div class="col-md-12 form-modal">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12 modal-buttons">
-                            <button type="button" class="btn btn-default" (click)="c('Close click')">Do not delete</button>
-                        </div>
-                        <div class="col-md-6 col-sm-12 modal-buttons" style="text-align: right;">
-                            <button type="button" class="btn btn-primary save_btn" (click)="c('Close click')">Yes, delete</button>
-                        </div>
+                <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
+                    <div style=" position: absolute; top:13%; left:50%; transform: translate(-50%,-50%);" class="clearfix">
+                        <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="c('Close click')">Close</button>
                     </div>
                 </div>
             </div>
+            <div class="apiFailed" style="display: none">
+                <div class="form-modal" style="padding-bottom: 40px;">
+                    <div class="header_title">Edit data center</div>
+                    <p class="modal_description">Edit data center 1 of your network. It's quick and easy. If you need any assistance please
+                        <a style="color:#007bff;">contact us</a>.</p>
+                    <div style="color: red;" class="apiMsg">Something went wrong !</div>
+                    <p id="editApiErrorMsg" style="color: red;"></p>
+                </div>
+                <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
+                    <div style="position: absolute; top:13%; left:50%; transform: translate(-50%,-50%);" class="">
+                        <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="c('Close click')">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
 
-        </ng-template>
+<ng-template #deleteDataCenter let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <div class="modalForm">
+            <div class="form-modal">
+                <div class="header_title" style="font-weight: 400;font-size: 30px; ">Are you sure you want to delete {{editData.name}} ?</div>
+            </div>
+            <div class="col-md-12 form-modal">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 modal-buttons">
+                        <button type="button" class="btn btn-default" (click)="c('Close click')">Do not delete</button>
+                    </div>
+                    <div class="col-md-6 col-sm-12 modal-buttons" style="text-align: right;">
+                        <button (click)="deleteDC()" type="button" class="btn btn-primary save_btn">Yes, delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display: none;" class="apiResponseDiv">
+            <div class="apiSuccess">
+                <div class="form-modal" style="padding-bottom: 40px;">
+                    <div class="header_title"> Delete data center</div>
+                    <div style="color: green;" class="apiMsg">Data center deleted successfully !</div>
+                </div>
+                <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
+                    <div style=" position: absolute; top:13%; left:50%; transform: translate(-50%,-50%);" class="clearfix">
+                        <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="c('Close click')">Close</button>
+                    </div>
+                </div>
+            </div>
+            <div class="apiFailed" style="display: none">
+                <div class="form-modal" style="padding-bottom: 40px;">
+                    <div class="header_title"> Delete data center</div>
+                    <div style="color: red;" class="apiMsg">Something went wrong !</div>
+                    <p id="deleteApiErrorMsg" style="color: red;"></p>
+                </div>
+                <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
+                    <div style="position: absolute; top:13%; left:50%; transform: translate(-50%,-50%);" class="">
+                        <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="c('Close click')">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</ng-template>

@@ -10,6 +10,7 @@ export interface ChildrenItems {
   target?: boolean;
   name: string;
   type?: string;
+  img:string;
   children?: ChildrenItems[];
 }
 
@@ -42,25 +43,29 @@ const MENUITEMS = [
         state: 'provisioning',
         name: 'PROVISIONING',
         type: 'link',
-        icon: 'ti-arrows-corner'
+        icon: 'fa fa-compress',
       },
       {
-        state: 'basic',
+        state: 'data',
         name: 'DATA CENTERS',
         type: 'sub',
         icon: 'ti-world',
         children: [
           {
-            state: '',
-            name: 'Data Center ZETA'
+            state: 'datacenter',
+            name: 'Data Center ZETA',
+            img:'assets/images/fa-exclamation.png'
+
           },
           {
-            state: '',
-            name: 'Data Center 2'
+            state: 'datacenter',
+            name: 'Data Center 2',
+            img:'assets/images/status-green.png'
           },
           {
-            state: '',
-            name: 'Data Center 3'
+            state: 'datacenter',
+            name: 'Data Center 3',
+            img:'assets/images/status-green.png'
           }
         ]
       },
@@ -75,6 +80,12 @@ const MENUITEMS = [
             value: '3'
           }
         ]
+      },
+      {
+        state: ' with-social',
+        name: 'SETTINGS',
+        type: 'link',
+        icon: 'ti-settings'
       }
     ]
   }

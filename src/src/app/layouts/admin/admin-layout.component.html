@@ -155,9 +155,11 @@
                     <ng-template ngFor let-asideChildren [ngForOf]="asideItem.children">
                     <li [routerLinkActive]="['active']" *ngIf="asideChildren.type !== 'sub'">
                       <a [routerLink]="['/', asideItem.state, asideChildren.state]" target="{{asideChildren.target ? '_blank' : '_self'}}">
+                        <img src="assets/images/ellipse-20.png">
                         <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                        <span class="pcoded-mtext">{{ asideChildren.name }} </span>
+                        <span class="pcoded-mtext" style="padding-left: 6px;">{{ asideChildren.name }} </span>
                         <span *ngFor="let asideChildrenBadge of asideChildren.badge" class="pcoded-badge label label-{{ asideChildrenBadge.type }}">{{asideChildrenBadge.value}}</span>
+                        <img src="{{ asideChildren.img }}"  style="float: right;margin-right: 7px;">
                         <span class="pcoded-mcaret"></span>
                       </a>
                     </li>

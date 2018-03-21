@@ -21998,7 +21998,7 @@ body.dark-layout .chat-bg {
 }
 
 .pcoded[theme-layout="vertical"][vertical-nav-type="expanded"] .pcoded-navbar .pcoded-item .pcoded-hasmenu .pcoded-submenu li > a {
-  padding-left: 30px;
+  padding-left: 19px;
 }
 
 .pcoded[theme-layout="vertical"] .pcoded-navbar .pcoded-item .pcoded-hasmenu .pcoded-submenu {
@@ -22140,13 +22140,13 @@ body.dark-layout .chat-bg {
 }
 
 .pcoded[theme-layout="vertical"] .pcoded-navbar .pcoded-item li.pcoded-hasmenu[dropdown-icon="style3"] > a:after {
-  content: '\e61a';
+  content: "\E649";
   font-family: 'themify';
   font-size: 14px;
 }
 
 .pcoded[theme-layout="vertical"] .pcoded-navbar .pcoded-item li.pcoded-hasmenu.pcoded-trigger[dropdown-icon="style3"] > a:after {
-  content: '\e622';
+  content: '\e64b';
   font-family: 'themify';
   font-size: 14px;
 }
@@ -22324,12 +22324,7 @@ body.dark-layout .chat-bg {
   font-size: 12px;
 }
 
-.pcoded .pcoded-navbar .pcoded-item .pcoded-hasmenu[subitem-icon="style6"] .pcoded-submenu li > a .pcoded-mtext:before {
-  content: '\e649';
-  font-family: 'themify';
-  padding-right: 10px;
-  font-size: 12px;
-}
+
 
 .pcoded[theme-layout="vertical"] .pcoded-navbar .pcoded-item > li.active > a > .pcoded-mcaret {
   background: transparent none repeat scroll 0 0;
@@ -23911,11 +23906,11 @@ body[themebg-pattern="pattern9"] {
 }
 
 .pcoded .pcoded-navbar[active-item-theme="theme5"] .pcoded-item > li.pcoded-hasmenu.active > a {
-  background: #1ABC9C !important;
+  background: black !important;
 }
 
 .pcoded .pcoded-navbar[active-item-theme="theme5"] .pcoded-item li .pcoded-submenu li.active > a {
-  color: #1ABC9C !important;
+  color: #56BACA !important;
 }
 
 .pcoded .pcoded-navbar[active-item-theme="theme5"] .pcoded-item li.pcoded-hasmenu:hover > a {
@@ -24085,12 +24080,12 @@ body[themebg-pattern="pattern9"] {
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item li.pcoded-hasmenu .pcoded-submenu li > a {
   border-bottom-color: #2c3e50;
-  color: #fff;
+  color: #5d858d;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item > li.pcoded-hasmenu .pcoded-submenu li.pcoded-hasmenu > a:after,
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item > li.pcoded-hasmenu > a:after {
-  color: #fff;
+  color: #56BACA;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item > li.pcoded-hasmenu.pcoded-trigger .pcoded-submenu li.pcoded-hasmenu.pcoded-trigger > a:after,
@@ -24127,6 +24122,7 @@ body[themebg-pattern="pattern9"] {
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item .pcoded-hasmenu .pcoded-submenu li > a .pcoded-mtext:before {
   border-bottom-color: #ffff;
+  padding-left: 12px;
 }
 
 .pcoded .pcoded-navbar[navbar-theme="theme1"] .pcoded-item .pcoded-hasmenu .pcoded-submenu li > a .pcoded-mtext:after {

@@ -16,20 +16,50 @@ export class ProvisioningComponent implements OnInit {
   dataCentersDetails: DatacenterDetails[];
   apiStatus: boolean = false;
   apiStatusMsg: boolean = false;
-
   name: string = '';
   country: string = 'Country*';
   state: string = '';
   city: string = '';
   timezone: string = 'Time zone*';
+  editIdIndex: any;
+  editId: any;
+  editData: any;
+  country_list: string[];
+  time_zone_list: string[];
+  test: string;
 
   constructor(private modalService: NgbModal, private config: ConfigService) { }
 
-  open(content) {
+  open(content, id = 0, type) {
+
+    if (type == 'delete' || type == 'edit') {
+      this.editIdIndex = id;
+      this.editId = this.dataCenters[this.editIdIndex].id;
+      this.editData = this.dataCenters[id];
+    }
+
     this.modalService.open(content, { windowClass: 'custom_modal' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  deleteDC() {
+    this.config.deleteDataCenter('1', this.editId).subscribe(res => {
+      $('.modalForm').hide();
+      $('.apiResponseDiv').show();
+      if (res.status == 'success') {
+        this.dataCenters.splice(this.editIdIndex, 1);
+        this.activateCard(0);
+        this.dataCentersDetails = this.dataCenters[this.editIdIndex].components;
+        $('.apiFailed').hide();
+        $('.apiSuccess').show();
+      } else {
+        $('#deleteApiErrorMsg').html(res.message);
+        $('.apiSuccess').hide();
+        $('.apiFailed').show();
+      }
     });
   }
 
@@ -53,35 +83,75 @@ export class ProvisioningComponent implements OnInit {
     }
   }
 
-  validateEdit(e) {
+  validateEdit() {
+
+    var flag = false;
     if ($('#editDataCenterName').val() == '') {
       $('#nameBar').css('border-bottom', '0.0625rem solid red');
+      var flag = true;
     } else {
       $('#nameBar').css('border-bottom', '0.0625rem solid #999');
     }
     if ($('#editDataCenterCountry').val() == 'Country*') {
       $('#countryBar').css('border-bottom', '0.0625rem solid red');
+      var flag = true;
     } else {
       $('#countryBar').css('border-bottom', '0.0625rem solid #999');
     }
     if ($('#editDataCenterState').val() == '') {
       $('#stateBar').css('border-bottom', '0.0625rem solid red');
+      var flag = true;
     } else {
       $('#stateBar').css('border-bottom', '0.0625rem solid #999');
     }
     if ($('#editDataCenterCity').val() == '') {
       $('#cityBar').css('border-bottom', '0.0625rem solid red');
+      var flag = true;
     } else {
       $('#cityBar').css('border-bottom', '0.0625rem solid #999');
     }
     if ($('#editDataCenterTimezone').val() == 'Time zone*') {
       $('#timezoneBar').css('border-bottom', '0.0625rem solid red');
+      var flag = true;
     } else {
       $('#timezoneBar').css('border-bottom', '0.0625rem solid #999');
+    }
+
+    if (flag != true) {
+
+      let editName = $('#editDataCenterName').val();
+      let editCountry = $('#editDataCenterCountry').val();
+      let editState = $('#editDataCenterState').val();
+      let editCity = $('#editDataCenterCity').val();
+      let editTimezone = $('#editDataCenterTimezone').val();
+
+      setTimeout(() => {
+        this.config.editDataCenter('1', editName, editCountry, editState, editCity, editTimezone).subscribe(res => {
+          $('.modalForm').hide();
+          $('.apiResponseDiv').show();
+          if (res.status == 'success') {
+            $('#callMatricsDropdown' + this.editIdIndex).hide();
+            this.editData.name = editName;
+            this.editData.country = editCountry;
+            this.editData.state = editState;
+            this.editData.city = editCity;
+            this.editData.time_zone = editTimezone;
+            $('.apiFailed').hide();
+            $('.apiSuccess').show();
+          } else {
+            $('#editApiErrorMsg').html(res.message);
+            $('.apiSuccess').hide();
+            $('.apiFailed').show();
+          }
+        });
+      }, 100);
     }
   }
 
   ngOnInit() {
+
+    this.country_list = ['United States', 'Australia', 'Canada', 'India'];
+    this.time_zone_list = ['IST', 'ATC', 'CNT'];
 
     setTimeout(() => {
       this.config.getProvisioningList().subscribe(res => {
@@ -154,18 +224,31 @@ export class ProvisioningComponent implements OnInit {
     if (flag != true) {
 
       setTimeout(() => {
-        this.config.addDataCenter(this.name, this.country, this.state, this.city, this.timezone).subscribe(res => {
-          console.log(res);
+        this.config.addDataCenter('1', this.name, this.country, this.state, this.city, this.timezone).subscribe(res => {
           $('.modalForm').hide();
           $('.apiResponseDiv').show();
-          if (res.status == 'success') {
+          var sucflag = false;
+		  if(res.status == 'success') {
             $('.apiFailed').hide();
             $('.apiSuccess').show();
+			sucflag =true;
           } else {
             $('#apiErrorMsg').html(res.message);
             $('.apiSuccess').hide();
             $('.apiFailed').show();
           }
+
+		  if(sucflag != false) {
+			  this.dataCenters.push({
+				id: res.id,
+				name: this.name,
+				country: this.country,
+				state: this.state,
+				city: this.city,
+				time_zone: this.timezone,
+				components: ''
+			  });
+		  }
         });
       }, 100);
     }
@@ -192,15 +275,15 @@ export class ProvisioningComponent implements OnInit {
       this.dataCentersDetails = [];
     }
   }
-
 }
 
 interface Datacenter {
+  id: number;
   name: string;
   country: string;
   state: string;
   city: string;
-  timezone: string;
+  time_zone: string;
   components: any;
 }
 

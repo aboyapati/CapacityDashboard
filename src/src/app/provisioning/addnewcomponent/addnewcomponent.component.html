@@ -1,0 +1,285 @@
+<div (click)="open(rsdcontent)" title="Click to add component" style="float: right;padding: 0px 0px 20px 0px;cursor: pointer;">
+    <div class="col-md-4 col-sm-4 btn-top-bar">
+        <button class="btn btn-primary btn-sm btn-add-data">
+            <i class="fa fa-plus"></i> Add Component</button>
+    </div>
+</div>
+<ng-template #rsdcontent let-c="close" let-d="dismiss">
+  <div class="rsdModal">
+    <div class="modal-body">
+
+      <div class="top-content">
+        <div class="container">
+          <div class="row">
+            <!-- <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box"> -->
+            <div class="col-sm-12 col-md-12 col-lg-12  form-box">
+              <form class="f1" (submit)="addComponent()">
+                <div class="form-modal">
+                  <div class="header_title" style="text-align: center;">Add new component</div>
+                </div>
+                <div class="f1-steps" style="text-align: center;">
+                  <div class="f1-progress">
+                    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3"></div>
+                  </div>
+                  <div class="f1-step active">
+                    <div class="f1-step-icon">
+                      <i class="fa fa-check"></i>
+                    </div>
+                    <p>Name</p>
+                  </div>
+                  <div class="f1-step">
+                    <div class="f1-step-icon">
+                      <i class="fa fa-check"></i>
+                    </div>
+                    <p>Component Type</p>
+                  </div>
+                  <div class="f1-step">
+                    <div class="f1-step-icon">
+                      <i class="fa fa-check"></i>
+                    </div>
+                    <p>Configuration</p>
+                  </div>
+                  <div class="f1-step">
+                    <div class="f1-step-icon">
+                      <i class="fa fa-check"></i>
+                    </div>
+                    <p>Complete</p>
+                  </div>
+                </div>
+
+                <fieldset>
+                  <p class="modal-text-p">Plese enter component name.</p>
+                  <div class="row">
+                    <div class="offset-md-2 col-md-8">
+                      <div class="form-group">
+                        <input type="text" required="required" [(ngModel)]="name" name="name" placeholder="Name *" />
+                        <i class="bar"></i>
+                      </div>
+                      <div class="col-md-12 form-modal">
+                        <div class="row">
+                          <div class="col-md-6 pull-left modal-buttons">
+                            <button type="button" class="btn btn-default btn-edit-cancel" (click)="c('Close click')">Cancel</button>
+                          </div>
+                          <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
+                            <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="next($event)">Next</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <p class="modal-text-p">Please enter component type, version, and IP address.</p>
+                  <div class="row">
+                    <div class="offset-md-2 col-md-8">
+                      <div class="form-group">
+                        <select [(ngModel)]="version" name="version">
+                          <option class="modal_placeholder">Type*</option>
+                          <option>NEXUS</option>
+                          <option>ASA</option>
+                          <option>VCENTER</option>
+                        </select>
+                        <label class="control-label" for="select"></label>
+                        <i class="bar"></i>
+                      </div>
+                      <div class="form-group">
+                        <select [(ngModel)]="subVersion" name="subVersion">
+                          <option class="modal_placeholder">Sub Type*</option>
+                          <option>75-K</option>
+                          <option>5-1.0</option>
+                          <option>5-5.0.0</option>
+                        </select>
+                        <label class="control-label" for="select"></label>
+                        <i class="bar"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="modal-text-p">Thresholds</p>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tr>
+                        <td></td>
+                        <td>WARNING</td>
+                        <td>ALERT</td>
+                        <td>MAX</td>
+                      </tr>
+                      <tr>
+                        <td>VRF *</td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="vrfWarnStart" name="vrfWarnStart" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="vrfWarnEnd" name="vrfWarnEnd" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="vrfMax" name="vrfMax" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>BGP *</td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="bgpPeersWarnStart" name="bgpPeersWarnStart" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="bgpPeersWarnEnd" name="bgpPeersWarnEnd" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="bgpPeersMax" name="bgpPeersMax" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Vlan *</td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="vlanWarnStart" name="vlanWarnStart" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="vlanWarnEnd" name="vlanWarnEnd" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="vlanMax" name="vlanMax" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Harp *</td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="hsrpWarnStart" name="hsrpWarnStart" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="hsrpWarnEnd" name="hsrpWarnEnd" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="hsrpMax" name="hsrpMax" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Static Router *</td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="staticRoutesWarnStart" name="staticRoutesWarnStart" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="staticRoutesWarnEnd" name="staticRoutesWarnEnd" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group form-group-small">
+                            <input type="text" required="required" [(ngModel)]="staticRoutesMax" name="staticRoutesMax" />
+                            <i class="bar"></i>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="row">
+                    <div class="offset-md-2 col-md-8">
+                      <div class="col-md-12 form-modal">
+                        <div class="row">
+                          <div class="col-md-6 pull-left modal-buttons">
+                            <button type="button" class="btn btn-default btn-edit-cancel" (click)="previous($event)"> Back </button>
+                          </div>
+                          <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
+                            <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="next($event)">Next</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <p class="modal-text-p">Please enter component username and password</p>
+                  <div class="row">
+                    <div class="offset-md-2 col-md-8">
+                      <div class="form-group">
+                        <input type="text" required="required" [(ngModel)]="componentUser" name="componentUser" placeholder="Username *" />
+                        <i class="bar"></i>
+                      </div>
+                      <div class="form-group">
+                        <input type="password" required="required" [(ngModel)]="password" name="password" placeholder="Password *" />
+                        <i class="bar"></i>
+                      </div>
+                      <div class="col-md-12 form-modal">
+                        <div class="row">
+                          <div class="col-md-6 pull-left modal-buttons">
+                            <button type="button" class="btn btn-default btn-edit-cancel" (click)="previous($event)">Back</button>
+                          </div>
+                          <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
+                            <input type="submit" class="btn btn-primary save_btn btn-edit-save" value="Next" (click)="next($event)" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <!-- <h3 *ngIf="apiError" class="modal-text-h3">Congratulations. Your new component has been succesfully added!</h3>
+                  <h3 *ngIf="!apiError" class="modal-text-h3">Error Occured!</h3> -->
+                  <h3 class="modal-text-h3">{{ apiError==1 ? 'Congratulations. Your new component has been succesfully added!' : 'Error Occured!' }}</h3>
+                  <div class="row">
+                    <div class="offset-md-2 col-md-8">
+                      <div class="col-md-12 form-modal">
+                        <div class="row">
+                          <div class="col-md-6 pull-left modal-buttons">
+                            <button type="button" class="btn btn-default btn-edit-cancel">View Component</button>
+                          </div>
+                          <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
+                              <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="c('Close click')">Finish</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ng-template>
