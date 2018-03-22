@@ -13,6 +13,7 @@ export class ConfigService {
   addDataCenterUrl: any;
   editDataCenterUrl: any;
   deleteDataCenterUrl: any;
+  editComponentUrl: any;
 
   constructor(private http: Http) {
     this.http.get('assets/config.json')
@@ -24,6 +25,7 @@ export class ConfigService {
         this.addDataCenterUrl = this.BASE_URL + result[0].addDataCenterUrl;
         this.editDataCenterUrl = this.BASE_URL + result[0].editDataCenterUrl;
         this.deleteDataCenterUrl = this.BASE_URL + result[0].deleteDataCenterUrl;
+        this.editComponentUrl = this.BASE_URL + result[0].editComponentUrl;
       });
   }
 
@@ -69,5 +71,13 @@ export class ConfigService {
     let body = 'userId=' + userId + '&id=' + id;
     return this.http.post(this.deleteDataCenterUrl, body, options).map((res: Response) => res.json());
   }
+
+  editComponent(userId, name, version, subVersion, ipAddress, componentUser, password, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'userId=' + userId + '&name=' + name + '&version=' + version + '&subVersion=' + subVersion + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanMax=' + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax;
+    return this.http.post(this.editComponentUrl, body, options).map((res: Response) => res.json());
+  }
+
   BASE_URL = window.location.protocol + '//' + window.location.hostname;
 }

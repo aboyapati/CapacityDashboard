@@ -45,7 +45,292 @@
         <p class="data-center-body">{{dataCenter.time_zone}}</p>
     </div>
     <div class="col-md-12 tab-tile-table table-responsive">
-        <app-addnewcomponent></app-addnewcomponent>
+        <div (click)="openComponentModal(rsdcontent)" title="Click to add component" style="float: right;padding: 0px 0px 20px 0px;cursor: pointer;">
+            <div class="col-md-4 col-sm-4 btn-top-bar">
+                <button class="btn btn-primary btn-sm btn-add-data">
+                    <i class="fa fa-plus"></i> Add Component</button>
+            </div>
+        </div>
+        <ng-template #rsdcontent let-c="close" let-d="dismiss">
+            <div class="rsdModal">
+                <div class="modal-body">
+
+                    <div class="top-content">
+                        <div class="container">
+                            <div class="row">
+                                <!-- <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box"> -->
+                                <div class="col-sm-12 col-md-12 col-lg-12  form-box">
+                                    <form class="f1" (submit)="addComponent()">
+                                        <div class="form-modal">
+                                            <div class="header_title" style="text-align: center;">Add new component</div>
+                                        </div>
+                                        <div class="f1-steps" style="text-align: center;">
+                                            <div class="f1-progress">
+                                                <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3"></div>
+                                            </div>
+                                            <div class="f1-step active">
+                                                <div class="f1-step-icon">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                                <p>Name</p>
+                                            </div>
+                                            <div class="f1-step next">
+                                                <div class="f1-step-icon">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                                <p>Component Type</p>
+                                            </div>
+                                            <div class="f1-step">
+                                                <div class="f1-step-icon">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                                <p>Configuration</p>
+                                            </div>
+                                            <div class="f1-step">
+                                                <div class="f1-step-icon">
+                                                    <i class="fa fa-check"></i>
+                                                </div>
+                                                <p>Complete</p>
+                                            </div>
+                                        </div>
+
+                                        <fieldset>
+                                            <p class="modal-text-p">Please enter component name.</p>
+                                            <div class="row">
+                                                <div class="offset-md-2 col-md-8">
+                                                    <div class="form-group">
+                                                        <input type="text" required="required" [(ngModel)]="comName" name="comName" placeholder="Name *" />
+                                                        <i class="bar"></i>
+                                                    </div>
+                                                    <div class="col-md-12 form-modal">
+                                                        <div class="row">
+                                                            <div class="col-md-6 pull-left modal-buttons">
+                                                                <button type="button" class="btn btn-default btn-edit-cancel" (click)="c('Close click')">Cancel</button>
+                                                            </div>
+                                                            <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
+                                                                <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="next($event)">Next</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <p class="modal-text-p">Please enter component type, version, and IP address.</p>
+                                            <div class="row">
+                                                <div class="offset-md-2 col-md-8">
+                                                    <div class="form-group">
+                                                        <select [(ngModel)]="ComVersion" name="ComVersion">
+                                                            <option class="modal_placeholder">Type*</option>
+                                                            <option>NEXUS</option>
+                                                            <option>ASA</option>
+                                                            <option>VCENTER</option>
+                                                        </select>
+                                                        <label class="control-label" for="select"></label>
+                                                        <i class="bar"></i>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select [(ngModel)]="ComSubVersion" name="ComSubVersion">
+                                                            <option class="modal_placeholder">Sub Type*</option>
+                                                            <option>75-K</option>
+                                                            <option>5-1.0</option>
+                                                            <option>5-5.0.0</option>
+                                                        </select>
+                                                        <label class="control-label" for="select"></label>
+                                                        <i class="bar"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="modal-text-p">Thresholds</p>
+                                            <div class="table-responsive modal-table-responsive">
+                                                <table class="table modal-table">
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>WARNING</td>
+                                                        <td>ALERT</td>
+                                                        <td>MAX</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>VRF *</td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="vrfWarnStart" name="vrfWarnStart" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="vrfWarnEnd" name="vrfWarnEnd" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="vrfMax" name="vrfMax" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>BGP *</td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="bgpPeersWarnStart" name="bgpPeersWarnStart" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="bgpPeersWarnEnd" name="bgpPeersWarnEnd" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="bgpPeersMax" name="bgpPeersMax" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Vlan *</td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="vlanWarnStart" name="vlanWarnStart" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="vlanWarnEnd" name="vlanWarnEnd" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="vlanMax" name="vlanMax" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Harp *</td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="hsrpWarnStart" name="hsrpWarnStart" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="hsrpWarnEnd" name="hsrpWarnEnd" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="hsrpMax" name="hsrpMax" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Static Router *</td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="staticRoutesWarnStart" name="staticRoutesWarnStart" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="staticRoutesWarnEnd" name="staticRoutesWarnEnd" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group form-group-small">
+                                                                <input type="text" required="required" [(ngModel)]="staticRoutesMax" name="staticRoutesMax" />
+                                                                <i class="bar"></i>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="row">
+                                                <div class="offset-md-2 col-md-8">
+                                                    <div class="col-md-12 form-modal">
+                                                        <div class="row">
+                                                            <div class="col-md-6 pull-left modal-buttons">
+                                                                <button type="button" class="btn btn-default btn-edit-cancel" (click)="previous($event)"> Back </button>
+                                                            </div>
+                                                            <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
+                                                                <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="next($event)">Next</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <p class="modal-text-p">Please enter component username and password</p>
+                                            <div class="row">
+                                                <div class="offset-md-2 col-md-8">
+                                                    <div class="form-group">
+                                                        <input type="text" required="required" [(ngModel)]="componentUser" name="componentUser" placeholder="Username *" />
+                                                        <i class="bar"></i>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="password" required="required" [(ngModel)]="password" name="password" placeholder="Password *" />
+                                                        <i class="bar"></i>
+                                                    </div>
+                                                    <div class="col-md-12 form-modal">
+                                                        <div class="row">
+                                                            <div class="col-md-6 pull-left modal-buttons">
+                                                                <button type="button" class="btn btn-default btn-edit-cancel" (click)="previous($event)">Back</button>
+                                                            </div>
+                                                            <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
+                                                                <input type="submit" class="btn btn-primary save_btn btn-edit-save" value="Next" (click)="next($event)" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <!-- <h3 *ngIf="apiError" class="modal-text-h3">Congratulations. Your new component has been succesfully added!</h3>
+                                      <h3 *ngIf="!apiError" class="modal-text-h3">Error Occured!</h3> -->
+                                            <h3 class="modal-text-h3">{{ apiError==1 ? 'Congratulations. Your new component has been succesfully added!'
+                                                : 'Error Occured!' }}</h3>
+                                            <div class="row">
+                                                <div class="offset-md-2 col-md-8">
+                                                    <div class="col-md-12 form-modal">
+                                                        <div class="row">
+                                                            <div class="col-md-6 pull-left modal-buttons">
+                                                                <button type="button" class="btn btn-default btn-edit-cancel">View Component</button>
+                                                            </div>
+                                                            <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
+                                                                <button type="button"  (click)="c('Close click')" class="btn btn-primary save_btn  btn-edit-save">Finish</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </ng-template>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -54,16 +339,26 @@
                     <th scope="col">Version</th>
                     <th scope="col">IP Address</th>
                     <th scope="col">Credentials</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let data of dataCentersDetails">
+                <tr *ngFor="let data of dataCentersDetails, let j = index">
                     <td>{{ data.name }}</td>
-                    <td>{{ data.type }}</td>
                     <td>{{ data.version }}</td>
-                    <td>{{ data.ip }}</td>
+                    <td>{{ data.subVersion }}</td>
+                    <td>{{ data.ipAddress }}</td>
                     <td class="text-center">
                         <span style="color: #0056b3;cursor: pointer;">View</span>
+                    </td>
+                    <td>
+
+                        <span (clickOutside)="onClickedOutside($event)" class="rsddropdown-span" (click)="editComponentClick(j)">...</span>
+                        <div id="editComponentDropdown{{j}}" class="rsddropdown-content componentDropDownDiv">
+                            <a (click)="openComponentModalNew(viewComponent,j,'view', currentDCNew)">View</a>
+                            <a (click)="openComponentModalNew(editComponent,j,'edit', currentDCNew)">Edit</a>
+                            <a (click)="openComponentModalNew(deleteComponent,j,'delete', currentDCNew)">Delete</a>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -161,7 +456,6 @@
             </div>
         </div>
     </div>
-
 </ng-template>
 
 <ng-template #editDataCenter let-c="close" let-d="dismiss">
@@ -172,7 +466,7 @@
                 <p class="modal_description">Edit data center 1 of your network. It's quick and easy. If you need any assistance please
                     <a style="color:#007bff;">contact us</a>.</p>
             </div>
-            <form (submit)="validateEdit()">
+            <form>
                 <div class="form-modal" style="padding-top: 0;">
                     <div class="form-group" style="margin-top: 0;">
                         <input id="editDataCenterName" type="text" required="required" value="{{editData.name}}" />
@@ -293,5 +587,363 @@
             </div>
         </div>
     </div>
+</ng-template>
 
+<ng-template #deleteComponent let-c="close" let-d="dismiss">
+    <div class="modal-body componentDeleteModal">
+        <div class="form-modal">
+            <div class="header_title" style="font-weight: 400;font-size: 30px; ">Are you sure you want to delete the component {{deleteData.name}}?</div>
+        </div>
+        <div class="col-md-12 form-modal">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 modal-buttons">
+                    <button type="button" class="btn btn-default" (click)="c('Close click')">Do not delete</button>
+                </div>
+                <div class="col-md-6 col-sm-12 modal-buttons" style="text-align: right;">
+                    <button type="button" class="btn btn-primary save_btn" (click)="deleteComponentData(deleteData.id)">Yes, delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: none;" class="apiResponseDivComponent">
+        <div class="apiSuccess">
+            <div class="form-modal">
+                <div style="color: green;" class="apiMsg">Component Deleted successfully !</div>
+            </div>
+            <div class="col-md-12 form-modal">
+                <div style="margin: 0 auto;" class="row">
+                    <button type="button" class="btn btn-primary btn-edit-cancel" (click)="c('Close click')">Close</button>
+                </div>
+            </div>
+        </div>
+        <div class="apiFailed" style="display: none">
+            <div class="form-modal">
+                <div style="color: red;" class="apiMsg">Something went wrong !</div>
+                <p id="apiErrorMsgComponent"></p>
+            </div>
+            <div class="col-md-12 form-modal">
+                <div style="margin: 0 auto;" class="row">
+                    <button type="button" class="btn btn-primary btn-edit-cancel" (click)="c('Close click')">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #editComponent let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <div class="modalForm">
+            <div class="form-modal">
+                <div class="header_title" style="text-align: center;">Edit Component</div>
+            </div>
+            <form>
+                <div class="form-modal" style="padding-top: 0;">
+                    <div class="form-group" style="margin-top: 0;">
+                        <input id="editComponentName" type="text" required="required" value="{{componentRecords.name}}" />
+                        <label class="control-label" for="input">Component Name*</label>
+                        <i id='editComponentBar1' class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <select id="editComponentNameType">
+                            <option class="modal_placeholder" value="Country*">Type*</option>
+                            <option *ngFor='let ver of version' [selected]="ver === componentRecords.version" [value]="ver">{{ver}}</option>
+                        </select>
+                        <label class="control-label" for="select"></label>
+                        <i id="editComponentBar2" class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <input id="editComponentVersion" type="text" required="required" value="{{componentRecords.subVersion}}" />
+                        <label class="control-label" for="input">Version*</label>
+                        <i id="editComponentBar3" class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <input id="editComponentIpAddress" type="text" required="required" value="{{componentRecords.ipAddress}}" />
+                        <label class="control-label" for="input">IP Address*</label>
+                        <i id="editComponentBar4" class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <input id="editComponentComponentUser" type="text" required="required" value="{{componentRecords.componentUser}}" />
+                        <label class="control-label" for="input">Username*</label>
+                        <i id="editComponentBar5" class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <input id="editComponentPassword" type="password" required="required" value="{{componentRecords.password}}" />
+                        <label class="control-label" for="input">Password*</label>
+                        <i id="editComponentBar6" class="bar"></i>
+                    </div>
+
+                    <p class="modal-text-p">Threshold Value</p>
+                    <div class="table-responsive">
+                        <table class="table modal-table">
+                            <tr>
+                                <td></td>
+                                <td>WARNING</td>
+                                <td>ALERT</td>
+                                <td>MAX</td>
+                            </tr>
+                            <tr>
+                                <td>VRF</td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponentvrfWarnStart" type="text" required="required" value="{{componentRecords.vrfWarnStart}}" />
+                                        <i id="editComponentBar7" class="bar"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponentvrfWarnEnd" type="text" required="required" value="{{componentRecords.vrfWarnEnd}}" />
+                                        <i id="editComponentBar8" class="bar"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponentvrfMax" type="text" required="required" value="{{componentRecords.vrfMax}}" />
+                                        <i id="editComponentBar9" class="bar"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BGP</td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponentbgpPeersWarnStart" type="text" required="required" value="{{componentRecords.bgpPeersWarnStart}}"
+                                        />
+                                        <i id="editComponentBar10" class="bar"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponentbgpPeersWarnEnd" type="text" required="required" value="{{componentRecords.bgpPeersWarnEnd}}" />
+                                        <i id="editComponentBar11" class="bar"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponentbgpPeersMax" type="text" required="required" value="{{componentRecords.bgpPeersMax}}" />
+                                        <i id="editComponentBar12" class="bar"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Vlan</td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponentvlanWarnStart" type="text" required="required" value="{{componentRecords.vlanWarnStart}}" />
+                                        <i id="editComponentBar13" class="bar"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponentvlanWarnEnd" type="text" required="required" value="{{componentRecords.vlanWarnEnd}}" />
+                                        <i id="editComponentBar14" class="bar"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponentvlanMax" type="text" required="required" value="{{componentRecords.vlanMax}}" />
+                                        <i id="editComponentBar15" class="bar"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Harp</td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponenthsrpWarnStart" type="text" required="required" value="{{componentRecords.hsrpWarnStart}}" />
+                                        <i id="editComponentBar16" class="bar"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponenthsrpWarnEnd" type="text" required="required" value="{{componentRecords.hsrpWarnEnd}}" />
+                                        <i id="editComponentBar17" class="bar"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponenthsrpMax" type="text" required="required" value="{{componentRecords.hsrpMax}}" />
+                                        <i id="editComponentBar18" class="bar"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Static Router</td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponentstaticRoutesWarnStart" type="text" required="required" value="{{componentRecords.staticRoutesWarnStart}}"
+                                        />
+                                        <i id="editComponentBar19" class="bar"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponentstaticRoutesWarnEnd" type="text" required="required" value="{{componentRecords.staticRoutesWarnEnd}}"
+                                        />
+                                        <i id="editComponentBar20" class="bar"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group form-group-small">
+                                        <input class="frmGrpInput" id="editComponentstaticRoutesMax" type="text" required="required" value="{{componentRecords.staticRoutesMax}}" />
+                                        <i id="editComponentBar21" class="bar"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12 form-modal">
+                    <div class="row">
+                        <div class="col-md-6 pull-left modal-buttons">
+                            <button type="button" class="btn btn-default btn-edit btn-edit-cancel" (click)="c('Close click')">Cancel</button>
+                        </div>
+                        <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
+                            <button type="button" class="btn btn-primary btn-edit btn-edit-save" (click)="validateEditComponent($event)">Finish</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div style="display: none;" class="apiResponseDiv">
+            <div class="apiSuccess">
+                <div class="form-modal" style="padding-bottom: 40px;">
+                    <div class="header_title" style="font-size: 30px;font-weight: normal;text-align: center;">Congratulations. Your component has been successfully edited.</div>
+                </div>
+                <div class="col-md-12 form-modal">
+                    <div class="row">
+                        <div class="col-md-6 pull-left modal-buttons">
+                            <button type="button" class="btn btn-default btn-edit btn-edit-cancel" (click)="c('Close click')">Close</button>
+                        </div>
+                        <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
+                            <button type="button" class="btn btn-primary btn-edit btn-edit-save" (click)="openComponentModalNew(viewComponent,newDeleteDataIndex,'view', currentDCNew)">View Component</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="apiFailed" style="display: none">
+                <div class="form-modal" style="padding-bottom: 40px;">
+                    <div class="header_title">Edit Component</div>
+                    <p class="modal_description">Edit componentof your network. It's quick and easy. If you need any assistance please
+                        <a style="color:#007bff;">contact us</a>.</p>
+                    <div style="color: red;" class="apiMsg">Something went wrong !</div>
+                    <p id="editComponentApiErrorMsg" style="color: red;"></p>
+                </div>
+                <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
+                    <div style="position: absolute; top:13%; left:50%; transform: translate(-50%,-50%);" class="">
+                        <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="c('Close click')">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #viewComponent let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <div class="modalForm">
+            <div class="form-modal">
+                <div class="header_title text-center">{{componentRecords.name}}</div>
+                <h2 class="text-center">{{componentRecords.version}}</h2>
+                <h3 class="text-center">{{componentRecords.subVersion}}</h3>
+                <br><br>
+                <h4 class="text-center">Threshold Value</h4>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                  <tr>
+                    <td></td>
+                    <td>WARNING</td>
+                    <td>ALERT</td>
+                    <td>MAX</td>
+                  </tr>
+                  <tr>
+                    <td>VRF</td>
+                    <td>
+                        <span>{{componentRecords.vrfWarnStart}}</span>
+                        <i class="bar"></i>
+                    </td>
+                    <td>
+                        <span>{{componentRecords.vrfWarnEnd}}</span>
+                        <i class="bar"></i>
+                    </td>
+                    <td>
+                        <span>{{componentRecords.vrfMax}}</span>
+                        <i class="bar"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>BGP</td>
+                    <td>
+                          <span>{{componentRecords.bgpPeersWarnStart}}</span>
+                          <i class="bar"></i>
+                      </td>
+                      <td>
+                          <span>{{componentRecords.bgpPeersWarnEnd}}</span>
+                          <i class="bar"></i>
+                      </td>
+                      <td>
+                          <span>{{componentRecords.bgpPeersMax}}</span>
+                          <i class="bar"></i>
+                      </td>
+                  </tr>
+                  <tr>
+                    <td>Vlan</td>
+                    <td>
+                          <span>{{componentRecords.vlanWarnStart}}</span>
+                          <i class="bar"></i>
+                      </td>
+                      <td>
+                          <span>{{componentRecords.vlanWarnEnd}}</span>
+                          <i class="bar"></i>
+                      </td>
+                      <td>
+                          <span>{{componentRecords.vlanMax}}</span>
+                          <i class="bar"></i>
+                      </td>
+                  </tr>
+                  <tr>
+                    <td>Harp</td>
+                    <td>
+                          <span>{{componentRecords.hsrpWarnStart}}</span>
+                          <i class="bar"></i>
+                      </td>
+                      <td>
+                          <span>{{componentRecords.hsrpWarnEnd}}</span>
+                          <i class="bar"></i>
+                      </td>
+                      <td>
+                          <span>{{componentRecords.hsrpMax}}</span>
+                          <i class="bar"></i>
+                      </td>
+                  </tr>
+                  <tr>
+                    <td>Static Router</td>
+                    <td>
+                          <span>{{componentRecords.staticRoutesWarnStart}}</span>
+                          <i class="bar"></i>
+                      </td>
+                      <td>
+                          <span>{{componentRecords.staticRoutesWarnEnd}}</span>
+                          <i class="bar"></i>
+                      </td>
+                      <td>
+                          <span>{{componentRecords.staticRoutesMax}}</span>
+                          <i class="bar"></i>
+                      </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-md-12 form-modal">
+                    <div class="row">
+                        <div class="offset-md-1 col-md-5 pull-left modal-buttons">
+                            <button id='closeViewComponentModal' type="button" class="btn btn-default btn-edit btn-edit-cancel" (click)="c('Close click')">Cancel</button>
+                        </div>
+                        <div class="col-md-5 pull-left modal-buttons" style="text-align: right;">
+                            <button type="button" class="btn btn-primary btn-edit btn-edit-save" (click)="openComponentModalNew(editComponent,currentRow,'edit', currentDCNew, true)">Edit</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
 </ng-template>

@@ -1,3 +1,6 @@
+@import url("../../assets/bootzard/css/form-elements.css");
+@import url("../../assets/bootzard/css/style.css");
+
 .data-center {
     color: #3b4147;
     font-size: 15px;
@@ -187,6 +190,82 @@ and (max-device-width : 575px) {
     padding-bottom: 5px;
   }
 }
+
+/* Modal popup Add Component */
+.header_title {
+    text-align:left;
+    font-size: 38px;
+    font-weight: bold;
+    color: #3d4657;
+}
+.top-content {
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+}
+.container {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+}
+.form-box {
+  padding-top: 0px !important;
+}
+.modal-text-p {
+  color: #808080;
+  text-align: center;
+	font-family: "Open Sans", Bold;
+	font-size: 15px;
+  padding-top: 12px;
+}
+.modal-text-h3 {
+  color: #808080;
+  text-align: center;
+  font-weight: 400;
+  text-transform: unset !important;
+  padding-bottom: 75px;
+  padding-top: 75px;
+}
+.form-group-small {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  width: 50px !important;
+}
+.modal-table tr td {
+  color: #808080;
+	font-family: "Open Sans", Bold;
+  font-size: 12px;
+  font-weight: 400;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  vertical-align: bottom;
+  border-top: unset;
+}
+.modal-table-responsive {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.btn-add-data {
+  height: 34px !important;
+  border-radius: 2px !important;
+  font-weight: 600 !important;
+  border: 1px solid transparent !important;
+  padding: 8px 14px !important;
+  line-height: 16px !important;
+  font-size: 11px !important;
+  font-family: 'Open Sans' !important;
+}
+.f1-step .f1-step-icon .fa {
+  display: none;
+}
+.activated .f1-step-icon .fa {
+  display: inline-block !important;
+}
+.active .f1-step-icon .fa {
+  display: inline-block !important;
+}
+/* Modal popup Add Component Ednd */
 
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 body,
@@ -619,4 +698,46 @@ fieldset {
 .apiMsg {
   font-size: 20px;
   font-weight: bold;
+}
+
+.table td {
+  border-top: unset;
+}
+
+.form-box {
+  padding-top: 0px !important;
+}
+.modal-text-p {
+  color: #808080;
+  text-align: center;
+	font-family: "Open Sans", Bold;
+	font-size: 15px;
+  padding-top: 12px;
+}
+.modal-text-h3 {
+  color: #808080;
+  text-align: center;
+  font-weight: 400;
+  text-transform: unset !important;
+  padding-bottom: 75px;
+  padding-top: 75px;
+}
+.form-group-small {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  width: 50px !important;
+  /* margin-right: 50px !important; */
+}
+.modal-table tr td {
+  color: #808080;
+	font-family: "Open Sans", Bold;
+  font-size: 12px;
+  font-weight: 400;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  vertical-align: bottom;
+}
+
+.frmGrpInput{
+  text-align: center;
 }

@@ -6,6 +6,7 @@
         "getProvisioningListUrl": "/assets/webservices/dataCenterList.php",
         "addDataCenterUrl": "/assets/webservices/addDataCenter.php",
 		"editDataCenterUrl": "/assets/webservices/editDataCenter.php",
-		"deleteDataCenterUrl": "/assets/webservices/deleteDataCenter.php"
+		"deleteDataCenterUrl": "/assets/webservices/deleteDataCenter.php",
+        "editComponentUrl": "/assets/webservices/editComponentUrl.php"
     }
 ]
