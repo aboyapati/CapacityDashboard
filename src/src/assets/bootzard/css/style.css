@@ -116,18 +116,18 @@ ul.navbar-nav {
 	-moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;
 }
 .f1-step.activated .f1-step-icon {
-	background: #7bbf6a; border: 1px solid #7bbf6a; color: #fff; line-height: 38px;
+	background: #7bbf6a !important; border: 1px solid #7bbf6a !important; color: #fff; line-height: 38px;
 }
 .f1-step.active .f1-step-icon {
-	width: 48px; height: 48px; margin-top: 0; background: #7bbf6a; font-size: 22px; line-height: 48px;
+	width: 48px; height: 48px; margin-top: 0; background: #7bbf6a !important; border: 1px solid #7bbf6a !important; font-size: 22px; line-height: 48px;
 }
 .f1-step.next .f1-step-icon {
-	width: 48px; height: 48px; margin-top: 0; background: #8ebcff; font-size: 22px; line-height: 48px;
+	width: 48px; height: 48px; margin-top: 0; background: #8ebcff; border: 1px solid #8ebcff; font-size: 22px; line-height: 48px;
 }
 
 .f1-step p { color: #808080; }
-.f1-step.activated p { color: #7bbf6a; }
-.f1-step.active p { color: #7bbf6a; }
+.f1-step.activated p { color: #7bbf6a !important; }
+.f1-step.active p { color: #7bbf6a !important; }
 .f1-step.next p { color: #8ebcff; }
 
 .f1 fieldset { display: none; text-align: left; }
