@@ -23,7 +23,7 @@ export class ProvisioningComponent implements OnInit {
   city: string = '';
   timezone: string = 'Time zone*';
 
-  apiError:number = 1;
+  apiError: number = 1;
   userId: number;
   comName: string;
   dataCenterId: number;
@@ -47,14 +47,14 @@ export class ProvisioningComponent implements OnInit {
   vlanWarnStart: string;
   vlanWarnEnd: string;
   vlanMax: string;
-  
+
   hsrpWarnStart: string;
   hsrpWarnEnd: string;
   hsrpMax: string;
-  
+
   staticRoutesWarnStart: string;
-  staticRoutesWarnEnd: string;  
-  staticRoutesMax: string; 
+  staticRoutesWarnEnd: string;
+  staticRoutesMax: string;
 
   vrrpWarnStart: string;
   vrrpWarnEnd: string;
@@ -135,10 +135,15 @@ export class ProvisioningComponent implements OnInit {
       this.deleteData = this.dataCentersDetails[id];
       this.componentRecords = this.dataCentersDetails[id];
       this.currentRow = id;
-      if(editFromView == true){
+      if (editFromView == true) {
         $('#closeViewComponentModal').trigger('click');
       }
     }
+
+    if (type == 'view') {
+      $('#editComponentSuccessClose').trigger('click');
+    }
+
     this.modalService.open(content, { windowClass: 'custom_modal', size: 'lg' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -169,7 +174,7 @@ export class ProvisioningComponent implements OnInit {
   next(event) {
     var next_step = true;
 
-    if(next_step) {
+    if (next_step) {
       var fieldSet = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
       $(fieldSet).fadeOut(400, () => { });
       $(".f1-step.active").removeClass('active').addClass('activated').next().removeClass('next').addClass('active').next().addClass('next');
@@ -180,15 +185,15 @@ export class ProvisioningComponent implements OnInit {
   previous(event) {
     var next_step = true;
 
-    if(next_step) {
+    if (next_step) {
       var fieldSet = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
       $(fieldSet).fadeOut(400, () => { });
       $(".f1-step.active").removeClass('active').addClass('activated').prev().addClass('active');
       $(fieldSet).prev().fadeIn(400, () => { });
     }
   }
-  
-    editComponentClick(i) {
+
+  editComponentClick(i) {
     this.currentDCNew = i;
     for (let j = 0; j < this.dataCentersDetails.length; j++) {
       if (j == i) {
@@ -263,57 +268,16 @@ export class ProvisioningComponent implements OnInit {
       }, 100);
     }
   }
-  
-  addComponent() { 
 
-    $.ajax({
-      url: 'http://rishadkv.com/addDataCenter.php',
-      type: 'post',
-      data: {
-        userId: 1,
-        name: this.comName,
-        dataCenterId: this.currentDC,
-        type: '',
-        ipAddress: '',
-        version: this.ComVersion,
-        subVersion: this.ComSubVersion,
-        componentUser: this.componentUser,
-        password: this.password,
-        enablePassword: '',
+  addComponent() {
 
-        vrfWarnStart: this.vrfWarnStart,
-        vrfWarnEnd: this.vrfWarnEnd,
-        vrfMax: this.vrfMax,
-
-        bgpPeersWarnStart: this.bgpPeersWarnStart,
-        bgpPeersWarnEnd: this.bgpPeersWarnEnd,
-        bgpPeersMax: this.bgpPeersMax,
-
-        vlanWarnStart: this.vlanWarnStart,
-        vlanWarnEnd: this.vlanWarnEnd,
-        vlanMax: this.vlanMax,
-        
-        hsrpWarnStart: this.hsrpWarnStart,
-        hsrpWarnEnd: this.hsrpWarnEnd,
-        hsrpMax: this.hsrpMax,
-        
-        staticRoutesWarnStart: this.staticRoutesWarnStart,
-        staticRoutesWarnEnd: this.staticRoutesWarnEnd,
-        staticRoutesMax: this.staticRoutesMax,
-
-        vrrpWarnStart: '',
-        vrrpWarnEnd: '',
-        vrrpMax: '',
-      },
-      success: function (data) {
-        this.apiError = 1;
-      },
-      error: function () {
-        this.apiError = 1;
+    this.config.componentAdd(1, this.comName, this.currentDC, '', '', this.ComVersion, this.ComSubVersion, this.componentUser, this.password, '', this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, '', '', '').subscribe(res => {
+      if (res.status == 'success') {
+        this.provisioningList();
       }
     });
   }
-  
+
   validateEditComponent(e) {
     var flag = false;
     if ($('#editComponentName').val() == '') {
@@ -518,7 +482,7 @@ export class ProvisioningComponent implements OnInit {
       this.config.getProvisioningList().subscribe(res => {
         this.dataCenters = res;
         this.dataCentersDetails = this.dataCenters[0].components;
-	this.currentDC = this.dataCenters[0]['id'];
+        this.currentDC = this.dataCenters[0]['id'];
       });
     }, 100);
   }
@@ -590,27 +554,27 @@ export class ProvisioningComponent implements OnInit {
           $('.modalForm').hide();
           $('.apiResponseDiv').show();
           var sucflag = false;
-		  if(res.status == 'success') {
+          if (res.status == 'success') {
             $('.apiFailed').hide();
             $('.apiSuccess').show();
-			sucflag =true;
+            sucflag = true;
           } else {
             $('#apiErrorMsg').html(res.message);
             $('.apiSuccess').hide();
             $('.apiFailed').show();
           }
 
-		  if(sucflag != false) {
-			  this.dataCenters.push({
-				id: res.id,
-				name: this.name,
-				country: this.country,
-				state: this.state,
-				city: this.city,
-				time_zone: this.timezone,
-				components: ''
-			  });
-		  }
+          if (sucflag != false) {
+            this.dataCenters.push({
+              id: res.id,
+              name: this.name,
+              country: this.country,
+              state: this.state,
+              city: this.city,
+              time_zone: this.timezone,
+              components: ''
+            });
+          }
         });
       }, 100);
     }
@@ -641,32 +605,22 @@ export class ProvisioningComponent implements OnInit {
   }
 
   deleteComponentData(id) {
-
-    var componentFlag = false;
-    $.ajax({
-      url: 'assets/webservices/deleteComponent.php',
-      type: 'post',
-      data: {
-        id: id
-      },
-      success: function (data) {
-
-        data = JSON.parse(data);
-        $('.componentDeleteModal').hide();
-        $('.apiResponseDivComponent').show();
-        if (data.status == 'success') {
-          componentFlag = true;
-          $('.apiSuccess').show();
-        } else {
-          $('#apiErrorMsgComponent').html(data.message);
-          $('.apiSuccess').hide();
-          $('.apiFailed').show();
-        }
+    this.config.componentDelete(1, id).subscribe(res => {
+      let componentFlag = false;
+      $('.componentDeleteModal').hide();
+      $('.apiResponseDivComponent').show();
+      if (res.status == 'success') {
+        componentFlag = true;
+        $('.apiSuccess').show();
+      } else {
+        $('#apiErrorMsgComponent').html(res.message);
+        $('.apiSuccess').hide();
+        $('.apiFailed').show();
+      }
+      if (componentFlag = true) {
+        this.dataCentersDetails.splice(this.newDeleteDataIndex, 1);
       }
     });
-    if (componentFlag = true) {
-      this.dataCentersDetails.splice(this.newDeleteDataIndex, 1);
-    }
   }
 
 }

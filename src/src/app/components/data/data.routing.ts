@@ -10,7 +10,7 @@ export const DataRoutes: Routes = [
         },
         children: [
             {
-                path: 'datacenter',
+                path: 'datacenter/:dataCenterId',
                 component: DatacenterComponent,
                 data: {
                     breadcrumb: 'Datacenter page',

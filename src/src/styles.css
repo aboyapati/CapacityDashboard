@@ -26205,4 +26205,8 @@ body.menu-bottom .navbar-wrapper {
   overflow: visible !important;
 }
 
+.sub_component_modal {
+	top:70px;
+}
+
 /*# sourceMappingURL=style.css.map */

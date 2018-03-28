@@ -7,6 +7,13 @@
         "addDataCenterUrl": "/assets/webservices/addDataCenter.php",
 		"editDataCenterUrl": "/assets/webservices/editDataCenter.php",
 		"deleteDataCenterUrl": "/assets/webservices/deleteDataCenter.php",
-        "editComponentUrl": "/assets/webservices/editComponentUrl.php"
+        "editComponentUrl": "/assets/webservices/editComponentUrl.php",
+	    "componentAddUrl": "/assets/webservices/componentAddUrl.php",
+        "componentDeleteUrl": "/assets/webservices/componentDeleteUrl.php",
+        "leftNavDetailUrl": "/assets/webservices/leftNavDetails.php",
+        "getComponentListUrl": "/assets/webservices/getComponentListUrl.php",
+        "getSubComponentListUrl": "/assets/webservices/getSubComponentListUrl.php",
+        "getsubComponentPopUpUrl": "/assets/webservices/getsubComponentPopUpUrl.php",
+        "getVcenterDataUrl": "/assets/webservices/getVcenterData.php"
     }
 ]

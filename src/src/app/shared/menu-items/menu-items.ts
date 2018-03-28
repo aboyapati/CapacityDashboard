@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ConfigService } from '../../config.service';
 
 export interface BadgeItem {
   type: string;
@@ -10,7 +11,7 @@ export interface ChildrenItems {
   target?: boolean;
   name: string;
   type?: string;
-  img:string;
+  img: string;
   children?: ChildrenItems[];
 }
 
@@ -50,24 +51,7 @@ const MENUITEMS = [
         name: 'DATA CENTERS',
         type: 'sub',
         icon: 'ti-world',
-        children: [
-          {
-            state: 'datacenter',
-            name: 'Data Center ZETA',
-            img:'assets/images/fa-exclamation.png'
-
-          },
-          {
-            state: 'datacenter',
-            name: 'Data Center 2',
-            img:'assets/images/status-green.png'
-          },
-          {
-            state: 'datacenter',
-            name: 'Data Center 3',
-            img:'assets/images/status-green.png'
-          }
-        ]
+        children: []
       },
       {
         state: 'alert',
@@ -93,7 +77,53 @@ const MENUITEMS = [
 
 @Injectable()
 export class MenuItems {
+
+  dynamicSubMenu: any[];
+  dynamic: any;
+  dd: any;
+
+  constructor(private config: ConfigService) {
+
+    setTimeout(() => {
+      this.config.getLeftNavDetailslist().subscribe(res => {
+        this.dynamic = res;
+        this.dynamicSubMenu = [];
+        for (let i = 0; i < res.length; i++) {
+          if (this.dynamic[i].status == "Bad") {
+            this.dynamicSubMenu.push({
+              'state': 'datacenter/' + this.dynamic[i].id,
+              'name': this.dynamic[i].name,
+              'img': 'assets/images/fa-exclamation.png'
+
+            });
+          }
+          else if (this.dynamic[i].status == "Good") {
+            this.dynamicSubMenu.push({
+              'state': 'datacenter/' + this.dynamic[i].id,
+              'name': this.dynamic[i].name,
+              'img': 'assets/images/status-green.png'
+            });
+          }
+          else if (this.dynamic[i].status == "Alert") {
+            this.dynamicSubMenu.push({
+              'state': 'datacenter/' + this.dynamic[i].id,
+              'name': this.dynamic[i].name,
+              'img': 'assets/images/status-yellow.png'
+            });
+          }
+
+        }
+      });
+    }, 1000);
+
+
+
+  }
+
   getAll(): Menu[] {
+
+    MENUITEMS[0].main[2]['children'] = this.dynamicSubMenu;
+
     return MENUITEMS;
   }
 

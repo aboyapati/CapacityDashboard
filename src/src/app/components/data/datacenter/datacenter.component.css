@@ -1,0 +1,153 @@
+
+.tab-tile:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+}
+.tab-tile {
+    padding: 30px 0px 75px;
+}
+.tab-tile-active {
+    padding: 30px 0px 31px;
+    background-color: #fff; 
+}
+.tab-tile-table {
+    background-color: #fff;
+    padding: 30px;
+}
+.data-center {
+    color: #3b4147;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    padding: 6px 0 4px;
+}
+.data-center-body {
+    color: #73787d;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 1px;
+    font-weight: 600;
+}
+.comp-img-thumbnail {
+    width: 100px;
+    height: 100px;
+    background-color: unset;
+    border: 0px;
+}
+.sub-component {
+    text-align: center;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.sub-component-body {
+    border: 1px solid #e8e8e8;
+    border-radius: .25rem;
+    margin: 15px;
+	cursor:pointer;
+}
+.sub-component-text {
+    color: #73787d;
+    font-size: 13px;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+.sub-component-title {
+	color: #424242;
+}
+.sub-component-text span { 
+    font-size: 22px;
+    color: #424242;
+}
+.ti-arrow-circle-right:before
+{
+    content: "\E65D";
+    font-size: 24px;
+    font-weight: bold;
+}
+.ti-arrow-circle-left:before{
+    content: "\E65E";
+    font-size: 24px;
+    font-weight: bold;
+}
+.ti-control-record:before{
+    content: "\E724";
+    font-weight: bold;
+    font-size: 15px;
+}
+.subComChartimg {
+    width: 100%;
+}
+.chartdiv {
+    width: 100%;
+    height: 250px;
+}
+#speedochartdiv {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}	
+#speedochartdiv1 {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}	
+#speedochartdiv2 {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}		
+#speedochartpopup {
+	width		: 100%;
+	height		: 500px;
+	font-size	: 11px;
+}	
+.rsddropdown-span {
+    cursor:pointer;
+    color:#b0bec5;
+    font-size:20px;
+}	
+.rsddropdown {
+    text-align: right;
+    padding-right: 15px;
+    height: 15px;
+}
+.rsddropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 10%;
+    border-radius: 6px;
+    border: 1px solid aliceblue;
+    cursor: pointer;
+    text-align: left;
+} 
+.rsddropdown-content a {
+    color: #08070799;
+    padding: 5px 12px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+} 
+@media screen and (max-width: 1094px) {
+	.sub-component {
+		flex: 0 0 50%;
+		max-width:50%;
+	}
+}
+@media screen and (max-width: 602px) {
+	.sub-component {
+		flex: 0 0 100%;
+		max-width:100%;
+	}
+}
+@media screen and (max-width: 575px) {
+	.data_center_view {
+		text-align:center;
+		margin-bottom: 10px;
+	}
+}
