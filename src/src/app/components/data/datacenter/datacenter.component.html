@@ -27,7 +27,7 @@
                 <div class="sub-component-body">
                     <p class="sub-component-text sub-component-title">{{subComponent.name}}</p>
                     <div id="chartdiv_{{k+1}}" class="chartdiv"></div>
-                    <p class="sub-component-text"><span>{{subComponent.consumed}}</span> / {{subComponent.total}}</p>
+                    <!--<p class="sub-component-text"><span>{{subComponent.consumed}}</span> / {{subComponent.total}}</p>-->
                 </div>
             </div>
         </div>
@@ -77,10 +77,10 @@
                 <div class="rsddropdown" id="rsddropdown">
                     <span class="rsddropdown-span" (click)="subCoPopupFilter()">...</span>
                     <div id="callMatricsDropdown" class="rsddropdown-content">
-                            <a [style.display]="subComponentPopUpdata.report.length >= 3 ? 'block' : 'none'" (click)="filterSubcoPopup(3)">Last 3 months</a>
-                            <a [style.display]="subComponentPopUpdata.report.length >= 6 ? 'block' : 'none'" (click)="filterSubcoPopup(6)">Last 6 months</a>
-                            <a [style.display]="subComponentPopUpdata.report.length >= 9 ? 'block' : 'none'" (click)="filterSubcoPopup(9)">Last 9 months</a>
-                            <a [style.display]="subComponentPopUpdata.report.length >= 12 ? 'block' : 'none'" (click)="filterSubcoPopup(12)">Last 12 months</a>
+                            <a (click)="filterSubcoPopup(3)">Last 3 months</a>
+                            <a (click)="filterSubcoPopup(6)">Last 6 months</a>
+                            <a (click)="filterSubcoPopup(9)">Last 9 months</a>
+                            <a (click)="filterSubcoPopup(12)">Last 12 months</a>
                     </div>
                 </div>
             </div>

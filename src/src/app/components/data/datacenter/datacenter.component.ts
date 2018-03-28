@@ -107,7 +107,7 @@ export class DatacenterComponent implements OnInit {
       this.subComponentList = res;
       var subCoId = 1;
 	  this.subComponents.forEach(subCo => {
-        this.makeDynamicChart(subCoId++, subCo.status, (subCo.consumed / subCo.total) * 100);
+        this.makeDynamicChart(subCoId++, subCo.status, subCo.consumed, subCo.total, (subCo.consumed / subCo.total) * 100);
       });
     });
 
@@ -366,7 +366,7 @@ export class DatacenterComponent implements OnInit {
     });
   }
 
-  makeDynamicChart(id, status, value) {
+  makeDynamicChart(id, status, consumed, total, value) {
     if (status == 'Good') {
       var color = '#00b300';
     } else if (status == 'Bad') {
@@ -380,7 +380,7 @@ export class DatacenterComponent implements OnInit {
       "hideCredits": true,
       "type": "gauge",
       "axes": [{
-        "topText": value + '%',
+        "topText": consumed + ' / ' + total + ' (' + value + '%' + ')',
         "topTextFontSize": 14,
         "bandOutlineThickness": 10,
         "topTextYOffset": 70,

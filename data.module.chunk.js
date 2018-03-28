@@ -135,7 +135,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/data/datacenter/datacenter.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"components\" class=\"row data_center_view\">\r\n    <div class=\"col-md-4 col-sm-4\" style=\"font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;\">\r\n        onPOINT HCS.Capacity\r\n    </div>\r\n    <div class=\"col-md-8 col-sm-8 slider\" style=\"padding-top:9px;\">\r\n        <span>\r\n            <span *ngFor=\"let c of components; let i = index\">\r\n                <span class=\"icon-name\">&nbsp;</span>\r\n                <span style=\"cursor: pointer;\" (click)=\"componnetScrollClick(i)\" id=\"componentScroll{{i}}\" class=\"ti-control-record\"></span>\r\n            </span>\r\n        </span>\r\n    </div>\r\n</div>\r\n<div *ngIf=\"components\" class=\"row\">\r\n    <ng-container *ngFor=\"let component of components; let j = index\">\r\n        <div [style.display]=\"j>=scrollLimitMin && j<=scrollLimitMax ? 'block' : 'none'\" class=\"col-md-3 col-sm-6 tab-tile\" id=\"cmp_div_{{component.id}}\"\r\n            (click)=\"componnetScrollClick(j,'direct')\">\r\n            <div class=\"data-center-image d-flex justify-content-center\">\r\n                <img bind-src=\"imgUrl\" class=\"comp-img-thumbnail img-thumbnail\">\r\n            </div>\r\n            <p class=\"data-center\">{{component.name}}</p>\r\n        </div>\r\n    </ng-container>\r\n    <div *ngIf=\"subComponents!=''\" class=\"col-md-12 tab-tile-table table-responsive\">\r\n        <div class=\"row\">\r\n            <div *ngFor=\"let subComponent of subComponents; let k = index\" class=\"col-md-4 col-sm-6 sub-component\" (click)=\"open(subComponentChart,k)\">\r\n                <div class=\"sub-component-body\">\r\n                    <p class=\"sub-component-text sub-component-title\">{{subComponent.name}}</p>\r\n                    <div id=\"chartdiv_{{k+1}}\" class=\"chartdiv\"></div>\r\n                    <p class=\"sub-component-text\"><span>{{subComponent.consumed}}</span> / {{subComponent.total}}</p>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"subComponents!=''\" style=\"display: none;\" id='vcenetrDataDiv'>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>DATASTORE USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv\"></div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>MONTHLY AVERAGE HOST MEMORY USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv2\"></div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>MONTHLY AVERAGE HOST CPU USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv1\"></div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<ng-template #subComponentChart let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-body image-responsive\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-4\">\r\n                <p><b style=\"font-size:18px;padding-left:5%;\">{{popupName}}</b></p>\r\n            </div>\r\n            <div class=\"col-md-8\" style=\"text-align: right;\">\r\n                <div class=\"rsddropdown\" id=\"rsddropdown\">\r\n                    <span class=\"rsddropdown-span\" (click)=\"subCoPopupFilter()\">...</span>\r\n                    <div id=\"callMatricsDropdown\" class=\"rsddropdown-content\">\r\n                            <a [style.display]=\"subComponentPopUpdata.report.length >= 3 ? 'block' : 'none'\" (click)=\"filterSubcoPopup(3)\">Last 3 months</a>\r\n                            <a [style.display]=\"subComponentPopUpdata.report.length >= 6 ? 'block' : 'none'\" (click)=\"filterSubcoPopup(6)\">Last 6 months</a>\r\n                            <a [style.display]=\"subComponentPopUpdata.report.length >= 9 ? 'block' : 'none'\" (click)=\"filterSubcoPopup(9)\">Last 9 months</a>\r\n                            <a [style.display]=\"subComponentPopUpdata.report.length >= 12 ? 'block' : 'none'\" (click)=\"filterSubcoPopup(12)\">Last 12 months</a>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div id=\"speedochartpopup\"></div>\r\n    </div>\r\n</ng-template>"
+module.exports = "<div *ngIf=\"components\" class=\"row data_center_view\">\r\n    <div class=\"col-md-4 col-sm-4\" style=\"font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;\">\r\n        onPOINT HCS.Capacity\r\n    </div>\r\n    <div class=\"col-md-8 col-sm-8 slider\" style=\"padding-top:9px;\">\r\n        <span>\r\n            <span *ngFor=\"let c of components; let i = index\">\r\n                <span class=\"icon-name\">&nbsp;</span>\r\n                <span style=\"cursor: pointer;\" (click)=\"componnetScrollClick(i)\" id=\"componentScroll{{i}}\" class=\"ti-control-record\"></span>\r\n            </span>\r\n        </span>\r\n    </div>\r\n</div>\r\n<div *ngIf=\"components\" class=\"row\">\r\n    <ng-container *ngFor=\"let component of components; let j = index\">\r\n        <div [style.display]=\"j>=scrollLimitMin && j<=scrollLimitMax ? 'block' : 'none'\" class=\"col-md-3 col-sm-6 tab-tile\" id=\"cmp_div_{{component.id}}\"\r\n            (click)=\"componnetScrollClick(j,'direct')\">\r\n            <div class=\"data-center-image d-flex justify-content-center\">\r\n                <img bind-src=\"imgUrl\" class=\"comp-img-thumbnail img-thumbnail\">\r\n            </div>\r\n            <p class=\"data-center\">{{component.name}}</p>\r\n        </div>\r\n    </ng-container>\r\n    <div *ngIf=\"subComponents!=''\" class=\"col-md-12 tab-tile-table table-responsive\">\r\n        <div class=\"row\">\r\n            <div *ngFor=\"let subComponent of subComponents; let k = index\" class=\"col-md-4 col-sm-6 sub-component\" (click)=\"open(subComponentChart,k)\">\r\n                <div class=\"sub-component-body\">\r\n                    <p class=\"sub-component-text sub-component-title\">{{subComponent.name}}</p>\r\n                    <div id=\"chartdiv_{{k+1}}\" class=\"chartdiv\"></div>\r\n                    <!--<p class=\"sub-component-text\"><span>{{subComponent.consumed}}</span> / {{subComponent.total}}</p>-->\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"subComponents!=''\" style=\"display: none;\" id='vcenetrDataDiv'>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>DATASTORE USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv\"></div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>MONTHLY AVERAGE HOST MEMORY USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv2\"></div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>MONTHLY AVERAGE HOST CPU USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv1\"></div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<ng-template #subComponentChart let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-body image-responsive\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-4\">\r\n                <p><b style=\"font-size:18px;padding-left:5%;\">{{popupName}}</b></p>\r\n            </div>\r\n            <div class=\"col-md-8\" style=\"text-align: right;\">\r\n                <div class=\"rsddropdown\" id=\"rsddropdown\">\r\n                    <span class=\"rsddropdown-span\" (click)=\"subCoPopupFilter()\">...</span>\r\n                    <div id=\"callMatricsDropdown\" class=\"rsddropdown-content\">\r\n                            <a (click)=\"filterSubcoPopup(3)\">Last 3 months</a>\r\n                            <a (click)=\"filterSubcoPopup(6)\">Last 6 months</a>\r\n                            <a (click)=\"filterSubcoPopup(9)\">Last 9 months</a>\r\n                            <a (click)=\"filterSubcoPopup(12)\">Last 12 months</a>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div id=\"speedochartpopup\"></div>\r\n    </div>\r\n</ng-template>"
 
 /***/ }),
 
@@ -184,8 +184,8 @@ var DatacenterComponent = (function () {
             _this.dataCenterId = params['dataCenterId'];
             _this.userId = 1;
             setTimeout(function () {
-                _this.config.getComponentList(_this.dataCenterId).subscribe(function (res) {
-                    _this.components = res.components;
+                _this.config.getComponentList(_this.dataCenterId).subscribe(function (res_comp) {
+                    _this.components = res_comp.components;
                     _this.subComponents = [];
                     if (_this.subComponentCounter == 0) {
                         _this.subComponentCounter = 1;
@@ -217,9 +217,9 @@ var DatacenterComponent = (function () {
     };
     DatacenterComponent.prototype.subComponentPopUp = function () {
         var _this = this;
-        this.config.getsubComponentPopUp(this.popUptypeId, this.popUpsubComponentName).subscribe(function (res) {
-            _this.subComponentPopUpdata = res;
-            _this.subComponentModal(res);
+        this.config.getsubComponentPopUp(this.popUptypeId, this.popUpsubComponentName).subscribe(function (res_pop) {
+            _this.subComponentPopUpdata = res_pop;
+            _this.subComponentModal(res_pop);
         });
     };
     DatacenterComponent.prototype.componentClick = function () {
@@ -233,19 +233,19 @@ var DatacenterComponent = (function () {
     };
     DatacenterComponent.prototype.setSubComData = function () {
         var _this = this;
-        this.config.getSubComponentList(this.selectedComponentId, this.selectedComponentType).subscribe(function (res) {
-            _this.subComponentList = res;
+        this.config.getSubComponentList(this.selectedComponentId, this.selectedComponentType).subscribe(function (res_sub_co) {
+            _this.subComponentList = res_sub_co;
             var subCoId = 1;
             _this.subComponents.forEach(function (subCo) {
-                _this.makeDynamicChart(subCoId++, subCo.status, (subCo.consumed / subCo.total) * 100);
+                _this.makeDynamicChart(subCoId++, subCo.status, subCo.consumed, subCo.total, (subCo.consumed / subCo.total) * 100);
             });
         });
         this.subComponents = this.subComponentList.subcomponents;
         if (this.selectedComponentType.toLowerCase() == 'vcenter') {
-            this.config.getVcenterData(this.selectedComponentId).subscribe(function (res) {
-                _this.dataUsagePercentageChart1(res.datastore);
-                _this.dataUsagePercentageChart3(res.host_memory);
-                _this.dataUsagePercentageChart2(res.host_cpu);
+            this.config.getVcenterData(this.selectedComponentId).subscribe(function (res_v) {
+                _this.dataUsagePercentageChart1(res_v.datastore);
+                _this.dataUsagePercentageChart3(res_v.host_memory);
+                _this.dataUsagePercentageChart2(res_v.host_cpu);
                 $('#vcenetrDataDiv').show();
             });
         }
@@ -472,7 +472,7 @@ var DatacenterComponent = (function () {
             }
         });
     };
-    DatacenterComponent.prototype.makeDynamicChart = function (id, status, value) {
+    DatacenterComponent.prototype.makeDynamicChart = function (id, status, consumed, total, value) {
         if (status == 'Good') {
             var color = '#00b300';
         }
@@ -487,7 +487,7 @@ var DatacenterComponent = (function () {
             "hideCredits": true,
             "type": "gauge",
             "axes": [{
-                    "topText": value + '%',
+                    "topText": consumed + ' / ' + total + ' (' + value + '%' + ')',
                     "topTextFontSize": 14,
                     "bandOutlineThickness": 10,
                     "topTextYOffset": 70,
