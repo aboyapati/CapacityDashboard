@@ -22,6 +22,7 @@ export class ProvisioningComponent implements OnInit {
   state: string = '';
   city: string = '';
   timezone: string = 'Time zone*';
+  activeDC: boolean = false;
 
   apiError: number = 1;
   userId: number;
@@ -92,6 +93,11 @@ export class ProvisioningComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  hide(id) {
+    $('.cred' + id).show();
+    $('.span' + id).hide();
   }
 
   deleteDC() {
@@ -241,13 +247,14 @@ export class ProvisioningComponent implements OnInit {
     if (flag != true) {
 
       let editName = $('#editDataCenterName').val();
+      let editId = $('#editDataCenterId').val();
       let editCountry = $('#editDataCenterCountry').val();
       let editState = $('#editDataCenterState').val();
       let editCity = $('#editDataCenterCity').val();
       let editTimezone = $('#editDataCenterTimezone').val();
 
       setTimeout(() => {
-        this.config.editDataCenter('1', editName, editCountry, editState, editCity, editTimezone).subscribe(res => {
+        this.config.editDataCenter('1', editId, editName, editCountry, editState, editCity, editTimezone).subscribe(res => {
           $('.modalForm').hide();
           $('.apiResponseDiv').show();
           if (res.status == 'success') {
@@ -454,7 +461,7 @@ export class ProvisioningComponent implements OnInit {
             $('.apiFailed').hide();
             $('.apiSuccess').show();
           } else {
-            $('#editApiErrorMsg').html(res.message);
+            $('#editComponentApiErrorMsg').html(res.message);
             $('.apiSuccess').hide();
             $('.apiFailed').show();
           }
@@ -565,6 +572,7 @@ export class ProvisioningComponent implements OnInit {
           }
 
           if (sucflag != false) {
+            this.activeDC = true;
             this.dataCenters.push({
               id: res.id,
               name: this.name,

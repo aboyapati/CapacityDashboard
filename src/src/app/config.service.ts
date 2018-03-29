@@ -84,10 +84,10 @@ export class ConfigService {
     return this.http.post(this.addDataCenterUrl, body, options).map((res: Response) => res.json());
   }
 
-  editDataCenter(userId, name, country, state, city, timezone) {
+  editDataCenter(userId, id, name, country, state, city, timezone) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'userId=' + userId + '&name=' + name + '&country=' + country + '&state=' + state + '&city=' + city + '&timezone=' + timezone;
+    let body = 'userId=' + userId + '&id=' + id + '&name=' + name + '&country=' + country + '&state=' + state + '&city=' + city + '&timezone=' + timezone;
     return this.http.post(this.editDataCenterUrl, body, options).map((res: Response) => res.json());
   }
 

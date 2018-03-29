@@ -49,8 +49,8 @@ export class DatacenterComponent implements OnInit {
       this.dataCenterId = params['dataCenterId'];
       this.userId = 1;
       setTimeout(() => {
-        this.config.getComponentList(this.dataCenterId).subscribe(res => {
-          this.components = res.components;
+        this.config.getComponentList(this.dataCenterId).subscribe(res_comp => {
+          this.components = res_comp.components;
           this.subComponents = [];
           if (this.subComponentCounter == 0) {
             this.subComponentCounter = 1;
@@ -84,9 +84,9 @@ export class DatacenterComponent implements OnInit {
   }
 
   subComponentPopUp() {
-    this.config.getsubComponentPopUp(this.popUptypeId, this.popUpsubComponentName).subscribe(res => {
-      this.subComponentPopUpdata = res;
-      this.subComponentModal(res);
+    this.config.getsubComponentPopUp(this.popUptypeId, this.popUpsubComponentName).subscribe(res_pop => {
+      this.subComponentPopUpdata = res_pop;
+      this.subComponentModal(res_pop);
     });
   }
 
@@ -103,8 +103,8 @@ export class DatacenterComponent implements OnInit {
 
   setSubComData() {
 
-    this.config.getSubComponentList(this.selectedComponentId, this.selectedComponentType).subscribe(res => {
-      this.subComponentList = res;
+    this.config.getSubComponentList(this.selectedComponentId, this.selectedComponentType).subscribe(res_sub_co => {
+      this.subComponentList = res_sub_co;
       var subCoId = 1;
 	  this.subComponents.forEach(subCo => {
         this.makeDynamicChart(subCoId++, subCo.status, subCo.consumed, subCo.total, (subCo.consumed / subCo.total) * 100);
@@ -114,10 +114,10 @@ export class DatacenterComponent implements OnInit {
     this.subComponents = this.subComponentList.subcomponents;
 
     if (this.selectedComponentType.toLowerCase() == 'vcenter') {
-      this.config.getVcenterData(this.selectedComponentId).subscribe(res => {
-        this.dataUsagePercentageChart1(res.datastore);
-        this.dataUsagePercentageChart3(res.host_memory);
-        this.dataUsagePercentageChart2(res.host_cpu);
+      this.config.getVcenterData(this.selectedComponentId).subscribe(res_v => {
+        this.dataUsagePercentageChart1(res_v.datastore);
+        this.dataUsagePercentageChart3(res_v.host_memory);
+        this.dataUsagePercentageChart2(res_v.host_cpu);
         $('#vcenetrDataDiv').show();
       });
     } else {

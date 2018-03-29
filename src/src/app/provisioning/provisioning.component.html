@@ -14,9 +14,9 @@
     <button (click)="moveRight()" class="btn btn-primary btn-sm btn-right" style="display: none;">
         <i class="fa fa-arrow-right"></i>
     </button>
-    <div *ngFor="let dataCenter of dataCenters, let i = index" class="col-md-3 col-sm-6 tab-tile {{ i==0 ? 'tab-tile-active' : ''}}"
+    <div *ngFor="let dataCenter of dataCenters, let i = index" class="col-md-3 col-sm-6 tab-tile {{ (i== (activeDC ? (dataCenters.length - 1) : 0)) ? 'tab-tile-active' : ''}}"
         id="{{i}}" (click)="dataCenterClick(i)">
-        <div *ngIf="i==0; then thenDiv;else elseDiv">
+        <div *ngIf="((i== (activeDC ? (dataCenters.length - 1) : 0))); then thenDiv;else elseDiv">
         </div>
         <ng-template #thenDiv>
             <div class="rsddropdown" id="rsddropdown{{i}}">
@@ -349,7 +349,9 @@
                     <td>{{ data.subVersion }}</td>
                     <td>{{ data.ipAddress }}</td>
                     <td class="text-center">
-                        <span style="color: #0056b3;cursor: pointer;">View</span>
+                        <span (click)="hide(j)" class="span{{j}}" style="color: #0056b3;cursor: pointer;">View</span>
+						<p class="cred cred{{j}}" style="display:none">Username : {{data.componentUser}}<br>
+						Password : {{data.password}}</p>
                     </td>
                     <td>
 
@@ -468,6 +470,7 @@
             </div>
             <form>
                 <div class="form-modal" style="padding-top: 0;">
+                        <input id="editDataCenterId" type="hidden" value="{{editData.id}}" />
                     <div class="form-group" style="margin-top: 0;">
                         <input id="editDataCenterName" type="text" required="required" value="{{editData.name}}" />
                         <label class="control-label" for="input">Data center name*</label>
@@ -823,10 +826,7 @@
             </div>
             <div class="apiFailed" style="display: none">
                 <div class="form-modal" style="padding-bottom: 40px;">
-                    <div class="header_title">Edit Component</div>
-                    <p class="modal_description">Edit componentof your network. It's quick and easy. If you need any assistance please
-                        <a style="color:#007bff;">contact us</a>.</p>
-                    <div style="color: red;" class="apiMsg">Something went wrong !</div>
+                    <div class="header_title" style="font-size: 30px;font-weight: normal;text-align: center;">Something went wrong !</div>
                     <p id="editComponentApiErrorMsg" style="color: red;"></p>
                 </div>
                 <div class="col-md-12 form-modal" style="padding-bottom: 30px;">

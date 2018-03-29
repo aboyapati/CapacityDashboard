@@ -335,10 +335,10 @@ var ConfigService = (function () {
         var body = 'userId=' + userId + '&name=' + name + '&country=' + country + '&state=' + state + '&city=' + city + '&timezone=' + timezone;
         return this.http.post(this.addDataCenterUrl, body, options).map(function (res) { return res.json(); });
     };
-    ConfigService.prototype.editDataCenter = function (userId, name, country, state, city, timezone) {
+    ConfigService.prototype.editDataCenter = function (userId, id, name, country, state, city, timezone) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        var body = 'userId=' + userId + '&name=' + name + '&country=' + country + '&state=' + state + '&city=' + city + '&timezone=' + timezone;
+        var body = 'userId=' + userId + '&id=' + id + '&name=' + name + '&country=' + country + '&state=' + state + '&city=' + city + '&timezone=' + timezone;
         return this.http.post(this.editDataCenterUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.deleteDataCenter = function (userId, id) {
