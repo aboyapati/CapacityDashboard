@@ -15,6 +15,7 @@ export class ConfigService {
   deleteDataCenterUrl: any;
   editComponentUrl: any;
   componentAddUrl: any;
+  getSubtypesUrl: any;
   componentDeleteUrl: any;
   countryUrl: any;
   leftNavDetailUrl: any;
@@ -22,6 +23,8 @@ export class ConfigService {
   getSubComponentListUrl: any;
   getsubComponentPopUpUrl: any;
   getVcenterDataUrl: any;
+  getDataCenterComponentsUrl: any;
+  getDataCenterComponentRecordsUrl: any;
 
   constructor(private http: Http) {
     this.http.get('assets/config.json')
@@ -35,6 +38,7 @@ export class ConfigService {
         this.deleteDataCenterUrl = this.BASE_URL + result[0].deleteDataCenterUrl;
         this.editComponentUrl = this.BASE_URL + result[0].editComponentUrl;
         this.componentAddUrl = this.BASE_URL + result[0].componentAddUrl;
+        this.getSubtypesUrl = this.BASE_URL + result[0].getSubtypesUrl;
         this.componentDeleteUrl = this.BASE_URL + result[0].componentDeleteUrl;
         this.countryUrl = this.BASE_URL + result[0].countryUrl;
         this.leftNavDetailUrl = this.BASE_URL + result[0].leftNavDetailUrl;
@@ -42,6 +46,8 @@ export class ConfigService {
         this.getSubComponentListUrl = this.BASE_URL + result[0].getSubComponentListUrl;
         this.getsubComponentPopUpUrl = this.BASE_URL + result[0].getsubComponentPopUpUrl;
         this.getVcenterDataUrl = this.BASE_URL + result[0].getVcenterDataUrl;
+        this.getDataCenterComponentsUrl = this.BASE_URL + result[0].getDataCenterComponentsUrl;
+        this.getDataCenterComponentRecordsUrl = this.BASE_URL + result[0].getDataCenterComponentRecordsUrl;
       });
   }
 
@@ -98,10 +104,10 @@ export class ConfigService {
     return this.http.post(this.deleteDataCenterUrl, body, options).map((res: Response) => res.json());
   }
 
-  editComponent(userId, name, version, subVersion, ipAddress, componentUser, password, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax) {
+  editComponent(userId, componentId, name, version, subVersion, ipAddress, componentUser, password, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'userId=' + userId + '&name=' + name + '&version=' + version + '&subVersion=' + subVersion + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax;
+    let body = 'userId=' + userId + '&componentId' + componentId + '&name=' + name + '&version=' + version + '&subVersion=' + subVersion + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax;
     return this.http.post(this.editComponentUrl, body, options).map((res: Response) => res.json());
   }
 
@@ -112,10 +118,17 @@ export class ConfigService {
     return this.http.post(this.componentAddUrl, body, options).map((res: Response) => res.json());
   }
 
-  componentDelete(userId, id) {
+  getSubtypes(id) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'userId=' + userId + '&id=' + id;
+    let body = 'typeId=' + id;
+    return this.http.post(this.getSubtypesUrl, body, options).map((res: Response) => res.json());
+  }
+
+  componentDelete(userId, componentId) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'userId=' + userId + '&componentId=' + componentId;
     return this.http.post(this.componentDeleteUrl, body, options).map((res: Response) => res.json());
   }
 
@@ -147,5 +160,20 @@ export class ConfigService {
     return this.http.post(this.getVcenterDataUrl, body, options).map((res: Response) => res.json());
   }
 
+  getDataCenterComponents(id) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'id=' + id;
+    return this.http.post(this.getDataCenterComponentsUrl, body, options).map((res: Response) => res.json());
+  }
+
+  getDataCenterComponentRecords(componentId) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'componentId=' + componentId;
+    return this.http.post(this.getDataCenterComponentRecordsUrl, body, options).map((res: Response) => res.json());
+  }
+
+
   BASE_URL = window.location.protocol + '//' + window.location.hostname;
-}
+}    

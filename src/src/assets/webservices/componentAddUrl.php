@@ -1,6 +1,6 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-$response = '{"status":"success","id":"3","message":""}';
+$response = '{"status":"success","component_id":"1","message":""}';
 echo $response;
 die();
 ?>

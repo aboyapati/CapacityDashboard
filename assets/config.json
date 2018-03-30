@@ -14,6 +14,10 @@
         "getComponentListUrl": "/assets/webservices/getComponentListUrl.php",
         "getSubComponentListUrl": "/assets/webservices/getSubComponentListUrl.php",
         "getsubComponentPopUpUrl": "/assets/webservices/getsubComponentPopUpUrl.php",
-        "getVcenterDataUrl": "/assets/webservices/getVcenterData.php"
+        "getVcenterDataUrl": "/assets/webservices/getVcenterData.php",
+		"getDataCenterComponentsUrl": "/assets/webservices/getComponentListUrl.php",
+		"getDataCenterComponentRecordsUrl": "/assets/webservices/getComponentDetails.php",
+		"getSubtypesUrl": "/assets/webservices/getSubtypesUrl.php",
+		"countryUrl": "/assets/webservices/country.php"
     }
 ]

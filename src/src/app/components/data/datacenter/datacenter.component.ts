@@ -31,7 +31,7 @@ export class DatacenterComponent implements OnInit {
   private scrollLimit: number = 4;
   private scrollLimitMin: number = 0;
   private scrollLimitMax: number = 3;
-  private popupName : string;
+  private popupName: string;
   private subFilterFlag: boolean = false;
   private subComponentCounter: number = 0;
 
@@ -50,7 +50,7 @@ export class DatacenterComponent implements OnInit {
       this.userId = 1;
       setTimeout(() => {
         this.config.getComponentList(this.dataCenterId).subscribe(res_comp => {
-          this.components = res_comp.components;
+          this.components = res_comp;
           this.subComponents = [];
           if (this.subComponentCounter == 0) {
             this.subComponentCounter = 1;
@@ -106,7 +106,7 @@ export class DatacenterComponent implements OnInit {
     this.config.getSubComponentList(this.selectedComponentId, this.selectedComponentType).subscribe(res_sub_co => {
       this.subComponentList = res_sub_co;
       var subCoId = 1;
-	  this.subComponents.forEach(subCo => {
+      this.subComponents.forEach(subCo => {
         this.makeDynamicChart(subCoId++, subCo.status, subCo.consumed, subCo.total, (subCo.consumed / subCo.total) * 100);
       });
     });
@@ -155,7 +155,7 @@ export class DatacenterComponent implements OnInit {
         "lineAlpha": 1,
         "type": "column",
         "valueField": "value",
-        "fillColors":"#089A04",
+        "fillColors": "#089A04",
       }],
       "chartCursor": {
         "categoryBalloonEnabled": false,
@@ -208,7 +208,7 @@ export class DatacenterComponent implements OnInit {
         "gridAlpha": 0.2,
         "dashLength": 0,
         "minimum": 0,
-        "maximum" : 100
+        "maximum": 100
       }],
       "gridAboveGraphs": true,
       "startDuration": 1,
@@ -272,7 +272,7 @@ export class DatacenterComponent implements OnInit {
         "gridAlpha": 0.2,
         "dashLength": 0,
         "minimum": 0,
-        "maximum" : 100
+        "maximum": 100
       }],
       "gridAboveGraphs": true,
       "startDuration": 1,
@@ -337,7 +337,7 @@ export class DatacenterComponent implements OnInit {
         "gridAlpha": 0.2,
         "dashLength": 0,
         "minimum": 0,
-        "maximum" : 100
+        "maximum": 100
       }],
       "gridAboveGraphs": true,
       "startDuration": 1,

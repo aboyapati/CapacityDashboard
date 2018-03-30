@@ -51,6 +51,8 @@ td {
     cursor:pointer;
     color:#b0bec5;
     font-size:20px;
+    padding-left: 15px;
+    padding-bottom: 15px;
 }
 .rsddropdown-content {
     display: none;
@@ -163,9 +165,21 @@ and (max-device-width : 767px) {
     padding-left: 100px !important;
     padding-right: 100px !important;
   }
-  .btn-edit-save {
+  .btn-edit-back {
     padding-left: 107px !important;
     padding-right: 107px !important;
+  }
+  .btn-edit-save {
+    padding-left: 109px !important;
+    padding-right: 109px !important;
+  }
+  .btn-edit-view-component{
+  	padding-left: 69px !important;
+	padding-right: 69px !important;
+  }
+  .btn-delete {
+  	padding-left: 40px !important;
+	padding-right: 40px !important;
   }
 }
 .btn-top-bar {
@@ -255,6 +269,9 @@ and (max-device-width : 575px) {
   line-height: 16px !important;
   font-size: 11px !important;
   font-family: 'Open Sans' !important;
+}
+.activated .f1-step-icon {
+  cursor: pointer;
 }
 .f1-step .f1-step-icon .fa {
   display: none;
@@ -740,4 +757,23 @@ fieldset {
 
 .frmGrpInput{
   text-align: center;
+}
+.cred{
+  display:none;
+}
+
+@media only screen and (max-width: 992px) {
+	.btn_step1 {
+		padding-left:0px;
+		padding-right:0px;
+	}
+	.btn_step2 {
+		padding-left:0px;
+		padding-right:0px;
+	}
+	.outer_step2 {
+		margin-left:0px;
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
 }

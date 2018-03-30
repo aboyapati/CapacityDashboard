@@ -14,7 +14,7 @@ export class ProvisioningComponent implements OnInit {
   callMatricsFilter: boolean = false;
   editComponentFilter: boolean = false;
   dataCenters: Datacenter[];
-  dataCentersDetails: DatacenterDetails[];
+  dataCentersDetails: any;
   apiStatus: boolean = false;
   apiStatusMsg: boolean = false;
   name: string = '';
@@ -22,7 +22,6 @@ export class ProvisioningComponent implements OnInit {
   state: string = '';
   city: string = '';
   timezone: string = 'Time zone*';
-  activeDC: boolean = false;
 
   apiError: number = 1;
   userId: number;
@@ -30,8 +29,8 @@ export class ProvisioningComponent implements OnInit {
   dataCenterId: number;
   type: string;
   ipAddress: string;
-  ComVersion: string;
-  ComSubVersion: string;
+  ComVersion: string = 'Type*';
+  ComSubVersion: string = 'Sub Type';
   componentUser: string;
   password: string;
   enablePassword: string;
@@ -71,12 +70,19 @@ export class ProvisioningComponent implements OnInit {
   componentRecords: any;
   deleteComponentId: number;
   currentDC: number;
-  currentDCNew: number;
   currentRow: number;
   version: string[];
   subversion: string[];
   editFromView: boolean = false;
   newDeleteDataIndex: number;
+  currentDataCenterComponentId: number;
+   subTypes : any;
+  private scrollLimit: number = 4;
+  private scrollLimitMin: number = 0;
+  private scrollLimitMax: number = 3;
+  private selectedDataCenter: number;
+  progressPerc: any;
+  next_step: boolean;
 
   constructor(private modalService: NgbModal, private config: ConfigService) { }
 
@@ -86,10 +92,19 @@ export class ProvisioningComponent implements OnInit {
       this.editIdIndex = id;
       this.editId = this.dataCenters[this.editIdIndex].id;
       this.editData = this.dataCenters[id];
+      this.callMatricsFilter = false;
+      $('#callMatricsDropdown' + id).hide();
     }
 
-    this.modalService.open(content, { windowClass: 'custom_modal' }).result.then((result) => {
+    this.modalService.open(content, { windowClass: 'custom_modal', backdrop : 'static' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
+      if (type == 'add' && this.closeResult == 'Closed with: Close click') {
+        this.name = '';
+        this.country = 'Country*';
+        this.state = '';
+        this.city = '';
+        this.timezone = 'Time zone*';
+      }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -106,8 +121,6 @@ export class ProvisioningComponent implements OnInit {
       $('.apiResponseDiv').show();
       if (res.status == 'success') {
         this.provisioningList();
-        //this.dataCenters.splice(this.editIdIndex, 1);
-        //this.dataCentersDetails = this.dataCenters[this.editIdIndex].components;
         $('.apiFailed').hide();
         $('.apiSuccess').show();
       } else {
@@ -119,8 +132,23 @@ export class ProvisioningComponent implements OnInit {
   }
 
   openComponentModal(content) {
-    this.modalService.open(content, { windowClass: 'custom_modal', size: 'lg' }).result.then((result) => {
+    this.modalService.open(content, { windowClass: 'custom_modal', size: 'lg', backdrop : 'static' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
+      if (this.closeResult == 'Closed with: Close click') {
+        this.comName = '';
+        this.ComVersion = 'Type*';
+        this.ComSubVersion = 'Sub Type';
+        this.componentUser = '';
+        this.password = '';
+	this.ipAddress = '';
+	this.enablePassword = '';
+
+        this.vrfWarnStart = ''; this.vrfWarnEnd = ''; this.vrfMax = '';
+        this.bgpPeersWarnStart = ''; this.bgpPeersWarnEnd = ''; this.bgpPeersMax = '';
+        this.vlanWarnStart = ''; this.vlanWarnEnd = ''; this.vlanMax = '';
+        this.hsrpWarnStart = ''; this.hsrpWarnEnd = ''; this.hsrpMax = '';
+        this.staticRoutesWarnStart = ''; this.staticRoutesWarnEnd = ''; this.staticRoutesMax = '';
+      }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -136,10 +164,13 @@ export class ProvisioningComponent implements OnInit {
     $('#editComponentDropdown' + id).hide();
     this.newDeleteDataIndex = id;
 
-    this.currentDCNew = currentdatacenter;
     if (type == 'delete' || type == 'edit' || 'view') {
       this.deleteData = this.dataCentersDetails[id];
-      this.componentRecords = this.dataCentersDetails[id];
+      this.currentDataCenterComponentId = this.dataCentersDetails[id].id;
+      this.componentRecords = [];
+      this.config.getDataCenterComponentRecords(this.currentDataCenterComponentId).subscribe(res => {
+        this.componentRecords = res;
+      });
       this.currentRow = id;
       if (editFromView == true) {
         $('#closeViewComponentModal').trigger('click');
@@ -150,7 +181,7 @@ export class ProvisioningComponent implements OnInit {
       $('#editComponentSuccessClose').trigger('click');
     }
 
-    this.modalService.open(content, { windowClass: 'custom_modal', size: 'lg' }).result.then((result) => {
+    this.modalService.open(content, { windowClass: 'custom_modal', size: 'lg', backdrop : 'static' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -177,30 +208,126 @@ export class ProvisioningComponent implements OnInit {
     }
   }
 
-  next(event) {
-    var next_step = true;
+  addComponent() {
+    this.config.componentAdd(1, this.comName, this.currentDC, '', '', this.ComVersion, this.ComSubVersion, this.componentUser, this.password, '', this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, '', '', '').subscribe(res => {
+      if (res.status == 'success') {
+        this.provisioningList();
+        this.apiError = 1;
+        this.currentDataCenterComponentId = res.component_id;
+      } else {
+        this.apiError = 0;
+      }
+    });
+  }
 
-    if (next_step) {
+  getComponentDetails(content, componentId) {
+    $('#addComponentSuccessClose').trigger('click');
+    this.componentRecords = [];
+    this.config.getDataCenterComponentRecords(componentId).subscribe(res => {
+      this.componentRecords = res;
+    });
+    this.modalService.open(content, { windowClass: 'custom_modal', backdrop: 'static', size: 'lg' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  next(event, value) {
+    
+    this.next_step = true;
+    if(value == 1) {
+      if ($('#addComponentName').val() == '') {
+        $('#NameBar').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#NameBar').css('border-bottom', '0.0625rem solid #999');
+      }
+    } else if(value == 2) {
+      if ($('#addComponentType').val() == 'Type*') {
+        $('#Typebar').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#Typebar').css('border-bottom', '0.0625rem solid #999');
+      }
+    } else if(value == 3) {
+      if ($('#addIpAddress').val() == '') {
+        $('#ipAddressBar').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#ipAddressBar').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#addComponentUser').val() == '') {
+        $('#UserBar').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#UserBar').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#addComponentPassword').val() == '') {
+        $('#PasswordBar').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#PasswordBar').css('border-bottom', '0.0625rem solid #999');
+      }
+    }
+    if(this.next_step) {
+      this.progressPerc = ( ( $(".f1-progress-line").css('width').slice(0, -2) * 100 ) / $(".f1-progress").css('width').slice(0, -2));
       var fieldSet = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-      $(fieldSet).fadeOut(400, () => { });
+      $(fieldSet).fadeOut(500, () => { });
       $(".f1-step.active").removeClass('active').addClass('activated').next().removeClass('next').addClass('active').next().addClass('next');
-      $(fieldSet).next().fadeIn(400, () => { });
+      if (value == 1 && this.progressPerc == '25') {
+        $(".f1-progress-line").css('width', '50%');
+      } else if (value == 2 && this.progressPerc == '50') {
+        $(".f1-progress-line").css('width', '75%');
+      } else if (value == 3 && this.progressPerc == '75') {
+        $(".f1-progress-line").css('width', '100%');
+      }
+      if($(".f1-step.active").attr('id') == 'complete') {
+        $(".f1-step-icon").css('cursor', 'default');
+      }
+      $(fieldSet).next().fadeIn(500, () => { });
     }
   }
 
   previous(event) {
-    var next_step = true;
+    var fieldSet = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+    $(fieldSet).fadeOut(500, () => { });
+    $(".f1-step.active").removeClass('active').addClass('activated').prev().addClass('active');
+    $(fieldSet).prev().fadeIn(500, () => { });
+  }
 
-    if (next_step) {
-      var fieldSet = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-      $(fieldSet).fadeOut(400, () => { });
-      $(".f1-step.active").removeClass('active').addClass('activated').prev().addClass('active');
-      $(fieldSet).prev().fadeIn(400, () => { });
+  tabClick(event, id) {
+    var flag_id = true;
+    if($(".f1-step.active").attr('id') == "f1-step_1") {
+      if ($('#addComponentName').val() == '') {
+        $('#NameBar').css('border-bottom', '0.0625rem solid red');
+        var flag_id = false;
+      } else {
+        $('#NameBar').css('border-bottom', '0.0625rem solid #999');
+      }
+    } else if($(".f1-step.active").attr('id') == "f1-step_2") {
+      if ($('#addComponentType').val() == 'Type*') {
+        $('#Typebar').css('border-bottom', '0.0625rem solid red');
+        var flag_id = false;
+      } else {
+        $('#Typebar').css('border-bottom', '0.0625rem solid #999');
+      }
+    } 
+    if(flag_id) {
+
+    if($(".f1-step.active").attr('id') != 'complete') {
+      var fieldSet = event.currentTarget.parentElement;
+      if ($(fieldSet).attr("class") == 'f1-step activated' || $(fieldSet).attr("class") == 'f1-step activated next') {
+        $(".f1-step.active").removeClass('active').addClass('activated');
+        $(fieldSet).removeClass('activated').addClass('active');
+        $('fieldSet').fadeOut(500, () => { });
+        $("#fieldset_" + id).fadeIn(500, () => { });
+      }
     }
+   }
   }
 
   editComponentClick(i) {
-    this.currentDCNew = i;
     for (let j = 0; j < this.dataCentersDetails.length; j++) {
       if (j == i) {
         $('#editComponentDropdown' + i).show();
@@ -274,15 +401,6 @@ export class ProvisioningComponent implements OnInit {
         });
       }, 100);
     }
-  }
-
-  addComponent() {
-
-    this.config.componentAdd(1, this.comName, this.currentDC, '', '', this.ComVersion, this.ComSubVersion, this.componentUser, this.password, '', this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, '', '', '').subscribe(res => {
-      if (res.status == 'success') {
-        this.provisioningList();
-      }
-    });
   }
 
   validateEditComponent(e) {
@@ -446,18 +564,13 @@ export class ProvisioningComponent implements OnInit {
       let editComponentstaticRoutesMax = $('#editComponentstaticRoutesMax').val();
 
       setTimeout(() => {
-        this.config.editComponent('1', editComponentName, editComponentNameType, editComponentVersion, editComponentIpAddress, editComponentComponentUser, editComponentPassword, editComponentvrfWarnStart, editComponentvrfWarnEnd, editComponentvrfMax, editComponentbgpPeersWarnStart, editComponentbgpPeersWarnEnd, editComponentbgpPeersMax, editComponentvlanWarnStart, editComponentvlanWarnEnd, editComponentvlanMax, editComponenthsrpWarnStart, editComponenthsrpWarnEnd, editComponenthsrpMax, editComponentstaticRoutesWarnStart, editComponentstaticRoutesWarnEnd, editComponentstaticRoutesMax).subscribe(res => {
-
-          console.log(res);
+        this.config.editComponent('1', this.currentDataCenterComponentId, editComponentName, editComponentNameType, editComponentVersion, editComponentIpAddress, editComponentComponentUser, editComponentPassword, editComponentvrfWarnStart, editComponentvrfWarnEnd, editComponentvrfMax, editComponentbgpPeersWarnStart, editComponentbgpPeersWarnEnd, editComponentbgpPeersMax, editComponentvlanWarnStart, editComponentvlanWarnEnd, editComponentvlanMax, editComponenthsrpWarnStart, editComponenthsrpWarnEnd, editComponenthsrpMax, editComponentstaticRoutesWarnStart, editComponentstaticRoutesWarnEnd, editComponentstaticRoutesMax).subscribe(res => {
 
           $('.modalForm').hide();
           $('.apiResponseDiv').show();
           if (res.status == 'success') {
             $('#editComponentDropdown' + this.currentRow).hide();
-            this.componentRecords.name = editComponentName;
-            this.componentRecords.version = editComponentNameType;
-            this.componentRecords.subVersion = editComponentVersion;
-            this.componentRecords.ipAddress = editComponentIpAddress;
+            this.setDataCenterComponnets(this.currentDC);
             $('.apiFailed').hide();
             $('.apiSuccess').show();
           } else {
@@ -471,9 +584,7 @@ export class ProvisioningComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.country_list = ['United States', 'Australia', 'Canada', 'India'];
-    this.time_zone_list = ['IST', 'ATC', 'CNT'];
+    this.CountryTimezoneList();
     this.version = ['NEXUS', 'ASA', 'VCENTER'];
 
     this.provisioningList();
@@ -482,16 +593,35 @@ export class ProvisioningComponent implements OnInit {
   onClickedOutside(e: Event) {
     //dosomething
   }
+  
+  CountryTimezoneList() {
+    setTimeout(() => {
+      this.config.getCountryList().subscribe(res=>{
+      this.country_list = res.country;
+      this.time_zone_list = res.timezone;
+    });
+    }, 100);
+  }
 
-
-  provisioningList() {
+  provisioningList(id = 0, loop_status = false) {
     setTimeout(() => {
       this.config.getProvisioningList().subscribe(res => {
         this.dataCenters = res;
-        this.dataCentersDetails = this.dataCenters[0].components;
-        this.currentDC = this.dataCenters[0]['id'];
+        if (loop_status) {
+          id = this.findDataCenterIndex(id);
+        }
+        this.selectedDataCenter = id;
+        this.dataCenterScrollClick(id, 'auto');
       });
     }, 100);
+  }
+
+  findDataCenterIndex(responseId) {
+    for (let i = 0; i < this.dataCenters.length; i++) {
+      if (this.dataCenters[i].id == responseId) {
+        return i;
+      }
+    }
   }
 
   // moveRight() {
@@ -562,6 +692,11 @@ export class ProvisioningComponent implements OnInit {
           $('.apiResponseDiv').show();
           var sucflag = false;
           if (res.status == 'success') {
+            this.name = '';
+            this.country = 'Country*';
+            this.state = '';
+            this.city = '';
+            this.timezone = 'Time zone*';
             $('.apiFailed').hide();
             $('.apiSuccess').show();
             sucflag = true;
@@ -572,16 +707,8 @@ export class ProvisioningComponent implements OnInit {
           }
 
           if (sucflag != false) {
-            this.activeDC = true;
-            this.dataCenters.push({
-              id: res.id,
-              name: this.name,
-              country: this.country,
-              state: this.state,
-              city: this.city,
-              time_zone: this.timezone,
-              components: ''
-            });
+            let lastInsertedDataCenterId = res.id;
+            this.provisioningList(lastInsertedDataCenterId, true);
           }
         });
       }, 100);
@@ -600,20 +727,57 @@ export class ProvisioningComponent implements OnInit {
     $('#rsddropdown' + preId).hide();
   }
 
-  dataCenterClick(id) {
-    this.activateCard(id);
-    $('#' + id).attr('class', 'col-md-3 col-sm-6 tab-tile tab-tile-active');
-    if (this.dataCenters[id].components) {
-      this.dataCentersDetails = this.dataCenters[id].components;
-      this.currentDC = this.dataCenters[id]['id'];
-      this.currentDCNew = id;
-    } else {
-      this.dataCentersDetails = [];
+  dataCenterScrollClick(id, clickType = 'scroll') {
+
+    if (clickType == 'scroll') {
+      if (id < this.scrollLimit) {
+        this.scrollLimitMin = 0;
+        this.scrollLimitMax = 3;
+      } else {
+        this.scrollLimitMin = id - 3;
+        this.scrollLimitMax = id;
+      }
     }
+
+    $('.fa-circle').removeClass("fa fa-circle").addClass("ti-control-record");
+    $('#dataCenterScroll' + id).removeClass("ti-control-record").addClass("fa fa-circle").css('font-size', '15px');
+    this.dataCenterClick(id);
   }
 
-  deleteComponentData(id) {
-    this.config.componentDelete(1, id).subscribe(res => {
+  dataCenterClick(id) {
+    this.currentDC = this.dataCenters[id].id;
+    this.dataCentersDetails = [];
+    this.activateCard(id);
+    $('#' + id).attr('class', 'col-md-3 col-sm-6 tab-tile tab-tile-active');
+    this.setDataCenterComponnets(this.currentDC);
+  }
+
+  setDataCenterComponnets(id) {
+    this.config.getDataCenterComponents(id).subscribe(res => {
+      if (res.length > 0) {
+        this.dataCentersDetails = res;
+      }
+    });
+  }
+
+  onVersionChange(name){
+    if(name == 'NEXUS'){
+      $('.toggleThreshold').show();
+    }else{
+      $('.toggleThreshold').hide();
+    }
+    if(name == 'ASA'){
+      $('.toggleEnablePassword').show();
+    }else{
+      $('.toggleEnablePassword').hide();
+    }
+    this.config.getSubtypes(name).subscribe(res => {
+      this.subTypes = res;
+    });
+  }
+
+  deleteComponentData(componentId) {
+    this.config.componentDelete(1, componentId).subscribe(res => {
       let componentFlag = false;
       $('.componentDeleteModal').hide();
       $('.apiResponseDivComponent').show();
@@ -641,12 +805,4 @@ interface Datacenter {
   city: string;
   time_zone: string;
   components: any;
-}
-
-interface DatacenterDetails {
-  name: string;
-  type: string;
-  version: string;
-  ip: any;
-  credential: string;
 }
