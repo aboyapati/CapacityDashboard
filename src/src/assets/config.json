@@ -17,6 +17,7 @@
         "getVcenterDataUrl": "/assets/webservices/getVcenterData.php",
 		"getDataCenterComponentsUrl": "/assets/webservices/getComponentListUrl.php",
 		"getDataCenterComponentRecordsUrl": "/assets/webservices/getComponentDetails.php",
+		"getTypesUrl": "/assets/webservices/getTypes.php",
 		"getSubtypesUrl": "/assets/webservices/getSubtypesUrl.php",
 		"countryUrl": "/assets/webservices/country.php"
     }

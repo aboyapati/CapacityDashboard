@@ -76,7 +76,7 @@ export class ProvisioningComponent implements OnInit {
   editFromView: boolean = false;
   newDeleteDataIndex: number;
   currentDataCenterComponentId: number;
-   subTypes : any;
+  subTypes : any;
   private scrollLimit: number = 4;
   private scrollLimitMin: number = 0;
   private scrollLimitMax: number = 3;
@@ -140,9 +140,8 @@ export class ProvisioningComponent implements OnInit {
         this.ComSubVersion = 'Sub Type';
         this.componentUser = '';
         this.password = '';
-	this.ipAddress = '';
-	this.enablePassword = '';
-
+		this.ipAddress = '';
+		this.enablePassword = '';
         this.vrfWarnStart = ''; this.vrfWarnEnd = ''; this.vrfMax = '';
         this.bgpPeersWarnStart = ''; this.bgpPeersWarnEnd = ''; this.bgpPeersMax = '';
         this.vlanWarnStart = ''; this.vlanWarnEnd = ''; this.vlanMax = '';
@@ -209,15 +208,20 @@ export class ProvisioningComponent implements OnInit {
   }
 
   addComponent() {
-    this.config.componentAdd(1, this.comName, this.currentDC, '', '', this.ComVersion, this.ComSubVersion, this.componentUser, this.password, '', this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, '', '', '').subscribe(res => {
-      if (res.status == 'success') {
-        this.provisioningList();
-        this.apiError = 1;
-        this.currentDataCenterComponentId = res.component_id;
-      } else {
-        this.apiError = 0;
-      }
-    });
+	if(this.next_step) {
+		if(this.ComSubVersion == 'Sub Type') {
+			this.ComSubVersion = '';
+		}
+		this.config.componentAdd(1, this.comName, this.currentDC, '', '', this.ComVersion, this.ComSubVersion, this.componentUser, this.password, '', this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, '', '', '').subscribe(res => {
+		  if (res.status == 'success') {
+			this.provisioningList();
+			this.apiError = 1;
+			this.currentDataCenterComponentId = res.component_id;
+		  } else {
+			this.apiError = 0;
+		  }
+		});
+	}
   }
 
   getComponentDetails(content, componentId) {
@@ -234,7 +238,6 @@ export class ProvisioningComponent implements OnInit {
   }
 
   next(event, value) {
-    
     this.next_step = true;
     if(value == 1) {
       if ($('#addComponentName').val() == '') {
@@ -255,7 +258,13 @@ export class ProvisioningComponent implements OnInit {
         $('#ipAddressBar').css('border-bottom', '0.0625rem solid red');
         this.next_step = false;
       } else {
-        $('#ipAddressBar').css('border-bottom', '0.0625rem solid #999');
+        var ip_val = this.ipValidation($('#addIpAddress').val());
+		if(ip_val == 'success') {
+			$('#ipAddressBar').css('border-bottom', '0.0625rem solid #999');
+		} else {
+			$('#ipAddressBar').css('border-bottom', '0.0625rem solid red');
+        	this.next_step = false;
+		}
       }
       if ($('#addComponentUser').val() == '') {
         $('#UserBar').css('border-bottom', '0.0625rem solid red');
@@ -287,6 +296,15 @@ export class ProvisioningComponent implements OnInit {
       }
       $(fieldSet).next().fadeIn(500, () => { });
     }
+  }
+  
+  ipValidation(ipAddr) {
+  	var ipformat = "/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/";
+	if(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddr)) {
+		return 'success';
+	} else {
+		return 'failed';
+	}
   }
 
   previous(event) {
@@ -427,7 +445,13 @@ export class ProvisioningComponent implements OnInit {
       $('#editComponentBar4').css('border-bottom', '0.0625rem solid red');
       var flag = true;
     } else {
-      $('#editComponentBar4').css('border-bottom', '0.0625rem solid #999');
+      var ip_val = this.ipValidation($('#editComponentIpAddress').val());
+	  if(ip_val == 'success') {
+		$('#editComponentBar4').css('border-bottom', '0.0625rem solid #999');
+	  } else {
+		$('#editComponentBar4').css('border-bottom', '0.0625rem solid red');
+		var flag = true;
+	  }
     }
     if ($('#editComponentComponentUser').val() == '') {
       $('#editComponentBar5').css('border-bottom', '0.0625rem solid red');
@@ -585,7 +609,7 @@ export class ProvisioningComponent implements OnInit {
 
   ngOnInit() {
     this.CountryTimezoneList();
-    this.version = ['NEXUS', 'ASA', 'VCENTER'];
+    this.ComponentTypeList();
 
     this.provisioningList();
   }
@@ -597,8 +621,16 @@ export class ProvisioningComponent implements OnInit {
   CountryTimezoneList() {
     setTimeout(() => {
       this.config.getCountryList().subscribe(res=>{
-      this.country_list = res.country;
-      this.time_zone_list = res.timezone;
+		  this.country_list = res.country;
+		  this.time_zone_list = res.timezone;
+    });
+    }, 100);
+  }
+  
+  ComponentTypeList() {
+    setTimeout(() => {
+      this.config.getTypes().subscribe(res=>{
+      	this.version = res;
     });
     }, 100);
   }
@@ -771,9 +803,16 @@ export class ProvisioningComponent implements OnInit {
     }else{
       $('.toggleEnablePassword').hide();
     }
-    this.config.getSubtypes(name).subscribe(res => {
-      this.subTypes = res;
-    });
+    if(name == 'Type*') {
+		this.ComSubVersion = "Sub Type";
+		$("#addComponentSubType").prop("disabled", true);
+	} else {
+		this.config.getSubtypes(name).subscribe(res => {
+		  this.subTypes = res;
+		});
+		this.ComSubVersion = "Sub Type";
+		$("#addComponentSubType").prop("disabled", false);
+	}
   }
 
   deleteComponentData(componentId) {

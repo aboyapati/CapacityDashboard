@@ -15,6 +15,7 @@ export class ConfigService {
   deleteDataCenterUrl: any;
   editComponentUrl: any;
   componentAddUrl: any;
+  getTypesUrl: any;
   getSubtypesUrl: any;
   componentDeleteUrl: any;
   countryUrl: any;
@@ -38,6 +39,7 @@ export class ConfigService {
         this.deleteDataCenterUrl = this.BASE_URL + result[0].deleteDataCenterUrl;
         this.editComponentUrl = this.BASE_URL + result[0].editComponentUrl;
         this.componentAddUrl = this.BASE_URL + result[0].componentAddUrl;
+		this.getTypesUrl = this.BASE_URL + result[0].getTypesUrl;
         this.getSubtypesUrl = this.BASE_URL + result[0].getSubtypesUrl;
         this.componentDeleteUrl = this.BASE_URL + result[0].componentDeleteUrl;
         this.countryUrl = this.BASE_URL + result[0].countryUrl;
@@ -116,6 +118,10 @@ export class ConfigService {
     let options = new RequestOptions({ headers: headers });
     let body = 'userId=' + userId + '&name=' + name + '&dataCenterId=' + dataCenterId + '&type=' + type + '&version=' + version + '&subVersion=' + subVersion + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&enablePassword=' + enablePassword + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax + '&vrrpWarnStart=' + vrrpWarnStart + '&vrrpWarnEnd=' + vrrpWarnEnd + '&vrrpMax=' + vrrpMax;
     return this.http.post(this.componentAddUrl, body, options).map((res: Response) => res.json());
+  }
+  
+  getTypes() {
+	return this.http.get(this.getTypesUrl).map((res: Response) => res.json());
   }
 
   getSubtypes(id) {

@@ -140,16 +140,13 @@
                                                     <div class="form-group">
                                                         <select [(ngModel)]="ComVersion" name="ComVersion" (change)="onVersionChange(ComVersion)" id="addComponentType">
                                                             <option class="modal_placeholder">Type*</option>
-                                                            <option value="NEXUS">NEXUS</option>
-                                                            <option value="ASA">ASA</option>
-                                                            <option value="VCENTER">VCENTER</option>
-                                                            <option value="SBC">SBC</option>
+                                                            <option value="{{ver.name}}" *ngFor='let ver of version'>{{ver.name}}</option>
                                                         </select>
                                                         <label class="control-label" for="select"></label>
                                                         <i id="Typebar" class="bar"></i>
                                                     </div>
                                                     <div class="form-group">
-                                                        <select [(ngModel)]="ComSubVersion" name="ComSubVersion" [disabled]="!subTypes">
+                                                        <select [(ngModel)]="ComSubVersion" name="ComSubVersion" [disabled]="!subTypes" id="addComponentSubType">
                                                             <option class="modal_placeholder">Sub Type</option>
                                                             <option value="{{subType.name}}" *ngFor='let subType of subTypes'>{{subType.name}}</option>
                                                         </select>
@@ -303,12 +300,12 @@
 														<i class="bar" id="ipAddressBar"></i>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="text" required="required" [(ngModel)]="componentUser" id="addComponentUser" name="componentUser" />
+                                                        <input type="text" required="required" [(ngModel)]="componentUser" id="addComponentUser" name="componentUser" readonly onfocus="this.removeAttribute('readonly');" />
 														<label class="control-label" for="input">Username*</label>
                                                         <i class="bar" id="UserBar"></i>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="password" required="required" [(ngModel)]="password" id="addComponentPassword" name="password" />
+                                                        <input type="password" required="required" [(ngModel)]="password" id="addComponentPassword" name="password" readonly onfocus="this.removeAttribute('readonly');" />
 														<label class="control-label" for="input">Password*</label>
                                                         <i class="bar" id="PasswordBar"></i>
                                                     </div>
@@ -682,7 +679,7 @@
                     <div class="form-group">
                         <select id="editComponentNameType">
                             <option class="modal_placeholder" value="Country*">Type*</option>
-                            <option *ngFor='let ver of version' [selected]="ver === componentRecords.version" [value]="ver">{{ver}}</option>
+                            <option *ngFor='let ver of version' [selected]="ver.name === componentRecords.version" [value]="ver.name">{{ver.name}}</option>
                         </select>
                         <label class="control-label" for="select"></label>
                         <i id="editComponentBar2" class="bar"></i>
@@ -707,137 +704,140 @@
                         <label class="control-label" for="input">Password*</label>
                         <i id="editComponentBar6" class="bar"></i>
                     </div>
-
-                    <p class="modal-text-p">Threshold Value</p>
-                    <div class="table-responsive">
-                        <table class="table modal-table">
-                            <tr>
-                                <td></td>
-                                <td>WARNING</td>
-                                <td>ALERT</td>
-                                <td>MAX</td>
-                            </tr>
-                            <tr>
-                                <td>VRF</td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponentvrfWarnStart" type="text" required="required" value="{{componentRecords.vrfWarnStart}}"
-                                        />
-                                        <i id="editComponentBar7" class="bar"></i>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponentvrfWarnEnd" type="text" required="required" value="{{componentRecords.vrfWarnEnd}}"
-                                        />
-                                        <i id="editComponentBar8" class="bar"></i>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponentvrfMax" type="text" required="required" value="{{componentRecords.vrfMax}}" />
-                                        <i id="editComponentBar9" class="bar"></i>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>BGP</td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponentbgpPeersWarnStart" type="text" required="required" value="{{componentRecords.bgpPeersWarnStart}}"
-                                        />
-                                        <i id="editComponentBar10" class="bar"></i>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponentbgpPeersWarnEnd" type="text" required="required" value="{{componentRecords.bgpPeersWarnEnd}}"
-                                        />
-                                        <i id="editComponentBar11" class="bar"></i>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponentbgpPeersMax" type="text" required="required" value="{{componentRecords.bgpPeersMax}}"
-                                        />
-                                        <i id="editComponentBar12" class="bar"></i>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Vlan</td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponentvlanWarnStart" type="text" required="required" value="{{componentRecords.vlanWarnStart}}"
-                                        />
-                                        <i id="editComponentBar13" class="bar"></i>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponentvlanWarnEnd" type="text" required="required" value="{{componentRecords.vlanWarnEnd}}"
-                                        />
-                                        <i id="editComponentBar14" class="bar"></i>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponentvlanMax" type="text" required="required" value="{{componentRecords.vlanMax}}"
-                                        />
-                                        <i id="editComponentBar15" class="bar"></i>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Harp</td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponenthsrpWarnStart" type="text" required="required" value="{{componentRecords.hsrpWarnStart}}"
-                                        />
-                                        <i id="editComponentBar16" class="bar"></i>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponenthsrpWarnEnd" type="text" required="required" value="{{componentRecords.hsrpWarnEnd}}"
-                                        />
-                                        <i id="editComponentBar17" class="bar"></i>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponenthsrpMax" type="text" required="required" value="{{componentRecords.hsrpMax}}"
-                                        />
-                                        <i id="editComponentBar18" class="bar"></i>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Static Router</td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponentstaticRoutesWarnStart" type="text" required="required" value="{{componentRecords.staticRoutesWarnStart}}"
-                                        />
-                                        <i id="editComponentBar19" class="bar"></i>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponentstaticRoutesWarnEnd" type="text" required="required" value="{{componentRecords.staticRoutesWarnEnd}}"
-                                        />
-                                        <i id="editComponentBar20" class="bar"></i>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group form-group-small">
-                                        <input class="frmGrpInput" id="editComponentstaticRoutesMax" type="text" required="required" value="{{componentRecords.staticRoutesMax}}"
-                                        />
-                                        <i id="editComponentBar21" class="bar"></i>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+					
+					<div *ngIf="componentRecords.version == 'NEXUS';then threshold_edit"></div>
+                    <ng-template #threshold_edit>
+						<p class="modal-text-p">Threshold Value</p>
+						<div class="table-responsive">
+							<table class="table modal-table">
+								<tr>
+									<td></td>
+									<td>WARNING</td>
+									<td>ALERT</td>
+									<td>MAX</td>
+								</tr>
+								<tr>
+									<td>VRF</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponentvrfWarnStart" type="text" required="required" value="{{componentRecords.vrfWarnStart}}"
+											/>
+											<i id="editComponentBar7" class="bar"></i>
+										</div>
+									</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponentvrfWarnEnd" type="text" required="required" value="{{componentRecords.vrfWarnEnd}}"
+											/>
+											<i id="editComponentBar8" class="bar"></i>
+										</div>
+									</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponentvrfMax" type="text" required="required" value="{{componentRecords.vrfMax}}" />
+											<i id="editComponentBar9" class="bar"></i>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>BGP</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponentbgpPeersWarnStart" type="text" required="required" value="{{componentRecords.bgpPeersWarnStart}}"
+											/>
+											<i id="editComponentBar10" class="bar"></i>
+										</div>
+									</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponentbgpPeersWarnEnd" type="text" required="required" value="{{componentRecords.bgpPeersWarnEnd}}"
+											/>
+											<i id="editComponentBar11" class="bar"></i>
+										</div>
+									</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponentbgpPeersMax" type="text" required="required" value="{{componentRecords.bgpPeersMax}}"
+											/>
+											<i id="editComponentBar12" class="bar"></i>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Vlan</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponentvlanWarnStart" type="text" required="required" value="{{componentRecords.vlanWarnStart}}"
+											/>
+											<i id="editComponentBar13" class="bar"></i>
+										</div>
+									</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponentvlanWarnEnd" type="text" required="required" value="{{componentRecords.vlanWarnEnd}}"
+											/>
+											<i id="editComponentBar14" class="bar"></i>
+										</div>
+									</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponentvlanMax" type="text" required="required" value="{{componentRecords.vlanMax}}"
+											/>
+											<i id="editComponentBar15" class="bar"></i>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Harp</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponenthsrpWarnStart" type="text" required="required" value="{{componentRecords.hsrpWarnStart}}"
+											/>
+											<i id="editComponentBar16" class="bar"></i>
+										</div>
+									</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponenthsrpWarnEnd" type="text" required="required" value="{{componentRecords.hsrpWarnEnd}}"
+											/>
+											<i id="editComponentBar17" class="bar"></i>
+										</div>
+									</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponenthsrpMax" type="text" required="required" value="{{componentRecords.hsrpMax}}"
+											/>
+											<i id="editComponentBar18" class="bar"></i>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>Static Router</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponentstaticRoutesWarnStart" type="text" required="required" value="{{componentRecords.staticRoutesWarnStart}}"
+											/>
+											<i id="editComponentBar19" class="bar"></i>
+										</div>
+									</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponentstaticRoutesWarnEnd" type="text" required="required" value="{{componentRecords.staticRoutesWarnEnd}}"
+											/>
+											<i id="editComponentBar20" class="bar"></i>
+										</div>
+									</td>
+									<td>
+										<div class="form-group form-group-small">
+											<input class="frmGrpInput" id="editComponentstaticRoutesMax" type="text" required="required" value="{{componentRecords.staticRoutesMax}}"
+											/>
+											<i id="editComponentBar21" class="bar"></i>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</ng-template>
                 </div>
                 <div class="col-md-12 form-modal">
                     <div class="row">
@@ -890,94 +890,99 @@
                 <h2 class="text-center">{{componentRecords.version}}</h2>
                 <h3 class="text-center">{{componentRecords.subVersion}}</h3>
                 <br>
-                <br>
-                <h4 class="text-center">Threshold Value</h4>
             </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <tr>
-                        <td></td>
-                        <td>WARNING</td>
-                        <td>ALERT</td>
-                        <td>MAX</td>
-                    </tr>
-                    <tr>
-                        <td>VRF</td>
-                        <td>
-                            <span>{{componentRecords.vrfWarnStart}}</span>
-                            <i class="bar"></i>
-                        </td>
-                        <td>
-                            <span>{{componentRecords.vrfWarnEnd}}</span>
-                            <i class="bar"></i>
-                        </td>
-                        <td>
-                            <span>{{componentRecords.vrfMax}}</span>
-                            <i class="bar"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>BGP</td>
-                        <td>
-                            <span>{{componentRecords.bgpPeersWarnStart}}</span>
-                            <i class="bar"></i>
-                        </td>
-                        <td>
-                            <span>{{componentRecords.bgpPeersWarnEnd}}</span>
-                            <i class="bar"></i>
-                        </td>
-                        <td>
-                            <span>{{componentRecords.bgpPeersMax}}</span>
-                            <i class="bar"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Vlan</td>
-                        <td>
-                            <span>{{componentRecords.vlanWarnStart}}</span>
-                            <i class="bar"></i>
-                        </td>
-                        <td>
-                            <span>{{componentRecords.vlanWarnEnd}}</span>
-                            <i class="bar"></i>
-                        </td>
-                        <td>
-                            <span>{{componentRecords.vlanMax}}</span>
-                            <i class="bar"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Harp</td>
-                        <td>
-                            <span>{{componentRecords.hsrpWarnStart}}</span>
-                            <i class="bar"></i>
-                        </td>
-                        <td>
-                            <span>{{componentRecords.hsrpWarnEnd}}</span>
-                            <i class="bar"></i>
-                        </td>
-                        <td>
-                            <span>{{componentRecords.hsrpMax}}</span>
-                            <i class="bar"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Static Router</td>
-                        <td>
-                            <span>{{componentRecords.staticRoutesWarnStart}}</span>
-                            <i class="bar"></i>
-                        </td>
-                        <td>
-                            <span>{{componentRecords.staticRoutesWarnEnd}}</span>
-                            <i class="bar"></i>
-                        </td>
-                        <td>
-                            <span>{{componentRecords.staticRoutesMax}}</span>
-                            <i class="bar"></i>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+			
+			<div *ngIf="componentRecords.version == 'NEXUS';then threshold_view"></div>
+			<ng-template #threshold_view>
+				<div class="form-modal">
+					<h4 class="text-center">Threshold Value</h4>
+				</div>
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<td></td>
+							<td>WARNING</td>
+							<td>ALERT</td>
+							<td>MAX</td>
+						</tr>
+						<tr>
+							<td>VRF</td>
+							<td>
+								<span>{{componentRecords.vrfWarnStart}}</span>
+								<i class="bar"></i>
+							</td>
+							<td>
+								<span>{{componentRecords.vrfWarnEnd}}</span>
+								<i class="bar"></i>
+							</td>
+							<td>
+								<span>{{componentRecords.vrfMax}}</span>
+								<i class="bar"></i>
+							</td>
+						</tr>
+						<tr>
+							<td>BGP</td>
+							<td>
+								<span>{{componentRecords.bgpPeersWarnStart}}</span>
+								<i class="bar"></i>
+							</td>
+							<td>
+								<span>{{componentRecords.bgpPeersWarnEnd}}</span>
+								<i class="bar"></i>
+							</td>
+							<td>
+								<span>{{componentRecords.bgpPeersMax}}</span>
+								<i class="bar"></i>
+							</td>
+						</tr>
+						<tr>
+							<td>Vlan</td>
+							<td>
+								<span>{{componentRecords.vlanWarnStart}}</span>
+								<i class="bar"></i>
+							</td>
+							<td>
+								<span>{{componentRecords.vlanWarnEnd}}</span>
+								<i class="bar"></i>
+							</td>
+							<td>
+								<span>{{componentRecords.vlanMax}}</span>
+								<i class="bar"></i>
+							</td>
+						</tr>
+						<tr>
+							<td>Harp</td>
+							<td>
+								<span>{{componentRecords.hsrpWarnStart}}</span>
+								<i class="bar"></i>
+							</td>
+							<td>
+								<span>{{componentRecords.hsrpWarnEnd}}</span>
+								<i class="bar"></i>
+							</td>
+							<td>
+								<span>{{componentRecords.hsrpMax}}</span>
+								<i class="bar"></i>
+							</td>
+						</tr>
+						<tr>
+							<td>Static Router</td>
+							<td>
+								<span>{{componentRecords.staticRoutesWarnStart}}</span>
+								<i class="bar"></i>
+							</td>
+							<td>
+								<span>{{componentRecords.staticRoutesWarnEnd}}</span>
+								<i class="bar"></i>
+							</td>
+							<td>
+								<span>{{componentRecords.staticRoutesMax}}</span>
+								<i class="bar"></i>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</ng-template>
             <div class="col-md-12 form-modal">
                 <div class="row">
                     <div class="offset-md-1 col-md-5 pull-left modal-buttons">
