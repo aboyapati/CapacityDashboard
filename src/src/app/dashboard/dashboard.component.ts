@@ -65,12 +65,10 @@ export class DashboardComponent implements OnInit {
 
   getCallMatrics(id) {
     $('#callMatricsDropdown').hide();
-    alert(id);
   }
 
   getNotification(id) {
     $('#notificationDropDown').hide();
-    alert(id);
   }
 
 }

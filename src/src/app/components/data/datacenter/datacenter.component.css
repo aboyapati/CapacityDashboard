@@ -151,3 +151,8 @@
 		margin-bottom: 10px;
 	}
 }
+
+#withoutComponentBlock {
+  min-height: 200px;
+  padding: 80px 15px;
+}

@@ -60,6 +60,7 @@ export class ProvisioningComponent implements OnInit {
   vrrpWarnStart: string;
   vrrpWarnEnd: string;
   vrrpMax: string;
+  showNullRowMessage: boolean = false;
 
   editIdIndex: any;
   editId: any;
@@ -142,23 +143,23 @@ export class ProvisioningComponent implements OnInit {
         this.ComSubVersion = 'Sub Type';
         this.componentUser = '';
         this.password = '';
-		this.ipAddress = '';
-		this.enablePassword = '';
+		    this.ipAddress = '';
+		    this.enablePassword = '';
         this.vrfWarnStart = '';
-		this.vrfWarnEnd = '';
-		this.vrfMax = '';
+		    this.vrfWarnEnd = '';
+		    this.vrfMax = '';
         this.bgpPeersWarnStart = '';
-		this.bgpPeersWarnEnd = '';
-		this.bgpPeersMax = '';
+		    this.bgpPeersWarnEnd = '';
+		    this.bgpPeersMax = '';
         this.vlanWarnStart = '';
-		this.vlanWarnEnd = '';
-		this.vlanMax = '';
+		    this.vlanWarnEnd = '';
+		    this.vlanMax = '';
         this.hsrpWarnStart = '';
-		this.hsrpWarnEnd = '';
-		this.hsrpMax = '';
+		    this.hsrpWarnEnd = '';
+		    this.hsrpMax = '';
         this.staticRoutesWarnStart = '';
-		this.staticRoutesWarnEnd = '';
-		this.staticRoutesMax = '';
+		    this.staticRoutesWarnEnd = '';
+		    this.staticRoutesMax = '';
       }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -228,20 +229,32 @@ export class ProvisioningComponent implements OnInit {
   }
 
   addComponent() {
-	if(this.next_step) {
-		if(this.ComSubVersion == 'Sub Type') {
-			this.ComSubVersion = '';
-		}
+    if(this.next_step) {
+      if(this.ComSubVersion == 'Sub Type') {
+        this.ComSubVersion = '';
+      }
 		this.config.componentAdd(1, this.comName, this.currentDC, '', this.ipAddress, this.ComVersion, this.ComSubVersion, this.componentUser, this.password, this.enablePassword, this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, '', '', '').subscribe(res => {
-		  if (res.status == 'success') {
-			this.provisioningList();
-			this.apiError = 1;
-			this.currentDataCenterComponentId = res.component_id;
-		  } else {
-			this.apiError = 0;
-		  }
-		});
-	}
+        if (res.status == 'success') {
+          this.provisioningList();
+          this.apiError = 1;
+          this.currentDataCenterComponentId = res.component_id;
+        } else {
+          this.apiError = 0;
+          $('#apiErrorMsg').show();
+          $('#apiErrorMsg').html(res.message);
+        }
+      });
+    }
+  }
+
+  addComTryAgain() {
+    $("#complete").removeClass('active').addClass('activated');
+    $("#f1-step_1").removeClass('activated').addClass('active');
+    if(this.ComSubVersion == '') {
+      this.ComSubVersion = 'Sub Type';
+    }
+    $("#fieldset_4").fadeOut(500, () => { });
+    $("#fieldset_1").fadeIn(500, () => { });
   }
 
   getComponentDetails(content, componentId) {
@@ -320,11 +333,11 @@ export class ProvisioningComponent implements OnInit {
   
   ipValidation(ipAddr) {
   	var ipformat = "/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/";
-	if(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddr)) {
-		return 'success';
-	} else {
-		return 'failed';
-	}
+    if(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddr)) {
+      return 'success';
+    } else {
+      return 'failed';
+    }
   }
 
   previous(event) {
@@ -663,6 +676,11 @@ export class ProvisioningComponent implements OnInit {
     setTimeout(() => {
       this.config.getProvisioningList().subscribe(res => {
         this.dataCenters = res;
+        if(this.dataCenters.length >= 1){
+          $('#withdcBlock').show();
+        }else{
+          $('#withoutdcBlock').show();
+        }
         if (loop_status) {
           id = this.findDataCenterIndex(id);
         }
@@ -771,6 +789,11 @@ export class ProvisioningComponent implements OnInit {
     }
   }
 
+  addDataAgain() {
+    $('.modalForm').show();
+    $('.apiFailed').hide();
+  }
+
   activateCard(id) {
     var preId = $('.tab-tile-active').attr('id');
     $('#' + preId).attr('class', 'col-md-3 col-sm-6 tab-tile');
@@ -811,7 +834,10 @@ export class ProvisioningComponent implements OnInit {
   setDataCenterComponnets(id) {
     this.config.getDataCenterComponents(id).subscribe(res => {
       if (res.length > 0) {
+        this.showNullRowMessage = false;
         this.dataCentersDetails = res;
+      }else{
+        this.showNullRowMessage = true;
       }
     });
   }

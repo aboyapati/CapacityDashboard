@@ -34,7 +34,7 @@ export class WithSocialComponent implements OnInit {
           if (i < 101) {
             myLoop();
           }
-        }, 60)
+        }, 30)
       } if (i > 50) {
         setTimeout(function () {
           $('#counter_percent').html(i);
@@ -42,7 +42,7 @@ export class WithSocialComponent implements OnInit {
           if (i < 101) {
             myLoop();
           }
-        }, 120)
+        }, 60)
       }
 
     }

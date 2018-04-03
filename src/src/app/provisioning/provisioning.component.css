@@ -170,16 +170,36 @@ and (max-device-width : 767px) {
     padding-right: 107px !important;
   }
   .btn-edit-save {
-    padding-left: 109px !important;
-    padding-right: 109px !important;
+    padding-left: 106px !important;
+    padding-right: 106px !important;
   }
   .btn-edit-view-component{
   	padding-left: 69px !important;
 	padding-right: 69px !important;
   }
   .btn-delete {
-  	padding-left: 40px !important;
-	padding-right: 40px !important;
+  	padding-left: 42px !important;
+	padding-right: 42px !important;
+  }
+  .btn-retry {
+  	padding-left: 114px !important;
+	padding-right: 114px !important;
+  }
+  .btn-edit-finish {
+  	padding-left: 101px !important;
+	padding-right: 101px !important;
+  }
+  .btn-edit-close {
+  	padding-left: 97px !important;
+	padding-right: 97px !important;
+  }
+  .btn-edit-next {
+  	padding-left: 108px !important;
+	padding-right: 108px !important;
+  }
+  .btn-edit-edit {
+  	padding-left: 110px !important;
+	padding-right: 110px !important;
   }
 }
 .btn-top-bar {
@@ -189,14 +209,14 @@ and (max-device-width : 767px) {
 @media only screen 
 and (min-device-width : 320px) 
 and (max-device-width : 568px) { 
-  .btn-edit-cancel {
+  /*.btn-edit-cancel {
     padding-left: 80px !important;
     padding-right: 80px !important;
-  }
-  .btn-edit-save {
+  }*/
+  /*.btn-edit-save {
     padding-left: 87px !important;
     padding-right: 87px !important;
-  }
+  }*/
 }
 @media only screen 
 and (max-device-width : 575px) { 
@@ -776,4 +796,16 @@ fieldset {
 		flex: 0 0 100%;
 		max-width: 100%;
 	}
+	.btn_step4 {
+		padding-left:0px;
+		padding-right:0px;
+	}
+}
+@media only screen and (max-width: 568px) {
+
+}
+
+#withoutdcBlock {
+  min-height: 200px;
+  padding: 80px 15px;
 }

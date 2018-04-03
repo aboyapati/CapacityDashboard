@@ -51,6 +51,11 @@ export class DatacenterComponent implements OnInit {
       setTimeout(() => {
         this.config.getComponentList(this.dataCenterId).subscribe(res_comp => {
           this.components = res_comp;
+          if(this.components.length < 1){
+            $('#withoutComponentBlock').show();
+          }else{
+            $('#withoutComponentBlock').hide();
+          }
           this.subComponents = [];
           if (this.subComponentCounter == 0) {
             this.subComponentCounter = 1;

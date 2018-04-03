@@ -32,6 +32,26 @@
             </div>
         </div>
     </div>
+    <div *ngIf="!subComponents" class="col-md-12 tab-tile-table table-responsive" style="padding: 3%;
+    min-height: 200px;">
+        <div class="row">
+            <div class="col-md-12 tab-tile-table table-responsive text-center">
+                <span>
+                    <b>THERE ARE CURRENTLY NO SUB COMPONENTS AVAILABLE FOR THIS COMPONENT.
+                    </b>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div id="withoutComponentBlock" class="col-md-12 tab-tile-table table-responsive text-center" style="display:none">
+        <span>
+            <b>THERE ARE CURRENTLY NO COMPONENTS AVAILABLE FOR THIS DATA CENTER.
+            </b>
+        </span>
+    </div>
 </div>
 
 <div *ngIf="subComponents!=''" style="display: none;" id='vcenetrDataDiv'>
@@ -71,16 +91,18 @@
     <div class="modal-body image-responsive">
         <div class="row">
             <div class="col-md-4">
-                <p><b style="font-size:18px;padding-left:5%;">{{popupName}}</b></p>
+                <p>
+                    <b style="font-size:18px;padding-left:5%;">{{popupName}}</b>
+                </p>
             </div>
             <div class="col-md-8" style="text-align: right;">
                 <div class="rsddropdown" id="rsddropdown">
                     <span class="rsddropdown-span" (click)="subCoPopupFilter()">...</span>
                     <div id="callMatricsDropdown" class="rsddropdown-content">
-                            <a (click)="filterSubcoPopup(3)">Last 3 months</a>
-                            <a (click)="filterSubcoPopup(6)">Last 6 months</a>
-                            <a (click)="filterSubcoPopup(9)">Last 9 months</a>
-                            <a (click)="filterSubcoPopup(12)">Last 12 months</a>
+                        <a (click)="filterSubcoPopup(3)">Last 3 months</a>
+                        <a (click)="filterSubcoPopup(6)">Last 6 months</a>
+                        <a (click)="filterSubcoPopup(9)">Last 9 months</a>
+                        <a (click)="filterSubcoPopup(12)">Last 12 months</a>
                     </div>
                 </div>
             </div>

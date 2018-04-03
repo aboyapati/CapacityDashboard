@@ -90,11 +90,9 @@ var DashboardComponent = (function () {
     };
     DashboardComponent.prototype.getCallMatrics = function (id) {
         $('#callMatricsDropdown').hide();
-        alert(id);
     };
     DashboardComponent.prototype.getNotification = function (id) {
         $('#notificationDropDown').hide();
-        alert(id);
     };
     return DashboardComponent;
 }());
