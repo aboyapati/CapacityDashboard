@@ -109,3 +109,25 @@
 .rsddropdown a:hover {background-color: #ddd}
 
 .rsdshow {display:block;}
+#chartdiv[_ngcontent-c4] {
+    width: 100%;
+    height: 494px;
+}
+.card-block
+{
+   padding:0px;
+}
+.table td, .table th {
+    padding: .30rem;
+    border-top: 1px solid #e9ecef;
+}
+.table2 td, .table2 th {
+  padding: .50rem;
+    border-top: 1px solid #e9ecef;
+}
+.card{
+  margin-bottom: 15px;
+}
+.main-body .page-wrapper{
+   margin-bottom:5px !important;
+}

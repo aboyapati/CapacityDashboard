@@ -192,7 +192,7 @@ var DatacenterComponent = (function () {
                         _this.setSubComData();
                     }
                 });
-            }, 100);
+            }, 1000);
         });
     }
     DatacenterComponent.prototype.ngOnInit = function () {

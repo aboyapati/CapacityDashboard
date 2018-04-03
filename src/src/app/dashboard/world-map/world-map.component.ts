@@ -32,7 +32,7 @@ export class WorldMapComponent implements OnInit {
         let mapData = [];
 
         for (var data in details) {
-          var code = details[data].country_code;
+          var dc_id = details[data].id;
           var latitude = details[data].latitude;
           var longitude = details[data].longitude;
           var name = details[data].city + ', ' + details[data].state + ', ' + details[data].country;
@@ -45,7 +45,7 @@ export class WorldMapComponent implements OnInit {
           }
 
           var unit = {
-            code: code,
+            id: dc_id,
             name: name,
             value: 34349561,
             color: color,
@@ -79,6 +79,7 @@ export class WorldMapComponent implements OnInit {
         var images = [];
         for (var i = 0; i < mapData.length; i++) {
           var dataItem = mapData[i];
+
           var value = dataItem.value;
           // calculate size of a bubble
           var square = (value - min) / (max - min) * (maxSquare - minSquare) + minSquare;
@@ -99,7 +100,10 @@ export class WorldMapComponent implements OnInit {
             "longitude": dataItem.longitude,
             "latitude": dataItem.latitude,
             "title": dataItem.name,
-            "value": value
+            "value": value,
+            "id": dataItem.id,
+            "zoomLevel": 1,
+            "dcUrl": "#/data/datacenter/" + dataItem.id
           });
         }
 
@@ -134,7 +138,13 @@ export class WorldMapComponent implements OnInit {
             "fillColor": "#FFFFFF",
             "fontSize": 16.667,
             "fontWeight": "bold"
-          }
+          },
+          "listeners": [{
+            "event": "clickMapObject",
+            "method": function (event) {
+              window.location.href = event.mapObject.dcUrl;
+            }
+          }]
         });
 
         this.map.addListener("drawn", function () {

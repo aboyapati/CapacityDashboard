@@ -31,6 +31,7 @@ export class ProvisioningComponent implements OnInit {
   ipAddress: string;
   ComVersion: string = 'Type*';
   ComSubVersion: string = 'Sub Type';
+  editComponentVersion: string;
   componentUser: string;
   password: string;
   enablePassword: string;
@@ -77,6 +78,7 @@ export class ProvisioningComponent implements OnInit {
   newDeleteDataIndex: number;
   currentDataCenterComponentId: number;
   subTypes : any;
+  subTypesEdit : any;
   private scrollLimit: number = 4;
   private scrollLimitMin: number = 0;
   private scrollLimitMax: number = 3;
@@ -142,11 +144,21 @@ export class ProvisioningComponent implements OnInit {
         this.password = '';
 		this.ipAddress = '';
 		this.enablePassword = '';
-        this.vrfWarnStart = ''; this.vrfWarnEnd = ''; this.vrfMax = '';
-        this.bgpPeersWarnStart = ''; this.bgpPeersWarnEnd = ''; this.bgpPeersMax = '';
-        this.vlanWarnStart = ''; this.vlanWarnEnd = ''; this.vlanMax = '';
-        this.hsrpWarnStart = ''; this.hsrpWarnEnd = ''; this.hsrpMax = '';
-        this.staticRoutesWarnStart = ''; this.staticRoutesWarnEnd = ''; this.staticRoutesMax = '';
+        this.vrfWarnStart = '';
+		this.vrfWarnEnd = '';
+		this.vrfMax = '';
+        this.bgpPeersWarnStart = '';
+		this.bgpPeersWarnEnd = '';
+		this.bgpPeersMax = '';
+        this.vlanWarnStart = '';
+		this.vlanWarnEnd = '';
+		this.vlanMax = '';
+        this.hsrpWarnStart = '';
+		this.hsrpWarnEnd = '';
+		this.hsrpMax = '';
+        this.staticRoutesWarnStart = '';
+		this.staticRoutesWarnEnd = '';
+		this.staticRoutesMax = '';
       }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -159,7 +171,6 @@ export class ProvisioningComponent implements OnInit {
   }
 
   openComponentModalNew(content, id = 0, type, currentdatacenter, editFromView = false) {
-
     $('#editComponentDropdown' + id).hide();
     this.newDeleteDataIndex = id;
 
@@ -169,7 +180,16 @@ export class ProvisioningComponent implements OnInit {
       this.componentRecords = [];
       this.config.getDataCenterComponentRecords(this.currentDataCenterComponentId).subscribe(res => {
         this.componentRecords = res;
+		var type_id = this.componentRecords.version;
+		var Subtype_id = this.componentRecords.subVersion;
+		if(type == 'edit') {
+			this.config.getSubtypes(type_id).subscribe(res => {
+				this.subTypesEdit = res;
+			  });
+			this.editComponentVersion = Subtype_id;
+		}
       });
+	  
       this.currentRow = id;
       if (editFromView == true) {
         $('#closeViewComponentModal').trigger('click');
@@ -212,7 +232,7 @@ export class ProvisioningComponent implements OnInit {
 		if(this.ComSubVersion == 'Sub Type') {
 			this.ComSubVersion = '';
 		}
-		this.config.componentAdd(1, this.comName, this.currentDC, '', '', this.ComVersion, this.ComSubVersion, this.componentUser, this.password, '', this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, '', '', '').subscribe(res => {
+		this.config.componentAdd(1, this.comName, this.currentDC, '', this.ipAddress, this.ComVersion, this.ComSubVersion, this.componentUser, this.password, this.enablePassword, this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, '', '', '').subscribe(res => {
 		  if (res.status == 'success') {
 			this.provisioningList();
 			this.apiError = 1;
@@ -348,7 +368,13 @@ export class ProvisioningComponent implements OnInit {
   editComponentClick(i) {
     for (let j = 0; j < this.dataCentersDetails.length; j++) {
       if (j == i) {
-        $('#editComponentDropdown' + i).show();
+        if($('#comp_filter').val()-1 == i) {
+			$('#editComponentDropdown' + i).hide();
+			$('#comp_filter').val("");
+		} else {
+			$('#editComponentDropdown' + i).show();
+			$('#comp_filter').val(i+1);
+		}
       } else {
         $('#editComponentDropdown' + j).hide();
       }
@@ -429,18 +455,18 @@ export class ProvisioningComponent implements OnInit {
     } else {
       $('#editComponentBar1').css('border-bottom', '0.0625rem solid #999');
     }
-    if ($('#editComponentNameType').val() == 'Country*') {
+    if ($('#editComponentNameType').val() == 'Type*') {
       $('#editComponentBar2').css('border-bottom', '0.0625rem solid red');
       var flag = true;
     } else {
       $('#editComponentBar2').css('border-bottom', '0.0625rem solid #999');
     }
-    if ($('#editComponentVersion').val() == '') {
+    /*if ($('#editComponentVersion').val() == 'Sub Type') {
       $('#editComponentBar3').css('border-bottom', '0.0625rem solid red');
       var flag = true;
     } else {
       $('#editComponentBar3').css('border-bottom', '0.0625rem solid #999');
-    }
+    }*/
     if ($('#editComponentIpAddress').val() == '') {
       $('#editComponentBar4').css('border-bottom', '0.0625rem solid red');
       var flag = true;
@@ -466,8 +492,7 @@ export class ProvisioningComponent implements OnInit {
       $('#editComponentBar6').css('border-bottom', '0.0625rem solid #999');
     }
 
-
-    if ($('#editComponentvrfWarnStart').val() == '') {
+    /*if ($('#editComponentvrfWarnStart').val() == '') {
       $('#editComponentBar7').css('border-bottom', '0.0625rem solid red');
       var flag = true;
     } else {
@@ -560,11 +585,10 @@ export class ProvisioningComponent implements OnInit {
       var flag = true;
     } else {
       $('#editComponentBar21').css('border-bottom', '0.0625rem solid #999');
-    }
+    }*/
 
 
     if (flag != true) {
-
       let editComponentName = $('#editComponentName').val();
       let editComponentNameType = $('#editComponentNameType').val();
       let editComponentVersion = $('#editComponentVersion').val();
@@ -812,6 +836,29 @@ export class ProvisioningComponent implements OnInit {
 		});
 		this.ComSubVersion = "Sub Type";
 		$("#addComponentSubType").prop("disabled", false);
+	}
+  }
+  
+  onVersionChangeEdit(name){
+    /*if(name == 'NEXUS'){
+      $('.toggleThreshold').show();
+    }else{
+      $('.toggleThreshold').hide();
+    }
+    if(name == 'ASA'){
+      $('.toggleEnablePassword').show();
+    }else{
+      $('.toggleEnablePassword').hide();
+    }*/
+    if(name == 'Type*') {
+		this.editComponentVersion = "Sub Type";
+		$("#editComponentVersion").prop("disabled", true);
+	} else {
+		this.config.getSubtypes(name).subscribe(res => {
+		  this.subTypesEdit = res;
+		});
+		this.editComponentVersion = "Sub Type";
+		$("#editComponentVersion").prop("disabled", false);
 	}
   }
 

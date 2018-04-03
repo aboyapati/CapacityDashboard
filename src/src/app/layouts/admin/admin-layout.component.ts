@@ -6,6 +6,8 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { MenuItems } from '../../shared/menu-items/menu-items';
 
+declare const $: any;
+
 export interface Options {
   heading?: string;
   removeFooter?: boolean;
@@ -56,7 +58,26 @@ export class AdminLayoutComponent implements OnInit {
     this.setMenuAttributs(this.windowWidth);
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    setTimeout(() => {
+      if (this.cookieService.get('leftNavSelectedMenu') != '') {
+        $('#' + this.cookieService.get('leftNavSelectedMenu')).addClass("pcoded-trigger");
+        this.cookieService.set('leftNavSelectedMenu', '');
+      }
+    }, 1000);
+  }
+
+  reloadCurrentPage(id = '') {
+    setTimeout(() => {
+      if (this.cookieService.get('currentUrl') == this.router.url) {
+        if (id != '') {
+          this.cookieService.set('leftNavSelectedMenu', id);
+        }
+        location.reload();
+      }
+      this.cookieService.set('currentUrl', this.router.url);
+    }, 500);
+  }
 
   rsdClick() {
     this.router.navigate(['dashboard']);

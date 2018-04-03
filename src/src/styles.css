@@ -26205,6 +26205,10 @@ body.menu-bottom .navbar-wrapper {
   overflow: visible !important;
 }
 
+#chartdiv[_ngcontent-c4]{
+  height: 299px !important;
+}
+
 .sub_component_modal {
 	top:70px;
 }

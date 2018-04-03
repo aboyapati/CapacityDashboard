@@ -130,7 +130,8 @@
               <div *ngFor="let asideItems of menuItems.getAll()">
                 <ul class="pcoded-item pcoded-left-item" item-border="none" item-border-style="solid" subitem-border="solid" *ngFor="let asideItem of asideItems.main"
                   appAccordionLink group="{{asideItem.state}}">
-                  <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'external'" appAccordionLink group="{{asideItem.state}}">
+                  <li (click)="reloadCurrentPage()" [routerLinkActive]="['active']" *ngIf="asideItem.type === 'external'" appAccordionLink
+                    group="{{asideItem.state}}">
                     <a href="{{asideItem.external}}" target="{{asideItem.target ? '_blank' : '_self'}}" appAccordionToggle>
                       <span class="pcoded-micon">
                         <i class="{{ asideItem.icon }}"></i>
@@ -141,7 +142,7 @@
                     </a>
                   </li>
 
-                  <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'link'" appAccordionLink group="{{asideItem.state}}">
+                  <li (click)="reloadCurrentPage()" [routerLinkActive]="['active']" *ngIf="asideItem.type === 'link'" appAccordionLink group="{{asideItem.state}}">
                     <a [routerLink]="['/', asideItem.main_state, asideItem.state]" target="{{asideItem.target ? '_blank' : '_self'}}" appAccordionToggle
                       *ngIf="asideItem.main_state; else: mainContent">
                       <span class="pcoded-micon">
@@ -166,8 +167,8 @@
                       </a>
                     </ng-template>
                   </li>
-                  <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'sub'" class="pcoded-hasmenu" dropdown-icon="style3" subitem-icon="style6"
-                    appAccordionLink group="{{asideItem.state}}">
+                  <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'sub'" id="{{asideItem.state}}" class="pcoded-hasmenu" dropdown-icon="style3"
+                    subitem-icon="style6" appAccordionLink group="{{asideItem.state}}">
                     <a [routerLinkActive]="['active']" href="javascript:;" appAccordionToggle>
                       <span class="pcoded-micon">
                         <i class="{{ asideItem.icon }}"></i>
@@ -176,7 +177,7 @@
                       <span *ngFor="let asideBadge of asideItem.badge" class="pcoded-badge label label-{{ asideBadge.type }}">{{asideBadge.value}}</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
-                    <ul class="pcoded-submenu">
+                    <ul (click)="reloadCurrentPage(asideItem.state)" class="pcoded-submenu">
                       <ng-template ngFor let-asideChildren [ngForOf]="asideItem.children">
                         <li [routerLinkActive]="['active']" *ngIf="asideChildren.type !== 'sub'">
                           <a [routerLink]="['/'+asideItem.state+'/'+asideChildren.state]" target="{{asideChildren.target ? '_blank' : '_self'}}">

@@ -57,7 +57,7 @@ export class DatacenterComponent implements OnInit {
             this.setSubComData();
           }
         });
-      }, 100);
+      }, 1000);
     });
   }
 

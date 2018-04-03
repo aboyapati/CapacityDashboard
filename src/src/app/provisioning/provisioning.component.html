@@ -311,9 +311,9 @@
                                                     </div>
                                                     <div class="form-group toggleEnablePassword" style="display:none;">
                                                         <div class="checkbox">
-                                                            <input type="checkbox" value="enablePassword" style="z-index: 9 !important;" [(ngModel)]="enablePassword" name="enablePassword" />
+                                                            <input type="checkbox" value="enablePassword" style="z-index:9 !important; cursor:pointer;" [(ngModel)]="enablePassword" name="enablePassword" />
                                                             <label for="check2">Enable Password</label>
-                                                            <i class="helper"></i>
+                                                            <i class="helper" style="margin-top:2px;"></i>
 														</div>
 													</div>
 												</div>
@@ -378,7 +378,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let data of dataCentersDetails, let j = index">
+                <input type="hidden" id="comp_filter" name="comp_filter" value="" />
+				<tr *ngFor="let data of dataCentersDetails, let j = index">
                     <td>{{ data.name }}</td>
                     <td>{{ data.version }}</td>
                     <td>{{ data.subVersion }}</td>
@@ -407,8 +408,8 @@
         <div class="modalForm">
             <div class="form-modal">
                 <div class="header_title">Add a data center</div>
-                <p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
-                    <a style="color:#007bff;">contact us</a>.</p>
+                <!--<p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
+                    <a style="color:#007bff;">contact us</a>.</p>-->
             </div>
             <form (submit)="onSubmit()">
                 <div class="form-modal" style="padding-top: 0;">
@@ -461,8 +462,8 @@
             <div class="apiSuccess">
                 <div class="form-modal" style="padding-bottom: 40px;">
                     <div class="header_title"> Add a data center</div>
-                    <p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
-                        <a style="color:#007bff;">contact us</a>.</p>
+                    <!--<p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
+                        <a style="color:#007bff;">contact us</a>.</p>-->
                     <div style="color: green;" class="apiMsg">Data center added successfully !</div>
                 </div>
                 <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
@@ -474,8 +475,8 @@
             <div class="apiFailed" style="display: none">
                 <div class="form-modal" style="padding-bottom: 40px;">
                     <div class="header_title"> Add a data center</div>
-                    <p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
-                        <a style="color:#007bff;">contact us</a>.</p>
+                    <!--<p class="modal_description">Add a data center to your network. It's quick and easy. If you need any assistance please
+                        <a style="color:#007bff;">contact us</a>.</p>-->
                     <div style="color: red;" class="apiMsg">Something went wrong !</div>
                     <p id="apiErrorMsg" style="color: red;"></p>
                 </div>
@@ -494,8 +495,8 @@
         <div class="modalForm">
             <div class="form-modal">
                 <div class="header_title">Edit data center</div>
-                <p class="modal_description">Edit data center 1 of your network. It's quick and easy. If you need any assistance please
-                    <a style="color:#007bff;">contact us</a>.</p>
+                <!--<p class="modal_description">Edit data center 1 of your network. It's quick and easy. If you need any assistance please
+                    <a style="color:#007bff;">contact us</a>.</p>-->
             </div>
             <form>
                 <div class="form-modal" style="padding-top: 0;">
@@ -548,8 +549,8 @@
             <div class="apiSuccess">
                 <div class="form-modal" style="padding-bottom: 40px;">
                     <div class="header_title">Edit data center</div>
-                    <p class="modal_description">Edit data center 1 of your network. It's quick and easy. If you need any assistance please
-                        <a style="color:#007bff;">contact us</a>.</p>
+                    <!--<p class="modal_description">Edit data center 1 of your network. It's quick and easy. If you need any assistance please
+                        <a style="color:#007bff;">contact us</a>.</p>-->
                     <div style="color: green;" class="apiMsg">Data center edited successfully !</div>
                 </div>
                 <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
@@ -561,8 +562,8 @@
             <div class="apiFailed" style="display: none">
                 <div class="form-modal" style="padding-bottom: 40px;">
                     <div class="header_title">Edit data center</div>
-                    <p class="modal_description">Edit data center 1 of your network. It's quick and easy. If you need any assistance please
-                        <a style="color:#007bff;">contact us</a>.</p>
+                    <!--<p class="modal_description">Edit data center 1 of your network. It's quick and easy. If you need any assistance please
+                        <a style="color:#007bff;">contact us</a>.</p>-->
                     <div style="color: red;" class="apiMsg">Something went wrong !</div>
                     <p id="editApiErrorMsg" style="color: red;"></p>
                 </div>
@@ -677,16 +678,18 @@
                         <i id='editComponentBar1' class="bar"></i>
                     </div>
                     <div class="form-group">
-                        <select id="editComponentNameType">
-                            <option class="modal_placeholder" value="Country*">Type*</option>
+                        <select id="editComponentNameType" [(ngModel)]="editComponentNameType" name="editComponentNameType" (change)="onVersionChangeEdit(editComponentNameType)">
+                            <option class="modal_placeholder" value="Type*">Type*</option>
                             <option *ngFor='let ver of version' [selected]="ver.name === componentRecords.version" [value]="ver.name">{{ver.name}}</option>
                         </select>
                         <label class="control-label" for="select"></label>
                         <i id="editComponentBar2" class="bar"></i>
                     </div>
                     <div class="form-group">
-                        <input id="editComponentVersion" type="text" required="required" value="{{componentRecords.subVersion}}" />
-                        <label class="control-label" for="input">Version*</label>
+						<select [(ngModel)]="editComponentVersion" name="editComponentVersion" id="editComponentVersion">
+							<option class="modal_placeholder">Sub Type</option>
+							<option value="{{subTypeEdit.name}}" *ngFor='let subTypeEdit of subTypesEdit'>{{subTypeEdit.name}}</option>
+						</select>
                         <i id="editComponentBar3" class="bar"></i>
                     </div>
                     <div class="form-group">
