@@ -17,6 +17,9 @@ export class WithSocialComponent implements OnInit {
   constructor(private router: Router, private cookieService: CookieService, private config: ConfigService) { }
 
   ngOnInit() {
+    if(sessionStorage.username && sessionStorage.id && typeof sessionStorage.username != 'undefined' && typeof sessionStorage.id != 'undefined') {
+      this.router.navigate(['dashboard']);
+    }
 
     this.logout_clicked = this.cookieService.get('logout_clicked');
 
@@ -67,6 +70,8 @@ export class WithSocialComponent implements OnInit {
     this.config.verifyLogin(username, password).subscribe(res => {
       if (res.status == 1) {
         this.login_status = true;
+        sessionStorage.setItem('username', res.username);
+        sessionStorage.setItem('id', res.id);
         this.router.navigate(['dashboard']);
       } else {
         $('.rsdAlert').slideDown().text('Invalid Username or Password').css('background', 'red').slideUp(2000);

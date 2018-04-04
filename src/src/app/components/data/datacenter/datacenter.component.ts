@@ -3,6 +3,7 @@ import { ConfigService } from '../../../config.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
+import { Router } from '@angular/router';
 declare const $: any;
 
 @Component({
@@ -18,7 +19,7 @@ export class DatacenterComponent implements OnInit {
   private chart3: AmChart;
   private chart4: AmChart;
   private observeRef: any;
-  private userId: number;
+  private userId: number = sessionStorage.id;
   private dataCenterId: number;
   private subComponentList: any;
   private subComponentPopUpdata: any;
@@ -43,11 +44,10 @@ export class DatacenterComponent implements OnInit {
   components: any;
   subComponents: any;
 
-  constructor(private modalService: NgbModal, private config: ConfigService, private route: ActivatedRoute, private AmCharts: AmChartsService) {
+  constructor(private modalService: NgbModal, private config: ConfigService, private route: ActivatedRoute, private AmCharts: AmChartsService, private router: Router) {
 
     this.observeRef = route.params.subscribe(params => {
       this.dataCenterId = params['dataCenterId'];
-      this.userId = 1;
       setTimeout(() => {
         this.config.getComponentList(this.dataCenterId).subscribe(res_comp => {
           this.components = res_comp;
@@ -67,6 +67,10 @@ export class DatacenterComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    if(!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
+      this.router.navigate(['login']);
+    }
   }
 
   componnetScrollClick(id, clickType = 'scroll') {

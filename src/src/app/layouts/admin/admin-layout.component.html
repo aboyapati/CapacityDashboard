@@ -9,11 +9,8 @@
           <a class="mobile-menu" id="mobile-collapse" href="javascript:;" (click)="toggleOpened()" [exclude]="'#main_navbar'" (clickOutside)="onClickedOutside($event)">
             <i style="color: black;" class="ti-menu"></i>
           </a>
-          <a [routerLink]="['/']">
+          <a (click)="onNavigate()" style="cursor:pointer;">
             <img style="max-width: 100%;height: 40px;" src="assets/images/logo.png" alt="Theme-Logo" />
-          </a>
-          <a (click)="onMobileMenu()" class="mobile-options">
-            <i class="ti-more"></i>
           </a>
         </div>
 
@@ -29,7 +26,7 @@
                 </a>
               </li>
             </ul>-->
-            <ul [@mobileMenuTop]="isCollapsedMobile" class="nav-right" [ngClass]="isCollapsedMobile">
+            <ul  class="nav-right pro" >
               <li class="header-notification">
                 <!--<a href="javascript:;">
                   <i class="ti-bell"></i>
@@ -74,22 +71,25 @@
               </li>
               <li class="user-profile header-notification">
                 <a href="#" (click)="disableRouterAction($event)">
-                  <span style="color: black">Ameeta tekVizion</span>
-                  <i style="color: black" class="ti-angle-down"></i>
+                  
+                  <span class="pro-name" style="color: black">{{currentUser}}</span>
+                  <i style="color: black; font-size: 20px;" class="pro-name1 fa fa-user"></i>
+                  <i style="color: black" class="ti-angle-down pro-name"></i>
                 </a>
                 <ul class="show-notification profile-notification">
+                  <li class="pro-name1" >
+                    <a >
+                      <i class="fa fa-user"></i> {{currentUser}}
+                    </a>
+                  </li>
                   <li>
-                    <a href="javascript:">
+                    <a (click)="open(content)" style="cursor: pointer;">
                       <i class="ti-settings"></i> About
                     </a>
                   </li>
-                  <li>
-                    <a href="javascript:">
-                      <i class="ti-help-alt"></i> Help
-                    </a>
-                  </li>
+                 
                   <li (click)="logoutClicked($event)">
-                    <a href="logout">
+                    <a href="">
                       <i class="ti-power-off"></i> Logout
                     </a>
                   </li>
@@ -100,6 +100,22 @@
         </div>
       </div>
     </nav>
+    <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <div class="modalForm">
+            <div class="form-modal">
+                <div class="header_title col-md-12">Version</div>
+                <p class="modal_version">1.0</p>
+                   
+                     <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
+                    <div style="position: absolute; top:25%; left:50%; transform: translate(-50%,-50%);" class="">
+                        <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="c('Close click')">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
 
     <div class="pcoded-main-container">
       <div class="pcoded-wrapper">

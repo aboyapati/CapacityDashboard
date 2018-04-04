@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../config.service';
+import { Router } from '@angular/router';
 declare const $: any;
 declare var Morris: any;
 
@@ -15,10 +16,13 @@ export class DashboardComponent implements OnInit {
   notificationFilter: boolean = false;
   datas: any;
 
-  constructor(private config: ConfigService) { }
+  constructor(private config: ConfigService, private router: Router) { }
 
   ngOnInit() {
 
+    if(!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
+      this.router.navigate(['login']);
+    }
     setTimeout(() => {
       this.config.getDashboardData()
         .subscribe(res => {

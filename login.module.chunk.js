@@ -121,6 +121,9 @@ var WithSocialComponent = (function () {
     }
     WithSocialComponent.prototype.ngOnInit = function () {
         var _this = this;
+        if (sessionStorage.username && sessionStorage.id && typeof sessionStorage.username != 'undefined' && typeof sessionStorage.id != 'undefined') {
+            this.router.navigate(['dashboard']);
+        }
         this.logout_clicked = this.cookieService.get('logout_clicked');
         if (this.logout_clicked == 'yes') {
             this.loading_status = true;
@@ -164,6 +167,8 @@ var WithSocialComponent = (function () {
             _this.config.verifyLogin(username, password).subscribe(function (res) {
                 if (res.status == 1) {
                     _this.login_status = true;
+                    sessionStorage.setItem('username', res.username);
+                    sessionStorage.setItem('id', res.id);
                     _this.router.navigate(['dashboard']);
                 }
                 else {

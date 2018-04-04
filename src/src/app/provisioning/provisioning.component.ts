@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigService } from '../config.service';
+import { Router } from '@angular/router';
 declare const $: any;
 
 @Component({
@@ -24,7 +25,7 @@ export class ProvisioningComponent implements OnInit {
   timezone: string = 'Time zone*';
 
   apiError: number = 1;
-  userId: number;
+  userId: number = sessionStorage.id;
   comName: string;
   dataCenterId: number;
   type: string;
@@ -87,7 +88,7 @@ export class ProvisioningComponent implements OnInit {
   progressPerc: any;
   next_step: boolean;
 
-  constructor(private modalService: NgbModal, private config: ConfigService) { }
+  constructor(private modalService: NgbModal, private config: ConfigService, private router: Router) { }
 
   open(content, id = 0, type) {
 
@@ -119,7 +120,7 @@ export class ProvisioningComponent implements OnInit {
   }
 
   deleteDC() {
-    this.config.deleteDataCenter('1', this.editId).subscribe(res => {
+    this.config.deleteDataCenter(this.userId, this.editId).subscribe(res => {
       $('.modalForm').hide();
       $('.apiResponseDiv').show();
       if (res.status == 'success') {
@@ -233,7 +234,7 @@ export class ProvisioningComponent implements OnInit {
       if(this.ComSubVersion == 'Sub Type') {
         this.ComSubVersion = '';
       }
-		this.config.componentAdd(1, this.comName, this.currentDC, '', this.ipAddress, this.ComVersion, this.ComSubVersion, this.componentUser, this.password, this.enablePassword, this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, '', '', '').subscribe(res => {
+      this.config.componentAdd(this.userId, this.comName, this.currentDC, '', this.ipAddress, this.ComVersion, this.ComSubVersion, this.componentUser, this.password, this.enablePassword, this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, '', '', '').subscribe(res => {
         if (res.status == 'success') {
           this.provisioningList();
           this.apiError = 1;
@@ -438,7 +439,7 @@ export class ProvisioningComponent implements OnInit {
       let editTimezone = $('#editDataCenterTimezone').val();
 
       setTimeout(() => {
-        this.config.editDataCenter('1', editId, editName, editCountry, editState, editCity, editTimezone).subscribe(res => {
+        this.config.editDataCenter(this.userId, editId, editName, editCountry, editState, editCity, editTimezone).subscribe(res => {
           $('.modalForm').hide();
           $('.apiResponseDiv').show();
           if (res.status == 'success') {
@@ -625,7 +626,7 @@ export class ProvisioningComponent implements OnInit {
       let editComponentstaticRoutesMax = $('#editComponentstaticRoutesMax').val();
 
       setTimeout(() => {
-        this.config.editComponent('1', this.currentDataCenterComponentId, editComponentName, editComponentNameType, editComponentVersion, editComponentIpAddress, editComponentComponentUser, editComponentPassword, editComponentvrfWarnStart, editComponentvrfWarnEnd, editComponentvrfMax, editComponentbgpPeersWarnStart, editComponentbgpPeersWarnEnd, editComponentbgpPeersMax, editComponentvlanWarnStart, editComponentvlanWarnEnd, editComponentvlanMax, editComponenthsrpWarnStart, editComponenthsrpWarnEnd, editComponenthsrpMax, editComponentstaticRoutesWarnStart, editComponentstaticRoutesWarnEnd, editComponentstaticRoutesMax).subscribe(res => {
+        this.config.editComponent(this.userId, this.currentDataCenterComponentId, editComponentName, editComponentNameType, editComponentVersion, editComponentIpAddress, editComponentComponentUser, editComponentPassword, editComponentvrfWarnStart, editComponentvrfWarnEnd, editComponentvrfMax, editComponentbgpPeersWarnStart, editComponentbgpPeersWarnEnd, editComponentbgpPeersMax, editComponentvlanWarnStart, editComponentvlanWarnEnd, editComponentvlanMax, editComponenthsrpWarnStart, editComponenthsrpWarnEnd, editComponenthsrpMax, editComponentstaticRoutesWarnStart, editComponentstaticRoutesWarnEnd, editComponentstaticRoutesMax).subscribe(res => {
 
           $('.modalForm').hide();
           $('.apiResponseDiv').show();
@@ -645,6 +646,10 @@ export class ProvisioningComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    if(!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
+      this.router.navigate(['login']);
+    }
     this.CountryTimezoneList();
     this.ComponentTypeList();
 
@@ -761,7 +766,7 @@ export class ProvisioningComponent implements OnInit {
     if (flag != true) {
 
       setTimeout(() => {
-        this.config.addDataCenter('1', this.name, this.country, this.state, this.city, this.timezone).subscribe(res => {
+        this.config.addDataCenter(this.userId, this.name, this.country, this.state, this.city, this.timezone).subscribe(res => {
           $('.modalForm').hide();
           $('.apiResponseDiv').show();
           var sucflag = false;
@@ -889,7 +894,7 @@ export class ProvisioningComponent implements OnInit {
   }
 
   deleteComponentData(componentId) {
-    this.config.componentDelete(1, componentId).subscribe(res => {
+    this.config.componentDelete(this.userId, componentId).subscribe(res => {
       let componentFlag = false;
       $('.componentDeleteModal').hide();
       $('.apiResponseDivComponent').show();

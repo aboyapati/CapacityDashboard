@@ -37,3 +37,60 @@ footer{
 {
     border-left-color:black !important;
 }
+
+.pro-name1{
+	display:none;
+	}
+@media only screen and (min-device-width: 516px) and (max-device-width: 992px)
+{
+	.pro{
+		margin-top:-45px;
+	}
+}
+.header_title {
+    text-align: center;
+    font-size: 38px;
+    font-weight: bold;
+    color: #3d4657;
+}
+.modal_version{
+    text-align: center;
+    font-size: 38px;
+    color: #3d4657;
+}
+.btn-primary{
+    background-color: #203c66 !important;
+    border-color: #203c66 !important;
+    font-weight: 600 !important;
+}
+@media only screen and (max-width: 515px)
+{
+	.pro-name{
+		display: none;
+	}
+	.pro{
+		margin-top: -38px;	
+	}
+	.header-navbar .navbar-wrapper .navbar-container .nav-left, .header-navbar .navbar-wrapper .navbar-container .nav-right{
+		margin-bottom: -37px;
+	}
+	.pro-name1{
+		display:block !important;
+	}
+	.user-profile{
+		padding-bottom:18px !important;
+		cursor:pointer !important;
+	}
+	.header-navbar .navbar-wrapper .navbar-container .nav-right li{
+		line-height: 0;
+	}
+	.show-notification{
+		margin-top: 18px !important;
+	}
+	.header-navbar .navbar-wrapper .navbar-container .nav-right a{
+	 	padding: 0px !important;
+	}
+	.header-navbar .navbar-wrapper .navbar-logo {
+		padding-top: 6px;
+	}
+}

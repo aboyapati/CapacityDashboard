@@ -163,13 +163,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var DatacenterComponent = (function () {
-    function DatacenterComponent(modalService, config, route, AmCharts) {
+    function DatacenterComponent(modalService, config, route, AmCharts, router) {
         var _this = this;
         this.modalService = modalService;
         this.config = config;
         this.route = route;
         this.AmCharts = AmCharts;
+        this.router = router;
+        this.userId = sessionStorage.id;
         this.selectedComponentId = 0;
         this.selectedComponentType = 'default';
         this.scrollLimit = 4;
@@ -182,7 +185,6 @@ var DatacenterComponent = (function () {
         this.subComChartimgUrl = "assets/images/subcomponentChart.png";
         this.observeRef = route.params.subscribe(function (params) {
             _this.dataCenterId = params['dataCenterId'];
-            _this.userId = 1;
             setTimeout(function () {
                 _this.config.getComponentList(_this.dataCenterId).subscribe(function (res_comp) {
                     _this.components = res_comp;
@@ -202,6 +204,9 @@ var DatacenterComponent = (function () {
         });
     }
     DatacenterComponent.prototype.ngOnInit = function () {
+        if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
+            this.router.navigate(['login']);
+        }
     };
     DatacenterComponent.prototype.componnetScrollClick = function (id, clickType) {
         if (clickType === void 0) { clickType = 'scroll'; }
@@ -566,10 +571,10 @@ DatacenterComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__config_service__["a" /* ConfigService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__config_service__["a" /* ConfigService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__["b" /* AmChartsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__["b" /* AmChartsService */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__config_service__["a" /* ConfigService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__config_service__["a" /* ConfigService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__["b" /* AmChartsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__["b" /* AmChartsService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["f" /* Router */]) === "function" && _e || Object])
 ], DatacenterComponent);
 
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=datacenter.component.js.map
 
 /***/ })

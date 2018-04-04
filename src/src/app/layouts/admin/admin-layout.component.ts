@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { state, style, transition, animate, trigger, AUTO_STYLE } from '@angular/animations';
 import { CookieService } from 'ngx-cookie-service';
-
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MenuItems } from '../../shared/menu-items/menu-items';
 
 declare const $: any;
@@ -40,6 +40,7 @@ export interface Options {
 })
 
 export class AdminLayoutComponent implements OnInit {
+  closeResult: string;
   deviceType = 'desktop';
   verticalNavType = 'expanded';
   verticalEffect = 'shrink';
@@ -48,10 +49,11 @@ export class AdminLayoutComponent implements OnInit {
   isCollapsedSideBar = 'no-block';
   toggleOn = true;
   windowWidth: number;
+  currentUser: string = sessionStorage.username;
 
   public htmlButton: string;
 
-  constructor(public menuItems: MenuItems, private router: Router, private cookieService: CookieService) {
+  constructor(public menuItems: MenuItems, private router: Router, private cookieService: CookieService,private modalService: NgbModal) {
     const scrollHeight = window.screen.height - 150;
     this.innerHeight = scrollHeight + 'px';
     this.windowWidth = window.innerWidth;
@@ -59,6 +61,9 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
+      this.router.navigate(['login']);
+    }
     setTimeout(() => {
       if (this.cookieService.get('leftNavSelectedMenu') != '') {
         $('#' + this.cookieService.get('leftNavSelectedMenu')).addClass("pcoded-trigger");
@@ -86,6 +91,7 @@ export class AdminLayoutComponent implements OnInit {
   logoutClicked(e) {
     e.preventDefault();
     this.cookieService.set('logout_clicked', 'yes');
+    sessionStorage.clear();
     this.router.navigate(['login']);
   }
 
@@ -148,5 +154,27 @@ export class AdminLayoutComponent implements OnInit {
 
   onMobileMenu() {
     this.isCollapsedMobile = this.isCollapsedMobile === 'yes-block' ? 'no-block' : 'yes-block';
+  }
+  
+  onNavigate(){
+	window.open("http://www.tekvizion.com", "_blank");
+  }
+  
+  open(content) {
+    this.modalService.open(content, { windowClass: 'custom_modal', backdrop : 'static' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return 'with: ${reason}';
+    }
   }
 }
