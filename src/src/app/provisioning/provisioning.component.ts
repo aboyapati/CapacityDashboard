@@ -20,9 +20,11 @@ export class ProvisioningComponent implements OnInit {
   apiStatusMsg: boolean = false;
   name: string = '';
   country: string = 'Country*';
-  state: string = '';
-  city: string = '';
+  state: string = 'State*';
+  city: string = 'City*';
   timezone: string = 'Time zone*';
+  statesList: string[];
+  citiesList: string[];
 
   apiError: number = 1;
   userId: number = sessionStorage.id;
@@ -35,32 +37,32 @@ export class ProvisioningComponent implements OnInit {
   editComponentVersion: string;
   componentUser: string;
   password: string;
-  enablePassword: string;
+  enablePassword: string = '';
 
   //Thresholds
-  vrfWarnStart: string;
-  vrfWarnEnd: string;
-  vrfMax: string;
+  vrfWarnStart: string = '';
+  vrfWarnEnd: string = '';
+  vrfMax: string = '';
 
-  bgpPeersWarnStart: string;
-  bgpPeersWarnEnd: string;
-  bgpPeersMax: string;
+  bgpPeersWarnStart: string = '';
+  bgpPeersWarnEnd: string = '';
+  bgpPeersMax: string = '';
 
-  vlanWarnStart: string;
-  vlanWarnEnd: string;
-  vlanMax: string;
+  vlanWarnStart: string = '';
+  vlanWarnEnd: string = '';
+  vlanMax: string = '';
 
-  hsrpWarnStart: string;
-  hsrpWarnEnd: string;
-  hsrpMax: string;
+  hsrpWarnStart: string = '';
+  hsrpWarnEnd: string = '';
+  hsrpMax: string = '';
 
-  staticRoutesWarnStart: string;
-  staticRoutesWarnEnd: string;
-  staticRoutesMax: string;
+  staticRoutesWarnStart: string = '';
+  staticRoutesWarnEnd: string = '';
+  staticRoutesMax: string = '';
 
-  vrrpWarnStart: string;
-  vrrpWarnEnd: string;
-  vrrpMax: string;
+  vrrpWarnStart: string = '';
+  vrrpWarnEnd: string = '';
+  vrrpMax: string = '';
   showNullRowMessage: boolean = false;
 
   editIdIndex: any;
@@ -79,16 +81,38 @@ export class ProvisioningComponent implements OnInit {
   editFromView: boolean = false;
   newDeleteDataIndex: number;
   currentDataCenterComponentId: number;
-  subTypes : any;
-  subTypesEdit : any;
-  private scrollLimit: number = 4;
-  private scrollLimitMin: number = 0;
-  private scrollLimitMax: number = 3;
+  subTypes: any;
+  subTypesEdit: any;
+  private deviceHeight: any;
+  private deviceWidth: any;
+  private scrollLimit: number;
+  private sliderLimit: number;
+  private scrollLimitMin: number;
+  private scrollLimitMax: number;
   private selectedDataCenter: number;
   progressPerc: any;
   next_step: boolean;
 
-  constructor(private modalService: NgbModal, private config: ConfigService, private router: Router) { }
+  constructor(private modalService: NgbModal, private config: ConfigService, private router: Router) {
+    this.deviceHeight = (window.screen.height);
+    this.deviceWidth = (window.screen.width);
+    if (this.deviceWidth >= 768) {
+      this.scrollLimit = 4;
+      this.scrollLimitMin = 0;
+      this.scrollLimitMax = 3;
+      this.sliderLimit = 3;
+    } else if (this.deviceWidth >= 576) {
+      this.scrollLimit = 2;
+      this.scrollLimitMin = 0;
+      this.scrollLimitMax = 1;
+      this.sliderLimit = 1;
+    } else {
+      this.scrollLimit = 1;
+      this.scrollLimitMin = 0;
+      this.scrollLimitMax = 0;
+      this.sliderLimit = 0;
+    }
+  }
 
   open(content, id = 0, type) {
 
@@ -98,15 +122,23 @@ export class ProvisioningComponent implements OnInit {
       this.editData = this.dataCenters[id];
       this.callMatricsFilter = false;
       $('#callMatricsDropdown' + id).hide();
+      if(type == 'edit') {
+        this.config.getStates(this.editData.country).subscribe(res => {
+          this.statesList = res;
+        });
+        this.config.getCities(this.editData.state).subscribe(res => {
+          this.citiesList = res;
+        });
+      }
     }
 
-    this.modalService.open(content, { windowClass: 'custom_modal', backdrop : 'static' }).result.then((result) => {
+    this.modalService.open(content, { windowClass: 'custom_modal', backdrop: 'static' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       if (type == 'add' && this.closeResult == 'Closed with: Close click') {
         this.name = '';
         this.country = 'Country*';
-        this.state = '';
-        this.city = '';
+        this.state = 'State*';
+        this.city = 'City*';
         this.timezone = 'Time zone*';
       }
     }, (reason) => {
@@ -136,7 +168,7 @@ export class ProvisioningComponent implements OnInit {
   }
 
   openComponentModal(content) {
-    this.modalService.open(content, { windowClass: 'custom_modal', size: 'lg', backdrop : 'static' }).result.then((result) => {
+    this.modalService.open(content, { windowClass: 'custom_modal', size: 'lg', backdrop: 'static' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       if (this.closeResult == 'Closed with: Close click') {
         this.comName = '';
@@ -144,23 +176,23 @@ export class ProvisioningComponent implements OnInit {
         this.ComSubVersion = 'Sub Type';
         this.componentUser = '';
         this.password = '';
-		    this.ipAddress = '';
-		    this.enablePassword = '';
+        this.ipAddress = '';
+        this.enablePassword = '';
         this.vrfWarnStart = '';
-		    this.vrfWarnEnd = '';
-		    this.vrfMax = '';
+        this.vrfWarnEnd = '';
+        this.vrfMax = '';
         this.bgpPeersWarnStart = '';
-		    this.bgpPeersWarnEnd = '';
-		    this.bgpPeersMax = '';
+        this.bgpPeersWarnEnd = '';
+        this.bgpPeersMax = '';
         this.vlanWarnStart = '';
-		    this.vlanWarnEnd = '';
-		    this.vlanMax = '';
+        this.vlanWarnEnd = '';
+        this.vlanMax = '';
         this.hsrpWarnStart = '';
-		    this.hsrpWarnEnd = '';
-		    this.hsrpMax = '';
+        this.hsrpWarnEnd = '';
+        this.hsrpMax = '';
         this.staticRoutesWarnStart = '';
-		    this.staticRoutesWarnEnd = '';
-		    this.staticRoutesMax = '';
+        this.staticRoutesWarnEnd = '';
+        this.staticRoutesMax = '';
       }
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -182,16 +214,16 @@ export class ProvisioningComponent implements OnInit {
       this.componentRecords = [];
       this.config.getDataCenterComponentRecords(this.currentDataCenterComponentId).subscribe(res => {
         this.componentRecords = res;
-		var type_id = this.componentRecords.version;
-		var Subtype_id = this.componentRecords.subVersion;
-		if(type == 'edit') {
-			this.config.getSubtypes(type_id).subscribe(res => {
-				this.subTypesEdit = res;
-			  });
-			this.editComponentVersion = Subtype_id;
-		}
+        var type_id = this.componentRecords.type;
+        var Subtype_id = this.componentRecords.version;
+        if (type == 'edit') {
+          this.config.getSubtypes(type_id).subscribe(res => {
+            this.subTypesEdit = res;
+          });
+          this.editComponentVersion = Subtype_id;
+        }
       });
-	  
+
       this.currentRow = id;
       if (editFromView == true) {
         $('#closeViewComponentModal').trigger('click');
@@ -202,7 +234,7 @@ export class ProvisioningComponent implements OnInit {
       $('#editComponentSuccessClose').trigger('click');
     }
 
-    this.modalService.open(content, { windowClass: 'custom_modal', size: 'lg', backdrop : 'static' }).result.then((result) => {
+    this.modalService.open(content, { windowClass: 'custom_modal', size: 'lg', backdrop: 'static' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -230,19 +262,41 @@ export class ProvisioningComponent implements OnInit {
   }
 
   addComponent() {
-    if(this.next_step) {
-      if(this.ComSubVersion == 'Sub Type') {
+    if (this.next_step) {
+      if (this.ComSubVersion == 'Sub Type') {
         this.ComSubVersion = '';
       }
-      this.config.componentAdd(this.userId, this.comName, this.currentDC, '', this.ipAddress, this.ComVersion, this.ComSubVersion, this.componentUser, this.password, this.enablePassword, this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, '', '', '').subscribe(res => {
+      if(this.ComVersion != 'NEXUS') {
+        this.vrfWarnStart = ''; this.vrfWarnEnd = ''; this.vrfMax = '';
+        this.bgpPeersWarnStart = ''; this.bgpPeersWarnEnd = ''; this.bgpPeersMax = '';
+        this.vlanWarnStart = ''; this.vlanWarnEnd = ''; this.vlanMax = '';
+        this.hsrpWarnStart = ''; this.hsrpWarnEnd = ''; this.hsrpMax = '';
+        this.staticRoutesWarnStart = ''; this.staticRoutesWarnEnd = ''; this.staticRoutesMax = '';
+      }
+      if(this.ComVersion != 'ASA') {
+        this.enablePassword = '';
+      }
+      this.config.componentAdd(this.userId, this.comName, this.currentDC, this.ComVersion, this.ipAddress, this.ComSubVersion, '', this.componentUser, this.password, this.enablePassword, this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, this.vrrpWarnStart, this.vrrpWarnEnd, this.vrrpMax).subscribe(res => {
         if (res.status == 'success') {
           this.provisioningList();
           this.apiError = 1;
           this.currentDataCenterComponentId = res.component_id;
+          $('#apiErrorMsg').hide();
+          $('#complete-title').html("Complete");
+          $('#complete-title').attr('style', 'color: #7bbf6a !important');
+          $('#complete-icon').attr('class', 'fa fa-check');
+          $('#complete-step').attr('style', 'background-color: #7bbf6a !important; border: unset !important;');
+          $('.f1-progress-error').hide();
         } else {
           this.apiError = 0;
           $('#apiErrorMsg').show();
           $('#apiErrorMsg').html(res.message);
+          $('#complete-step').attr('style', 'background-color: red !important; border: unset !important;');
+          $('#complete-icon').attr('class', 'fa fa-close');
+          $('#complete-title').html("Error");
+          $('#complete-title').attr('style', 'color: red !important');
+          $('.f1-progress-line').attr('style', 'width: 75%;');
+          $('.f1-progress-error').show();
         }
       });
     }
@@ -251,7 +305,7 @@ export class ProvisioningComponent implements OnInit {
   addComTryAgain() {
     $("#complete").removeClass('active').addClass('activated');
     $("#f1-step_1").removeClass('activated').addClass('active');
-    if(this.ComSubVersion == '') {
+    if (this.ComSubVersion == '') {
       this.ComSubVersion = 'Sub Type';
     }
     $("#fieldset_4").fadeOut(500, () => { });
@@ -273,32 +327,32 @@ export class ProvisioningComponent implements OnInit {
 
   next(event, value) {
     this.next_step = true;
-    if(value == 1) {
+    if (value == 1) {
       if ($('#addComponentName').val() == '') {
         $('#NameBar').css('border-bottom', '0.0625rem solid red');
         this.next_step = false;
       } else {
         $('#NameBar').css('border-bottom', '0.0625rem solid #999');
       }
-    } else if(value == 2) {
+    } else if (value == 2) {
       if ($('#addComponentType').val() == 'Type*') {
         $('#Typebar').css('border-bottom', '0.0625rem solid red');
         this.next_step = false;
       } else {
         $('#Typebar').css('border-bottom', '0.0625rem solid #999');
       }
-    } else if(value == 3) {
+    } else if (value == 3) {
       if ($('#addIpAddress').val() == '') {
         $('#ipAddressBar').css('border-bottom', '0.0625rem solid red');
         this.next_step = false;
       } else {
         var ip_val = this.ipValidation($('#addIpAddress').val());
-		if(ip_val == 'success') {
-			$('#ipAddressBar').css('border-bottom', '0.0625rem solid #999');
-		} else {
-			$('#ipAddressBar').css('border-bottom', '0.0625rem solid red');
-        	this.next_step = false;
-		}
+        if (ip_val == 'success') {
+          $('#ipAddressBar').css('border-bottom', '0.0625rem solid #999');
+        } else {
+          $('#ipAddressBar').css('border-bottom', '0.0625rem solid red');
+          this.next_step = false;
+        }
       }
       if ($('#addComponentUser').val() == '') {
         $('#UserBar').css('border-bottom', '0.0625rem solid red');
@@ -313,8 +367,114 @@ export class ProvisioningComponent implements OnInit {
         $('#PasswordBar').css('border-bottom', '0.0625rem solid #999');
       }
     }
-    if(this.next_step) {
-      this.progressPerc = ( ( $(".f1-progress-line").css('width').slice(0, -2) * 100 ) / $(".f1-progress").css('width').slice(0, -2));
+    //Thresholds Validation
+    if(this.ComVersion == 'NEXUS') {
+      if(this.vrfWarnStart == '') {
+        $('#add-vrfWarnStart').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-vrfWarnStart').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.vrfWarnEnd == '') {
+        $('#add-vrfWarnEnd').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-vrfWarnEnd').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.vrfMax == '') {
+        $('#add-vrfMax').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-vrfMax').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.bgpPeersWarnStart == '') {
+        $('#add-bgpPeersWarnStart').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-bgpPeersWarnStart').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.bgpPeersWarnEnd == '') {
+        $('#add-bgpPeersWarnEnd').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-bgpPeersWarnEnd').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.bgpPeersMax == '') {
+        $('#add-bgpPeersMax').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-bgpPeersMax').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.vlanWarnStart == '') {
+        $('#add-vlanWarnStart').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-vlanWarnStart').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.vlanWarnEnd == '') {
+        $('#add-vlanWarnEnd').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-vlanWarnEnd').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.vlanMax == '') {
+        $('#add-vlanMax').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-vlanMax').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.hsrpWarnStart == '') {
+        $('#add-hsrpWarnStart').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-hsrpWarnStart').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.hsrpWarnEnd == '') {
+        $('#add-hsrpWarnEnd').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-hsrpWarnEnd').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.hsrpMax == '') {
+        $('#add-hsrpMax').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-hsrpMax').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.staticRoutesWarnStart == '') {
+        $('#add-staticRoutesWarnStart').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-staticRoutesWarnStart').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.staticRoutesWarnEnd == '') {
+        $('#add-staticRoutesWarnEnd').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-staticRoutesWarnEnd').css('border-bottom', '0.0625rem solid #999');
+      }
+      if(this.staticRoutesMax == '') {
+        $('#add-staticRoutesMax').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-staticRoutesMax').css('border-bottom', '0.0625rem solid #999');
+      }
+    }
+    //Thresholds Validation Ends
+    if(this.subTypes) {
+      if(this.ComVersion == 'Type*') {
+        $('#add-ComSubVersion').css('border-bottom', '0.0625rem solid #999');
+      } else if(this.ComSubVersion == 'Sub Type') {
+        $('#add-ComSubVersion').css('border-bottom', '0.0625rem solid red');
+        this.next_step = false;
+      } else {
+        $('#add-ComSubVersion').css('border-bottom', '0.0625rem solid #999');
+      }
+    } else {
+      $('#add-ComSubVersion').css('border-bottom', '0.0625rem solid #999');
+    }
+    if (this.next_step) {
+      this.progressPerc = (($(".f1-progress-line").css('width').slice(0, -2) * 100) / $(".f1-progress").css('width').slice(0, -2));
       var fieldSet = event.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
       $(fieldSet).fadeOut(500, () => { });
       $(".f1-step.active").removeClass('active').addClass('activated').next().removeClass('next').addClass('active').next().addClass('next');
@@ -325,16 +485,16 @@ export class ProvisioningComponent implements OnInit {
       } else if (value == 3 && this.progressPerc == '75') {
         $(".f1-progress-line").css('width', '100%');
       }
-      if($(".f1-step.active").attr('id') == 'complete') {
+      if ($(".f1-step.active").attr('id') == 'complete') {
         $(".f1-step-icon").css('cursor', 'default');
       }
       $(fieldSet).next().fadeIn(500, () => { });
     }
   }
-  
+
   ipValidation(ipAddr) {
-  	var ipformat = "/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/";
-    if(/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddr)) {
+    var ipformat = "/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/";
+    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipAddr)) {
       return 'success';
     } else {
       return 'failed';
@@ -350,45 +510,45 @@ export class ProvisioningComponent implements OnInit {
 
   tabClick(event, id) {
     var flag_id = true;
-    if($(".f1-step.active").attr('id') == "f1-step_1") {
+    if ($(".f1-step.active").attr('id') == "f1-step_1") {
       if ($('#addComponentName').val() == '') {
         $('#NameBar').css('border-bottom', '0.0625rem solid red');
         var flag_id = false;
       } else {
         $('#NameBar').css('border-bottom', '0.0625rem solid #999');
       }
-    } else if($(".f1-step.active").attr('id') == "f1-step_2") {
+    } else if ($(".f1-step.active").attr('id') == "f1-step_2") {
       if ($('#addComponentType').val() == 'Type*') {
         $('#Typebar').css('border-bottom', '0.0625rem solid red');
         var flag_id = false;
       } else {
         $('#Typebar').css('border-bottom', '0.0625rem solid #999');
       }
-    } 
-    if(flag_id) {
+    }
+    if (flag_id) {
 
-    if($(".f1-step.active").attr('id') != 'complete') {
-      var fieldSet = event.currentTarget.parentElement;
-      if ($(fieldSet).attr("class") == 'f1-step activated' || $(fieldSet).attr("class") == 'f1-step activated next') {
-        $(".f1-step.active").removeClass('active').addClass('activated');
-        $(fieldSet).removeClass('activated').addClass('active');
-        $('fieldSet').fadeOut(500, () => { });
-        $("#fieldset_" + id).fadeIn(500, () => { });
+      if ($(".f1-step.active").attr('id') != 'complete') {
+        var fieldSet = event.currentTarget.parentElement;
+        if ($(fieldSet).attr("class") == 'f1-step activated' || $(fieldSet).attr("class") == 'f1-step activated next') {
+          $(".f1-step.active").removeClass('active').addClass('activated');
+          $(fieldSet).removeClass('activated').addClass('active');
+          $('fieldSet').fadeOut(500, () => { });
+          $("#fieldset_" + id).fadeIn(500, () => { });
+        }
       }
     }
-   }
   }
 
   editComponentClick(i) {
     for (let j = 0; j < this.dataCentersDetails.length; j++) {
       if (j == i) {
-        if($('#comp_filter').val()-1 == i) {
-			$('#editComponentDropdown' + i).hide();
-			$('#comp_filter').val("");
-		} else {
-			$('#editComponentDropdown' + i).show();
-			$('#comp_filter').val(i+1);
-		}
+        if ($('#comp_filter').val() - 1 == i) {
+          $('#editComponentDropdown' + i).hide();
+          $('#comp_filter').val("");
+        } else {
+          $('#editComponentDropdown' + i).show();
+          $('#comp_filter').val(i + 1);
+        }
       } else {
         $('#editComponentDropdown' + j).hide();
       }
@@ -410,17 +570,21 @@ export class ProvisioningComponent implements OnInit {
     } else {
       $('#countryBar').css('border-bottom', '0.0625rem solid #999');
     }
-    if ($('#editDataCenterState').val() == '') {
-      $('#stateBar').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#stateBar').css('border-bottom', '0.0625rem solid #999');
-    }
-    if ($('#editDataCenterCity').val() == '') {
-      $('#cityBar').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#cityBar').css('border-bottom', '0.0625rem solid #999');
+    if ($('#editDataCenterCountry').val() != 'Country*') {
+      if ($('#editDataCenterState').val() == 'State*') {
+        $('#stateBar').css('border-bottom', '0.0625rem solid red');
+        var flag = true;
+      } else {
+        $('#stateBar').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#editDataCenterState').val() != 'State*') {
+        if ($('#editDataCenterCity').val() == 'City*') {
+          $('#cityBar').css('border-bottom', '0.0625rem solid red');
+          var flag = true;
+        } else {
+          $('#cityBar').css('border-bottom', '0.0625rem solid #999');
+        }
+      }
     }
     if ($('#editDataCenterTimezone').val() == 'Time zone*') {
       $('#timezoneBar').css('border-bottom', '0.0625rem solid red');
@@ -444,11 +608,7 @@ export class ProvisioningComponent implements OnInit {
           $('.apiResponseDiv').show();
           if (res.status == 'success') {
             $('#callMatricsDropdown' + this.editIdIndex).hide();
-            this.editData.name = editName;
-            this.editData.country = editCountry;
-            this.editData.state = editState;
-            this.editData.city = editCity;
-            this.editData.time_zone = editTimezone;
+            this.provisioningList(this.editData.id, true);
             $('.apiFailed').hide();
             $('.apiSuccess').show();
           } else {
@@ -465,13 +625,13 @@ export class ProvisioningComponent implements OnInit {
     var flag = false;
     if ($('#editComponentName').val() == '') {
       $('#editComponentBar1').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
+      flag = true;
     } else {
       $('#editComponentBar1').css('border-bottom', '0.0625rem solid #999');
     }
     if ($('#editComponentNameType').val() == 'Type*') {
       $('#editComponentBar2').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
+      flag = true;
     } else {
       $('#editComponentBar2').css('border-bottom', '0.0625rem solid #999');
     }
@@ -483,123 +643,137 @@ export class ProvisioningComponent implements OnInit {
     }*/
     if ($('#editComponentIpAddress').val() == '') {
       $('#editComponentBar4').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
+      flag = true;
     } else {
       var ip_val = this.ipValidation($('#editComponentIpAddress').val());
-	  if(ip_val == 'success') {
-		$('#editComponentBar4').css('border-bottom', '0.0625rem solid #999');
-	  } else {
-		$('#editComponentBar4').css('border-bottom', '0.0625rem solid red');
-		var flag = true;
-	  }
+      if (ip_val == 'success') {
+        $('#editComponentBar4').css('border-bottom', '0.0625rem solid #999');
+      } else {
+        $('#editComponentBar4').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      }
     }
     if ($('#editComponentComponentUser').val() == '') {
       $('#editComponentBar5').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
+      flag = true;
     } else {
       $('#editComponentBar5').css('border-bottom', '0.0625rem solid #999');
     }
     if ($('#editComponentPassword').val() == '') {
       $('#editComponentBar6').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
+      flag = true;
     } else {
       $('#editComponentBar6').css('border-bottom', '0.0625rem solid #999');
     }
 
-    /*if ($('#editComponentvrfWarnStart').val() == '') {
-      $('#editComponentBar7').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar7').css('border-bottom', '0.0625rem solid #999');
-    }
-    if ($('#editComponentvrfWarnEnd').val() == '') {
-      $('#editComponentBar8').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar8').css('border-bottom', '0.0625rem solid #999');
-    }
-    if ($('#editComponentvrfMax').val() == '') {
-      $('#editComponentBar9').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar9').css('border-bottom', '0.0625rem solid #999');
-    }
+    if($('#editComponentNameType').val() == 'NEXUS') {
+      if ($('#editComponentvrfWarnStart').val() == '') {
+        $('#editComponentBar7').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar7').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#editComponentvrfWarnEnd').val() == '') {
+        $('#editComponentBar8').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar8').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#editComponentvrfMax').val() == '') {
+        $('#editComponentBar9').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar9').css('border-bottom', '0.0625rem solid #999');
+      }
 
-    if ($('#editComponentbgpPeersWarnStart').val() == '') {
-      $('#editComponentBar10').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar10').css('border-bottom', '0.0625rem solid #999');
-    }
-    if ($('#editComponentbgpPeersWarnEnd').val() == '') {
-      $('#editComponentBar11').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar11').css('border-bottom', '0.0625rem solid #999');
-    }
-    if ($('#editComponentbgpPeersMax').val() == '') {
-      $('#editComponentBar12').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar12').css('border-bottom', '0.0625rem solid #999');
-    }
+      if ($('#editComponentbgpPeersWarnStart').val() == '') {
+        $('#editComponentBar10').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar10').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#editComponentbgpPeersWarnEnd').val() == '') {
+        $('#editComponentBar11').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar11').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#editComponentbgpPeersMax').val() == '') {
+        $('#editComponentBar12').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar12').css('border-bottom', '0.0625rem solid #999');
+      }
 
-    if ($('#editComponentvlanWarnStart').val() == '') {
-      $('#editComponentBar13').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar13').css('border-bottom', '0.0625rem solid #999');
-    }
-    if ($('#editComponentvlanWarnEnd').val() == '') {
-      $('#editComponentBar14').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar14').css('border-bottom', '0.0625rem solid #999');
-    }
-    if ($('#editComponentvlanMax').val() == '') {
-      $('#editComponentBar15').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar15').css('border-bottom', '0.0625rem solid #999');
-    }
+      if ($('#editComponentvlanWarnStart').val() == '') {
+        $('#editComponentBar13').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar13').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#editComponentvlanWarnEnd').val() == '') {
+        $('#editComponentBar14').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar14').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#editComponentvlanMax').val() == '') {
+        $('#editComponentBar15').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar15').css('border-bottom', '0.0625rem solid #999');
+      }
 
-    if ($('#editComponenthsrpWarnStart').val() == '') {
-      $('#editComponentBar16').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar16').css('border-bottom', '0.0625rem solid #999');
-    }
-    if ($('#editComponenthsrpWarnEnd').val() == '') {
-      $('#editComponentBar17').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar17').css('border-bottom', '0.0625rem solid #999');
-    }
-    if ($('#editComponenthsrpMax').val() == '') {
-      $('#editComponentBar18').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar18').css('border-bottom', '0.0625rem solid #999');
-    }
+      if ($('#editComponenthsrpWarnStart').val() == '') {
+        $('#editComponentBar16').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar16').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#editComponenthsrpWarnEnd').val() == '') {
+        $('#editComponentBar17').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar17').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#editComponenthsrpMax').val() == '') {
+        $('#editComponentBar18').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar18').css('border-bottom', '0.0625rem solid #999');
+      }
 
-    if ($('#editComponentstaticRoutesWarnStart').val() == '') {
-      $('#editComponentBar19').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar19').css('border-bottom', '0.0625rem solid #999');
+      if ($('#editComponentstaticRoutesWarnStart').val() == '') {
+        $('#editComponentBar19').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar19').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#editComponentstaticRoutesWarnEnd').val() == '') {
+        $('#editComponentBar20').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar20').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#editComponentstaticRoutesMax').val() == '') {
+        $('#editComponentBar21').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar21').css('border-bottom', '0.0625rem solid #999');
+      }
     }
-    if ($('#editComponentstaticRoutesWarnEnd').val() == '') {
-      $('#editComponentBar20').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
+    if(this.subTypesEdit) {
+      if($('#editComponentNameType').val() == 'Type*') {
+        $('#editComponentBar3').css('border-bottom', '0.0625rem solid #999');
+      } else if($('#editComponentVersion').val() == 'Sub Type') {
+        $('#editComponentBar3').css('border-bottom', '0.0625rem solid red');
+        flag = true;
+      } else {
+        $('#editComponentBar3').css('border-bottom', '0.0625rem solid #999');
+      }
     } else {
-      $('#editComponentBar20').css('border-bottom', '0.0625rem solid #999');
+      $('#editComponentBar3').css('border-bottom', '0.0625rem solid #999');
     }
-    if ($('#editComponentstaticRoutesMax').val() == '') {
-      $('#editComponentBar21').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#editComponentBar21').css('border-bottom', '0.0625rem solid #999');
-    }*/
 
 
     if (flag != true) {
@@ -609,24 +783,25 @@ export class ProvisioningComponent implements OnInit {
       let editComponentIpAddress = $('#editComponentIpAddress').val();
       let editComponentComponentUser = $('#editComponentComponentUser').val();
       let editComponentPassword = $('#editComponentPassword').val();
-      let editComponentvrfWarnStart = $('#editComponentvrfWarnStart').val();
-      let editComponentvrfWarnEnd = $('#editComponentvrfWarnEnd').val();
-      let editComponentvrfMax = $('#editComponentvrfMax').val();
-      let editComponentbgpPeersWarnStart = $('#editComponentbgpPeersWarnStart').val();
-      let editComponentbgpPeersWarnEnd = $('#editComponentbgpPeersWarnEnd').val();
-      let editComponentbgpPeersMax = $('#editComponentbgpPeersMax').val();
-      let editComponentvlanWarnStart = $('#editComponentvlanWarnStart').val();
-      let editComponentvlanWarnEnd = $('#editComponentvlanWarnEnd').val();
-      let editComponentvlanMax = $('#editComponentvlanMax').val();
-      let editComponenthsrpWarnStart = $('#editComponenthsrpWarnStart').val();
-      let editComponenthsrpWarnEnd = $('#editComponenthsrpWarnEnd').val();
-      let editComponenthsrpMax = $('#editComponenthsrpMax').val();
-      let editComponentstaticRoutesWarnStart = $('#editComponentstaticRoutesWarnStart').val();
-      let editComponentstaticRoutesWarnEnd = $('#editComponentstaticRoutesWarnEnd').val();
-      let editComponentstaticRoutesMax = $('#editComponentstaticRoutesMax').val();
+      let editComponentEnablePassword =  editComponentNameType == 'ASA' ? $('#editComponentEnablePassword').val() : '';
+      let editComponentvrfWarnStart = editComponentNameType == 'NEXUS' ? $('#editComponentvrfWarnStart').val() : '';
+      let editComponentvrfWarnEnd =  editComponentNameType == 'NEXUS' ? $('#editComponentvrfWarnEnd').val() : '';
+      let editComponentvrfMax =  editComponentNameType == 'NEXUS' ? $('#editComponentvrfMax').val() : '';
+      let editComponentbgpPeersWarnStart =  editComponentNameType == 'NEXUS' ? $('#editComponentbgpPeersWarnStart').val() : '';
+      let editComponentbgpPeersWarnEnd = editComponentNameType == 'NEXUS' ?  $('#editComponentbgpPeersWarnEnd').val() : '';
+      let editComponentbgpPeersMax =  editComponentNameType == 'NEXUS' ? $('#editComponentbgpPeersMax').val() : '';
+      let editComponentvlanWarnStart =  editComponentNameType == 'NEXUS' ? $('#editComponentvlanWarnStart').val() : '';
+      let editComponentvlanWarnEnd =  editComponentNameType == 'NEXUS' ? $('#editComponentvlanWarnEnd').val() : '';
+      let editComponentvlanMax =  editComponentNameType == 'NEXUS' ? $('#editComponentvlanMax').val() : '';
+      let editComponenthsrpWarnStart =  editComponentNameType == 'NEXUS' ? $('#editComponenthsrpWarnStart').val() : '';
+      let editComponenthsrpWarnEnd =  editComponentNameType == 'NEXUS' ? $('#editComponenthsrpWarnEnd').val() : '';
+      let editComponenthsrpMax =  editComponentNameType == 'NEXUS' ? $('#editComponenthsrpMax').val() : '';
+      let editComponentstaticRoutesWarnStart =  editComponentNameType == 'NEXUS' ? $('#editComponentstaticRoutesWarnStart').val() : '';
+      let editComponentstaticRoutesWarnEnd =  editComponentNameType == 'NEXUS' ? $('#editComponentstaticRoutesWarnEnd').val() : '';
+      let editComponentstaticRoutesMax =  editComponentNameType == 'NEXUS' ? $('#editComponentstaticRoutesMax').val() : '';
 
       setTimeout(() => {
-        this.config.editComponent(this.userId, this.currentDataCenterComponentId, editComponentName, editComponentNameType, editComponentVersion, editComponentIpAddress, editComponentComponentUser, editComponentPassword, editComponentvrfWarnStart, editComponentvrfWarnEnd, editComponentvrfMax, editComponentbgpPeersWarnStart, editComponentbgpPeersWarnEnd, editComponentbgpPeersMax, editComponentvlanWarnStart, editComponentvlanWarnEnd, editComponentvlanMax, editComponenthsrpWarnStart, editComponenthsrpWarnEnd, editComponenthsrpMax, editComponentstaticRoutesWarnStart, editComponentstaticRoutesWarnEnd, editComponentstaticRoutesMax).subscribe(res => {
+        this.config.editComponent(this.userId, this.currentDataCenterComponentId, editComponentName, editComponentNameType, editComponentVersion, editComponentIpAddress, editComponentComponentUser, editComponentPassword, editComponentEnablePassword, editComponentvrfWarnStart, editComponentvrfWarnEnd, editComponentvrfMax, editComponentbgpPeersWarnStart, editComponentbgpPeersWarnEnd, editComponentbgpPeersMax, editComponentvlanWarnStart, editComponentvlanWarnEnd, editComponentvlanMax, editComponenthsrpWarnStart, editComponenthsrpWarnEnd, editComponenthsrpMax, editComponentstaticRoutesWarnStart, editComponentstaticRoutesWarnEnd, editComponentstaticRoutesMax).subscribe(res => {
 
           $('.modalForm').hide();
           $('.apiResponseDiv').show();
@@ -647,7 +822,7 @@ export class ProvisioningComponent implements OnInit {
 
   ngOnInit() {
 
-    if(!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
+    if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
       this.router.navigate(['login']);
     }
     this.CountryTimezoneList();
@@ -659,21 +834,21 @@ export class ProvisioningComponent implements OnInit {
   onClickedOutside(e: Event) {
     //dosomething
   }
-  
+
   CountryTimezoneList() {
     setTimeout(() => {
-      this.config.getCountryList().subscribe(res=>{
-		  this.country_list = res.country;
-		  this.time_zone_list = res.timezone;
-    });
+      this.config.getCountryList().subscribe(res => {
+        this.country_list = res.country;
+        this.time_zone_list = res.timezone;
+      });
     }, 100);
   }
-  
+
   ComponentTypeList() {
     setTimeout(() => {
-      this.config.getTypes().subscribe(res=>{
-      	this.version = res;
-    });
+      this.config.getTypes().subscribe(res => {
+        this.version = res;
+      });
     }, 100);
   }
 
@@ -681,9 +856,9 @@ export class ProvisioningComponent implements OnInit {
     setTimeout(() => {
       this.config.getProvisioningList().subscribe(res => {
         this.dataCenters = res;
-        if(this.dataCenters.length >= 1){
+        if (this.dataCenters.length >= 1) {
           $('#withdcBlock').show();
-        }else{
+        } else {
           $('#withoutdcBlock').show();
         }
         if (loop_status) {
@@ -703,32 +878,6 @@ export class ProvisioningComponent implements OnInit {
     }
   }
 
-  // moveRight() {
-  //   this.deactivateCard();
-  //   this.dataCenters.push({
-  //     name: 'Data Center 5',
-  //     country: 'United States',
-  //     state: 'Texas',
-  //     city: 'Plano',
-  //     timezone: 'IST',
-  //     components: ''
-  //   });
-  //   this.dataCenters.splice(0, 1);
-  // }
-
-  // moveLeft() {
-  //   this.deactivateCard();
-  //   this.dataCenters.push({
-  //     name: 'Data Center 2',
-  //     country: 'United States',
-  //     state: 'Texas',
-  //     city: 'Plano',
-  //     timezone: 'IST',
-  //     components: ''
-  //   });
-  //   this.dataCenters.splice(3, 1);
-  // }
-
   onSubmit() {
     var flag = false;
 
@@ -744,17 +893,21 @@ export class ProvisioningComponent implements OnInit {
     } else {
       $('#addcountryBar').css('border-bottom', '0.0625rem solid #999');
     }
-    if ($('#addDataCenterState').val() == '') {
-      $('#addstateBar').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#addstateBar').css('border-bottom', '0.0625rem solid #999');
-    }
-    if ($('#addDataCenterCity').val() == '') {
-      $('#addcityBar').css('border-bottom', '0.0625rem solid red');
-      var flag = true;
-    } else {
-      $('#addcityBar').css('border-bottom', '0.0625rem solid #999');
+    if ($('#addDataCenterCountry').val() != 'Country*') {
+      if ($('#addDataCenterState').val() == 'State*') {
+        $('#addstateBar').css('border-bottom', '0.0625rem solid red');
+        var flag = true;
+      } else {
+        $('#addstateBar').css('border-bottom', '0.0625rem solid #999');
+      }
+      if ($('#addDataCenterState').val() != 'State*') {
+        if ($('#addDataCenterCity').val() == 'City*') {
+          $('#addcityBar').css('border-bottom', '0.0625rem solid red');
+          var flag = true;
+        } else {
+          $('#addcityBar').css('border-bottom', '0.0625rem solid #999');
+        }
+      }
     }
     if ($('#addDataCenterTimezone').val() == 'Time zone*') {
       $('#addtimezoneBar').css('border-bottom', '0.0625rem solid red');
@@ -773,8 +926,8 @@ export class ProvisioningComponent implements OnInit {
           if (res.status == 'success') {
             this.name = '';
             this.country = 'Country*';
-            this.state = '';
-            this.city = '';
+            this.state = 'State*';
+            this.city = 'City*';
             this.timezone = 'Time zone*';
             $('.apiFailed').hide();
             $('.apiSuccess').show();
@@ -816,9 +969,9 @@ export class ProvisioningComponent implements OnInit {
     if (clickType == 'scroll') {
       if (id < this.scrollLimit) {
         this.scrollLimitMin = 0;
-        this.scrollLimitMax = 3;
+        this.scrollLimitMax = this.sliderLimit;
       } else {
-        this.scrollLimitMin = id - 3;
+        this.scrollLimitMin = id - this.sliderLimit;
         this.scrollLimitMax = id;
       }
     }
@@ -837,60 +990,60 @@ export class ProvisioningComponent implements OnInit {
   }
 
   setDataCenterComponnets(id) {
-    this.config.getDataCenterComponents(id).subscribe(res => {
+    this.config.getComponentList(id).subscribe(res => {
       if (res.length > 0) {
         this.showNullRowMessage = false;
         this.dataCentersDetails = res;
-      }else{
+      } else {
         this.showNullRowMessage = true;
       }
     });
   }
 
-  onVersionChange(name){
-    if(name == 'NEXUS'){
+  onVersionChange(name) {
+    if (name == 'NEXUS') {
       $('.toggleThreshold').show();
-    }else{
+    } else {
       $('.toggleThreshold').hide();
     }
-    if(name == 'ASA'){
+    if (name == 'ASA') {
       $('.toggleEnablePassword').show();
-    }else{
+    } else {
       $('.toggleEnablePassword').hide();
     }
-    if(name == 'Type*') {
-		this.ComSubVersion = "Sub Type";
-		$("#addComponentSubType").prop("disabled", true);
-	} else {
-		this.config.getSubtypes(name).subscribe(res => {
-		  this.subTypes = res;
-		});
-		this.ComSubVersion = "Sub Type";
-		$("#addComponentSubType").prop("disabled", false);
-	}
+    if (name == 'Type*') {
+      this.ComSubVersion = "Sub Type";
+      $("#addComponentSubType").prop("disabled", true);
+    } else {
+      this.config.getSubtypes(name).subscribe(res => {
+        this.subTypes = res;
+      });
+      this.ComSubVersion = "Sub Type";
+      $("#addComponentSubType").prop("disabled", false);
+    }
   }
-  
-  onVersionChangeEdit(name){
-    /*if(name == 'NEXUS'){
-      $('.toggleThreshold').show();
-    }else{
-      $('.toggleThreshold').hide();
+
+  onVersionChangeEdit(name) {
+    if (name == 'Type*') {
+      this.editComponentVersion = "Sub Type";
+      $("#editComponentVersion").prop("disabled", true);
+    } else {
+      this.config.getSubtypes(name).subscribe(res => {
+        this.subTypesEdit = res;
+      });
+      this.editComponentVersion = "Sub Type";
+      $("#editComponentVersion").prop("disabled", false);
     }
-    if(name == 'ASA'){
-      $('.toggleEnablePassword').show();
-    }else{
-      $('.toggleEnablePassword').hide();
-    }*/
-    if(name == 'Type*') {
-		this.editComponentVersion = "Sub Type";
-		$("#editComponentVersion").prop("disabled", true);
-	} else {
-		this.config.getSubtypes(name).subscribe(res => {
-		  this.subTypesEdit = res;
-		});
-		this.editComponentVersion = "Sub Type";
-		$("#editComponentVersion").prop("disabled", false);
-	}
+    if(name == 'NEXUS') {
+      $('#edit-componet-thresholds').removeAttr('hidden');
+    } else {
+      $('#edit-componet-thresholds').attr("hidden","true");
+    }
+    if(name == 'ASA') {
+      $('#edit-enable-password').removeAttr('hidden');
+    } else {
+      $('#edit-enable-password').attr("hidden","true");
+    }
   }
 
   deleteComponentData(componentId) {
@@ -900,6 +1053,7 @@ export class ProvisioningComponent implements OnInit {
       $('.apiResponseDivComponent').show();
       if (res.status == 'success') {
         componentFlag = true;
+        $('.apiFailed').hide();
         $('.apiSuccess').show();
       } else {
         $('#apiErrorMsgComponent').html(res.message);
@@ -912,6 +1066,60 @@ export class ProvisioningComponent implements OnInit {
     });
   }
 
+  loadStates(country, type) {
+    if(type == 'edit') {
+      if($('#editDataCenterCountry').val() == 'Country*') {
+        $("#editDataCenterState").prop("disabled", true);
+        $("#editDataCenterCity").prop("disabled", true);
+        this.statesList = [];
+        this.citiesList = [];
+      } else {
+        this.config.getStates($('#editDataCenterCountry').val()).subscribe(res => {
+          this.statesList = res;
+        });
+        $("#editDataCenterState").prop("disabled", false);
+      }
+    } else {
+      this.state = 'State*';
+      this.city = 'City*';
+      if(country == 'Country*') {
+        $("#addDataCenterState").prop("disabled", true);
+        $("#addDataCenterCity").prop("disabled", true);
+        this.statesList = [];
+      } else {
+        this.config.getStates(country).subscribe(res => {
+          this.statesList = res;
+        });
+        $("#addDataCenterState").prop("disabled", false);
+        $("#addDataCenterCity").prop("disabled", true);
+      }
+    }
+  }
+
+  loadCities(state, type) {
+    if(type == 'edit') {
+      if($('#editDataCenterState').val() == 'State*') {
+        $("#editDataCenterCity").prop("disabled", true);
+        this.citiesList = [];
+      } else {
+        this.config.getCities($('#editDataCenterState').val()).subscribe(res => {
+          this.citiesList = res;
+        });
+        $("#editDataCenterCity").prop("disabled", false);
+      }
+    } else {
+      this.city = 'City*';
+      if(state == 'State*') {
+        $("#addDataCenterCity").prop("disabled", true);
+        this.citiesList = [];
+      } else {
+        this.config.getCities(state).subscribe(res => {
+          this.citiesList = res;
+        });
+        $("#addDataCenterCity").prop("disabled", false);
+      }
+    }
+  }
 }
 
 interface Datacenter {

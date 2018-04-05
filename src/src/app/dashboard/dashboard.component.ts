@@ -15,12 +15,14 @@ export class DashboardComponent implements OnInit {
   callMatricsFilter: boolean = false;
   notificationFilter: boolean = false;
   datas: any;
+  private notificationFilterType = 'Today';
+  private notifications: any;
 
   constructor(private config: ConfigService, private router: Router) { }
 
   ngOnInit() {
 
-    if(!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
+    if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
       this.router.navigate(['login']);
     }
     setTimeout(() => {
@@ -45,6 +47,9 @@ export class DashboardComponent implements OnInit {
 
           this.datas = dataset;
         });
+
+      this.getNotificationWithFilter(this.notificationFilterType);
+
     }, 100);
 
   }
@@ -71,8 +76,20 @@ export class DashboardComponent implements OnInit {
     $('#callMatricsDropdown').hide();
   }
 
-  getNotification(id) {
+  getNotificationWithFilter(type) {
+    this.notificationFilterType = type;
+    if (this.notificationFilterType == 'Today') {
+      type = 'today';
+    } else if (this.notificationFilterType == 'Yesterday') {
+      type = 'yesterday';
+    } else if (this.notificationFilterType == '1 Week') {
+      type = 'week';
+    }
+    this.notificationFilter = false;
     $('#notificationDropDown').hide();
+    this.config.getNotification(type).subscribe(res => {
+      this.notifications = res;
+    });
   }
 
 }

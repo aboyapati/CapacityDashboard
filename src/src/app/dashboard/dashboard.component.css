@@ -131,3 +131,15 @@
 .main-body .page-wrapper{
    margin-bottom:5px !important;
 }
+.notificationGood{
+  margin-left: 10px;
+  color: #008000;
+}
+.notificationAlert{
+  margin-left: 10px;
+  color: #f1c40f;
+}
+.notificationBad{
+  margin-left: 10px;
+  color: #f00;
+}

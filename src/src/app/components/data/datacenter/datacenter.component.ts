@@ -4,6 +4,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 declare const $: any;
 
 @Component({
@@ -20,7 +21,7 @@ export class DatacenterComponent implements OnInit {
   private chart4: AmChart;
   private observeRef: any;
   private userId: number = sessionStorage.id;
-  private dataCenterId: number;
+  private dataCenterId: any;
   private subComponentList: any;
   private subComponentPopUpdata: any;
   private selectedComponentId: number = 0;
@@ -29,12 +30,17 @@ export class DatacenterComponent implements OnInit {
   private vcenetrDataStatus: boolean;
   private popUptypeId: number;
   private popUpsubComponentName: string;
-  private scrollLimit: number = 4;
-  private scrollLimitMin: number = 0;
-  private scrollLimitMax: number = 3;
+  private deviceHeight: any;
+  private deviceWidth: any;
+  private scrollLimit: number;
+  private sliderLimit: number;
+  private scrollLimitMin: number;
+  private scrollLimitMax: number;
   private popupName: string;
   private subFilterFlag: boolean = false;
   private subComponentCounter: number = 0;
+  private subCoFlag: boolean = false;
+  private coFlag: boolean = false;
 
   closeResult: string;
   imgUrl: string = "assets/images/icon-cube.png";
@@ -44,43 +50,74 @@ export class DatacenterComponent implements OnInit {
   components: any;
   subComponents: any;
 
-  constructor(private modalService: NgbModal, private config: ConfigService, private route: ActivatedRoute, private AmCharts: AmChartsService, private router: Router) {
+  constructor(private modalService: NgbModal, private config: ConfigService, private route: ActivatedRoute, private AmCharts: AmChartsService, private router: Router, private cookieService: CookieService) {
+
+    this.deviceHeight = (window.screen.height);
+    this.deviceWidth = (window.screen.width);
+    if (this.deviceWidth >= 768) {
+      this.scrollLimit = 4;
+      this.scrollLimitMin = 0;
+      this.scrollLimitMax = 3;
+      this.sliderLimit = 3;
+    } else if (this.deviceWidth >= 576) {
+      this.scrollLimit = 2;
+      this.scrollLimitMin = 0;
+      this.scrollLimitMax = 1;
+      this.sliderLimit = 1;
+    } else {
+      this.scrollLimit = 1;
+      this.scrollLimitMin = 0;
+      this.scrollLimitMax = 0;
+      this.sliderLimit = 0;
+    }
 
     this.observeRef = route.params.subscribe(params => {
       this.dataCenterId = params['dataCenterId'];
-      setTimeout(() => {
-        this.config.getComponentList(this.dataCenterId).subscribe(res_comp => {
-          this.components = res_comp;
-          if(this.components.length < 1){
-            $('#withoutComponentBlock').show();
-          }else{
-            $('#withoutComponentBlock').hide();
-          }
-          this.subComponents = [];
-          if (this.subComponentCounter == 0) {
-            this.subComponentCounter = 1;
-            this.setSubComData();
-          }
-        });
-      }, 1000);
+
+      $('.EnableDcDis').removeClass('EnableDcDis').addClass('EnableDcBlock');
+      $('#toEnableDc' + this.dataCenterId).addClass('EnableDcDis').removeClass('EnableDcBlock');
+      this.cookieService.set('leftNavSelectedSubcompId', this.dataCenterId);
+
+      if (typeof this.dataCenterId !== "undefined") {
+        setTimeout(() => {
+          this.config.getComponentList(this.dataCenterId).subscribe(res_comp => {
+            this.components = res_comp;
+            sessionStorage.setItem('cookieComponnets', JSON.stringify(this.components));
+            if (this.components.length < 1) {
+              this.coFlag = true;
+              $('#withoutComponentBlock').show();
+            } else {
+              this.coFlag = false;
+              $('#withoutComponentBlock').hide();
+            }
+            this.subComponents = [];
+            if (this.subComponentCounter == 0) {
+              this.subComponentCounter = 1;
+            }
+            setTimeout(() => {
+              $('#componentScroll0').trigger('click');
+            }, 100);
+          });
+        }, 1000);
+      }
     });
   }
 
   ngOnInit() {
 
-    if(!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
+    if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
       this.router.navigate(['login']);
     }
   }
 
-  componnetScrollClick(id, clickType = 'scroll') {
+  componnetScrollClick(id, clickType = 'scroll', from = 'dcPage') {
 
     if (clickType == 'scroll') {
       if (id < this.scrollLimit) {
         this.scrollLimitMin = 0;
-        this.scrollLimitMax = 3;
+        this.scrollLimitMax = this.sliderLimit;
       } else {
-        this.scrollLimitMin = id - 3;
+        this.scrollLimitMin = id - this.sliderLimit;
         this.scrollLimitMax = id;
       }
     }
@@ -89,7 +126,32 @@ export class DatacenterComponent implements OnInit {
     $('#componentScroll' + id).removeClass("ti-control-record").addClass("fa fa-circle").css('font-size', '15px');
     this.selectedComponentId = this.components[id].id;
     this.selectedComponentType = this.components[id].type;
-    this.componentClick();
+
+    if (from != 'dcPage') {
+      $('#componentScroll' + id).trigger('click');
+    } else {
+      this.componentClick();
+      this.selectLeftNavComponents();
+    }
+
+  }
+
+  public selectDataCenterComponents(id) {
+    this.components = JSON.parse(sessionStorage.cookieComponnets);
+
+    for (let i = 0; i < this.components.length; i++) {
+      if (this.components[i].id == id) {
+        id = i;
+        break;
+      }
+    }
+
+    this.componnetScrollClick(id, '', 'leftNav');
+  }
+
+  selectLeftNavComponents() {
+    $('.subComponentActive').removeClass('subComponentActive').addClass('subComponent');
+    $('#subCompChild' + this.selectedComponentId).addClass('subComponentActive').removeClass('subComponent');
   }
 
   subComponentPopUp() {
@@ -111,16 +173,25 @@ export class DatacenterComponent implements OnInit {
   }
 
   setSubComData() {
-
     this.config.getSubComponentList(this.selectedComponentId, this.selectedComponentType).subscribe(res_sub_co => {
       this.subComponentList = res_sub_co;
+      this.subComponents = this.subComponentList.subcomponents;
+
       var subCoId = 1;
-      this.subComponents.forEach(subCo => {
-        this.makeDynamicChart(subCoId++, subCo.status, subCo.consumed, subCo.total, (subCo.consumed / subCo.total) * 100);
-      });
+
+      if (this.subComponents && (this.subComponents.length > 1)) {
+        setTimeout(() => {
+          this.subComponents.forEach(subCo => {
+            this.makeDynamicChart(subCoId++, subCo.status, subCo.consumed, subCo.total, (subCo.consumed / subCo.total) * 100);
+          });
+        }, 100);
+      } else {
+        this.subCoFlag = true;
+      }
+
+
     });
 
-    this.subComponents = this.subComponentList.subcomponents;
 
     if (this.selectedComponentType.toLowerCase() == 'vcenter') {
       this.config.getVcenterData(this.selectedComponentId).subscribe(res_v => {
@@ -376,6 +447,7 @@ export class DatacenterComponent implements OnInit {
   }
 
   makeDynamicChart(id, status, consumed, total, value) {
+    value = Math.round(value * 100) / 100
     if (status == 'Good') {
       var color = '#00b300';
     } else if (status == 'Bad') {

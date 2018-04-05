@@ -809,3 +809,4 @@ fieldset {
   min-height: 200px;
   padding: 80px 15px;
 }
+.f1-progress-error { position: absolute; top: 0; left: 0; height: 1px; background: red; height: 5px; width: 100%; display: none;}

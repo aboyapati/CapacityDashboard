@@ -133,7 +133,7 @@
         <div class="" style="opacity: 1;">
           <div class="" style="">
             <div class="card-body table-border-style">
-              <div class="table-responsive">
+              <div class="table-responsive" style="padding: 0px 10px 10px 10px !important;">
                 <table class="table">
                   <thead>
                     <tr>
@@ -177,58 +177,43 @@
 
   <div class="col-lg-12">
     <div class="card">
-      <div class="table-responsive">
-            <table class="table2">
-              <thead>
-                <tr>
-                  <th style="width: 150px;border-bottom: 0;">Notifications</th>
-                  <th style="width: 800px;border-bottom: 0;font-size: 13px;color: #C0BEBE;">Today</th>
-                  <th style="text-align:right;border-bottom: 0;">
-                    <div class="rsddropdown">
-                        <span (click)="notificationClick()" style="cursor:pointer;color:#b0bec5;font-size:20px;">...</span>
-                        <div id="notificationDropDown" class="rsddropdown-content">
-                          <a (click)="getNotification('today')" style="text-align:center;font-size:14px;">Today</a>
-                          <a (click)="getNotification('yesterday')" style="text-align:center;font-size:14px;">Yesterday</a>
-                          <a (click)="getNotification('week')" style="text-align:center;font-size:14px;">1 Week</a>
-                        </div>
-                      </div>
-                  </th>
-                </tr>
-        <tr>
-                  <th style="width: 150px;border-top: 0;border-bottom:1px;">Data Center</th>
-                  <th style="width: 800px;border-top: 0;border-bottom:1px;">Alert</th>
-                  <th style="border-top: 0;border-bottom:1px;">Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row"><input type="checkbox"><span style="margin-left: 10px;color: red;">DC 4</span></th>
-                  <td>CPU utilization high on host-01</td>
-                  <td>12:12 PM</td>
-                </tr>
-                <tr style="background-color:#fafafa;">
-                  <th scope="row"><input type="checkbox"><span style="margin-left: 10px;color:#ec7a07;">DC 2</span></th>
-                  <td>Datastore threshold crossed SAN-01</td>
-                  <td>2:17 AM</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox"><span style="margin-left: 10px;color:#ec7a07;">DC 2</span></th>
-                  <td>CPU count on the VMs exceed the total cores on host-02</td>
-                  <td>12:12 PM</td>
-                </tr>
-                <tr style="background-color:#fafafa;">
-                  <th scope="row"><input type="checkbox"><span style="margin-left: 10px;color: red;">DC 4</span></th>
-                  <td>CPU utilization high on host-01</td>
-                  <td>2:17 PM</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox"><span style="margin-left: 10px;color: red;">DC 4</span></th>
-                  <td>Datastore threshold crossed SAN-01</td>
-                  <td>12:12 PM</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      <div class="card-block">
+        <div class="table-responsive" style="padding: 0px 10px 10px 10px !important;">
+          <table style="width: 100%;" class="table2">
+            <thead>
+              <tr>
+                <th style="width: 150px;border-bottom: 0;">Notifications</th>
+                <th style="width: 800px;border-bottom: 0;font-size: 13px;color: #C0BEBE;">{{notificationFilterType}}</th>
+                <th style="text-align:right;border-bottom: 0;">
+                  <div class="rsddropdown">
+                    <span (click)="notificationClick()" style="cursor:pointer;color:#b0bec5;font-size:20px;">...</span>
+                    <div id="notificationDropDown" class="rsddropdown-content">
+                      <a (click)="getNotificationWithFilter('today')" style="text-align:center;font-size:14px;">Today</a>
+                      <a (click)="getNotificationWithFilter('Yesterday')" style="text-align:center;font-size:14px;">Yesterday</a>
+                      <a (click)="getNotificationWithFilter('1 Week')" style="text-align:center;font-size:14px;">1 Week</a>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th style="width: 150px;border-top: 0;border-bottom:1px;">Data Center</th>
+                <th style="width: 800px;border-top: 0;border-bottom:1px;">Alert</th>
+                <th style="border-top: 0;border-bottom:1px;">Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let notification of notifications">
+                <th scope="row">
+                  <input type="checkbox">
+                  <span class="notification{{notification.status}}">{{notification.name}}</span>
+                </th>
+                <td>{{notification.alert}}</td>
+                <td>{{notification.time}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>

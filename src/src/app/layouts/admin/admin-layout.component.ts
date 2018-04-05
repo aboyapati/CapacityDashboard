@@ -5,6 +5,7 @@ import { state, style, transition, animate, trigger, AUTO_STYLE } from '@angular
 import { CookieService } from 'ngx-cookie-service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MenuItems } from '../../shared/menu-items/menu-items';
+import { DatacenterComponent } from '../../components/data/datacenter/datacenter.component';
 
 declare const $: any;
 
@@ -53,7 +54,7 @@ export class AdminLayoutComponent implements OnInit {
 
   public htmlButton: string;
 
-  constructor(public menuItems: MenuItems, private router: Router, private cookieService: CookieService,private modalService: NgbModal) {
+  constructor(public menuItems: MenuItems, private router: Router, private cookieService: CookieService, private modalService: NgbModal, public dcComp: DatacenterComponent) {
     const scrollHeight = window.screen.height - 150;
     this.innerHeight = scrollHeight + 'px';
     this.windowWidth = window.innerWidth;
@@ -61,13 +62,17 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
+    if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
       this.router.navigate(['login']);
     }
     setTimeout(() => {
       if (this.cookieService.get('leftNavSelectedMenu') != '') {
         $('#' + this.cookieService.get('leftNavSelectedMenu')).addClass("pcoded-trigger");
         this.cookieService.set('leftNavSelectedMenu', '');
+        setTimeout(() => {
+          $('.EnableDcDis').removeClass('EnableDcDis').addClass('EnableDcBlock');
+          $('#toEnableDc' + this.cookieService.get('leftNavSelectedSubcompId')).addClass('EnableDcDis').removeClass('EnableDcBlock');
+        }, 1000);
       }
     }, 1000);
   }
@@ -79,6 +84,10 @@ export class AdminLayoutComponent implements OnInit {
           this.cookieService.set('leftNavSelectedMenu', id);
         }
         location.reload();
+      } else {
+        if (this.router.url != '/data/datacenter/' + this.cookieService.get('leftNavSelectedSubcompId')) {
+          $('.EnableDcDis').removeClass('EnableDcDis').addClass('EnableDcBlock');
+        }
       }
       this.cookieService.set('currentUrl', this.router.url);
     }, 500);
@@ -155,13 +164,13 @@ export class AdminLayoutComponent implements OnInit {
   onMobileMenu() {
     this.isCollapsedMobile = this.isCollapsedMobile === 'yes-block' ? 'no-block' : 'yes-block';
   }
-  
-  onNavigate(){
-	window.open("http://www.tekvizion.com", "_blank");
+
+  onNavigate() {
+    window.open("http://www.tekvizion.com", "_blank");
   }
-  
+
   open(content) {
-    this.modalService.open(content, { windowClass: 'custom_modal', backdrop : 'static' }).result.then((result) => {
+    this.modalService.open(content, { windowClass: 'custom_modal', backdrop: 'static' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;

@@ -24,8 +24,10 @@ export class ConfigService {
   getSubComponentListUrl: any;
   getsubComponentPopUpUrl: any;
   getVcenterDataUrl: any;
-  getDataCenterComponentsUrl: any;
   getDataCenterComponentRecordsUrl: any;
+  getNotificationUrl: any;
+  getStatesUrl: any;
+  getCitiesUrl: any;
 
   constructor(private http: Http) {
     this.http.get('assets/config.json')
@@ -39,7 +41,7 @@ export class ConfigService {
         this.deleteDataCenterUrl = this.BASE_URL + result[0].deleteDataCenterUrl;
         this.editComponentUrl = this.BASE_URL + result[0].editComponentUrl;
         this.componentAddUrl = this.BASE_URL + result[0].componentAddUrl;
-		this.getTypesUrl = this.BASE_URL + result[0].getTypesUrl;
+        this.getTypesUrl = this.BASE_URL + result[0].getTypesUrl;
         this.getSubtypesUrl = this.BASE_URL + result[0].getSubtypesUrl;
         this.componentDeleteUrl = this.BASE_URL + result[0].componentDeleteUrl;
         this.countryUrl = this.BASE_URL + result[0].countryUrl;
@@ -48,8 +50,10 @@ export class ConfigService {
         this.getSubComponentListUrl = this.BASE_URL + result[0].getSubComponentListUrl;
         this.getsubComponentPopUpUrl = this.BASE_URL + result[0].getsubComponentPopUpUrl;
         this.getVcenterDataUrl = this.BASE_URL + result[0].getVcenterDataUrl;
-        this.getDataCenterComponentsUrl = this.BASE_URL + result[0].getDataCenterComponentsUrl;
         this.getDataCenterComponentRecordsUrl = this.BASE_URL + result[0].getDataCenterComponentRecordsUrl;
+        this.getNotificationUrl = this.BASE_URL + result[0].getNotificationUrl;
+        this.getStatesUrl = this.BASE_URL + result[0].getStatesUrl;
+        this.getCitiesUrl = this.BASE_URL + result[0].getCitiesUrl;
       });
   }
 
@@ -106,22 +110,22 @@ export class ConfigService {
     return this.http.post(this.deleteDataCenterUrl, body, options).map((res: Response) => res.json());
   }
 
-  editComponent(userId, componentId, name, version, subVersion, ipAddress, componentUser, password, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax) {
+  editComponent(userId, componentId, name, version, subVersion, ipAddress, componentUser, password, enablePassword, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'userId=' + userId + '&componentId=' + componentId + '&name=' + name + '&version=' + version + '&subVersion=' + subVersion + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax;
+    let body = 'userId=' + userId + '&componentId=' + componentId + '&name=' + name + '&type=' + version + '&version=' + subVersion + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&enablePassword=' + enablePassword + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax;
     return this.http.post(this.editComponentUrl, body, options).map((res: Response) => res.json());
   }
 
   componentAdd(userId, name, dataCenterId, type, ipAddress, version, subVersion, componentUser, password, enablePassword, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax, vrrpWarnStart, vrrpWarnEnd, vrrpMax) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'userId=' + userId + '&name=' + name + '&dataCenterId=' + dataCenterId + '&type=' + type + '&version=' + version + '&subVersion=' + subVersion + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&enablePassword=' + enablePassword + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax + '&vrrpWarnStart=' + vrrpWarnStart + '&vrrpWarnEnd=' + vrrpWarnEnd + '&vrrpMax=' + vrrpMax;
+    let body = 'userId=' + userId + '&name=' + name + '&dataCenterId=' + dataCenterId + '&type=' + type + '&version=' + version + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&enablePassword=' + enablePassword + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax + '&vrrpWarnStart=' + vrrpWarnStart + '&vrrpWarnEnd=' + vrrpWarnEnd + '&vrrpMax=' + vrrpMax;
     return this.http.post(this.componentAddUrl, body, options).map((res: Response) => res.json());
   }
-  
+
   getTypes() {
-	return this.http.get(this.getTypesUrl).map((res: Response) => res.json());
+    return this.http.get(this.getTypesUrl).map((res: Response) => res.json());
   }
 
   getSubtypes(id) {
@@ -166,13 +170,6 @@ export class ConfigService {
     return this.http.post(this.getVcenterDataUrl, body, options).map((res: Response) => res.json());
   }
 
-  getDataCenterComponents(id) {
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
-    let options = new RequestOptions({ headers: headers });
-    let body = 'id=' + id;
-    return this.http.post(this.getDataCenterComponentsUrl, body, options).map((res: Response) => res.json());
-  }
-
   getDataCenterComponentRecords(componentId) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
@@ -180,6 +177,26 @@ export class ConfigService {
     return this.http.post(this.getDataCenterComponentRecordsUrl, body, options).map((res: Response) => res.json());
   }
 
+  getNotification(type) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'type=' + type;
+    return this.http.post(this.getNotificationUrl, body, options).map((res: Response) => res.json());
+  }
 
-  BASE_URL = window.location.protocol + '//' + window.location.hostname;
+  getStates(county) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'county=' + county;
+    return this.http.post(this.getStatesUrl, body, options).map((res: Response) => res.json());
+  }
+
+  getCities(state) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'state=' + state;
+    return this.http.post(this.getCitiesUrl, body, options).map((res: Response) => res.json());
+  }
+
+  BASE_URL = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
 }    

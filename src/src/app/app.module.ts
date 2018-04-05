@@ -18,6 +18,7 @@ import { ScrollModule } from './scroll/scroll.module';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { ConfigService } from './config.service';
+import { DatacenterComponent } from './components/data/datacenter/datacenter.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ConfigService } from './config.service';
   providers: [
     CookieService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    ConfigService
+    ConfigService,
+    DatacenterComponent
   ],
   bootstrap: [AppComponent]
 })

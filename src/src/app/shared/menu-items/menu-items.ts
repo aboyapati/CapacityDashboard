@@ -7,11 +7,13 @@ export interface BadgeItem {
 }
 
 export interface ChildrenItems {
+  id: number;
   state: string;
   target?: boolean;
   name: string;
   type?: string;
   img: string;
+  subComponentChildren: any;
   children?: ChildrenItems[];
 }
 
@@ -81,6 +83,7 @@ export class MenuItems {
   dynamicSubMenu: any[];
   dynamic: any;
   dd: any;
+  subComponentChildren: any;
 
   constructor(private config: ConfigService) {
 
@@ -89,26 +92,40 @@ export class MenuItems {
         this.dynamic = res;
         this.dynamicSubMenu = [];
         for (let i = 0; i < res.length; i++) {
+
+          this.subComponentChildren = [];
+          for (let j = 0; j < res[i].components.length; j++) {
+            this.subComponentChildren.push({
+              'id': res[i].components[j].id,
+              'name': res[i].components[j].name
+            });
+          }
+
           if (this.dynamic[i].status == "Bad") {
             this.dynamicSubMenu.push({
+              'id': this.dynamic[i].id,
               'state': 'datacenter/' + this.dynamic[i].id,
               'name': this.dynamic[i].name,
-              'img': 'assets/images/fa-exclamation.png'
-
+              'img': 'assets/images/fa-exclamation.png',
+              'subComponentChildren': this.subComponentChildren
             });
           }
           else if (this.dynamic[i].status == "Good") {
             this.dynamicSubMenu.push({
+              'id': this.dynamic[i].id,
               'state': 'datacenter/' + this.dynamic[i].id,
               'name': this.dynamic[i].name,
-              'img': 'assets/images/status-green.png'
+              'img': 'assets/images/status-green.png',
+              'subComponentChildren': this.subComponentChildren
             });
           }
           else if (this.dynamic[i].status == "Alert") {
             this.dynamicSubMenu.push({
+              'id': this.dynamic[i].id,
               'state': 'datacenter/' + this.dynamic[i].id,
               'name': this.dynamic[i].name,
-              'img': 'assets/images/status-yellow.png'
+              'img': 'assets/images/status-yellow.png',
+              'subComponentChildren': this.subComponentChildren
             });
           }
 

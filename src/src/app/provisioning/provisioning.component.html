@@ -17,17 +17,11 @@
         </span>
     </div>
     <div class="col-md-3 col-sm-3 btn-top-bar">
-        <button class="btn btn-primary btn-sm btn-add-data" (click)="open(content, '', 'add')">
+        <button class="btn btn-primary btn-sm btn-add-data" (click)="open(content, 0, 'add')">
             <i class="fa fa-plus"></i> Add Data Center</button>
     </div>
 </div>
 <div class="row" id="withdcBlock" style="display:none">
-    <button (click)="moveLeft()" class="btn btn-primary btn-sm btn-left" style="display: none;">
-        <i class="fa fa-arrow-left"></i>
-    </button>
-    <button (click)="moveRight()" class="btn btn-primary btn-sm btn-right" style="display: none;">
-        <i class="fa fa-arrow-right"></i>
-    </button>
     <ng-container *ngFor="let dataCenter of dataCenters, let i = index">
         <div [style.display]="i>=scrollLimitMin && i<=scrollLimitMax ? 'block' : 'none'" class="col-md-3 col-sm-6 tab-tile {{ (i == selectedDataCenter) ? 'tab-tile-active' : ''}}"
             id="{{i}}" (click)="dataCenterScrollClick(i,'direct')">
@@ -82,6 +76,7 @@
                                         </div>
                                         <div class="f1-steps" style="text-align: center;">
                                             <div class="f1-progress">
+                                                <div class="f1-progress-error"></div>
                                                 <div class="f1-progress-line" style="width: 25%;"></div>
                                             </div>
                                             <div class="f1-step active" id='f1-step_1'>
@@ -103,10 +98,10 @@
                                                 <p>Configuration</p>
                                             </div>
                                             <div class="f1-step" id="complete">
-                                                <div class="f1-step-icon">
-                                                    <i class="fa fa-check"></i>
+                                                <div id="complete-step" class="f1-step-icon">
+                                                    <i id="complete-icon" class="fa fa-check"></i>
                                                 </div>
-                                                <p>Complete</p>
+                                                <p id="complete-title">Complete</p>
                                             </div>
                                         </div>
 
@@ -134,7 +129,7 @@
                                         </fieldset>
 
                                         <fieldset id="fieldset_2">
-                                            <p class="modal-text-p">Please enter component type, version, and IP address.</p>
+                                            <p class="modal-text-p">Please enter component type, version.</p>
                                             <div class="row">
                                                 <div class="offset-md-2 col-md-8">
                                                     <div class="form-group">
@@ -151,7 +146,7 @@
                                                             <option value="{{subType.name}}" *ngFor='let subType of subTypes'>{{subType.name}}</option>
                                                         </select>
                                                         <label class="control-label" for="select"></label>
-                                                        <i class="bar"></i>
+                                                        <i id="add-ComSubVersion" class="bar"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,19 +164,19 @@
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="vrfWarnStart" name="vrfWarnStart" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-vrfWarnStart" class="bar"></i>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="vrfWarnEnd" name="vrfWarnEnd" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-vrfWarnEnd" class="bar"></i>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="vrfMax" name="vrfMax" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-vrfMax" class="bar"></i>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -190,19 +185,19 @@
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="bgpPeersWarnStart" name="bgpPeersWarnStart" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-bgpPeersWarnStart" class="bar"></i>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="bgpPeersWarnEnd" name="bgpPeersWarnEnd" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-bgpPeersWarnEnd" class="bar"></i>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="bgpPeersMax" name="bgpPeersMax" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-bgpPeersMax" class="bar"></i>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -211,19 +206,19 @@
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="vlanWarnStart" name="vlanWarnStart" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-vlanWarnStart" class="bar"></i>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="vlanWarnEnd" name="vlanWarnEnd" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-vlanWarnEnd" class="bar"></i>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="vlanMax" name="vlanMax" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-vlanMax" class="bar"></i>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -232,19 +227,19 @@
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="hsrpWarnStart" name="hsrpWarnStart" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-hsrpWarnStart" class="bar"></i>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="hsrpWarnEnd" name="hsrpWarnEnd" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-hsrpWarnEnd" class="bar"></i>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="hsrpMax" name="hsrpMax" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-hsrpMax" class="bar"></i>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -253,19 +248,19 @@
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="staticRoutesWarnStart" name="staticRoutesWarnStart" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-staticRoutesWarnStart" class="bar"></i>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="staticRoutesWarnEnd" name="staticRoutesWarnEnd" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-staticRoutesWarnEnd" class="bar"></i>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-group form-group-small">
                                                                 <input type="text" required="required" [(ngModel)]="staticRoutesMax" name="staticRoutesMax" />
-                                                                <i class="bar"></i>
+                                                                <i id="add-staticRoutesMax" class="bar"></i>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -291,7 +286,7 @@
                                         </fieldset>
 
                                         <fieldset id="fieldset_3">
-                                            <p class="modal-text-p">Please enter component username and password</p>
+                                            <p class="modal-text-p">Please enter component IP address, username and password</p>
                                             <div class="row">
                                                 <div class="offset-md-2 col-md-8">
                                                     <div class="form-group">
@@ -306,18 +301,15 @@
                                                         <i class="bar" id="UserBar"></i>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="password" required="required" [(ngModel)]="password" id="addComponentPassword" name="password" readonly onfocus="this.removeAttribute('readonly');"
+                                                        <input type="text" required="required" [(ngModel)]="password" id="addComponentPassword" name="password" readonly onfocus="this.removeAttribute('readonly');"
                                                         />
                                                         <label class="control-label" for="input">Password*</label>
                                                         <i class="bar" id="PasswordBar"></i>
                                                     </div>
                                                     <div class="form-group toggleEnablePassword" style="display:none;">
-                                                        <div class="checkbox">
-                                                            <input type="checkbox" value="enablePassword" style="z-index:9 !important; cursor:pointer;" [(ngModel)]="enablePassword"
-                                                                name="enablePassword" />
-                                                            <label for="check2">Enable Password</label>
-                                                            <i class="helper" style="margin-top:2px;"></i>
-                                                        </div>
+                                                        <input type="text" required="required" [(ngModel)]="enablePassword" name="enablePassword" />
+                                                        <label class="control-label" for="input">Enable Password</label>
+                                                        <i class="bar"></i>
                                                     </div>
                                                 </div>
                                                 <div class="offset-md-2 col-md-8 outer_step2">
@@ -388,13 +380,13 @@
                 <input type="hidden" id="comp_filter" name="comp_filter" value="" />
                 <tr *ngIf="showNullRowMessage">
                     <td align="center" colspan="6">
-                        <b>THERE ARE CURRENTLY NO COMPONENTS AVAILABLE FOR THIS DATA CENTER. TO ADD A COMPONENT PLEASE USE THE <span style="color:#79A3BA; cursor:pointer;" (click)="openComponentModal(rsdcontent)">ADD COMPONENT WIZARD</span></b>
+                        <b>THERE ARE CURRENTLY NO COMPONENTS AVAILABLE FOR THIS DATA CENTER. <br />TO ADD A COMPONENT PLEASE USE THE <span style="color:#79A3BA; cursor:pointer;" (click)="openComponentModal(rsdcontent)">ADD COMPONENT WIZARD</span></b>
                     </td>
                 </tr>
                 <tr *ngFor="let data of dataCentersDetails, let j = index">
                     <td>{{ data.name }}</td>
+                    <td>{{ data.type }}</td>
                     <td>{{ data.version }}</td>
-                    <td>{{ data.subVersion }}</td>
                     <td>{{ data.ipAddress }}</td>
                     <td class="text-center">
                         <span (click)="hide(j)" class="span{{j}}" style="color: #0056b3;cursor: pointer;">View</span>
@@ -417,7 +409,7 @@
 
 <div class="row" style="clear:both;">
     <div id="withoutdcBlock" class="col-md-12 tab-tile-table table-responsive text-center" style="display:none">
-        <span style="font-weight:bold;"><b>THERE ARE CURRENTLY NO DATA CENTERS AVAILABLE. TO ADD DATA CENTER PLEASE USE THE <span style="color:#79A3BA; cursor:pointer;" (click)="open(content, '', 'add')">ADD DATA CENTER WIZARD</span></b></span>
+        <span style="font-weight:bold;"><b>THERE ARE CURRENTLY NO DATA CENTERS AVAILABLE. TO ADD DATA CENTER PLEASE USE THE <span style="color:#79A3BA; cursor:pointer;" (click)="open(content, 0, 'add')">ADD DATA CENTER WIZARD</span></b></span>
     </div>
 </div>
 
@@ -437,7 +429,7 @@
                         <i id="addnameBar" class="bar"></i>
                     </div>
                     <div class="form-group">
-                        <select [(ngModel)]="country" name="country" id="addDataCenterCountry">
+                        <select [(ngModel)]="country" name="country" id="addDataCenterCountry" (change)="loadStates(country, 'add')">
                             <option class="modal_placeholder">Country*</option>
                             <option *ngFor='let element of country_list' [value]="element.value">{{element.name}}</option>
                         </select>
@@ -445,13 +437,19 @@
                         <i id="addcountryBar" class="bar"></i>
                     </div>
                     <div class="form-group">
-                        <input id="addDataCenterState" type="text" required="required" [(ngModel)]="state" name="state" />
-                        <label class="control-label" for="input">State*</label>
+                        <select [(ngModel)]="state" name="state" id="addDataCenterState" [disabled]="!statesList" (change)="loadCities(state, 'add')">
+                            <option class="modal_placeholder">State*</option>
+                            <option *ngFor='let state of statesList' [value]="state.value">{{state.name}}</option>
+                        </select>
+                        <label class="control-label" for="select"></label>
                         <i id="addstateBar" class="bar"></i>
                     </div>
                     <div class="form-group">
-                        <input id="addDataCenterCity" type="text" required="required" [(ngModel)]="city" name="city" />
-                        <label class="control-label" for="input">City*</label>
+                        <select [(ngModel)]="city" name="city" id="addDataCenterCity" [disabled]="!citiesList">
+                            <option class="modal_placeholder">City*</option>
+                            <option *ngFor='let city of citiesList' [value]="city.value">{{city.name}}</option>
+                        </select>
+                        <label class="control-label" for="select"></label>
                         <i id="addcityBar" class="bar"></i>
                     </div>
                     <div class="form-group">
@@ -530,7 +528,7 @@
                         <i id='nameBar' class="bar"></i>
                     </div>
                     <div class="form-group">
-                        <select id="editDataCenterCountry">
+                        <select id="editDataCenterCountry" (change)="loadStates('country', 'edit')">
                             <option class="modal_placeholder" value="Country*">Country*</option>
                             <option *ngFor='let element of country_list' [selected]="element.name === editData.country" [value]="element.value">{{element.name}}</option>
                         </select>
@@ -538,19 +536,25 @@
                         <i id="countryBar" class="bar"></i>
                     </div>
                     <div class="form-group">
-                        <input id="editDataCenterState" type="text" required="required" value="{{editData.state}}" />
-                        <label class="control-label" for="input">State*</label>
+                        <select id="editDataCenterState" (change)="loadCities('state', 'edit')">
+                            <option class="modal_placeholder" value="State*">State*</option>
+                            <option *ngFor='let state of statesList' [selected]="state.name === editData.state" [value]="state.value">{{state.name}}</option>
+                        </select>
+                        <label class="control-label" for="select"></label>
                         <i id="stateBar" class="bar"></i>
                     </div>
                     <div class="form-group">
-                        <input id="editDataCenterCity" type="text" required="required" value="{{editData.city}}" />
-                        <label class="control-label" for="input">City*</label>
+                        <select id="editDataCenterCity">
+                            <option class="modal_placeholder" value="City*">City*</option>
+                            <option *ngFor='let city of citiesList' [selected]="city.name === editData.city" [value]="city.value">{{city.name}}</option>
+                        </select>
+                        <label class="control-label" for="select"></label>
                         <i id="cityBar" class="bar"></i>
                     </div>
                     <div class="form-group">
                         <select id="editDataCenterTimezone">
                             <option class="modal_placeholder" value="Time zone*">Time zone*</option>
-                            <option *ngFor='let element of time_zone_list' [selected]="element.name === editData.time_zone" [value]="element.value">{{element.name}}</option>
+                            <option *ngFor='let element of time_zone_list' [selected]="element.value === editData.time_zone" [value]="element.value">{{element.name}}</option>
                         </select>
                         <label class="control-label" for="select"></label>
                         <i id="timezoneBar" class="bar"></i>
@@ -674,19 +678,21 @@
 
     <div style="display: none;" class="apiResponseDivComponent">
         <div class="apiSuccess">
-            <div class="form-modal">
-                <div style="color: green;" class="apiMsg">Component Deleted successfully !</div>
+            <div class="form-modal" style="padding-bottom: 40px;">
+                <div class="header_title" style="text-align: center;"> Delete Component</div>
+                <div style="color: green; text-align: center;" class="apiMsg">Component Deleted successfully !</div>
             </div>
-            <div class="col-md-12 form-modal">
-                <div style="margin: 0 auto;" class="row">
-                    <button type="button" class="btn btn-primary btn-edit-close" (click)="c('Close click')">Close</button>
+            <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
+                <div style=" position: absolute; top:13%; left:50%; transform: translate(-50%,-50%);" class="clearfix">
+                    <button type="button" class="btn btn-primary save_btn btn-edit-close" (click)="c('Close click')">Close</button>
                 </div>
             </div>
         </div>
         <div class="apiFailed" style="display: none">
-            <div class="form-modal">
-                <div style="color: red;" class="apiMsg">Something went wrong !</div>
-                <p id="apiErrorMsgComponent"></p>
+            <div class="form-modal" style="padding-bottom: 40px;">
+                    <div class="header_title" style="text-align: center;"> Delete Component</div>
+                    <div style="color: red;" class="apiMsg">Something went wrong !</div>
+                    <p id="apiErrorMsgComponent" style="color: red;"></p>
             </div>
             <div class="col-md-12 form-modal">
                 <div class="row">
@@ -718,7 +724,7 @@
                     <div class="form-group">
                         <select id="editComponentNameType" [(ngModel)]="editComponentNameType" name="editComponentNameType" (change)="onVersionChangeEdit(editComponentNameType)">
                             <option class="modal_placeholder" value="Type*">Type*</option>
-                            <option *ngFor='let ver of version' [selected]="ver.name === componentRecords.version" [value]="ver.name">{{ver.name}}</option>
+                            <option *ngFor='let ver of version' [selected]="ver.name === componentRecords.type" [value]="ver.name">{{ver.name}}</option>
                         </select>
                         <label class="control-label" for="select"></label>
                         <i id="editComponentBar2" class="bar"></i>
@@ -741,13 +747,19 @@
                         <i id="editComponentBar5" class="bar"></i>
                     </div>
                     <div class="form-group">
-                        <input id="editComponentPassword" type="password" required="required" value="{{componentRecords.password}}" />
+                        <input id="editComponentPassword" type="text" required="required" value="{{componentRecords.password}}" />
                         <label class="control-label" for="input">Password*</label>
                         <i id="editComponentBar6" class="bar"></i>
                     </div>
+                    <div class="form-group" [hidden]='componentRecords.type != "ASA"' id="edit-enable-password">
+                        <input id="editComponentEnablePassword" type="text" required="required" value="{{componentRecords.enablePassword}}" />
+                        <label class="control-label" for="input">Enable Password</label>
+                        <i id="editComponentBar7" class="bar"></i>
+                    </div>
 
-                    <div *ngIf="componentRecords.version == 'NEXUS';then threshold_edit"></div>
-                    <ng-template #threshold_edit>
+                    <!-- <div *ngIf="componentRecords.type == 'NEXUS';then threshold_edit"></div> -->
+                    <div id="edit-componet-thresholds" [hidden]='componentRecords.type != "NEXUS"'>
+                    <!-- <ng-template #threshold_edit> -->
                         <p class="modal-text-p">Threshold Value</p>
                         <div class="table-responsive">
                             <table class="table modal-table">
@@ -878,7 +890,8 @@
                                 </tr>
                             </table>
                         </div>
-                    </ng-template>
+                    <!-- </ng-template> -->
+                    </div>
                 </div>
                 <div class="col-md-12 form-modal">
                     <div class="row">
@@ -895,7 +908,8 @@
         <div style="display: none;" class="apiResponseDiv">
             <div class="apiSuccess">
                 <div class="form-modal" style="padding-bottom: 40px;">
-                    <div class="header_title" style="font-size: 30px;font-weight: normal;text-align: center;">Congratulations. Your component has been successfully edited.</div>
+                    <div class="header_title" style="text-align: center;">Edit Component</div>
+                    <div style="color: green; text-align: center;" class="apiMsg">Component edited successfully !</div>
                 </div>
                 <div class="col-md-12 form-modal">
                     <div class="row">
@@ -910,7 +924,8 @@
             </div>
             <div class="apiFailed" style="display: none">
                 <div class="form-modal" style="padding-bottom: 40px;">
-                    <div class="header_title" style="font-size: 30px;font-weight: normal;text-align: center;">Something went wrong !</div>
+                    <div class="header_title" style="text-align: center;">Edit Component</div>
+                    <div style="color: red;" class="apiMsg">Something went wrong !</div>
                     <p id="editComponentApiErrorMsg" style="color: red;"></p>
                 </div>
                 <div class="col-md-12 form-modal">
@@ -933,12 +948,12 @@
         <div class="modalForm">
             <div class="form-modal">
                 <div class="header_title text-center">{{componentRecords.name}}</div>
-                <h2 class="text-center">{{componentRecords.version}}</h2>
-                <h3 class="text-center">{{componentRecords.subVersion}}</h3>
+                <h2 class="text-center">{{componentRecords.type}}</h2>
+                <h3 class="text-center">{{componentRecords.version}}</h3>
                 <br>
             </div>
 
-            <div *ngIf="componentRecords.version == 'NEXUS';then threshold_view"></div>
+            <div *ngIf="componentRecords.type == 'NEXUS';then threshold_view"></div>
             <ng-template #threshold_view>
                 <div class="form-modal">
                     <h4 class="text-center">Threshold Value</h4>

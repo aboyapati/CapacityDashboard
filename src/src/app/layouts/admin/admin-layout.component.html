@@ -193,9 +193,9 @@
                       <span *ngFor="let asideBadge of asideItem.badge" class="pcoded-badge label label-{{ asideBadge.type }}">{{asideBadge.value}}</span>
                       <span class="pcoded-mcaret"></span>
                     </a>
-                    <ul (click)="reloadCurrentPage(asideItem.state)" class="pcoded-submenu">
+                    <ul class="pcoded-submenu">
                       <ng-template ngFor let-asideChildren [ngForOf]="asideItem.children">
-                        <li [routerLinkActive]="['active']" *ngIf="asideChildren.type !== 'sub'">
+                        <li (click)="reloadCurrentPage(asideItem.state)" [routerLinkActive]="['active']" *ngIf="asideChildren.type !== 'sub'">
                           <a [routerLink]="['/'+asideItem.state+'/'+asideChildren.state]" target="{{asideChildren.target ? '_blank' : '_self'}}">
                             <img src="assets/images/ellipse-20.png">
                             <span class="pcoded-micon">
@@ -208,6 +208,12 @@
                           </a>
                         </li>
 
+                        <ng-container *ngIf="asideChildren.subComponentChildren">
+                          <div id="toEnableDc{{asideChildren.id}}" class="EnableDcBlock">
+                            <div (click)="dcComp.selectDataCenterComponents(subComponentChildren.id)" id="subCompChild{{subComponentChildren.id}}" class="subComponent" *ngFor="let subComponentChildren of asideChildren.subComponentChildren">{{subComponentChildren.name}}</div>
+                          </div>
+                        </ng-container>
+                        
                         <li [routerLinkActive]="['active']" class="pcoded-hasmenu" dropdown-icon="style3" subitem-icon="style6" *ngIf="asideChildren.type === 'sub'"
                           appAccordionLink group="sub-toggled">
                           <a href="javascript:;" appAccordionToggle>

@@ -126,12 +126,14 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_ngx_cookie_service__ = __webpack_require__("../../../../ngx-cookie-service/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__config_service__ = __webpack_require__("../../../../../src/app/config.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_data_datacenter_datacenter_component__ = __webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -180,7 +182,8 @@ AppModule = __decorate([
         providers: [
             __WEBPACK_IMPORTED_MODULE_17_ngx_cookie_service__["a" /* CookieService */],
             { provide: __WEBPACK_IMPORTED_MODULE_16__angular_common__["LocationStrategy"], useClass: __WEBPACK_IMPORTED_MODULE_16__angular_common__["HashLocationStrategy"] },
-            __WEBPACK_IMPORTED_MODULE_18__config_service__["a" /* ConfigService */]
+            __WEBPACK_IMPORTED_MODULE_18__config_service__["a" /* ConfigService */],
+            __WEBPACK_IMPORTED_MODULE_19__components_data_datacenter_datacenter_component__["a" /* DatacenterComponent */]
         ],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* AppComponent */]]
     })
@@ -257,6 +260,532 @@ var AppRoutes = [{
 
 /***/ }),
 
+/***/ "../../../../../src/app/components/data/datacenter/datacenter.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\r\n.tab-tile:hover {\r\n    cursor: pointer;\r\n    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);\r\n}\r\n.tab-tile {\r\n    padding: 30px 0px 75px;\r\n}\r\n.tab-tile-active {\r\n    padding: 30px 0px 31px;\r\n    background-color: #fff; \r\n}\r\n.tab-tile-table {\r\n    background-color: #fff;\r\n    padding: 30px;\r\n}\r\n.data-center {\r\n    color: #3b4147;\r\n    font-size: 15px;\r\n    font-weight: bold;\r\n    text-align: center;\r\n    padding: 6px 0 4px;\r\n}\r\n.data-center-body {\r\n    color: #73787d;\r\n    font-size: 13px;\r\n    text-align: center;\r\n    margin-bottom: 1px;\r\n    font-weight: 600;\r\n}\r\n.comp-img-thumbnail {\r\n    width: 100px;\r\n    height: 100px;\r\n    background-color: unset;\r\n    border: 0px;\r\n}\r\n.sub-component {\r\n    text-align: center;\r\n    padding-right: 0px;\r\n    padding-left: 0px;\r\n}\r\n.sub-component-body {\r\n    border: 1px solid #e8e8e8;\r\n    border-radius: .25rem;\r\n    margin: 15px;\r\n\tcursor:pointer;\r\n}\r\n.sub-component-text {\r\n    color: #73787d;\r\n    font-size: 13px;\r\n    text-align: center;\r\n    font-weight: 600;\r\n    margin-top: 1rem;\r\n}\r\n.sub-component-title {\r\n\tcolor: #424242;\r\n}\r\n.sub-component-text span { \r\n    font-size: 22px;\r\n    color: #424242;\r\n}\r\n.ti-arrow-circle-right:before\r\n{\r\n    content: \"\\E65D\";\r\n    font-size: 24px;\r\n    font-weight: bold;\r\n}\r\n.ti-arrow-circle-left:before{\r\n    content: \"\\E65E\";\r\n    font-size: 24px;\r\n    font-weight: bold;\r\n}\r\n.ti-control-record:before{\r\n    content: \"\\E724\";\r\n    font-weight: bold;\r\n    font-size: 15px;\r\n}\r\n.subComChartimg {\r\n    width: 100%;\r\n}\r\n.chartdiv {\r\n    width: 100%;\r\n    height: 250px;\r\n}\r\n#speedochartdiv {\r\n\twidth\t\t: 100%;\r\n\theight\t\t: 500px;\r\n\tfont-size\t: 11px;\r\n}\t\r\n#speedochartdiv1 {\r\n\twidth\t\t: 100%;\r\n\theight\t\t: 500px;\r\n\tfont-size\t: 11px;\r\n}\t\r\n#speedochartdiv2 {\r\n\twidth\t\t: 100%;\r\n\theight\t\t: 500px;\r\n\tfont-size\t: 11px;\r\n}\t\t\r\n#speedochartpopup {\r\n\twidth\t\t: 100%;\r\n\theight\t\t: 500px;\r\n\tfont-size\t: 11px;\r\n}\t\r\n.rsddropdown-span {\r\n    cursor:pointer;\r\n    color:#b0bec5;\r\n    font-size:20px;\r\n}\t\r\n.rsddropdown {\r\n    text-align: right;\r\n    padding-right: 15px;\r\n    height: 15px;\r\n}\r\n.rsddropdown-content {\r\n    display: none;\r\n    position: absolute;\r\n    background-color: #fff;\r\n    overflow: auto;\r\n    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\r\n    z-index: 1;\r\n    right: 10%;\r\n    border-radius: 6px;\r\n    border: 1px solid aliceblue;\r\n    cursor: pointer;\r\n    text-align: left;\r\n} \r\n.rsddropdown-content a {\r\n    color: #08070799;\r\n    padding: 5px 12px;\r\n    text-decoration: none;\r\n    display: block;\r\n    font-size: 14px;\r\n    font-weight: 600;\r\n} \r\n@media screen and (max-width: 1094px) {\r\n\t.sub-component {\r\n\t\t-webkit-box-flex: 0;\r\n\t\t    -ms-flex: 0 0 50%;\r\n\t\t        flex: 0 0 50%;\r\n\t\tmax-width:50%;\r\n\t}\r\n}\r\n@media screen and (max-width: 602px) {\r\n\t.sub-component {\r\n\t\t-webkit-box-flex: 0;\r\n\t\t    -ms-flex: 0 0 100%;\r\n\t\t        flex: 0 0 100%;\r\n\t\tmax-width:100%;\r\n\t}\r\n}\r\n@media screen and (max-width: 575px) {\r\n\t.data_center_view {\r\n\t\ttext-align:center;\r\n\t\tmargin-bottom: 10px;\r\n\t}\r\n}\r\n\r\n#withoutComponentBlock {\r\n  min-height: 200px;\r\n  padding: 80px 15px;\r\n}", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/data/datacenter/datacenter.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div *ngIf=\"components\" class=\"row data_center_view\">\r\n    <div class=\"col-md-4 col-sm-4\" style=\"font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;\">\r\n        onPOINT HCS.Capacity\r\n    </div>\r\n    <div class=\"col-md-8 col-sm-8\" style=\"padding-top:9px;\">\r\n        <span>\r\n            <span *ngFor=\"let c of components; let i = index\">\r\n                <span class=\"icon-name\">&nbsp;</span>\r\n                <span style=\"cursor: pointer;\" (click)=\"componnetScrollClick(i)\" id=\"componentScroll{{i}}\" class=\"ti-control-record\"></span>\r\n            </span>\r\n        </span>\r\n    </div>\r\n</div>\r\n<div *ngIf=\"components\" class=\"row\">\r\n    <ng-container *ngFor=\"let component of components; let j = index\">\r\n        <div [style.display]=\"j>=scrollLimitMin && j<=scrollLimitMax ? 'block' : 'none'\" class=\"col-md-3 col-sm-6 tab-tile\" id=\"cmp_div_{{component.id}}\"\r\n            (click)=\"componnetScrollClick(j,'direct')\">\r\n            <div class=\"data-center-image d-flex justify-content-center\">\r\n                <img bind-src=\"imgUrl\" class=\"comp-img-thumbnail img-thumbnail\">\r\n            </div>\r\n            <p class=\"data-center\">{{component.name}}</p>\r\n        </div>\r\n    </ng-container>\r\n    <div *ngIf=\"subComponents!=''\" class=\"col-md-12 tab-tile-table table-responsive\">\r\n        <div class=\"row\">\r\n            <div *ngFor=\"let subComponent of subComponents; let k = index\" class=\"col-md-4 col-sm-6 sub-component\" (click)=\"open(subComponentChart,k)\">\r\n                <div class=\"sub-component-body\">\r\n                    <p class=\"sub-component-text sub-component-title\">{{subComponent.name}}</p>\r\n                    <div id=\"chartdiv_{{k+1}}\" class=\"chartdiv\"></div>\r\n                    <!--<p class=\"sub-component-text\"><span>{{subComponent.consumed}}</span> / {{subComponent.total}}</p>-->\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"(subCoFlag && !coFlag)\" class=\"col-md-12 tab-tile-table table-responsive\" style=\"padding: 3%;\r\n    min-height: 200px;\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-12 tab-tile-table table-responsive text-center\">\r\n                <span>\r\n                    <b>THERE ARE CURRENTLY NO SUB COMPONENTS AVAILABLE FOR THIS COMPONENT.\r\n                    </b>\r\n                </span>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div id=\"withoutComponentBlock\" class=\"col-md-12 tab-tile-table table-responsive text-center\" style=\"display:none\">\r\n        <span>\r\n            <b>THERE ARE CURRENTLY NO COMPONENTS AVAILABLE FOR THIS DATA CENTER.\r\n            </b>\r\n        </span>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"subComponents!=''\" style=\"display: none;\" id='vcenetrDataDiv'>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>DATASTORE USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv\"></div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>MONTHLY AVERAGE HOST MEMORY USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv2\"></div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>MONTHLY AVERAGE HOST CPU USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv1\"></div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<ng-template #subComponentChart let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-body image-responsive\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-4\">\r\n                <p>\r\n                    <b style=\"font-size:18px;padding-left:5%;\">{{popupName}}</b>\r\n                </p>\r\n            </div>\r\n            <div class=\"col-md-8\" style=\"text-align: right;\">\r\n                <div class=\"rsddropdown\" id=\"rsddropdown\">\r\n                    <span class=\"rsddropdown-span\" (click)=\"subCoPopupFilter()\">...</span>\r\n                    <div id=\"callMatricsDropdown\" class=\"rsddropdown-content\">\r\n                        <a (click)=\"filterSubcoPopup(3)\">Last 3 months</a>\r\n                        <a (click)=\"filterSubcoPopup(6)\">Last 6 months</a>\r\n                        <a (click)=\"filterSubcoPopup(9)\">Last 9 months</a>\r\n                        <a (click)=\"filterSubcoPopup(12)\">Last 12 months</a>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div id=\"speedochartpopup\"></div>\r\n    </div>\r\n</ng-template>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/components/data/datacenter/datacenter.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DatacenterComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_service__ = __webpack_require__("../../../../../src/app/config.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__ = __webpack_require__("../../../../@amcharts/amcharts3-angular/es2015/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ngx_cookie_service__ = __webpack_require__("../../../../ngx-cookie-service/index.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var DatacenterComponent = (function () {
+    function DatacenterComponent(modalService, config, route, AmCharts, router, cookieService) {
+        var _this = this;
+        this.modalService = modalService;
+        this.config = config;
+        this.route = route;
+        this.AmCharts = AmCharts;
+        this.router = router;
+        this.cookieService = cookieService;
+        this.userId = sessionStorage.id;
+        this.selectedComponentId = 0;
+        this.selectedComponentType = 'default';
+        this.subFilterFlag = false;
+        this.subComponentCounter = 0;
+        this.subCoFlag = false;
+        this.coFlag = false;
+        this.imgUrl = "assets/images/icon-cube.png";
+        this.subComimgUrl = "assets/images/subcomponent.png";
+        this.subComChartimgUrl = "assets/images/subcomponentChart.png";
+        this.deviceHeight = (window.screen.height);
+        this.deviceWidth = (window.screen.width);
+        if (this.deviceWidth >= 768) {
+            this.scrollLimit = 4;
+            this.scrollLimitMin = 0;
+            this.scrollLimitMax = 3;
+            this.sliderLimit = 3;
+        }
+        else if (this.deviceWidth >= 576) {
+            this.scrollLimit = 2;
+            this.scrollLimitMin = 0;
+            this.scrollLimitMax = 1;
+            this.sliderLimit = 1;
+        }
+        else {
+            this.scrollLimit = 1;
+            this.scrollLimitMin = 0;
+            this.scrollLimitMax = 0;
+            this.sliderLimit = 0;
+        }
+        this.observeRef = route.params.subscribe(function (params) {
+            _this.dataCenterId = params['dataCenterId'];
+            $('.EnableDcDis').removeClass('EnableDcDis').addClass('EnableDcBlock');
+            $('#toEnableDc' + _this.dataCenterId).addClass('EnableDcDis').removeClass('EnableDcBlock');
+            _this.cookieService.set('leftNavSelectedSubcompId', _this.dataCenterId);
+            if (typeof _this.dataCenterId !== "undefined") {
+                setTimeout(function () {
+                    _this.config.getComponentList(_this.dataCenterId).subscribe(function (res_comp) {
+                        _this.components = res_comp;
+                        sessionStorage.setItem('cookieComponnets', JSON.stringify(_this.components));
+                        if (_this.components.length < 1) {
+                            _this.coFlag = true;
+                            $('#withoutComponentBlock').show();
+                        }
+                        else {
+                            _this.coFlag = false;
+                            $('#withoutComponentBlock').hide();
+                        }
+                        _this.subComponents = [];
+                        if (_this.subComponentCounter == 0) {
+                            _this.subComponentCounter = 1;
+                        }
+                        setTimeout(function () {
+                            $('#componentScroll0').trigger('click');
+                        }, 100);
+                    });
+                }, 1000);
+            }
+        });
+    }
+    DatacenterComponent.prototype.ngOnInit = function () {
+        if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
+            this.router.navigate(['login']);
+        }
+    };
+    DatacenterComponent.prototype.componnetScrollClick = function (id, clickType, from) {
+        if (clickType === void 0) { clickType = 'scroll'; }
+        if (from === void 0) { from = 'dcPage'; }
+        if (clickType == 'scroll') {
+            if (id < this.scrollLimit) {
+                this.scrollLimitMin = 0;
+                this.scrollLimitMax = this.sliderLimit;
+            }
+            else {
+                this.scrollLimitMin = id - this.sliderLimit;
+                this.scrollLimitMax = id;
+            }
+        }
+        $('.fa-circle').removeClass("fa fa-circle").addClass("ti-control-record");
+        $('#componentScroll' + id).removeClass("ti-control-record").addClass("fa fa-circle").css('font-size', '15px');
+        this.selectedComponentId = this.components[id].id;
+        this.selectedComponentType = this.components[id].type;
+        if (from != 'dcPage') {
+            $('#componentScroll' + id).trigger('click');
+        }
+        else {
+            this.componentClick();
+            this.selectLeftNavComponents();
+        }
+    };
+    DatacenterComponent.prototype.selectDataCenterComponents = function (id) {
+        this.components = JSON.parse(sessionStorage.cookieComponnets);
+        for (var i = 0; i < this.components.length; i++) {
+            if (this.components[i].id == id) {
+                id = i;
+                break;
+            }
+        }
+        this.componnetScrollClick(id, '', 'leftNav');
+    };
+    DatacenterComponent.prototype.selectLeftNavComponents = function () {
+        $('.subComponentActive').removeClass('subComponentActive').addClass('subComponent');
+        $('#subCompChild' + this.selectedComponentId).addClass('subComponentActive').removeClass('subComponent');
+    };
+    DatacenterComponent.prototype.subComponentPopUp = function () {
+        var _this = this;
+        this.config.getsubComponentPopUp(this.popUptypeId, this.popUpsubComponentName).subscribe(function (res_pop) {
+            _this.subComponentPopUpdata = res_pop;
+            _this.subComponentModal(res_pop);
+        });
+    };
+    DatacenterComponent.prototype.componentClick = function () {
+        this.deActivateCard();
+        $('#cmp_div_' + this.selectedComponentId).attr('class', 'col-md-3 col-sm-6 tab-tile tab-tile-active');
+        this.setSubComData();
+    };
+    DatacenterComponent.prototype.deActivateCard = function () {
+        var preId = $('.tab-tile-active').attr('id');
+        $('#' + preId).attr('class', 'col-md-3 col-sm-6 tab-tile');
+    };
+    DatacenterComponent.prototype.setSubComData = function () {
+        var _this = this;
+        this.config.getSubComponentList(this.selectedComponentId, this.selectedComponentType).subscribe(function (res_sub_co) {
+            _this.subComponentList = res_sub_co;
+            _this.subComponents = _this.subComponentList.subcomponents;
+            var subCoId = 1;
+            if (_this.subComponents && (_this.subComponents.length > 1)) {
+                setTimeout(function () {
+                    _this.subComponents.forEach(function (subCo) {
+                        _this.makeDynamicChart(subCoId++, subCo.status, subCo.consumed, subCo.total, (subCo.consumed / subCo.total) * 100);
+                    });
+                }, 100);
+            }
+            else {
+                _this.subCoFlag = true;
+            }
+        });
+        if (this.selectedComponentType.toLowerCase() == 'vcenter') {
+            this.config.getVcenterData(this.selectedComponentId).subscribe(function (res_v) {
+                _this.dataUsagePercentageChart1(res_v.datastore);
+                _this.dataUsagePercentageChart3(res_v.host_memory);
+                _this.dataUsagePercentageChart2(res_v.host_cpu);
+                $('#vcenetrDataDiv').show();
+            });
+        }
+        else {
+            $('#vcenetrDataDiv').hide();
+        }
+    };
+    DatacenterComponent.prototype.filterSubcoPopup = function (months) {
+        $('#callMatricsDropdown').hide();
+        this.subComponentModal(this.subComponentPopUpdata, months);
+    };
+    DatacenterComponent.prototype.subCoPopupFilter = function () {
+        $('#callMatricsDropdown').show();
+    };
+    DatacenterComponent.prototype.subComponentModal = function (details, months) {
+        if (months === void 0) { months = 12; }
+        this.popupName = details.name;
+        this.chart4 = this.AmCharts.makeChart("speedochartpopup", {
+            "type": "serial",
+            "hideCredits": true,
+            "theme": "light",
+            "dataProvider": details.report.slice(details.report.length - months, details.report.length),
+            "valueAxes": [{
+                    "gridColor": "#000000",
+                    "gridAlpha": 0.2,
+                    "dashLength": 0,
+                    "minimum": 0
+                }],
+            "gridAboveGraphs": true,
+            "startDuration": 1,
+            "graphs": [{
+                    "balloonText": "[[category]]: <b>[[value]]</b>",
+                    "fillAlphas": 1,
+                    "lineAlpha": 1,
+                    "type": "column",
+                    "valueField": "value",
+                    "fillColors": "#089A04",
+                }],
+            "chartCursor": {
+                "categoryBalloonEnabled": false,
+                "cursorAlpha": 0,
+                "zoomable": false
+            },
+            "categoryField": "month",
+            "categoryAxis": {
+                "gridPosition": "start",
+                "gridAlpha": 0,
+                "tickPosition": "start",
+                "tickLength": 20
+            }
+        });
+    };
+    DatacenterComponent.prototype.dataUsagePercentageChart1 = function (details) {
+        var graphData = [];
+        for (var data in details) {
+            var name = details[data].name;
+            var percent = Math.round((details[data].capacity_gb / details[data].provisioned_gb) * 100);
+            if (details[data].status == "Good") {
+                var color = 'green';
+            }
+            else if (details[data].status == "Bad") {
+                var color = 'red';
+            }
+            else {
+                var color = '#f1c40f';
+            }
+            var unit = {
+                name: name,
+                percent: percent,
+                color: color
+            };
+            graphData.push(unit);
+        }
+        this.chart1 = this.AmCharts.makeChart("speedochartdiv", {
+            "type": "serial",
+            "hideCredits": true,
+            "theme": "light",
+            "dataProvider": graphData,
+            "valueAxes": [{
+                    "gridColor": "#000000",
+                    "gridAlpha": 0.2,
+                    "dashLength": 0,
+                    "minimum": 0,
+                    "maximum": 100
+                }],
+            "gridAboveGraphs": true,
+            "startDuration": 1,
+            "graphs": [{
+                    "balloonText": "[[category]]: <b>[[value]]</b> %",
+                    "fillAlphas": 1,
+                    "lineAlpha": 1,
+                    "type": "column",
+                    "valueField": "percent",
+                    "fillColorsField": "color",
+                    "fixedColumnWidth": 20
+                }],
+            "chartCursor": {
+                "categoryBalloonEnabled": false,
+                "cursorAlpha": 0,
+                "zoomable": false
+            },
+            "categoryField": "name",
+            "categoryAxis": {
+                "gridPosition": "start",
+                "gridAlpha": 0,
+                "tickLength": 10,
+                "labelRotation": 45
+            }
+        });
+    };
+    DatacenterComponent.prototype.dataUsagePercentageChart2 = function (details) {
+        var graphData = [];
+        for (var data in details) {
+            var name = details[data].name;
+            var percent = Math.round((details[data].cpu_usage / details[data].cpu_total) * 100);
+            if (details[data].status == "Good") {
+                var color = 'green';
+            }
+            else if (details[data].status == "Bad") {
+                var color = 'red';
+            }
+            else {
+                var color = '#f1c40f';
+            }
+            var unit = {
+                name: name,
+                percent: percent,
+                color: color
+            };
+            graphData.push(unit);
+        }
+        this.chart2 = this.AmCharts.makeChart("speedochartdiv1", {
+            "type": "serial",
+            "hideCredits": true,
+            "theme": "light",
+            "dataProvider": graphData,
+            "valueAxes": [{
+                    "gridColor": "#000000",
+                    "gridAlpha": 0.2,
+                    "dashLength": 0,
+                    "minimum": 0,
+                    "maximum": 100
+                }],
+            "gridAboveGraphs": true,
+            "startDuration": 1,
+            "graphs": [{
+                    "balloonText": "[[category]]: <b>[[value]]</b> %",
+                    "fillAlphas": 1,
+                    "lineAlpha": 1,
+                    "type": "column",
+                    "valueField": "percent",
+                    "fillColorsField": "color",
+                    "fixedColumnWidth": 20
+                }],
+            "chartCursor": {
+                "categoryBalloonEnabled": false,
+                "cursorAlpha": 0,
+                "zoomable": false
+            },
+            "categoryField": "name",
+            "categoryAxis": {
+                "gridPosition": "start",
+                "gridAlpha": 0,
+                "tickLength": 10,
+                "labelRotation": 45
+            }
+        });
+    };
+    DatacenterComponent.prototype.dataUsagePercentageChart3 = function (details) {
+        var graphData = [];
+        for (var data in details) {
+            var name = details[data].name;
+            var percent = Math.round((details[data].memory_usage / details[data].memory_total) * 100);
+            if (details[data].status == "Good") {
+                var color = 'green';
+            }
+            else if (details[data].status == "Bad") {
+                var color = 'red';
+            }
+            else {
+                var color = '#f1c40f';
+            }
+            var unit = {
+                name: name,
+                percent: percent,
+                color: color
+            };
+            graphData.push(unit);
+        }
+        this.chart3 = this.AmCharts.makeChart("speedochartdiv2", {
+            "type": "serial",
+            "hideCredits": true,
+            "theme": "light",
+            "dataProvider": graphData,
+            "valueAxes": [{
+                    "gridColor": "#000000",
+                    "gridAlpha": 0.2,
+                    "dashLength": 0,
+                    "minimum": 0,
+                    "maximum": 100
+                }],
+            "gridAboveGraphs": true,
+            "startDuration": 1,
+            "graphs": [{
+                    "balloonText": "[[category]]: <b>[[value]]</b> %",
+                    "fillAlphas": 1,
+                    "lineAlpha": 1,
+                    "type": "column",
+                    "valueField": "percent",
+                    "fillColorsField": "color",
+                    "fixedColumnWidth": 20
+                }],
+            "chartCursor": {
+                "categoryBalloonEnabled": false,
+                "cursorAlpha": 0,
+                "zoomable": false
+            },
+            "categoryField": "name",
+            "categoryAxis": {
+                "gridPosition": "start",
+                "gridAlpha": 0,
+                "tickLength": 10,
+                "labelRotation": 45
+            }
+        });
+    };
+    DatacenterComponent.prototype.makeDynamicChart = function (id, status, consumed, total, value) {
+        value = Math.round(value * 100) / 100;
+        if (status == 'Good') {
+            var color = '#00b300';
+        }
+        else if (status == 'Bad') {
+            var color = '#ff0000';
+        }
+        else {
+            var color = '#ff9900';
+        }
+        this.chart = this.AmCharts.makeChart("chartdiv_" + id, {
+            "theme": "light",
+            "hideCredits": true,
+            "type": "gauge",
+            "axes": [{
+                    "topText": consumed + ' / ' + total + ' (' + value + '%' + ')',
+                    "topTextFontSize": 14,
+                    "bandOutlineThickness": 10,
+                    "topTextYOffset": 70,
+                    "axisColor": "#fff",
+                    "axisThickness": 70,
+                    "endValue": 100,
+                    "gridInside": true,
+                    "inside": true,
+                    "radius": "50%",
+                    "valueInterval": 100,
+                    "tickColor": "#000000",
+                    "startAngle": -90,
+                    "endAngle": 90,
+                    "unit": "%",
+                    "bandOutlineAlpha": 0,
+                    "bands": [{
+                            "alphe": 1,
+                            "color": "#e7e7e7",
+                            "endValue": 100,
+                            "innerRadius": "105%",
+                            "radius": "170%",
+                            "startValue": 0
+                        }, {
+                            "alphe": 1,
+                            "color": color,
+                            "balloonText": value + '%',
+                            "endValue": value,
+                            "innerRadius": "105%",
+                            "radius": "170%",
+                            "startValue": 0
+                        }]
+                }],
+            "arrows": [{
+                    "value": value,
+                    "alpha": 10,
+                    "color": color,
+                    "innerRadius": "50%",
+                    "nailRadius": 20,
+                    "radius": "130%"
+                }]
+        });
+    };
+    DatacenterComponent.prototype.open = function (content, popup_id) {
+        var _this = this;
+        this.popUptypeId = this.subComponents[popup_id].type_id;
+        this.popUpsubComponentName = this.subComponents[popup_id].name;
+        this.subComponentPopUp();
+        this.modalService.open(content, { windowClass: 'sub_component_modal', size: 'lg' }).result.then(function (result) {
+            _this.closeResult = "Closed with: " + result;
+        }, function (reason) {
+            _this.closeResult = "Dismissed " + _this.getDismissReason(reason);
+        });
+    };
+    DatacenterComponent.prototype.getDismissReason = function (reason) {
+        if (reason === __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["a" /* ModalDismissReasons */].ESC) {
+            return 'by pressing ESC';
+        }
+        else if (reason === __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["a" /* ModalDismissReasons */].BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        }
+        else {
+            return 'with: ${reason}';
+        }
+    };
+    return DatacenterComponent;
+}());
+DatacenterComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-datacenter',
+        template: __webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__config_service__["a" /* ConfigService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__config_service__["a" /* ConfigService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__["b" /* AmChartsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__["b" /* AmChartsService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["f" /* Router */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5_ngx_cookie_service__["a" /* CookieService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ngx_cookie_service__["a" /* CookieService */]) === "function" && _f || Object])
+], DatacenterComponent);
+
+var _a, _b, _c, _d, _e, _f;
+//# sourceMappingURL=datacenter.component.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/config.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -303,9 +832,10 @@ var ConfigService = (function () {
             _this.getSubComponentListUrl = _this.BASE_URL + result[0].getSubComponentListUrl;
             _this.getsubComponentPopUpUrl = _this.BASE_URL + result[0].getsubComponentPopUpUrl;
             _this.getVcenterDataUrl = _this.BASE_URL + result[0].getVcenterDataUrl;
-            _this.getDataCenterComponentsUrl = _this.BASE_URL + result[0].getDataCenterComponentsUrl;
             _this.getDataCenterComponentRecordsUrl = _this.BASE_URL + result[0].getDataCenterComponentRecordsUrl;
             _this.getNotificationUrl = _this.BASE_URL + result[0].getNotificationUrl;
+            _this.getStatesUrl = _this.BASE_URL + result[0].getStatesUrl;
+            _this.getCitiesUrl = _this.BASE_URL + result[0].getCitiesUrl;
         });
     }
     ConfigService.prototype.verifyLogin = function (username, password) {
@@ -352,10 +882,10 @@ var ConfigService = (function () {
         var body = 'userId=' + userId + '&id=' + id;
         return this.http.post(this.deleteDataCenterUrl, body, options).map(function (res) { return res.json(); });
     };
-    ConfigService.prototype.editComponent = function (userId, componentId, name, version, subVersion, ipAddress, componentUser, password, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax) {
+    ConfigService.prototype.editComponent = function (userId, componentId, name, version, subVersion, ipAddress, componentUser, password, enablePassword, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        var body = 'userId=' + userId + '&componentId=' + componentId + '&name=' + name + '&type=' + version + '&version=' + subVersion + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax;
+        var body = 'userId=' + userId + '&componentId=' + componentId + '&name=' + name + '&type=' + version + '&version=' + subVersion + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&enablePassword=' + enablePassword + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax;
         return this.http.post(this.editComponentUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.componentAdd = function (userId, name, dataCenterId, type, ipAddress, version, subVersion, componentUser, password, enablePassword, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax, vrrpWarnStart, vrrpWarnEnd, vrrpMax) {
@@ -403,12 +933,6 @@ var ConfigService = (function () {
         var body = 'id=' + id;
         return this.http.post(this.getVcenterDataUrl, body, options).map(function (res) { return res.json(); });
     };
-    ConfigService.prototype.getDataCenterComponents = function (id) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
-        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        var body = 'id=' + id;
-        return this.http.post(this.getDataCenterComponentsUrl, body, options).map(function (res) { return res.json(); });
-    };
     ConfigService.prototype.getDataCenterComponentRecords = function (componentId) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
@@ -420,6 +944,18 @@ var ConfigService = (function () {
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'type=' + type;
         return this.http.post(this.getNotificationUrl, body, options).map(function (res) { return res.json(); });
+    };
+    ConfigService.prototype.getStates = function (county) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        var body = 'county=' + county;
+        return this.http.post(this.getStatesUrl, body, options).map(function (res) { return res.json(); });
+    };
+    ConfigService.prototype.getCities = function (state) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        var body = 'state=' + state;
+        return this.http.post(this.getCitiesUrl, body, options).map(function (res) { return res.json(); });
     };
     return ConfigService;
 }());
@@ -441,7 +977,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n\r\naside.pcoded-slider.ng-sidebar {\r\n    top: 56px;\r\n}\r\n\r\n.slimscroll-wrapper, .scroll-window {\r\n    width: 100% !important;\r\n}\r\n\r\n.userlist-box.show {\r\n    display: -webkit-box;\r\n}\r\n\r\n.userlist-box.hide {\r\n    display: none;\r\n}\r\n\r\nfooter{\r\n    text-align: center;\r\n    padding: 22px 0;\r\n    font-size: 13px;\r\n    border-top: 2px solid #eee;\r\n    height: 62px;\r\n\tbackground: rgb(255, 255, 255);\r\n}\r\n.pcoded-main-container {\r\n    background-color: #d9dde0;\r\n}\r\n.pcoded .pcoded-navbar[navbar-theme=\"theme1\"] .pcoded-item > li > a{\r\n    color: #56BACA;\r\n}\r\n.pcoded .pcoded-navbar[active-item-theme=\"theme5\"] .pcoded-item li:hover > a{\r\n    color:#FFF !important;\r\n}\r\n.pcoded .pcoded-navbar[active-item-theme=\"theme5\"] .pcoded-item > li.active > a:before\r\n{\r\n    border-left-color:black !important;\r\n}\r\n\r\n.pro-name1{\r\n\tdisplay:none;\r\n\t}\r\n@media only screen and (min-device-width: 516px) and (max-device-width: 992px)\r\n{\r\n\t.pro{\r\n\t\tmargin-top:-45px;\r\n\t}\r\n}\r\n.header_title {\r\n    text-align: center;\r\n    font-size: 38px;\r\n    font-weight: bold;\r\n    color: #3d4657;\r\n}\r\n.modal_version{\r\n    text-align: center;\r\n    font-size: 38px;\r\n    color: #3d4657;\r\n}\r\n.btn-primary{\r\n    background-color: #203c66 !important;\r\n    border-color: #203c66 !important;\r\n    font-weight: 600 !important;\r\n}\r\n@media only screen and (max-width: 515px)\r\n{\r\n\t.pro-name{\r\n\t\tdisplay: none;\r\n\t}\r\n\t.pro{\r\n\t\tmargin-top: -38px;\t\r\n\t}\r\n\t.header-navbar .navbar-wrapper .navbar-container .nav-left, .header-navbar .navbar-wrapper .navbar-container .nav-right{\r\n\t\tmargin-bottom: -37px;\r\n\t}\r\n\t.pro-name1{\r\n\t\tdisplay:block !important;\r\n\t}\r\n\t.user-profile{\r\n\t\tpadding-bottom:18px !important;\r\n\t\tcursor:pointer !important;\r\n\t}\r\n\t.header-navbar .navbar-wrapper .navbar-container .nav-right li{\r\n\t\tline-height: 0;\r\n\t}\r\n\t.show-notification{\r\n\t\tmargin-top: 18px !important;\r\n\t}\r\n\t.header-navbar .navbar-wrapper .navbar-container .nav-right a{\r\n\t \tpadding: 0px !important;\r\n\t}\r\n\t.header-navbar .navbar-wrapper .navbar-logo {\r\n\t\tpadding-top: 6px;\r\n\t}\r\n}", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n\r\naside.pcoded-slider.ng-sidebar {\r\n    top: 56px;\r\n}\r\n\r\n.slimscroll-wrapper, .scroll-window {\r\n    width: 100% !important;\r\n}\r\n\r\n.userlist-box.show {\r\n    display: -webkit-box;\r\n}\r\n\r\n.userlist-box.hide {\r\n    display: none;\r\n}\r\n\r\nfooter{\r\n    text-align: center;\r\n    padding: 22px 0;\r\n    font-size: 13px;\r\n    border-top: 2px solid #eee;\r\n    height: 62px;\r\n\tbackground: rgb(255, 255, 255);\r\n}\r\n.pcoded-main-container {\r\n    background-color: #d9dde0;\r\n}\r\n.pcoded .pcoded-navbar[navbar-theme=\"theme1\"] .pcoded-item > li > a{\r\n    color: #56BACA;\r\n}\r\n.pcoded .pcoded-navbar[active-item-theme=\"theme5\"] .pcoded-item li:hover > a{\r\n    color:#FFF !important;\r\n}\r\n.pcoded .pcoded-navbar[active-item-theme=\"theme5\"] .pcoded-item > li.active > a:before\r\n{\r\n    border-left-color:black !important;\r\n}\r\n\r\n.pro-name1{\r\n\tdisplay:none;\r\n\t}\r\n@media only screen and (min-device-width: 516px) and (max-device-width: 992px)\r\n{\r\n\t.pro{\r\n\t\tmargin-top:-45px;\r\n\t}\r\n}\r\n.header_title {\r\n    text-align: center;\r\n    font-size: 38px;\r\n    font-weight: bold;\r\n    color: #3d4657;\r\n}\r\n.modal_version{\r\n    text-align: center;\r\n    font-size: 38px;\r\n    color: #3d4657;\r\n}\r\n.btn-primary{\r\n    background-color: #203c66 !important;\r\n    border-color: #203c66 !important;\r\n    font-weight: 600 !important;\r\n}\r\n\r\n.subComponent{\r\n\tcolor:#56BACA !important;\r\n\tpadding-left: 54px;\r\n\tcursor: pointer;\r\n}\r\n.subComponentActive{\r\n\tcolor:white !important;\r\n\tpadding-left: 54px;\r\n\tcursor: pointer;\r\n}\r\n\r\n@media only screen and (max-width: 515px) {\r\n\t.pro-name{\r\n\t\tdisplay: none;\r\n\t}\r\n\t.pro{\r\n\t\tmargin-top: -38px;\t\r\n\t}\r\n\t.header-navbar .navbar-wrapper .navbar-container .nav-left, .header-navbar .navbar-wrapper .navbar-container .nav-right{\r\n\t\tmargin-bottom: -37px;\r\n\t}\r\n\t.pro-name1{\r\n\t\tdisplay:block !important;\r\n\t}\r\n\t.user-profile{\r\n\t\tpadding-bottom:18px !important;\r\n\t\tcursor:pointer !important;\r\n\t}\r\n\t.header-navbar .navbar-wrapper .navbar-container .nav-right li{\r\n\t\tline-height: 0;\r\n\t}\r\n\t.show-notification{\r\n\t\tmargin-top: 18px !important;\r\n\t}\r\n\t.header-navbar .navbar-wrapper .navbar-container .nav-right a{\r\n\t \tpadding: 0px !important;\r\n\t}\r\n\t.header-navbar .navbar-wrapper .navbar-logo {\r\n\t\tpadding-top: 6px;\r\n\t}\r\n}\r\n@media only screen and (min-width:516px) and (max-width: 992px) {\r\n\t.pro{\r\n\t\tmargin-top: -56px;\t\r\n\t}\r\n}", ""]);
 
 // exports
 
@@ -454,7 +990,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/layouts/admin/admin-layout.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"pcoded\" (window:resize)=\"onResize($event)\" class=\"pcoded iscollapsed\" theme-layout=\"vertical\" vertical-placement=\"left\"\r\n  vertical-layout=\"wide\" [attr.pcoded-device-type]=\"deviceType\" [attr.vertical-nav-type]=\"verticalNavType\" [attr.vertical-effect]=\"verticalEffect\"\r\n  vnavigation-view=\"view1\">\r\n  <div class=\"pcoded-overlay-box\"></div>\r\n  <div class=\"pcoded-container navbar-wrapper\">\r\n    <nav style=\"position: fixed;background-color: white;\" class=\"navbar header-navbar pcoded-header\" header-theme=\"theme4\">\r\n      <div class=\"navbar-wrapper\">\r\n        <div class=\"navbar-logo\" navbar-theme=\"theme5\">\r\n          <a class=\"mobile-menu\" id=\"mobile-collapse\" href=\"javascript:;\" (click)=\"toggleOpened()\" [exclude]=\"'#main_navbar'\" (clickOutside)=\"onClickedOutside($event)\">\r\n            <i style=\"color: black;\" class=\"ti-menu\"></i>\r\n          </a>\r\n          <a (click)=\"onNavigate()\" style=\"cursor:pointer;\">\r\n            <img style=\"max-width: 100%;height: 40px;\" src=\"assets/images/logo.png\" alt=\"Theme-Logo\" />\r\n          </a>\r\n        </div>\r\n\r\n        <div class=\"navbar-container\">\r\n          <div>\r\n            <!--<ul class=\"nav-left\">\r\n              <li>\r\n                <div class=\"sidebar_toggle\"><a href=\"javascript:;\" (click)=\"toggleOpened()\"><i class=\"ti-menu f-18\"></i></a></div>\r\n              </li>\r\n              <li>\r\n                <a href=\"javascript:;\" appToggleFullscreen>\r\n                  <i class=\"ti-fullscreen\"></i>\r\n                </a>\r\n              </li>\r\n            </ul>-->\r\n            <ul  class=\"nav-right pro\" >\r\n              <li class=\"header-notification\">\r\n                <!--<a href=\"javascript:;\">\r\n                  <i class=\"ti-bell\"></i>\r\n                  <span class=\"badge\">5</span>\r\n                </a>-->\r\n                <ul class=\"show-notification\">\r\n                  <li>\r\n                    <h6>Notifications</h6>\r\n                    <label class=\"label label-danger\">New</label>\r\n                  </li>\r\n                  <li>\r\n                    <div class=\"media\">\r\n                      <img class=\"d-flex align-self-center\" src=\"assets/images/user.png\" alt=\"Generic placeholder image\">\r\n                      <div class=\"media-body\">\r\n                        <h5 class=\"notification-user\">John Doe</h5>\r\n                        <p class=\"notification-msg\">Lorem ipsum dolor sit amet, consectetuer elit.</p>\r\n                        <span class=\"notification-time\">30 minutes ago</span>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                  <li>\r\n                    <div class=\"media\">\r\n                      <img class=\"d-flex align-self-center\" src=\"assets/images/user.png\" alt=\"Generic placeholder image\">\r\n                      <div class=\"media-body\">\r\n                        <h5 class=\"notification-user\">Joseph William</h5>\r\n                        <p class=\"notification-msg\">Lorem ipsum dolor sit amet, consectetuer elit.</p>\r\n                        <span class=\"notification-time\">30 minutes ago</span>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                  <li>\r\n                    <div class=\"media\">\r\n                      <img class=\"d-flex align-self-center\" src=\"assets/images/user.png\" alt=\"Generic placeholder image\">\r\n                      <div class=\"media-body\">\r\n                        <h5 class=\"notification-user\">Sara Soudein</h5>\r\n                        <p class=\"notification-msg\">Lorem ipsum dolor sit amet, consectetuer elit.</p>\r\n                        <span class=\"notification-time\">30 minutes ago</span>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                </ul>\r\n              </li>\r\n              <li class=\"user-profile header-notification\">\r\n                <a href=\"#\" (click)=\"disableRouterAction($event)\">\r\n                  \r\n                  <span class=\"pro-name\" style=\"color: black\">{{currentUser}}</span>\r\n                  <i style=\"color: black; font-size: 20px;\" class=\"pro-name1 fa fa-user\"></i>\r\n                  <i style=\"color: black\" class=\"ti-angle-down pro-name\"></i>\r\n                </a>\r\n                <ul class=\"show-notification profile-notification\">\r\n                  <li class=\"pro-name1\" >\r\n                    <a >\r\n                      <i class=\"fa fa-user\"></i> {{currentUser}}\r\n                    </a>\r\n                  </li>\r\n                  <li>\r\n                    <a (click)=\"open(content)\" style=\"cursor: pointer;\">\r\n                      <i class=\"ti-settings\"></i> About\r\n                    </a>\r\n                  </li>\r\n                 \r\n                  <li (click)=\"logoutClicked($event)\">\r\n                    <a href=\"\">\r\n                      <i class=\"ti-power-off\"></i> Logout\r\n                    </a>\r\n                  </li>\r\n                </ul>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </nav>\r\n    <ng-template #content let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-body\">\r\n        <div class=\"modalForm\">\r\n            <div class=\"form-modal\">\r\n                <div class=\"header_title col-md-12\">Version</div>\r\n                <p class=\"modal_version\">1.0</p>\r\n                   \r\n                     <div class=\"col-md-12 form-modal\" style=\"padding-bottom: 30px;\">\r\n                    <div style=\"position: absolute; top:25%; left:50%; transform: translate(-50%,-50%);\" class=\"\">\r\n                        <button type=\"button\" class=\"btn btn-primary save_btn btn-edit-save\" (click)=\"c('Close click')\">Close</button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</ng-template>\r\n\r\n    <div class=\"pcoded-main-container\">\r\n      <div class=\"pcoded-wrapper\">\r\n        <nav id=\"main_navbar\" class=\" pcoded-navbar\" navbar-theme=\"theme1\" active-item-theme=\"theme5\" sub-item-theme=\"theme2\" active-item-style=\"style0\"\r\n          pcoded-navbar-position=\"absolute\" (clickOutside)=\"onClickedOutside($event)\" [exclude]=\"'#mobile-collapse'\">\r\n          <div class=\"sidebar_toggle\">\r\n            <a href=\"javascript:;\">\r\n              <i class=\"icon-close icons\"></i>\r\n            </a>\r\n          </div>\r\n          <div class=\"pcoded-inner-navbar main-menu\" appAccordion slimScroll width=\"100%\" height=\"100%\" size=\"4px\" color=\"#fff\" opacity=\"0.3\"\r\n            allowPageScroll=\"false\">\r\n            <div class=\"\">\r\n              <div class=\"main-menu-content\">\r\n                <ul>\r\n                  <li [@mobileMenuTop]=\"isCollapsedSideBar\" class=\"more-details\" [ngClass]=\"isCollapsedSideBar\">\r\n                    <a href=\"javascript:\">\r\n                      <i class=\"ti-user\"></i>View Profile</a>\r\n                    <a href=\"javascript:\">\r\n                      <i class=\"ti-settings\"></i>Settings</a>\r\n                    <a href=\"javascript:\">\r\n                      <i class=\"ti-layout-sidebar-left\"></i>Logout</a>\r\n                  </li>\r\n                </ul>\r\n              </div>\r\n            </div>\r\n            <div>\r\n              <div *ngFor=\"let asideItems of menuItems.getAll()\">\r\n                <ul class=\"pcoded-item pcoded-left-item\" item-border=\"none\" item-border-style=\"solid\" subitem-border=\"solid\" *ngFor=\"let asideItem of asideItems.main\"\r\n                  appAccordionLink group=\"{{asideItem.state}}\">\r\n                  <li (click)=\"reloadCurrentPage()\" [routerLinkActive]=\"['active']\" *ngIf=\"asideItem.type === 'external'\" appAccordionLink\r\n                    group=\"{{asideItem.state}}\">\r\n                    <a href=\"{{asideItem.external}}\" target=\"{{asideItem.target ? '_blank' : '_self'}}\" appAccordionToggle>\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"{{ asideItem.icon }}\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                      <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                  </li>\r\n\r\n                  <li (click)=\"reloadCurrentPage()\" [routerLinkActive]=\"['active']\" *ngIf=\"asideItem.type === 'link'\" appAccordionLink group=\"{{asideItem.state}}\">\r\n                    <a [routerLink]=\"['/', asideItem.main_state, asideItem.state]\" target=\"{{asideItem.target ? '_blank' : '_self'}}\" appAccordionToggle\r\n                      *ngIf=\"asideItem.main_state; else: mainContent\">\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"{{ asideItem.icon }}\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                      <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                    <ng-template #mainContent>\r\n                      <a [routerLink]=\"['/', asideItem.state]\" target=\"{{asideItem.target ? '_blank' : '_self'}}\" appAccordionToggle>\r\n                        <span class=\"pcoded-micon\">\r\n                          <i *ngIf=\"!asideItem.icon_customisation; else imageIcon\" class=\"{{ asideItem.icon }}\"></i>\r\n                          <ng-template #imageIcon>\r\n                            <img src=\"{{ asideItem.icon }}\">\r\n                          </ng-template>\r\n\r\n                        </span>\r\n                        <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                        <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                        <span class=\"pcoded-mcaret\"></span>\r\n                      </a>\r\n                    </ng-template>\r\n                  </li>\r\n                  <li [routerLinkActive]=\"['active']\" *ngIf=\"asideItem.type === 'sub'\" id=\"{{asideItem.state}}\" class=\"pcoded-hasmenu\" dropdown-icon=\"style3\"\r\n                    subitem-icon=\"style6\" appAccordionLink group=\"{{asideItem.state}}\">\r\n                    <a [routerLinkActive]=\"['active']\" href=\"javascript:;\" appAccordionToggle>\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"{{ asideItem.icon }}\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                      <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                    <ul (click)=\"reloadCurrentPage(asideItem.state)\" class=\"pcoded-submenu\">\r\n                      <ng-template ngFor let-asideChildren [ngForOf]=\"asideItem.children\">\r\n                        <li [routerLinkActive]=\"['active']\" *ngIf=\"asideChildren.type !== 'sub'\">\r\n                          <a [routerLink]=\"['/'+asideItem.state+'/'+asideChildren.state]\" target=\"{{asideChildren.target ? '_blank' : '_self'}}\">\r\n                            <img src=\"assets/images/ellipse-20.png\">\r\n                            <span class=\"pcoded-micon\">\r\n                              <i class=\"ti-angle-right\"></i>\r\n                            </span>\r\n                            <span class=\"pcoded-mtext\" style=\"padding-left: 6px;\">{{ asideChildren.name }} </span>\r\n                            <span *ngFor=\"let asideChildrenBadge of asideChildren.badge\" class=\"pcoded-badge label label-{{ asideChildrenBadge.type }}\">{{asideChildrenBadge.value}}</span>\r\n                            <img src=\"{{ asideChildren.img }}\" style=\"float: right;margin-right: 7px;\">\r\n                            <span class=\"pcoded-mcaret\"></span>\r\n                          </a>\r\n                        </li>\r\n\r\n                        <li [routerLinkActive]=\"['active']\" class=\"pcoded-hasmenu\" dropdown-icon=\"style3\" subitem-icon=\"style6\" *ngIf=\"asideChildren.type === 'sub'\"\r\n                          appAccordionLink group=\"sub-toggled\">\r\n                          <a href=\"javascript:;\" appAccordionToggle>\r\n                            <span class=\"pcoded-micon\">\r\n                              <i class=\"ti-direction-alt\"></i>\r\n                            </span>\r\n                            <span class=\"pcoded-mtext\">{{ asideChildren.name }}</span>\r\n                            <span *ngFor=\"let asideChildrenBadge of asideChildren.badge\" class=\"pcoded-badge label label-{{ asideChildrenBadge.type }}\">{{asideChildrenBadge.value}}</span>\r\n                            <span class=\"pcoded-mcaret\"></span>\r\n                          </a>\r\n                          <ul class=\"pcoded-submenu\">\r\n                            <ng-template ngFor let-asideChildrenSub [ngForOf]=\"asideChildren.children\">\r\n                              <li [routerLinkActive]=\"['active']\">\r\n                                <a [routerLink]=\"['/', asideItem.state, asideChildren.state, asideChildrenSub.state]\" target=\"{{asideChildrenSub.target ? '_blank' : '_self'}}\">\r\n                                  <span class=\"pcoded-micon\">\r\n                                    <i class=\"ti-angle-right\"></i>\r\n                                  </span>\r\n                                  <span class=\"pcoded-mtext\">{{ asideChildrenSub.name }}</span>\r\n                                  <span *ngFor=\"let asideChildrenSubBadge of asideChildrenSub.badge\" class=\"pcoded-badge label label-{{ asideChildrenSubBadge.type }}\">{{asideChildrenSubBadge.value}}</span>\r\n                                  <span class=\"pcoded-mcaret\"></span>\r\n                                </a>\r\n                              </li>\r\n                            </ng-template>\r\n                          </ul>\r\n                        </li>\r\n                      </ng-template>\r\n                    </ul>\r\n                  </li>\r\n                </ul>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </nav>\r\n        <div style=\"margin-top: 56px;\" class=\"pcoded-content\">\r\n          <div class=\"pcoded-inner-content\">\r\n            <div class=\"main-body\">\r\n              <div class=\"page-wrapper\">\r\n                <!--<app-title></app-title>\r\n                  <app-breadcrumbs></app-breadcrumbs>-->\r\n                <div class=\"page-body\">\r\n                  <router-outlet>\r\n                    <spinner></spinner>\r\n                  </router-outlet>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<footer>\r\n  &copy; 2017 tekvizion PVS Inc. All Rights Reserved | PRIVACY POLICY, YOUR PRIVACY RIGHTS\r\n</footer>\r\n<go-top-button [html]=\"htmlButton\" [animate]=\"true\" [speed]=\"50\" [acceleration]=\"2\" [scrollDistance]=\"100\" [styles]=\"{\r\n                      'right': '50px',\r\n                      'bottom': '50px',\r\n                      'top': 'auto',\r\n                      'left': 'auto',\r\n                      'width': 'auto',\r\n                      'height': 'auto',\r\n                      'background' : 'transparent'\r\n                   }\">\r\n</go-top-button>"
+module.exports = "<div id=\"pcoded\" (window:resize)=\"onResize($event)\" class=\"pcoded iscollapsed\" theme-layout=\"vertical\" vertical-placement=\"left\"\r\n  vertical-layout=\"wide\" [attr.pcoded-device-type]=\"deviceType\" [attr.vertical-nav-type]=\"verticalNavType\" [attr.vertical-effect]=\"verticalEffect\"\r\n  vnavigation-view=\"view1\">\r\n  <div class=\"pcoded-overlay-box\"></div>\r\n  <div class=\"pcoded-container navbar-wrapper\">\r\n    <nav style=\"position: fixed;background-color: white;\" class=\"navbar header-navbar pcoded-header\" header-theme=\"theme4\">\r\n      <div class=\"navbar-wrapper\">\r\n        <div class=\"navbar-logo\" navbar-theme=\"theme5\">\r\n          <a class=\"mobile-menu\" id=\"mobile-collapse\" href=\"javascript:;\" (click)=\"toggleOpened()\" [exclude]=\"'#main_navbar'\" (clickOutside)=\"onClickedOutside($event)\">\r\n            <i style=\"color: black;\" class=\"ti-menu\"></i>\r\n          </a>\r\n          <a (click)=\"onNavigate()\" style=\"cursor:pointer;\">\r\n            <img style=\"max-width: 100%;height: 40px;\" src=\"assets/images/logo.png\" alt=\"Theme-Logo\" />\r\n          </a>\r\n        </div>\r\n\r\n        <div class=\"navbar-container\">\r\n          <div>\r\n            <!--<ul class=\"nav-left\">\r\n              <li>\r\n                <div class=\"sidebar_toggle\"><a href=\"javascript:;\" (click)=\"toggleOpened()\"><i class=\"ti-menu f-18\"></i></a></div>\r\n              </li>\r\n              <li>\r\n                <a href=\"javascript:;\" appToggleFullscreen>\r\n                  <i class=\"ti-fullscreen\"></i>\r\n                </a>\r\n              </li>\r\n            </ul>-->\r\n            <ul  class=\"nav-right pro\" >\r\n              <li class=\"header-notification\">\r\n                <!--<a href=\"javascript:;\">\r\n                  <i class=\"ti-bell\"></i>\r\n                  <span class=\"badge\">5</span>\r\n                </a>-->\r\n                <ul class=\"show-notification\">\r\n                  <li>\r\n                    <h6>Notifications</h6>\r\n                    <label class=\"label label-danger\">New</label>\r\n                  </li>\r\n                  <li>\r\n                    <div class=\"media\">\r\n                      <img class=\"d-flex align-self-center\" src=\"assets/images/user.png\" alt=\"Generic placeholder image\">\r\n                      <div class=\"media-body\">\r\n                        <h5 class=\"notification-user\">John Doe</h5>\r\n                        <p class=\"notification-msg\">Lorem ipsum dolor sit amet, consectetuer elit.</p>\r\n                        <span class=\"notification-time\">30 minutes ago</span>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                  <li>\r\n                    <div class=\"media\">\r\n                      <img class=\"d-flex align-self-center\" src=\"assets/images/user.png\" alt=\"Generic placeholder image\">\r\n                      <div class=\"media-body\">\r\n                        <h5 class=\"notification-user\">Joseph William</h5>\r\n                        <p class=\"notification-msg\">Lorem ipsum dolor sit amet, consectetuer elit.</p>\r\n                        <span class=\"notification-time\">30 minutes ago</span>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                  <li>\r\n                    <div class=\"media\">\r\n                      <img class=\"d-flex align-self-center\" src=\"assets/images/user.png\" alt=\"Generic placeholder image\">\r\n                      <div class=\"media-body\">\r\n                        <h5 class=\"notification-user\">Sara Soudein</h5>\r\n                        <p class=\"notification-msg\">Lorem ipsum dolor sit amet, consectetuer elit.</p>\r\n                        <span class=\"notification-time\">30 minutes ago</span>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                </ul>\r\n              </li>\r\n              <li class=\"user-profile header-notification\">\r\n                <a href=\"#\" (click)=\"disableRouterAction($event)\">\r\n                  \r\n                  <span class=\"pro-name\" style=\"color: black\">{{currentUser}}</span>\r\n                  <i style=\"color: black; font-size: 20px;\" class=\"pro-name1 fa fa-user\"></i>\r\n                  <i style=\"color: black\" class=\"ti-angle-down pro-name\"></i>\r\n                </a>\r\n                <ul class=\"show-notification profile-notification\">\r\n                  <li class=\"pro-name1\" >\r\n                    <a >\r\n                      <i class=\"fa fa-user\"></i> {{currentUser}}\r\n                    </a>\r\n                  </li>\r\n                  <li>\r\n                    <a (click)=\"open(content)\" style=\"cursor: pointer;\">\r\n                      <i class=\"ti-settings\"></i> About\r\n                    </a>\r\n                  </li>\r\n                 \r\n                  <li (click)=\"logoutClicked($event)\">\r\n                    <a href=\"\">\r\n                      <i class=\"ti-power-off\"></i> Logout\r\n                    </a>\r\n                  </li>\r\n                </ul>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </nav>\r\n    <ng-template #content let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-body\">\r\n        <div class=\"modalForm\">\r\n            <div class=\"form-modal\">\r\n                <div class=\"header_title col-md-12\">Version</div>\r\n                <p class=\"modal_version\">1.0</p>\r\n                   \r\n                     <div class=\"col-md-12 form-modal\" style=\"padding-bottom: 30px;\">\r\n                    <div style=\"position: absolute; top:25%; left:50%; transform: translate(-50%,-50%);\" class=\"\">\r\n                        <button type=\"button\" class=\"btn btn-primary save_btn btn-edit-save\" (click)=\"c('Close click')\">Close</button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</ng-template>\r\n\r\n    <div class=\"pcoded-main-container\">\r\n      <div class=\"pcoded-wrapper\">\r\n        <nav id=\"main_navbar\" class=\" pcoded-navbar\" navbar-theme=\"theme1\" active-item-theme=\"theme5\" sub-item-theme=\"theme2\" active-item-style=\"style0\"\r\n          pcoded-navbar-position=\"absolute\" (clickOutside)=\"onClickedOutside($event)\" [exclude]=\"'#mobile-collapse'\">\r\n          <div class=\"sidebar_toggle\">\r\n            <a href=\"javascript:;\">\r\n              <i class=\"icon-close icons\"></i>\r\n            </a>\r\n          </div>\r\n          <div class=\"pcoded-inner-navbar main-menu\" appAccordion slimScroll width=\"100%\" height=\"100%\" size=\"4px\" color=\"#fff\" opacity=\"0.3\"\r\n            allowPageScroll=\"false\">\r\n            <div class=\"\">\r\n              <div class=\"main-menu-content\">\r\n                <ul>\r\n                  <li [@mobileMenuTop]=\"isCollapsedSideBar\" class=\"more-details\" [ngClass]=\"isCollapsedSideBar\">\r\n                    <a href=\"javascript:\">\r\n                      <i class=\"ti-user\"></i>View Profile</a>\r\n                    <a href=\"javascript:\">\r\n                      <i class=\"ti-settings\"></i>Settings</a>\r\n                    <a href=\"javascript:\">\r\n                      <i class=\"ti-layout-sidebar-left\"></i>Logout</a>\r\n                  </li>\r\n                </ul>\r\n              </div>\r\n            </div>\r\n            <div>\r\n              <div *ngFor=\"let asideItems of menuItems.getAll()\">\r\n                <ul class=\"pcoded-item pcoded-left-item\" item-border=\"none\" item-border-style=\"solid\" subitem-border=\"solid\" *ngFor=\"let asideItem of asideItems.main\"\r\n                  appAccordionLink group=\"{{asideItem.state}}\">\r\n                  <li (click)=\"reloadCurrentPage()\" [routerLinkActive]=\"['active']\" *ngIf=\"asideItem.type === 'external'\" appAccordionLink\r\n                    group=\"{{asideItem.state}}\">\r\n                    <a href=\"{{asideItem.external}}\" target=\"{{asideItem.target ? '_blank' : '_self'}}\" appAccordionToggle>\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"{{ asideItem.icon }}\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                      <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                  </li>\r\n\r\n                  <li (click)=\"reloadCurrentPage()\" [routerLinkActive]=\"['active']\" *ngIf=\"asideItem.type === 'link'\" appAccordionLink group=\"{{asideItem.state}}\">\r\n                    <a [routerLink]=\"['/', asideItem.main_state, asideItem.state]\" target=\"{{asideItem.target ? '_blank' : '_self'}}\" appAccordionToggle\r\n                      *ngIf=\"asideItem.main_state; else: mainContent\">\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"{{ asideItem.icon }}\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                      <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                    <ng-template #mainContent>\r\n                      <a [routerLink]=\"['/', asideItem.state]\" target=\"{{asideItem.target ? '_blank' : '_self'}}\" appAccordionToggle>\r\n                        <span class=\"pcoded-micon\">\r\n                          <i *ngIf=\"!asideItem.icon_customisation; else imageIcon\" class=\"{{ asideItem.icon }}\"></i>\r\n                          <ng-template #imageIcon>\r\n                            <img src=\"{{ asideItem.icon }}\">\r\n                          </ng-template>\r\n\r\n                        </span>\r\n                        <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                        <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                        <span class=\"pcoded-mcaret\"></span>\r\n                      </a>\r\n                    </ng-template>\r\n                  </li>\r\n                  <li [routerLinkActive]=\"['active']\" *ngIf=\"asideItem.type === 'sub'\" id=\"{{asideItem.state}}\" class=\"pcoded-hasmenu\" dropdown-icon=\"style3\"\r\n                    subitem-icon=\"style6\" appAccordionLink group=\"{{asideItem.state}}\">\r\n                    <a [routerLinkActive]=\"['active']\" href=\"javascript:;\" appAccordionToggle>\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"{{ asideItem.icon }}\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                      <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                    <ul class=\"pcoded-submenu\">\r\n                      <ng-template ngFor let-asideChildren [ngForOf]=\"asideItem.children\">\r\n                        <li (click)=\"reloadCurrentPage(asideItem.state)\" [routerLinkActive]=\"['active']\" *ngIf=\"asideChildren.type !== 'sub'\">\r\n                          <a [routerLink]=\"['/'+asideItem.state+'/'+asideChildren.state]\" target=\"{{asideChildren.target ? '_blank' : '_self'}}\">\r\n                            <img src=\"assets/images/ellipse-20.png\">\r\n                            <span class=\"pcoded-micon\">\r\n                              <i class=\"ti-angle-right\"></i>\r\n                            </span>\r\n                            <span class=\"pcoded-mtext\" style=\"padding-left: 6px;\">{{ asideChildren.name }} </span>\r\n                            <span *ngFor=\"let asideChildrenBadge of asideChildren.badge\" class=\"pcoded-badge label label-{{ asideChildrenBadge.type }}\">{{asideChildrenBadge.value}}</span>\r\n                            <img src=\"{{ asideChildren.img }}\" style=\"float: right;margin-right: 7px;\">\r\n                            <span class=\"pcoded-mcaret\"></span>\r\n                          </a>\r\n                        </li>\r\n\r\n                        <ng-container *ngIf=\"asideChildren.subComponentChildren\">\r\n                          <div id=\"toEnableDc{{asideChildren.id}}\" class=\"EnableDcBlock\">\r\n                            <div (click)=\"dcComp.selectDataCenterComponents(subComponentChildren.id)\" id=\"subCompChild{{subComponentChildren.id}}\" class=\"subComponent\" *ngFor=\"let subComponentChildren of asideChildren.subComponentChildren\">{{subComponentChildren.name}}</div>\r\n                          </div>\r\n                        </ng-container>\r\n                        \r\n                        <li [routerLinkActive]=\"['active']\" class=\"pcoded-hasmenu\" dropdown-icon=\"style3\" subitem-icon=\"style6\" *ngIf=\"asideChildren.type === 'sub'\"\r\n                          appAccordionLink group=\"sub-toggled\">\r\n                          <a href=\"javascript:;\" appAccordionToggle>\r\n                            <span class=\"pcoded-micon\">\r\n                              <i class=\"ti-direction-alt\"></i>\r\n                            </span>\r\n                            <span class=\"pcoded-mtext\">{{ asideChildren.name }}</span>\r\n                            <span *ngFor=\"let asideChildrenBadge of asideChildren.badge\" class=\"pcoded-badge label label-{{ asideChildrenBadge.type }}\">{{asideChildrenBadge.value}}</span>\r\n                            <span class=\"pcoded-mcaret\"></span>\r\n                          </a>\r\n                          <ul class=\"pcoded-submenu\">\r\n                            <ng-template ngFor let-asideChildrenSub [ngForOf]=\"asideChildren.children\">\r\n                              <li [routerLinkActive]=\"['active']\">\r\n                                <a [routerLink]=\"['/', asideItem.state, asideChildren.state, asideChildrenSub.state]\" target=\"{{asideChildrenSub.target ? '_blank' : '_self'}}\">\r\n                                  <span class=\"pcoded-micon\">\r\n                                    <i class=\"ti-angle-right\"></i>\r\n                                  </span>\r\n                                  <span class=\"pcoded-mtext\">{{ asideChildrenSub.name }}</span>\r\n                                  <span *ngFor=\"let asideChildrenSubBadge of asideChildrenSub.badge\" class=\"pcoded-badge label label-{{ asideChildrenSubBadge.type }}\">{{asideChildrenSubBadge.value}}</span>\r\n                                  <span class=\"pcoded-mcaret\"></span>\r\n                                </a>\r\n                              </li>\r\n                            </ng-template>\r\n                          </ul>\r\n                        </li>\r\n                      </ng-template>\r\n                    </ul>\r\n                  </li>\r\n                </ul>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </nav>\r\n        <div style=\"margin-top: 56px;\" class=\"pcoded-content\">\r\n          <div class=\"pcoded-inner-content\">\r\n            <div class=\"main-body\">\r\n              <div class=\"page-wrapper\">\r\n                <!--<app-title></app-title>\r\n                  <app-breadcrumbs></app-breadcrumbs>-->\r\n                <div class=\"page-body\">\r\n                  <router-outlet>\r\n                    <spinner></spinner>\r\n                  </router-outlet>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<footer>\r\n  &copy; 2017 tekvizion PVS Inc. All Rights Reserved | PRIVACY POLICY, YOUR PRIVACY RIGHTS\r\n</footer>\r\n<go-top-button [html]=\"htmlButton\" [animate]=\"true\" [speed]=\"50\" [acceleration]=\"2\" [scrollDistance]=\"100\" [styles]=\"{\r\n                      'right': '50px',\r\n                      'bottom': '50px',\r\n                      'top': 'auto',\r\n                      'left': 'auto',\r\n                      'width': 'auto',\r\n                      'height': 'auto',\r\n                      'background' : 'transparent'\r\n                   }\">\r\n</go-top-button>"
 
 /***/ }),
 
@@ -471,6 +1007,7 @@ module.exports = "<div id=\"pcoded\" (window:resize)=\"onResize($event)\" class=
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ngx_cookie_service__ = __webpack_require__("../../../../ngx-cookie-service/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_menu_items_menu_items__ = __webpack_require__("../../../../../src/app/shared/menu-items/menu-items.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_data_datacenter_datacenter_component__ = __webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -487,12 +1024,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AdminLayoutComponent = (function () {
-    function AdminLayoutComponent(menuItems, router, cookieService, modalService) {
+    function AdminLayoutComponent(menuItems, router, cookieService, modalService, dcComp) {
         this.menuItems = menuItems;
         this.router = router;
         this.cookieService = cookieService;
         this.modalService = modalService;
+        this.dcComp = dcComp;
         this.deviceType = 'desktop';
         this.verticalNavType = 'expanded';
         this.verticalEffect = 'shrink';
@@ -514,6 +1053,10 @@ var AdminLayoutComponent = (function () {
             if (_this.cookieService.get('leftNavSelectedMenu') != '') {
                 $('#' + _this.cookieService.get('leftNavSelectedMenu')).addClass("pcoded-trigger");
                 _this.cookieService.set('leftNavSelectedMenu', '');
+                setTimeout(function () {
+                    $('.EnableDcDis').removeClass('EnableDcDis').addClass('EnableDcBlock');
+                    $('#toEnableDc' + _this.cookieService.get('leftNavSelectedSubcompId')).addClass('EnableDcDis').removeClass('EnableDcBlock');
+                }, 1000);
             }
         }, 1000);
     };
@@ -526,6 +1069,11 @@ var AdminLayoutComponent = (function () {
                     _this.cookieService.set('leftNavSelectedMenu', id);
                 }
                 location.reload();
+            }
+            else {
+                if (_this.router.url != '/data/datacenter/' + _this.cookieService.get('leftNavSelectedSubcompId')) {
+                    $('.EnableDcDis').removeClass('EnableDcDis').addClass('EnableDcBlock');
+                }
             }
             _this.cookieService.set('currentUrl', _this.router.url);
         }, 500);
@@ -641,10 +1189,10 @@ AdminLayoutComponent = __decorate([
             ])
         ]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_6__shared_menu_items_menu_items__["a" /* MenuItems */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__shared_menu_items_menu_items__["a" /* MenuItems */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4_ngx_cookie_service__["a" /* CookieService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ngx_cookie_service__["a" /* CookieService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_6__shared_menu_items_menu_items__["a" /* MenuItems */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__shared_menu_items_menu_items__["a" /* MenuItems */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4_ngx_cookie_service__["a" /* CookieService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ngx_cookie_service__["a" /* CookieService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_7__components_data_datacenter_datacenter_component__["a" /* DatacenterComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__components_data_datacenter_datacenter_component__["a" /* DatacenterComponent */]) === "function" && _e || Object])
 ], AdminLayoutComponent);
 
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=admin-layout.component.js.map
 
 /***/ }),
@@ -1482,25 +2030,38 @@ var MenuItems = (function () {
                 _this.dynamic = res;
                 _this.dynamicSubMenu = [];
                 for (var i = 0; i < res.length; i++) {
+                    _this.subComponentChildren = [];
+                    for (var j = 0; j < res[i].components.length; j++) {
+                        _this.subComponentChildren.push({
+                            'id': res[i].components[j].id,
+                            'name': res[i].components[j].name
+                        });
+                    }
                     if (_this.dynamic[i].status == "Bad") {
                         _this.dynamicSubMenu.push({
+                            'id': _this.dynamic[i].id,
                             'state': 'datacenter/' + _this.dynamic[i].id,
                             'name': _this.dynamic[i].name,
-                            'img': 'assets/images/fa-exclamation.png'
+                            'img': 'assets/images/fa-exclamation.png',
+                            'subComponentChildren': _this.subComponentChildren
                         });
                     }
                     else if (_this.dynamic[i].status == "Good") {
                         _this.dynamicSubMenu.push({
+                            'id': _this.dynamic[i].id,
                             'state': 'datacenter/' + _this.dynamic[i].id,
                             'name': _this.dynamic[i].name,
-                            'img': 'assets/images/status-green.png'
+                            'img': 'assets/images/status-green.png',
+                            'subComponentChildren': _this.subComponentChildren
                         });
                     }
                     else if (_this.dynamic[i].status == "Alert") {
                         _this.dynamicSubMenu.push({
+                            'id': _this.dynamic[i].id,
                             'state': 'datacenter/' + _this.dynamic[i].id,
                             'name': _this.dynamic[i].name,
-                            'img': 'assets/images/status-yellow.png'
+                            'img': 'assets/images/status-yellow.png',
+                            'subComponentChildren': _this.subComponentChildren
                         });
                     }
                 }

@@ -63,8 +63,19 @@ footer{
     border-color: #203c66 !important;
     font-weight: 600 !important;
 }
-@media only screen and (max-width: 515px)
-{
+
+.subComponent{
+	color:#56BACA !important;
+	padding-left: 54px;
+	cursor: pointer;
+}
+.subComponentActive{
+	color:white !important;
+	padding-left: 54px;
+	cursor: pointer;
+}
+
+@media only screen and (max-width: 515px) {
 	.pro-name{
 		display: none;
 	}
@@ -92,5 +103,10 @@ footer{
 	}
 	.header-navbar .navbar-wrapper .navbar-logo {
 		padding-top: 6px;
+	}
+}
+@media only screen and (min-width:516px) and (max-width: 992px) {
+	.pro{
+		margin-top: -56px;	
 	}
 }
