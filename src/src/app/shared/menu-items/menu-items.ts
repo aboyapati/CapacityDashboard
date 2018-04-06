@@ -42,7 +42,8 @@ const MENUITEMS = [
         name: 'DASHBOARD',
         type: 'link',
         icon: 'ti-dashboard'
-      }, {
+      },
+      {
         state: 'provisioning',
         name: 'PROVISIONING',
         type: 'link',
@@ -54,24 +55,6 @@ const MENUITEMS = [
         type: 'sub',
         icon: 'ti-world',
         children: []
-      },
-      {
-        state: 'alert',
-        name: 'ALERT',
-        type: 'link',
-        icon: 'ti-alert',
-        badge: [
-          {
-            type: '',
-            value: '3'
-          }
-        ]
-      },
-      {
-        state: ' with-social',
-        name: 'SETTINGS',
-        type: 'link',
-        icon: 'ti-settings'
       }
     ]
   }
@@ -138,6 +121,53 @@ export class MenuItems {
   }
 
   getAll(): Menu[] {
+
+    if (sessionStorage.reloadLeftNav == 'yes') {
+      sessionStorage.setItem('reloadLeftNav', '');
+      this.config.getLeftNavDetailslist().subscribe(res => {
+        this.dynamic = res;
+        this.dynamicSubMenu = [];
+        for (let i = 0; i < res.length; i++) {
+
+          this.subComponentChildren = [];
+          for (let j = 0; j < res[i].components.length; j++) {
+            this.subComponentChildren.push({
+              'id': res[i].components[j].id,
+              'name': res[i].components[j].name
+            });
+          }
+
+          if (this.dynamic[i].status == "Bad") {
+            this.dynamicSubMenu.push({
+              'id': this.dynamic[i].id,
+              'state': 'datacenter/' + this.dynamic[i].id,
+              'name': this.dynamic[i].name,
+              'img': 'assets/images/fa-exclamation.png',
+              'subComponentChildren': this.subComponentChildren
+            });
+          }
+          else if (this.dynamic[i].status == "Good") {
+            this.dynamicSubMenu.push({
+              'id': this.dynamic[i].id,
+              'state': 'datacenter/' + this.dynamic[i].id,
+              'name': this.dynamic[i].name,
+              'img': 'assets/images/status-green.png',
+              'subComponentChildren': this.subComponentChildren
+            });
+          }
+          else if (this.dynamic[i].status == "Alert") {
+            this.dynamicSubMenu.push({
+              'id': this.dynamic[i].id,
+              'state': 'datacenter/' + this.dynamic[i].id,
+              'name': this.dynamic[i].name,
+              'img': 'assets/images/status-yellow.png',
+              'subComponentChildren': this.subComponentChildren
+            });
+          }
+
+        }
+      });
+    }
 
     MENUITEMS[0].main[2]['children'] = this.dynamicSubMenu;
 

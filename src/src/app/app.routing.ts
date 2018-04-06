@@ -35,13 +35,18 @@ export const AppRoutes: Routes = [{
     }, {
       path: 'provisioning',
       loadChildren: './provisioning/provisioning.module#ProvisioningModule'
-    },
-    {
+    }, {
       path: 'alert',
       loadChildren: './alert/alert.module#AlertModule'
-    },{
+    }, {
       path: 'data',
       loadChildren: './components/data/data.module#DataModule'
+    }, {
+      path: 'customers',
+      loadChildren: './customers/customers.module#CustomersModule'
+    }, {
+      path: 'reload',
+      loadChildren: './reload/reload.module#ReloadModule'
     }
   ]
 }, {

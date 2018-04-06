@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ViewEncapsulation, ElementRef, AfterViewI
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { state, style, transition, animate, trigger, AUTO_STYLE } from '@angular/animations';
-import { CookieService } from 'ngx-cookie-service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MenuItems } from '../../shared/menu-items/menu-items';
 import { DatacenterComponent } from '../../components/data/datacenter/datacenter.component';
@@ -50,11 +49,11 @@ export class AdminLayoutComponent implements OnInit {
   isCollapsedSideBar = 'no-block';
   toggleOn = true;
   windowWidth: number;
-  currentUser: string = sessionStorage.username;
+  currentUser: string = sessionStorage.name;
 
   public htmlButton: string;
 
-  constructor(public menuItems: MenuItems, private router: Router, private cookieService: CookieService, private modalService: NgbModal, public dcComp: DatacenterComponent) {
+  constructor(public menuItems: MenuItems, private router: Router, private modalService: NgbModal, public dcComp: DatacenterComponent) {
     const scrollHeight = window.screen.height - 150;
     this.innerHeight = scrollHeight + 'px';
     this.windowWidth = window.innerWidth;
@@ -66,12 +65,12 @@ export class AdminLayoutComponent implements OnInit {
       this.router.navigate(['login']);
     }
     setTimeout(() => {
-      if (this.cookieService.get('leftNavSelectedMenu') != '') {
-        $('#' + this.cookieService.get('leftNavSelectedMenu')).addClass("pcoded-trigger");
-        this.cookieService.set('leftNavSelectedMenu', '');
+      if (sessionStorage.leftNavSelectedMenu != '') {
+        $('#' + sessionStorage.leftNavSelectedMenu).addClass("pcoded-trigger");
+        sessionStorage.setItem('leftNavSelectedMenu', '');
         setTimeout(() => {
           $('.EnableDcDis').removeClass('EnableDcDis').addClass('EnableDcBlock');
-          $('#toEnableDc' + this.cookieService.get('leftNavSelectedSubcompId')).addClass('EnableDcDis').removeClass('EnableDcBlock');
+          $('#toEnableDc' + sessionStorage.leftNavSelectedSubcompId).addClass('EnableDcDis').removeClass('EnableDcBlock');
         }, 1000);
       }
     }, 1000);
@@ -79,18 +78,31 @@ export class AdminLayoutComponent implements OnInit {
 
   reloadCurrentPage(id = '') {
     setTimeout(() => {
-      if (this.cookieService.get('currentUrl') == this.router.url) {
+      if (sessionStorage.currentUrl == this.router.url) {
         if (id != '') {
-          this.cookieService.set('leftNavSelectedMenu', id);
+          sessionStorage.setItem('leftNavSelectedMenu', id);
         }
-        location.reload();
+        sessionStorage.setItem('reload_url', this.router.url);
+        this.router.navigate(['/reload']);
       } else {
-        if (this.router.url != '/data/datacenter/' + this.cookieService.get('leftNavSelectedSubcompId')) {
+        if (this.router.url != '/data/datacenter/' + sessionStorage.leftNavSelectedSubcompId) {
           $('.EnableDcDis').removeClass('EnableDcDis').addClass('EnableDcBlock');
         }
       }
-      this.cookieService.set('currentUrl', this.router.url);
+      sessionStorage.setItem('currentUrl', this.router.url);
     }, 500);
+  }
+
+  leftNavAlertClicked(e) {
+    e.preventDefault();
+    if (sessionStorage.previousUrl == '/dashboard') {
+      $('html, body').animate({
+        'scrollTop': $("#alertDiv").position().top
+      });
+    } else {
+      sessionStorage.setItem('alertMenuClicked', 'yes');
+      this.router.navigate(['/dashboard']);
+    }
   }
 
   rsdClick() {
@@ -99,7 +111,7 @@ export class AdminLayoutComponent implements OnInit {
 
   logoutClicked(e) {
     e.preventDefault();
-    this.cookieService.set('logout_clicked', 'yes');
+    sessionStorage.setItem('logout_clicked', 'yes');
     sessionStorage.clear();
     this.router.navigate(['login']);
   }

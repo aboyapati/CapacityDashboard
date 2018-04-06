@@ -28,6 +28,7 @@ export class ConfigService {
   getNotificationUrl: any;
   getStatesUrl: any;
   getCitiesUrl: any;
+  customersUrl: any;
 
   constructor(private http: Http) {
     this.http.get('assets/config.json')
@@ -45,6 +46,7 @@ export class ConfigService {
         this.getSubtypesUrl = this.BASE_URL + result[0].getSubtypesUrl;
         this.componentDeleteUrl = this.BASE_URL + result[0].componentDeleteUrl;
         this.countryUrl = this.BASE_URL + result[0].countryUrl;
+        this.customersUrl = this.BASE_URL + result[0].customersUrl;
         this.leftNavDetailUrl = this.BASE_URL + result[0].leftNavDetailUrl;
         this.getComponentListUrl = this.BASE_URL + result[0].getComponentListUrl;
         this.getSubComponentListUrl = this.BASE_URL + result[0].getSubComponentListUrl;
@@ -77,6 +79,13 @@ export class ConfigService {
   getProvisioningList() {
     return this.http.get(this.getProvisioningListUrl)
       .map((result) => result.json());
+  }
+
+  getCustomersList(key) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'keyword=' + key;
+    return this.http.post(this.customersUrl, body, options).map((res: Response) => res.json());
   }
 
   getCountryList() {
@@ -184,10 +193,10 @@ export class ConfigService {
     return this.http.post(this.getNotificationUrl, body, options).map((res: Response) => res.json());
   }
 
-  getStates(county) {
+  getStates(country) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'county=' + county;
+    let body = 'country=' + country;
     return this.http.post(this.getStatesUrl, body, options).map((res: Response) => res.json());
   }
 

@@ -4,7 +4,6 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 declare const $: any;
 
 @Component({
@@ -50,8 +49,8 @@ export class DatacenterComponent implements OnInit {
   components: any;
   subComponents: any;
 
-  constructor(private modalService: NgbModal, private config: ConfigService, private route: ActivatedRoute, private AmCharts: AmChartsService, private router: Router, private cookieService: CookieService) {
-
+  constructor(private modalService: NgbModal, private config: ConfigService, private route: ActivatedRoute, private AmCharts: AmChartsService, private router: Router) {
+    sessionStorage.setItem('previousUrl', this.router.url);
     this.deviceHeight = (window.screen.height);
     this.deviceWidth = (window.screen.width);
     if (this.deviceWidth >= 768) {
@@ -76,7 +75,7 @@ export class DatacenterComponent implements OnInit {
 
       $('.EnableDcDis').removeClass('EnableDcDis').addClass('EnableDcBlock');
       $('#toEnableDc' + this.dataCenterId).addClass('EnableDcDis').removeClass('EnableDcBlock');
-      this.cookieService.set('leftNavSelectedSubcompId', this.dataCenterId);
+      sessionStorage.setItem('leftNavSelectedSubcompId', this.dataCenterId);
 
       if (typeof this.dataCenterId !== "undefined") {
         setTimeout(() => {
@@ -180,7 +179,8 @@ export class DatacenterComponent implements OnInit {
       var subCoId = 1;
 
       if (this.subComponents && (this.subComponents.length > 1)) {
-        setTimeout(() => {
+        this.subCoFlag = false;
+		setTimeout(() => {
           this.subComponents.forEach(subCo => {
             this.makeDynamicChart(subCoId++, subCo.status, subCo.consumed, subCo.total, (subCo.consumed / subCo.total) * 100);
           });
@@ -188,10 +188,7 @@ export class DatacenterComponent implements OnInit {
       } else {
         this.subCoFlag = true;
       }
-
-
     });
-
 
     if (this.selectedComponentType.toLowerCase() == 'vcenter') {
       this.config.getVcenterData(this.selectedComponentId).subscribe(res_v => {
@@ -447,7 +444,10 @@ export class DatacenterComponent implements OnInit {
   }
 
   makeDynamicChart(id, status, consumed, total, value) {
-    value = Math.round(value * 100) / 100
+    value = Math.round(value * 100) / 100;
+    if(!$.isNumeric( value )) {
+      value = 0;
+    }
     if (status == 'Good') {
       var color = '#00b300';
     } else if (status == 'Bad') {

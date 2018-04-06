@@ -96,8 +96,7 @@ module.exports = "<section *ngIf=\"loading_status; else loading_div\" class=\"lo
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WithSocialComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ngx_cookie_service__ = __webpack_require__("../../../../ngx-cookie-service/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config_service__ = __webpack_require__("../../../../../src/app/config.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_service__ = __webpack_require__("../../../../../src/app/config.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -110,11 +109,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var WithSocialComponent = (function () {
-    function WithSocialComponent(router, cookieService, config) {
+    function WithSocialComponent(router, config) {
         this.router = router;
-        this.cookieService = cookieService;
         this.config = config;
         this.login_status = false;
         this.loading_status = false;
@@ -124,10 +121,10 @@ var WithSocialComponent = (function () {
         if (sessionStorage.username && sessionStorage.id && typeof sessionStorage.username != 'undefined' && typeof sessionStorage.id != 'undefined') {
             this.router.navigate(['dashboard']);
         }
-        this.logout_clicked = this.cookieService.get('logout_clicked');
+        this.logout_clicked = sessionStorage.logout_clicked;
         if (this.logout_clicked == 'yes') {
             this.loading_status = true;
-            this.cookieService.set('logout_clicked', 'no');
+            sessionStorage.setItem('logout_clicked', 'no');
         }
         var i = 1;
         function myLoop() {
@@ -153,7 +150,7 @@ var WithSocialComponent = (function () {
         myLoop();
         setTimeout(function () {
             _this.loading_status = true;
-        }, 9500);
+        }, 4500);
         $('#content').removeClass('fullwidth').delay(9).queue(function (next) {
             $(this).addClass('fullwidth');
             next();
@@ -168,6 +165,7 @@ var WithSocialComponent = (function () {
                 if (res.status == 1) {
                     _this.login_status = true;
                     sessionStorage.setItem('username', res.username);
+                    sessionStorage.setItem('name', res.name);
                     sessionStorage.setItem('id', res.id);
                     _this.router.navigate(['dashboard']);
                 }
@@ -185,10 +183,10 @@ WithSocialComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/authentication/login/with-social/with-social.component.html"),
         styles: [__webpack_require__("../../../../../src/app/authentication/login/with-social/with-social.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ngx_cookie_service__["a" /* CookieService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ngx_cookie_service__["a" /* CookieService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__config_service__["a" /* ConfigService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__config_service__["a" /* ConfigService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__config_service__["a" /* ConfigService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__config_service__["a" /* ConfigService */]) === "function" && _b || Object])
 ], WithSocialComponent);
 
-var _a, _b, _c;
+var _a, _b;
 //# sourceMappingURL=with-social.component.js.map
 
 /***/ })

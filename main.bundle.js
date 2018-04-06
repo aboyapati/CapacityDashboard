@@ -32,6 +32,11 @@ var map = {
 		"../../../../../src/app/components/tables/bootstrap-table/bootstrap-table.module.ts",
 		"bootstrap-table.module"
 	],
+	"./customers/customers.module": [
+		"../../../../../src/app/customers/customers.module.ts",
+		"customers.module",
+		"common"
+	],
 	"./dashboard/dashboard.module": [
 		"../../../../../src/app/dashboard/dashboard.module.ts",
 		"dashboard.module"
@@ -46,7 +51,12 @@ var map = {
 	],
 	"./provisioning/provisioning.module": [
 		"../../../../../src/app/provisioning/provisioning.module.ts",
-		"provisioning.module"
+		"provisioning.module",
+		"common"
+	],
+	"./reload/reload.module": [
+		"../../../../../src/app/reload/reload.module.ts",
+		"reload.module"
 	],
 	"./simple-page/simple-page.module": [
 		"../../../../../src/app/simple-page/simple-page.module.ts",
@@ -57,7 +67,7 @@ function webpackAsyncContext(req) {
 	var ids = map[req];
 	if(!ids)
 		return Promise.reject(new Error("Cannot find module '" + req + "'."));
-	return __webpack_require__.e(ids[1]).then(function() {
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
 		return __webpack_require__(ids[0]);
 	});
 };
@@ -124,16 +134,14 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__layouts_admin_title_title_component__ = __webpack_require__("../../../../../src/app/layouts/admin/title/title.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__scroll_scroll_module__ = __webpack_require__("../../../../../src/app/scroll/scroll.module.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17_ngx_cookie_service__ = __webpack_require__("../../../../ngx-cookie-service/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__config_service__ = __webpack_require__("../../../../../src/app/config.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_data_datacenter_datacenter_component__ = __webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__config_service__ = __webpack_require__("../../../../../src/app/config.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_data_datacenter_datacenter_component__ = __webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -180,10 +188,9 @@ AppModule = __decorate([
         ],
         exports: [__WEBPACK_IMPORTED_MODULE_15__scroll_scroll_module__["a" /* ScrollModule */]],
         providers: [
-            __WEBPACK_IMPORTED_MODULE_17_ngx_cookie_service__["a" /* CookieService */],
             { provide: __WEBPACK_IMPORTED_MODULE_16__angular_common__["LocationStrategy"], useClass: __WEBPACK_IMPORTED_MODULE_16__angular_common__["HashLocationStrategy"] },
-            __WEBPACK_IMPORTED_MODULE_18__config_service__["a" /* ConfigService */],
-            __WEBPACK_IMPORTED_MODULE_19__components_data_datacenter_datacenter_component__["a" /* DatacenterComponent */]
+            __WEBPACK_IMPORTED_MODULE_17__config_service__["a" /* ConfigService */],
+            __WEBPACK_IMPORTED_MODULE_18__components_data_datacenter_datacenter_component__["a" /* DatacenterComponent */]
         ],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* AppComponent */]]
     })
@@ -234,13 +241,18 @@ var AppRoutes = [{
             }, {
                 path: 'provisioning',
                 loadChildren: './provisioning/provisioning.module#ProvisioningModule'
-            },
-            {
+            }, {
                 path: 'alert',
                 loadChildren: './alert/alert.module#AlertModule'
             }, {
                 path: 'data',
                 loadChildren: './components/data/data.module#DataModule'
+            }, {
+                path: 'customers',
+                loadChildren: './customers/customers.module#CustomersModule'
+            }, {
+                path: 'reload',
+                loadChildren: './reload/reload.module#ReloadModule'
             }
         ]
     }, {
@@ -281,7 +293,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/data/datacenter/datacenter.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"components\" class=\"row data_center_view\">\r\n    <div class=\"col-md-4 col-sm-4\" style=\"font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;\">\r\n        onPOINT HCS.Capacity\r\n    </div>\r\n    <div class=\"col-md-8 col-sm-8\" style=\"padding-top:9px;\">\r\n        <span>\r\n            <span *ngFor=\"let c of components; let i = index\">\r\n                <span class=\"icon-name\">&nbsp;</span>\r\n                <span style=\"cursor: pointer;\" (click)=\"componnetScrollClick(i)\" id=\"componentScroll{{i}}\" class=\"ti-control-record\"></span>\r\n            </span>\r\n        </span>\r\n    </div>\r\n</div>\r\n<div *ngIf=\"components\" class=\"row\">\r\n    <ng-container *ngFor=\"let component of components; let j = index\">\r\n        <div [style.display]=\"j>=scrollLimitMin && j<=scrollLimitMax ? 'block' : 'none'\" class=\"col-md-3 col-sm-6 tab-tile\" id=\"cmp_div_{{component.id}}\"\r\n            (click)=\"componnetScrollClick(j,'direct')\">\r\n            <div class=\"data-center-image d-flex justify-content-center\">\r\n                <img bind-src=\"imgUrl\" class=\"comp-img-thumbnail img-thumbnail\">\r\n            </div>\r\n            <p class=\"data-center\">{{component.name}}</p>\r\n        </div>\r\n    </ng-container>\r\n    <div *ngIf=\"subComponents!=''\" class=\"col-md-12 tab-tile-table table-responsive\">\r\n        <div class=\"row\">\r\n            <div *ngFor=\"let subComponent of subComponents; let k = index\" class=\"col-md-4 col-sm-6 sub-component\" (click)=\"open(subComponentChart,k)\">\r\n                <div class=\"sub-component-body\">\r\n                    <p class=\"sub-component-text sub-component-title\">{{subComponent.name}}</p>\r\n                    <div id=\"chartdiv_{{k+1}}\" class=\"chartdiv\"></div>\r\n                    <!--<p class=\"sub-component-text\"><span>{{subComponent.consumed}}</span> / {{subComponent.total}}</p>-->\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"(subCoFlag && !coFlag)\" class=\"col-md-12 tab-tile-table table-responsive\" style=\"padding: 3%;\r\n    min-height: 200px;\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-12 tab-tile-table table-responsive text-center\">\r\n                <span>\r\n                    <b>THERE ARE CURRENTLY NO SUB COMPONENTS AVAILABLE FOR THIS COMPONENT.\r\n                    </b>\r\n                </span>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div id=\"withoutComponentBlock\" class=\"col-md-12 tab-tile-table table-responsive text-center\" style=\"display:none\">\r\n        <span>\r\n            <b>THERE ARE CURRENTLY NO COMPONENTS AVAILABLE FOR THIS DATA CENTER.\r\n            </b>\r\n        </span>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"subComponents!=''\" style=\"display: none;\" id='vcenetrDataDiv'>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>DATASTORE USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv\"></div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>MONTHLY AVERAGE HOST MEMORY USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv2\"></div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>MONTHLY AVERAGE HOST CPU USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv1\"></div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<ng-template #subComponentChart let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-body image-responsive\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-4\">\r\n                <p>\r\n                    <b style=\"font-size:18px;padding-left:5%;\">{{popupName}}</b>\r\n                </p>\r\n            </div>\r\n            <div class=\"col-md-8\" style=\"text-align: right;\">\r\n                <div class=\"rsddropdown\" id=\"rsddropdown\">\r\n                    <span class=\"rsddropdown-span\" (click)=\"subCoPopupFilter()\">...</span>\r\n                    <div id=\"callMatricsDropdown\" class=\"rsddropdown-content\">\r\n                        <a (click)=\"filterSubcoPopup(3)\">Last 3 months</a>\r\n                        <a (click)=\"filterSubcoPopup(6)\">Last 6 months</a>\r\n                        <a (click)=\"filterSubcoPopup(9)\">Last 9 months</a>\r\n                        <a (click)=\"filterSubcoPopup(12)\">Last 12 months</a>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div id=\"speedochartpopup\"></div>\r\n    </div>\r\n</ng-template>"
+module.exports = "<div *ngIf=\"components\" class=\"row data_center_view\">\r\n    <div class=\"col-md-4 col-sm-4\" style=\"font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;\">\r\n        onPOINT HCS.Capacity\r\n    </div>\r\n    <div class=\"col-md-8 col-sm-8\" style=\"padding-top:9px;\">\r\n        <span>\r\n            <span *ngFor=\"let c of components; let i = index\">\r\n                <span class=\"icon-name\">&nbsp;</span>\r\n                <span style=\"cursor: pointer;\" (click)=\"componnetScrollClick(i)\" id=\"componentScroll{{i}}\" class=\"ti-control-record\"></span>\r\n            </span>\r\n        </span>\r\n    </div>\r\n</div>\r\n<div *ngIf=\"components\" class=\"row\">\r\n    <ng-container *ngFor=\"let component of components; let j = index\">\r\n        <div [style.display]=\"j>=scrollLimitMin && j<=scrollLimitMax ? 'block' : 'none'\" class=\"col-md-3 col-sm-6 tab-tile\" id=\"cmp_div_{{component.id}}\"\r\n            (click)=\"componnetScrollClick(j,'direct')\">\r\n            <div class=\"data-center-image d-flex justify-content-center\">\r\n                <img bind-src=\"imgUrl\" class=\"comp-img-thumbnail img-thumbnail\">\r\n            </div>\r\n            <p class=\"data-center\">{{component.name}}</p>\r\n        </div>\r\n    </ng-container>\r\n    <div *ngIf=\"subComponents!=''\" class=\"col-md-12 tab-tile-table table-responsive\">\r\n        <div class=\"row\">\r\n            <div *ngFor=\"let subComponent of subComponents; let k = index\" class=\"col-md-4 col-sm-6 sub-component\" (click)=\"open(subComponentChart,k)\">\r\n                <div class=\"sub-component-body\">\r\n                    <p class=\"sub-component-text sub-component-title\">{{subComponent.name}}</p>\r\n                    <div id=\"chartdiv_{{k+1}}\" class=\"chartdiv\"></div>\r\n                    <!--<p class=\"sub-component-text\"><span>{{subComponent.consumed}}</span> / {{subComponent.total}}</p>-->\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div *ngIf=\"(subCoFlag && !coFlag)\" class=\"col-md-12 tab-tile-table table-responsive\" style=\"padding: 3%;min-height: 200px;\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-12 tab-tile-table table-responsive text-center\">\r\n                <span>\r\n                    <b>THERE ARE CURRENTLY NO SUB COMPONENTS AVAILABLE FOR THIS COMPONENT.\r\n                    </b>\r\n                </span>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<div class=\"row\">\r\n    <div id=\"withoutComponentBlock\" class=\"col-md-12 tab-tile-table table-responsive text-center\" style=\"display:none\">\r\n        <span>\r\n            <b>THERE ARE CURRENTLY NO COMPONENTS AVAILABLE FOR THIS DATA CENTER.\r\n            </b>\r\n        </span>\r\n    </div>\r\n</div>\r\n\r\n<div *ngIf=\"subComponents!=''\" style=\"display: none;\" id='vcenetrDataDiv'>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>DATASTORE USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv\"></div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>MONTHLY AVERAGE HOST MEMORY USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv2\"></div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row\" style=\"padding-top: 20px;\">\r\n        <div class=\"tab-tile-table col-md-12 col-sm-12\">\r\n            <div>\r\n                <span>\r\n                    <b>MONTHLY AVERAGE HOST CPU USAGE PERCENTAGE</b>\r\n                </span>\r\n            </div>\r\n            <div id=\"speedochartdiv1\"></div>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<ng-template #subComponentChart let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-body image-responsive\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-4\">\r\n                <p>\r\n                    <b style=\"font-size:18px;padding-left:5%;\">{{popupName}}</b>\r\n                </p>\r\n            </div>\r\n            <div class=\"col-md-8\" style=\"text-align: right;\">\r\n                <div class=\"rsddropdown\" id=\"rsddropdown\">\r\n                    <span class=\"rsddropdown-span\" (click)=\"subCoPopupFilter()\">...</span>\r\n                    <div id=\"callMatricsDropdown\" class=\"rsddropdown-content\">\r\n                        <a (click)=\"filterSubcoPopup(3)\">Last 3 months</a>\r\n                        <a (click)=\"filterSubcoPopup(6)\">Last 6 months</a>\r\n                        <a (click)=\"filterSubcoPopup(9)\">Last 9 months</a>\r\n                        <a (click)=\"filterSubcoPopup(12)\">Last 12 months</a>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div id=\"speedochartpopup\"></div>\r\n    </div>\r\n</ng-template>"
 
 /***/ }),
 
@@ -295,7 +307,6 @@ module.exports = "<div *ngIf=\"components\" class=\"row data_center_view\">\r\n 
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__ = __webpack_require__("../../../../@amcharts/amcharts3-angular/es2015/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ngx_cookie_service__ = __webpack_require__("../../../../ngx-cookie-service/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -311,16 +322,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var DatacenterComponent = (function () {
-    function DatacenterComponent(modalService, config, route, AmCharts, router, cookieService) {
+    function DatacenterComponent(modalService, config, route, AmCharts, router) {
         var _this = this;
         this.modalService = modalService;
         this.config = config;
         this.route = route;
         this.AmCharts = AmCharts;
         this.router = router;
-        this.cookieService = cookieService;
         this.userId = sessionStorage.id;
         this.selectedComponentId = 0;
         this.selectedComponentType = 'default';
@@ -331,6 +340,7 @@ var DatacenterComponent = (function () {
         this.imgUrl = "assets/images/icon-cube.png";
         this.subComimgUrl = "assets/images/subcomponent.png";
         this.subComChartimgUrl = "assets/images/subcomponentChart.png";
+        sessionStorage.setItem('previousUrl', this.router.url);
         this.deviceHeight = (window.screen.height);
         this.deviceWidth = (window.screen.width);
         if (this.deviceWidth >= 768) {
@@ -355,7 +365,7 @@ var DatacenterComponent = (function () {
             _this.dataCenterId = params['dataCenterId'];
             $('.EnableDcDis').removeClass('EnableDcDis').addClass('EnableDcBlock');
             $('#toEnableDc' + _this.dataCenterId).addClass('EnableDcDis').removeClass('EnableDcBlock');
-            _this.cookieService.set('leftNavSelectedSubcompId', _this.dataCenterId);
+            sessionStorage.setItem('leftNavSelectedSubcompId', _this.dataCenterId);
             if (typeof _this.dataCenterId !== "undefined") {
                 setTimeout(function () {
                     _this.config.getComponentList(_this.dataCenterId).subscribe(function (res_comp) {
@@ -448,6 +458,7 @@ var DatacenterComponent = (function () {
             _this.subComponents = _this.subComponentList.subcomponents;
             var subCoId = 1;
             if (_this.subComponents && (_this.subComponents.length > 1)) {
+                _this.subCoFlag = false;
                 setTimeout(function () {
                     _this.subComponents.forEach(function (subCo) {
                         _this.makeDynamicChart(subCoId++, subCo.status, subCo.consumed, subCo.total, (subCo.consumed / subCo.total) * 100);
@@ -691,6 +702,9 @@ var DatacenterComponent = (function () {
     };
     DatacenterComponent.prototype.makeDynamicChart = function (id, status, consumed, total, value) {
         value = Math.round(value * 100) / 100;
+        if (!$.isNumeric(value)) {
+            value = 0;
+        }
         if (status == 'Good') {
             var color = '#00b300';
         }
@@ -778,10 +792,10 @@ DatacenterComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__config_service__["a" /* ConfigService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__config_service__["a" /* ConfigService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__["b" /* AmChartsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__["b" /* AmChartsService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["f" /* Router */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5_ngx_cookie_service__["a" /* CookieService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ngx_cookie_service__["a" /* CookieService */]) === "function" && _f || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__config_service__["a" /* ConfigService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__config_service__["a" /* ConfigService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__["b" /* AmChartsService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__amcharts_amcharts3_angular__["b" /* AmChartsService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["f" /* Router */]) === "function" && _e || Object])
 ], DatacenterComponent);
 
-var _a, _b, _c, _d, _e, _f;
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=datacenter.component.js.map
 
 /***/ }),
@@ -827,6 +841,7 @@ var ConfigService = (function () {
             _this.getSubtypesUrl = _this.BASE_URL + result[0].getSubtypesUrl;
             _this.componentDeleteUrl = _this.BASE_URL + result[0].componentDeleteUrl;
             _this.countryUrl = _this.BASE_URL + result[0].countryUrl;
+            _this.customersUrl = _this.BASE_URL + result[0].customersUrl;
             _this.leftNavDetailUrl = _this.BASE_URL + result[0].leftNavDetailUrl;
             _this.getComponentListUrl = _this.BASE_URL + result[0].getComponentListUrl;
             _this.getSubComponentListUrl = _this.BASE_URL + result[0].getSubComponentListUrl;
@@ -855,6 +870,12 @@ var ConfigService = (function () {
     ConfigService.prototype.getProvisioningList = function () {
         return this.http.get(this.getProvisioningListUrl)
             .map(function (result) { return result.json(); });
+    };
+    ConfigService.prototype.getCustomersList = function (key) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        var body = 'keyword=' + key;
+        return this.http.post(this.customersUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getCountryList = function () {
         return this.http.get(this.countryUrl)
@@ -945,10 +966,10 @@ var ConfigService = (function () {
         var body = 'type=' + type;
         return this.http.post(this.getNotificationUrl, body, options).map(function (res) { return res.json(); });
     };
-    ConfigService.prototype.getStates = function (county) {
+    ConfigService.prototype.getStates = function (country) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        var body = 'county=' + county;
+        var body = 'country=' + country;
         return this.http.post(this.getStatesUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getCities = function (state) {
@@ -990,7 +1011,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/layouts/admin/admin-layout.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"pcoded\" (window:resize)=\"onResize($event)\" class=\"pcoded iscollapsed\" theme-layout=\"vertical\" vertical-placement=\"left\"\r\n  vertical-layout=\"wide\" [attr.pcoded-device-type]=\"deviceType\" [attr.vertical-nav-type]=\"verticalNavType\" [attr.vertical-effect]=\"verticalEffect\"\r\n  vnavigation-view=\"view1\">\r\n  <div class=\"pcoded-overlay-box\"></div>\r\n  <div class=\"pcoded-container navbar-wrapper\">\r\n    <nav style=\"position: fixed;background-color: white;\" class=\"navbar header-navbar pcoded-header\" header-theme=\"theme4\">\r\n      <div class=\"navbar-wrapper\">\r\n        <div class=\"navbar-logo\" navbar-theme=\"theme5\">\r\n          <a class=\"mobile-menu\" id=\"mobile-collapse\" href=\"javascript:;\" (click)=\"toggleOpened()\" [exclude]=\"'#main_navbar'\" (clickOutside)=\"onClickedOutside($event)\">\r\n            <i style=\"color: black;\" class=\"ti-menu\"></i>\r\n          </a>\r\n          <a (click)=\"onNavigate()\" style=\"cursor:pointer;\">\r\n            <img style=\"max-width: 100%;height: 40px;\" src=\"assets/images/logo.png\" alt=\"Theme-Logo\" />\r\n          </a>\r\n        </div>\r\n\r\n        <div class=\"navbar-container\">\r\n          <div>\r\n            <!--<ul class=\"nav-left\">\r\n              <li>\r\n                <div class=\"sidebar_toggle\"><a href=\"javascript:;\" (click)=\"toggleOpened()\"><i class=\"ti-menu f-18\"></i></a></div>\r\n              </li>\r\n              <li>\r\n                <a href=\"javascript:;\" appToggleFullscreen>\r\n                  <i class=\"ti-fullscreen\"></i>\r\n                </a>\r\n              </li>\r\n            </ul>-->\r\n            <ul  class=\"nav-right pro\" >\r\n              <li class=\"header-notification\">\r\n                <!--<a href=\"javascript:;\">\r\n                  <i class=\"ti-bell\"></i>\r\n                  <span class=\"badge\">5</span>\r\n                </a>-->\r\n                <ul class=\"show-notification\">\r\n                  <li>\r\n                    <h6>Notifications</h6>\r\n                    <label class=\"label label-danger\">New</label>\r\n                  </li>\r\n                  <li>\r\n                    <div class=\"media\">\r\n                      <img class=\"d-flex align-self-center\" src=\"assets/images/user.png\" alt=\"Generic placeholder image\">\r\n                      <div class=\"media-body\">\r\n                        <h5 class=\"notification-user\">John Doe</h5>\r\n                        <p class=\"notification-msg\">Lorem ipsum dolor sit amet, consectetuer elit.</p>\r\n                        <span class=\"notification-time\">30 minutes ago</span>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                  <li>\r\n                    <div class=\"media\">\r\n                      <img class=\"d-flex align-self-center\" src=\"assets/images/user.png\" alt=\"Generic placeholder image\">\r\n                      <div class=\"media-body\">\r\n                        <h5 class=\"notification-user\">Joseph William</h5>\r\n                        <p class=\"notification-msg\">Lorem ipsum dolor sit amet, consectetuer elit.</p>\r\n                        <span class=\"notification-time\">30 minutes ago</span>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                  <li>\r\n                    <div class=\"media\">\r\n                      <img class=\"d-flex align-self-center\" src=\"assets/images/user.png\" alt=\"Generic placeholder image\">\r\n                      <div class=\"media-body\">\r\n                        <h5 class=\"notification-user\">Sara Soudein</h5>\r\n                        <p class=\"notification-msg\">Lorem ipsum dolor sit amet, consectetuer elit.</p>\r\n                        <span class=\"notification-time\">30 minutes ago</span>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                </ul>\r\n              </li>\r\n              <li class=\"user-profile header-notification\">\r\n                <a href=\"#\" (click)=\"disableRouterAction($event)\">\r\n                  \r\n                  <span class=\"pro-name\" style=\"color: black\">{{currentUser}}</span>\r\n                  <i style=\"color: black; font-size: 20px;\" class=\"pro-name1 fa fa-user\"></i>\r\n                  <i style=\"color: black\" class=\"ti-angle-down pro-name\"></i>\r\n                </a>\r\n                <ul class=\"show-notification profile-notification\">\r\n                  <li class=\"pro-name1\" >\r\n                    <a >\r\n                      <i class=\"fa fa-user\"></i> {{currentUser}}\r\n                    </a>\r\n                  </li>\r\n                  <li>\r\n                    <a (click)=\"open(content)\" style=\"cursor: pointer;\">\r\n                      <i class=\"ti-settings\"></i> About\r\n                    </a>\r\n                  </li>\r\n                 \r\n                  <li (click)=\"logoutClicked($event)\">\r\n                    <a href=\"\">\r\n                      <i class=\"ti-power-off\"></i> Logout\r\n                    </a>\r\n                  </li>\r\n                </ul>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </nav>\r\n    <ng-template #content let-c=\"close\" let-d=\"dismiss\">\r\n    <div class=\"modal-body\">\r\n        <div class=\"modalForm\">\r\n            <div class=\"form-modal\">\r\n                <div class=\"header_title col-md-12\">Version</div>\r\n                <p class=\"modal_version\">1.0</p>\r\n                   \r\n                     <div class=\"col-md-12 form-modal\" style=\"padding-bottom: 30px;\">\r\n                    <div style=\"position: absolute; top:25%; left:50%; transform: translate(-50%,-50%);\" class=\"\">\r\n                        <button type=\"button\" class=\"btn btn-primary save_btn btn-edit-save\" (click)=\"c('Close click')\">Close</button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</ng-template>\r\n\r\n    <div class=\"pcoded-main-container\">\r\n      <div class=\"pcoded-wrapper\">\r\n        <nav id=\"main_navbar\" class=\" pcoded-navbar\" navbar-theme=\"theme1\" active-item-theme=\"theme5\" sub-item-theme=\"theme2\" active-item-style=\"style0\"\r\n          pcoded-navbar-position=\"absolute\" (clickOutside)=\"onClickedOutside($event)\" [exclude]=\"'#mobile-collapse'\">\r\n          <div class=\"sidebar_toggle\">\r\n            <a href=\"javascript:;\">\r\n              <i class=\"icon-close icons\"></i>\r\n            </a>\r\n          </div>\r\n          <div class=\"pcoded-inner-navbar main-menu\" appAccordion slimScroll width=\"100%\" height=\"100%\" size=\"4px\" color=\"#fff\" opacity=\"0.3\"\r\n            allowPageScroll=\"false\">\r\n            <div class=\"\">\r\n              <div class=\"main-menu-content\">\r\n                <ul>\r\n                  <li [@mobileMenuTop]=\"isCollapsedSideBar\" class=\"more-details\" [ngClass]=\"isCollapsedSideBar\">\r\n                    <a href=\"javascript:\">\r\n                      <i class=\"ti-user\"></i>View Profile</a>\r\n                    <a href=\"javascript:\">\r\n                      <i class=\"ti-settings\"></i>Settings</a>\r\n                    <a href=\"javascript:\">\r\n                      <i class=\"ti-layout-sidebar-left\"></i>Logout</a>\r\n                  </li>\r\n                </ul>\r\n              </div>\r\n            </div>\r\n            <div>\r\n              <div *ngFor=\"let asideItems of menuItems.getAll()\">\r\n                <ul class=\"pcoded-item pcoded-left-item\" item-border=\"none\" item-border-style=\"solid\" subitem-border=\"solid\" *ngFor=\"let asideItem of asideItems.main\"\r\n                  appAccordionLink group=\"{{asideItem.state}}\">\r\n                  <li (click)=\"reloadCurrentPage()\" [routerLinkActive]=\"['active']\" *ngIf=\"asideItem.type === 'external'\" appAccordionLink\r\n                    group=\"{{asideItem.state}}\">\r\n                    <a href=\"{{asideItem.external}}\" target=\"{{asideItem.target ? '_blank' : '_self'}}\" appAccordionToggle>\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"{{ asideItem.icon }}\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                      <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                  </li>\r\n\r\n                  <li (click)=\"reloadCurrentPage()\" [routerLinkActive]=\"['active']\" *ngIf=\"asideItem.type === 'link'\" appAccordionLink group=\"{{asideItem.state}}\">\r\n                    <a [routerLink]=\"['/', asideItem.main_state, asideItem.state]\" target=\"{{asideItem.target ? '_blank' : '_self'}}\" appAccordionToggle\r\n                      *ngIf=\"asideItem.main_state; else: mainContent\">\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"{{ asideItem.icon }}\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                      <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                    <ng-template #mainContent>\r\n                      <a [routerLink]=\"['/', asideItem.state]\" target=\"{{asideItem.target ? '_blank' : '_self'}}\" appAccordionToggle>\r\n                        <span class=\"pcoded-micon\">\r\n                          <i *ngIf=\"!asideItem.icon_customisation; else imageIcon\" class=\"{{ asideItem.icon }}\"></i>\r\n                          <ng-template #imageIcon>\r\n                            <img src=\"{{ asideItem.icon }}\">\r\n                          </ng-template>\r\n\r\n                        </span>\r\n                        <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                        <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                        <span class=\"pcoded-mcaret\"></span>\r\n                      </a>\r\n                    </ng-template>\r\n                  </li>\r\n                  <li [routerLinkActive]=\"['active']\" *ngIf=\"asideItem.type === 'sub'\" id=\"{{asideItem.state}}\" class=\"pcoded-hasmenu\" dropdown-icon=\"style3\"\r\n                    subitem-icon=\"style6\" appAccordionLink group=\"{{asideItem.state}}\">\r\n                    <a [routerLinkActive]=\"['active']\" href=\"javascript:;\" appAccordionToggle>\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"{{ asideItem.icon }}\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                      <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                    <ul class=\"pcoded-submenu\">\r\n                      <ng-template ngFor let-asideChildren [ngForOf]=\"asideItem.children\">\r\n                        <li (click)=\"reloadCurrentPage(asideItem.state)\" [routerLinkActive]=\"['active']\" *ngIf=\"asideChildren.type !== 'sub'\">\r\n                          <a [routerLink]=\"['/'+asideItem.state+'/'+asideChildren.state]\" target=\"{{asideChildren.target ? '_blank' : '_self'}}\">\r\n                            <img src=\"assets/images/ellipse-20.png\">\r\n                            <span class=\"pcoded-micon\">\r\n                              <i class=\"ti-angle-right\"></i>\r\n                            </span>\r\n                            <span class=\"pcoded-mtext\" style=\"padding-left: 6px;\">{{ asideChildren.name }} </span>\r\n                            <span *ngFor=\"let asideChildrenBadge of asideChildren.badge\" class=\"pcoded-badge label label-{{ asideChildrenBadge.type }}\">{{asideChildrenBadge.value}}</span>\r\n                            <img src=\"{{ asideChildren.img }}\" style=\"float: right;margin-right: 7px;\">\r\n                            <span class=\"pcoded-mcaret\"></span>\r\n                          </a>\r\n                        </li>\r\n\r\n                        <ng-container *ngIf=\"asideChildren.subComponentChildren\">\r\n                          <div id=\"toEnableDc{{asideChildren.id}}\" class=\"EnableDcBlock\">\r\n                            <div (click)=\"dcComp.selectDataCenterComponents(subComponentChildren.id)\" id=\"subCompChild{{subComponentChildren.id}}\" class=\"subComponent\" *ngFor=\"let subComponentChildren of asideChildren.subComponentChildren\">{{subComponentChildren.name}}</div>\r\n                          </div>\r\n                        </ng-container>\r\n                        \r\n                        <li [routerLinkActive]=\"['active']\" class=\"pcoded-hasmenu\" dropdown-icon=\"style3\" subitem-icon=\"style6\" *ngIf=\"asideChildren.type === 'sub'\"\r\n                          appAccordionLink group=\"sub-toggled\">\r\n                          <a href=\"javascript:;\" appAccordionToggle>\r\n                            <span class=\"pcoded-micon\">\r\n                              <i class=\"ti-direction-alt\"></i>\r\n                            </span>\r\n                            <span class=\"pcoded-mtext\">{{ asideChildren.name }}</span>\r\n                            <span *ngFor=\"let asideChildrenBadge of asideChildren.badge\" class=\"pcoded-badge label label-{{ asideChildrenBadge.type }}\">{{asideChildrenBadge.value}}</span>\r\n                            <span class=\"pcoded-mcaret\"></span>\r\n                          </a>\r\n                          <ul class=\"pcoded-submenu\">\r\n                            <ng-template ngFor let-asideChildrenSub [ngForOf]=\"asideChildren.children\">\r\n                              <li [routerLinkActive]=\"['active']\">\r\n                                <a [routerLink]=\"['/', asideItem.state, asideChildren.state, asideChildrenSub.state]\" target=\"{{asideChildrenSub.target ? '_blank' : '_self'}}\">\r\n                                  <span class=\"pcoded-micon\">\r\n                                    <i class=\"ti-angle-right\"></i>\r\n                                  </span>\r\n                                  <span class=\"pcoded-mtext\">{{ asideChildrenSub.name }}</span>\r\n                                  <span *ngFor=\"let asideChildrenSubBadge of asideChildrenSub.badge\" class=\"pcoded-badge label label-{{ asideChildrenSubBadge.type }}\">{{asideChildrenSubBadge.value}}</span>\r\n                                  <span class=\"pcoded-mcaret\"></span>\r\n                                </a>\r\n                              </li>\r\n                            </ng-template>\r\n                          </ul>\r\n                        </li>\r\n                      </ng-template>\r\n                    </ul>\r\n                  </li>\r\n                </ul>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </nav>\r\n        <div style=\"margin-top: 56px;\" class=\"pcoded-content\">\r\n          <div class=\"pcoded-inner-content\">\r\n            <div class=\"main-body\">\r\n              <div class=\"page-wrapper\">\r\n                <!--<app-title></app-title>\r\n                  <app-breadcrumbs></app-breadcrumbs>-->\r\n                <div class=\"page-body\">\r\n                  <router-outlet>\r\n                    <spinner></spinner>\r\n                  </router-outlet>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<footer>\r\n  &copy; 2017 tekvizion PVS Inc. All Rights Reserved | PRIVACY POLICY, YOUR PRIVACY RIGHTS\r\n</footer>\r\n<go-top-button [html]=\"htmlButton\" [animate]=\"true\" [speed]=\"50\" [acceleration]=\"2\" [scrollDistance]=\"100\" [styles]=\"{\r\n                      'right': '50px',\r\n                      'bottom': '50px',\r\n                      'top': 'auto',\r\n                      'left': 'auto',\r\n                      'width': 'auto',\r\n                      'height': 'auto',\r\n                      'background' : 'transparent'\r\n                   }\">\r\n</go-top-button>"
+module.exports = "<div id=\"pcoded\" (window:resize)=\"onResize($event)\" class=\"pcoded iscollapsed\" theme-layout=\"vertical\" vertical-placement=\"left\"\r\n  vertical-layout=\"wide\" [attr.pcoded-device-type]=\"deviceType\" [attr.vertical-nav-type]=\"verticalNavType\" [attr.vertical-effect]=\"verticalEffect\"\r\n  vnavigation-view=\"view1\">\r\n  <div class=\"pcoded-overlay-box\"></div>\r\n  <div class=\"pcoded-container navbar-wrapper\">\r\n    <nav style=\"position: fixed;background-color: white;\" class=\"navbar header-navbar pcoded-header\" header-theme=\"theme4\">\r\n      <div class=\"navbar-wrapper\">\r\n        <div class=\"navbar-logo\" navbar-theme=\"theme5\">\r\n          <a class=\"mobile-menu\" id=\"mobile-collapse\" href=\"javascript:;\" (click)=\"toggleOpened()\" [exclude]=\"'#main_navbar'\" (clickOutside)=\"onClickedOutside($event)\">\r\n            <i style=\"color: black;\" class=\"ti-menu\"></i>\r\n          </a>\r\n          <a (click)=\"onNavigate()\" style=\"cursor:pointer;\">\r\n            <img style=\"max-width: 100%;height: 40px;\" src=\"assets/images/logo.png\" alt=\"Theme-Logo\" />\r\n          </a>\r\n        </div>\r\n\r\n        <div class=\"navbar-container\">\r\n          <div>\r\n            <!--<ul class=\"nav-left\">\r\n              <li>\r\n                <div class=\"sidebar_toggle\"><a href=\"javascript:;\" (click)=\"toggleOpened()\"><i class=\"ti-menu f-18\"></i></a></div>\r\n              </li>\r\n              <li>\r\n                <a href=\"javascript:;\" appToggleFullscreen>\r\n                  <i class=\"ti-fullscreen\"></i>\r\n                </a>\r\n              </li>\r\n            </ul>-->\r\n            <ul class=\"nav-right pro\">\r\n              <li class=\"header-notification\">\r\n                <!--<a href=\"javascript:;\">\r\n                  <i class=\"ti-bell\"></i>\r\n                  <span class=\"badge\">5</span>\r\n                </a>-->\r\n                <ul class=\"show-notification\">\r\n                  <li>\r\n                    <h6>Notifications</h6>\r\n                    <label class=\"label label-danger\">New</label>\r\n                  </li>\r\n                  <li>\r\n                    <div class=\"media\">\r\n                      <img class=\"d-flex align-self-center\" src=\"assets/images/user.png\" alt=\"Generic placeholder image\">\r\n                      <div class=\"media-body\">\r\n                        <h5 class=\"notification-user\">John Doe</h5>\r\n                        <p class=\"notification-msg\">Lorem ipsum dolor sit amet, consectetuer elit.</p>\r\n                        <span class=\"notification-time\">30 minutes ago</span>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                  <li>\r\n                    <div class=\"media\">\r\n                      <img class=\"d-flex align-self-center\" src=\"assets/images/user.png\" alt=\"Generic placeholder image\">\r\n                      <div class=\"media-body\">\r\n                        <h5 class=\"notification-user\">Joseph William</h5>\r\n                        <p class=\"notification-msg\">Lorem ipsum dolor sit amet, consectetuer elit.</p>\r\n                        <span class=\"notification-time\">30 minutes ago</span>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                  <li>\r\n                    <div class=\"media\">\r\n                      <img class=\"d-flex align-self-center\" src=\"assets/images/user.png\" alt=\"Generic placeholder image\">\r\n                      <div class=\"media-body\">\r\n                        <h5 class=\"notification-user\">Sara Soudein</h5>\r\n                        <p class=\"notification-msg\">Lorem ipsum dolor sit amet, consectetuer elit.</p>\r\n                        <span class=\"notification-time\">30 minutes ago</span>\r\n                      </div>\r\n                    </div>\r\n                  </li>\r\n                </ul>\r\n              </li>\r\n              <li class=\"user-profile header-notification\">\r\n                <a href=\"#\" (click)=\"disableRouterAction($event)\">\r\n\r\n                  <span class=\"pro-name\" style=\"color: black\">{{currentUser}}</span>\r\n                  <i style=\"color: black; font-size: 20px;\" class=\"pro-name1 fa fa-user\"></i>\r\n                  <i style=\"color: black\" class=\"ti-angle-down pro-name\"></i>\r\n                </a>\r\n                <ul class=\"show-notification profile-notification\">\r\n                  <li class=\"pro-name1\">\r\n                    <a>\r\n                      <i class=\"fa fa-user\"></i> {{currentUser}}\r\n                    </a>\r\n                  </li>\r\n                  <li>\r\n                    <a (click)=\"open(content)\" style=\"cursor: pointer;\">\r\n                      <i class=\"ti-settings\"></i> About\r\n                    </a>\r\n                  </li>\r\n\r\n                  <li (click)=\"logoutClicked($event)\">\r\n                    <a href=\"\">\r\n                      <i class=\"ti-power-off\"></i> Logout\r\n                    </a>\r\n                  </li>\r\n                </ul>\r\n              </li>\r\n            </ul>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </nav>\r\n    <ng-template #content let-c=\"close\" let-d=\"dismiss\">\r\n      <div class=\"modal-body\">\r\n        <div class=\"modalForm\">\r\n          <div class=\"form-modal\">\r\n            <div class=\"header_title col-md-12\">Version</div>\r\n            <p class=\"modal_version\">1.0</p>\r\n\r\n            <div class=\"col-md-12 form-modal\" style=\"padding-bottom: 30px;\">\r\n              <div style=\"position: absolute; top:25%; left:50%; transform: translate(-50%,-50%);\" class=\"\">\r\n                <button type=\"button\" class=\"btn btn-primary save_btn btn-edit-save\" (click)=\"c('Close click')\">Close</button>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </ng-template>\r\n\r\n    <div class=\"pcoded-main-container\">\r\n      <div class=\"pcoded-wrapper\">\r\n        <nav id=\"main_navbar\" class=\" pcoded-navbar\" navbar-theme=\"theme1\" active-item-theme=\"theme5\" sub-item-theme=\"theme2\" active-item-style=\"style0\"\r\n          pcoded-navbar-position=\"absolute\" (clickOutside)=\"onClickedOutside($event)\" [exclude]=\"'#mobile-collapse'\">\r\n          <div class=\"sidebar_toggle\">\r\n            <a href=\"javascript:;\">\r\n              <i class=\"icon-close icons\"></i>\r\n            </a>\r\n          </div>\r\n          <div class=\"pcoded-inner-navbar main-menu\" appAccordion slimScroll width=\"100%\" height=\"100%\" size=\"4px\" color=\"#fff\" opacity=\"0.3\"\r\n            allowPageScroll=\"false\">\r\n            <div class=\"\">\r\n              <div class=\"main-menu-content\">\r\n                <ul>\r\n                  <li [@mobileMenuTop]=\"isCollapsedSideBar\" class=\"more-details\" [ngClass]=\"isCollapsedSideBar\">\r\n                    <a href=\"javascript:\">\r\n                      <i class=\"ti-user\"></i>View Profile</a>\r\n                    <a href=\"javascript:\">\r\n                      <i class=\"ti-settings\"></i>Settings</a>\r\n                    <a href=\"javascript:\">\r\n                      <i class=\"ti-layout-sidebar-left\"></i>Logout</a>\r\n                  </li>\r\n                </ul>\r\n              </div>\r\n            </div>\r\n            <div>\r\n              <div *ngFor=\"let asideItems of menuItems.getAll()\">\r\n                <ul class=\"pcoded-item pcoded-left-item\" item-border=\"none\" item-border-style=\"solid\" subitem-border=\"solid\" *ngFor=\"let asideItem of asideItems.main\"\r\n                  appAccordionLink group=\"{{asideItem.state}}\">\r\n                  <li (click)=\"reloadCurrentPage()\" [routerLinkActive]=\"['active']\" *ngIf=\"asideItem.type === 'external'\" appAccordionLink\r\n                    group=\"{{asideItem.state}}\">\r\n                    <a href=\"{{asideItem.external}}\" target=\"{{asideItem.target ? '_blank' : '_self'}}\" appAccordionToggle>\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"{{ asideItem.icon }}\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                      <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                  </li>\r\n\r\n                  <li (click)=\"reloadCurrentPage()\" [routerLinkActive]=\"['active']\" *ngIf=\"asideItem.type === 'link'\" appAccordionLink group=\"{{asideItem.state}}\">\r\n                    <a [routerLink]=\"['/', asideItem.main_state, asideItem.state]\" target=\"{{asideItem.target ? '_blank' : '_self'}}\" appAccordionToggle\r\n                      *ngIf=\"asideItem.main_state; else: mainContent\">\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"{{ asideItem.icon }}\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                      <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                    <ng-template #mainContent>\r\n                      <a [routerLink]=\"['/', asideItem.state]\" target=\"{{asideItem.target ? '_blank' : '_self'}}\" appAccordionToggle>\r\n                        <span class=\"pcoded-micon\">\r\n                          <i *ngIf=\"!asideItem.icon_customisation; else imageIcon\" class=\"{{ asideItem.icon }}\"></i>\r\n                          <ng-template #imageIcon>\r\n                            <img src=\"{{ asideItem.icon }}\">\r\n                          </ng-template>\r\n\r\n                        </span>\r\n                        <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                        <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                        <span class=\"pcoded-mcaret\"></span>\r\n                      </a>\r\n                    </ng-template>\r\n                  </li>\r\n                  <li [routerLinkActive]=\"['active']\" *ngIf=\"asideItem.type === 'sub'\" id=\"{{asideItem.state}}\" class=\"pcoded-hasmenu\" dropdown-icon=\"style3\"\r\n                    subitem-icon=\"style6\" appAccordionLink group=\"{{asideItem.state}}\">\r\n                    <a [routerLinkActive]=\"['active']\" href=\"javascript:;\" appAccordionToggle>\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"{{ asideItem.icon }}\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">{{ asideItem.name }}</span>\r\n                      <span *ngFor=\"let asideBadge of asideItem.badge\" class=\"pcoded-badge label label-{{ asideBadge.type }}\">{{asideBadge.value}}</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                    <ul class=\"pcoded-submenu\">\r\n                      <ng-template ngFor let-asideChildren [ngForOf]=\"asideItem.children\">\r\n                        <li (click)=\"reloadCurrentPage(asideItem.state)\" [routerLinkActive]=\"['active']\" *ngIf=\"asideChildren.type !== 'sub'\">\r\n                          <a [routerLink]=\"['/'+asideItem.state+'/'+asideChildren.state]\" target=\"{{asideChildren.target ? '_blank' : '_self'}}\">\r\n                            <img src=\"assets/images/ellipse-20.png\">\r\n                            <span class=\"pcoded-micon\">\r\n                              <i class=\"ti-angle-right\"></i>\r\n                            </span>\r\n                            <span class=\"pcoded-mtext\" style=\"padding-left: 6px;\">{{ asideChildren.name }} </span>\r\n                            <span *ngFor=\"let asideChildrenBadge of asideChildren.badge\" class=\"pcoded-badge label label-{{ asideChildrenBadge.type }}\">{{asideChildrenBadge.value}}</span>\r\n                            <img src=\"{{ asideChildren.img }}\" style=\"float: right;margin-right: 7px;\">\r\n                            <span class=\"pcoded-mcaret\"></span>\r\n                          </a>\r\n                        </li>\r\n\r\n                        <ng-container *ngIf=\"asideChildren.subComponentChildren\">\r\n                          <div id=\"toEnableDc{{asideChildren.id}}\" class=\"EnableDcBlock\">\r\n                            <div (click)=\"dcComp.selectDataCenterComponents(subComponentChildren.id)\" id=\"subCompChild{{subComponentChildren.id}}\" class=\"subComponent\"\r\n                              *ngFor=\"let subComponentChildren of asideChildren.subComponentChildren\">{{subComponentChildren.name}}</div>\r\n                          </div>\r\n                        </ng-container>\r\n\r\n                        <li [routerLinkActive]=\"['active']\" class=\"pcoded-hasmenu\" dropdown-icon=\"style3\" subitem-icon=\"style6\" *ngIf=\"asideChildren.type === 'sub'\"\r\n                          appAccordionLink group=\"sub-toggled\">\r\n                          <a href=\"javascript:;\" appAccordionToggle>\r\n                            <span class=\"pcoded-micon\">\r\n                              <i class=\"ti-direction-alt\"></i>\r\n                            </span>\r\n                            <span class=\"pcoded-mtext\">{{ asideChildren.name }}</span>\r\n                            <span *ngFor=\"let asideChildrenBadge of asideChildren.badge\" class=\"pcoded-badge label label-{{ asideChildrenBadge.type }}\">{{asideChildrenBadge.value}}</span>\r\n                            <span class=\"pcoded-mcaret\"></span>\r\n                          </a>\r\n                          <ul class=\"pcoded-submenu\">\r\n                            <ng-template ngFor let-asideChildrenSub [ngForOf]=\"asideChildren.children\">\r\n                              <li [routerLinkActive]=\"['active']\">\r\n                                <a [routerLink]=\"['/', asideItem.state, asideChildren.state, asideChildrenSub.state]\" target=\"{{asideChildrenSub.target ? '_blank' : '_self'}}\">\r\n                                  <span class=\"pcoded-micon\">\r\n                                    <i class=\"ti-angle-right\"></i>\r\n                                  </span>\r\n                                  <span class=\"pcoded-mtext\">{{ asideChildrenSub.name }}</span>\r\n                                  <span *ngFor=\"let asideChildrenSubBadge of asideChildrenSub.badge\" class=\"pcoded-badge label label-{{ asideChildrenSubBadge.type }}\">{{asideChildrenSubBadge.value}}</span>\r\n                                  <span class=\"pcoded-mcaret\"></span>\r\n                                </a>\r\n                              </li>\r\n                            </ng-template>\r\n                          </ul>\r\n                        </li>\r\n                      </ng-template>\r\n                    </ul>\r\n                  </li>\r\n                </ul>\r\n                <ul id=\"leftNavAlertId\" (click)=\"leftNavAlertClicked($event)\" class=\"pcoded-item pcoded-left-item\" item-border=\"none\" item-border-style=\"solid\" subitem-border=\"solid\" appAccordionLink\r\n                  group=\"alert\">\r\n                  <li appaccordionlink=\"\">\r\n                    <a appaccordiontoggle=\"\" target=\"_self\" href=\"#/alert\">\r\n                      <span class=\"pcoded-micon\">\r\n                        <i class=\"ti-alert\"></i>\r\n                      </span>\r\n                      <span class=\"pcoded-mtext\">ALERT</span>\r\n                      <span class=\"pcoded-badge label label-\">3</span>\r\n                      <span class=\"pcoded-mcaret\"></span>\r\n                    </a>\r\n                  </li>\r\n                </ul>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </nav>\r\n        <div style=\"margin-top: 56px;\" class=\"pcoded-content\">\r\n          <div class=\"pcoded-inner-content\">\r\n            <div class=\"main-body\">\r\n              <div class=\"page-wrapper\">\r\n                <!--<app-title></app-title>\r\n                  <app-breadcrumbs></app-breadcrumbs>-->\r\n                <div class=\"page-body\">\r\n                  <router-outlet>\r\n                    <spinner></spinner>\r\n                  </router-outlet>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<footer>\r\n  &copy; 2017 tekvizion PVS Inc. All Rights Reserved | PRIVACY POLICY, YOUR PRIVACY RIGHTS\r\n</footer>\r\n<go-top-button [html]=\"htmlButton\" [animate]=\"true\" [speed]=\"50\" [acceleration]=\"2\" [scrollDistance]=\"100\" [styles]=\"{\r\n                      'right': '50px',\r\n                      'bottom': '50px',\r\n                      'top': 'auto',\r\n                      'left': 'auto',\r\n                      'width': 'auto',\r\n                      'height': 'auto',\r\n                      'background' : 'transparent'\r\n                   }\">\r\n</go-top-button>"
 
 /***/ }),
 
@@ -1004,10 +1025,9 @@ module.exports = "<div id=\"pcoded\" (window:resize)=\"onResize($event)\" class=
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__("../../../../rxjs/add/operator/filter.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_animations__ = __webpack_require__("../../../animations/@angular/animations.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ngx_cookie_service__ = __webpack_require__("../../../../ngx-cookie-service/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_menu_items_menu_items__ = __webpack_require__("../../../../../src/app/shared/menu-items/menu-items.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_data_datacenter_datacenter_component__ = __webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_menu_items_menu_items__ = __webpack_require__("../../../../../src/app/shared/menu-items/menu-items.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_data_datacenter_datacenter_component__ = __webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1024,12 +1044,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 var AdminLayoutComponent = (function () {
-    function AdminLayoutComponent(menuItems, router, cookieService, modalService, dcComp) {
+    function AdminLayoutComponent(menuItems, router, modalService, dcComp) {
         this.menuItems = menuItems;
         this.router = router;
-        this.cookieService = cookieService;
         this.modalService = modalService;
         this.dcComp = dcComp;
         this.deviceType = 'desktop';
@@ -1038,24 +1056,23 @@ var AdminLayoutComponent = (function () {
         this.isCollapsedMobile = 'no-block';
         this.isCollapsedSideBar = 'no-block';
         this.toggleOn = true;
-        this.currentUser = sessionStorage.username;
+        this.currentUser = sessionStorage.name;
         var scrollHeight = window.screen.height - 150;
         this.innerHeight = scrollHeight + 'px';
         this.windowWidth = window.innerWidth;
         this.setMenuAttributs(this.windowWidth);
     }
     AdminLayoutComponent.prototype.ngOnInit = function () {
-        var _this = this;
         if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
             this.router.navigate(['login']);
         }
         setTimeout(function () {
-            if (_this.cookieService.get('leftNavSelectedMenu') != '') {
-                $('#' + _this.cookieService.get('leftNavSelectedMenu')).addClass("pcoded-trigger");
-                _this.cookieService.set('leftNavSelectedMenu', '');
+            if (sessionStorage.leftNavSelectedMenu != '') {
+                $('#' + sessionStorage.leftNavSelectedMenu).addClass("pcoded-trigger");
+                sessionStorage.setItem('leftNavSelectedMenu', '');
                 setTimeout(function () {
                     $('.EnableDcDis').removeClass('EnableDcDis').addClass('EnableDcBlock');
-                    $('#toEnableDc' + _this.cookieService.get('leftNavSelectedSubcompId')).addClass('EnableDcDis').removeClass('EnableDcBlock');
+                    $('#toEnableDc' + sessionStorage.leftNavSelectedSubcompId).addClass('EnableDcDis').removeClass('EnableDcBlock');
                 }, 1000);
             }
         }, 1000);
@@ -1064,26 +1081,39 @@ var AdminLayoutComponent = (function () {
         var _this = this;
         if (id === void 0) { id = ''; }
         setTimeout(function () {
-            if (_this.cookieService.get('currentUrl') == _this.router.url) {
+            if (sessionStorage.currentUrl == _this.router.url) {
                 if (id != '') {
-                    _this.cookieService.set('leftNavSelectedMenu', id);
+                    sessionStorage.setItem('leftNavSelectedMenu', id);
                 }
-                location.reload();
+                sessionStorage.setItem('reload_url', _this.router.url);
+                _this.router.navigate(['/reload']);
             }
             else {
-                if (_this.router.url != '/data/datacenter/' + _this.cookieService.get('leftNavSelectedSubcompId')) {
+                if (_this.router.url != '/data/datacenter/' + sessionStorage.leftNavSelectedSubcompId) {
                     $('.EnableDcDis').removeClass('EnableDcDis').addClass('EnableDcBlock');
                 }
             }
-            _this.cookieService.set('currentUrl', _this.router.url);
+            sessionStorage.setItem('currentUrl', _this.router.url);
         }, 500);
+    };
+    AdminLayoutComponent.prototype.leftNavAlertClicked = function (e) {
+        e.preventDefault();
+        if (sessionStorage.previousUrl == '/dashboard') {
+            $('html, body').animate({
+                'scrollTop': $("#alertDiv").position().top
+            });
+        }
+        else {
+            sessionStorage.setItem('alertMenuClicked', 'yes');
+            this.router.navigate(['/dashboard']);
+        }
     };
     AdminLayoutComponent.prototype.rsdClick = function () {
         this.router.navigate(['dashboard']);
     };
     AdminLayoutComponent.prototype.logoutClicked = function (e) {
         e.preventDefault();
-        this.cookieService.set('logout_clicked', 'yes');
+        sessionStorage.setItem('logout_clicked', 'yes');
         sessionStorage.clear();
         this.router.navigate(['login']);
     };
@@ -1156,10 +1186,10 @@ var AdminLayoutComponent = (function () {
         });
     };
     AdminLayoutComponent.prototype.getDismissReason = function (reason) {
-        if (reason === __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__["a" /* ModalDismissReasons */].ESC) {
+        if (reason === __WEBPACK_IMPORTED_MODULE_4__ng_bootstrap_ng_bootstrap__["a" /* ModalDismissReasons */].ESC) {
             return 'by pressing ESC';
         }
-        else if (reason === __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__["a" /* ModalDismissReasons */].BACKDROP_CLICK) {
+        else if (reason === __WEBPACK_IMPORTED_MODULE_4__ng_bootstrap_ng_bootstrap__["a" /* ModalDismissReasons */].BACKDROP_CLICK) {
             return 'by clicking on a backdrop';
         }
         else {
@@ -1189,10 +1219,10 @@ AdminLayoutComponent = __decorate([
             ])
         ]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_6__shared_menu_items_menu_items__["a" /* MenuItems */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__shared_menu_items_menu_items__["a" /* MenuItems */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4_ngx_cookie_service__["a" /* CookieService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ngx_cookie_service__["a" /* CookieService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_7__components_data_datacenter_datacenter_component__["a" /* DatacenterComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__components_data_datacenter_datacenter_component__["a" /* DatacenterComponent */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__shared_menu_items_menu_items__["a" /* MenuItems */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__shared_menu_items_menu_items__["a" /* MenuItems */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_6__components_data_datacenter_datacenter_component__["a" /* DatacenterComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__components_data_datacenter_datacenter_component__["a" /* DatacenterComponent */]) === "function" && _d || Object])
 ], AdminLayoutComponent);
 
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d;
 //# sourceMappingURL=admin-layout.component.js.map
 
 /***/ }),
@@ -1987,7 +2017,8 @@ var MENUITEMS = [
                 name: 'DASHBOARD',
                 type: 'link',
                 icon: 'ti-dashboard'
-            }, {
+            },
+            {
                 state: 'provisioning',
                 name: 'PROVISIONING',
                 type: 'link',
@@ -1999,24 +2030,6 @@ var MENUITEMS = [
                 type: 'sub',
                 icon: 'ti-world',
                 children: []
-            },
-            {
-                state: 'alert',
-                name: 'ALERT',
-                type: 'link',
-                icon: 'ti-alert',
-                badge: [
-                    {
-                        type: '',
-                        value: '3'
-                    }
-                ]
-            },
-            {
-                state: ' with-social',
-                name: 'SETTINGS',
-                type: 'link',
-                icon: 'ti-settings'
             }
         ]
     }
@@ -2069,6 +2082,50 @@ var MenuItems = (function () {
         }, 1000);
     }
     MenuItems.prototype.getAll = function () {
+        var _this = this;
+        if (sessionStorage.reloadLeftNav == 'yes') {
+            sessionStorage.setItem('reloadLeftNav', '');
+            this.config.getLeftNavDetailslist().subscribe(function (res) {
+                _this.dynamic = res;
+                _this.dynamicSubMenu = [];
+                for (var i = 0; i < res.length; i++) {
+                    _this.subComponentChildren = [];
+                    for (var j = 0; j < res[i].components.length; j++) {
+                        _this.subComponentChildren.push({
+                            'id': res[i].components[j].id,
+                            'name': res[i].components[j].name
+                        });
+                    }
+                    if (_this.dynamic[i].status == "Bad") {
+                        _this.dynamicSubMenu.push({
+                            'id': _this.dynamic[i].id,
+                            'state': 'datacenter/' + _this.dynamic[i].id,
+                            'name': _this.dynamic[i].name,
+                            'img': 'assets/images/fa-exclamation.png',
+                            'subComponentChildren': _this.subComponentChildren
+                        });
+                    }
+                    else if (_this.dynamic[i].status == "Good") {
+                        _this.dynamicSubMenu.push({
+                            'id': _this.dynamic[i].id,
+                            'state': 'datacenter/' + _this.dynamic[i].id,
+                            'name': _this.dynamic[i].name,
+                            'img': 'assets/images/status-green.png',
+                            'subComponentChildren': _this.subComponentChildren
+                        });
+                    }
+                    else if (_this.dynamic[i].status == "Alert") {
+                        _this.dynamicSubMenu.push({
+                            'id': _this.dynamic[i].id,
+                            'state': 'datacenter/' + _this.dynamic[i].id,
+                            'name': _this.dynamic[i].name,
+                            'img': 'assets/images/status-yellow.png',
+                            'subComponentChildren': _this.subComponentChildren
+                        });
+                    }
+                }
+            });
+        }
         MENUITEMS[0].main[2]['children'] = this.dynamicSubMenu;
         return MENUITEMS;
     };

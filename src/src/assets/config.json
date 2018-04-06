@@ -21,6 +21,7 @@
 		"countryUrl": "/assets/webservices/country.php",
 		"getNotificationUrl": "/assets/webservices/getNotifications.php",
 		"getStatesUrl": "/assets/webservices/state.php",
-		"getCitiesUrl": "/assets/webservices/city.php"
+		"getCitiesUrl": "/assets/webservices/city.php",
+		"customersUrl": "/assets/webservices/customers.php"
     }
 ]

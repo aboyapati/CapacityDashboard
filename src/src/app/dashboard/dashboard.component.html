@@ -5,7 +5,7 @@
 </div>
 <div class="row">
   <div class="col-md-3 col-sm-6 block">
-    <div class="card table-card" style="border: unset; background-color: #8a89891f;">
+    <div class="card table-card" style="border: unset; background-color: #8a89891f; min-height:121px;">
       <div class="row-table" style="padding-bottom: 3px;">
         <div class="col-md-12 card-block-big card-block-pd" placement="top" ngbTooltip="Inventory - End of Life / End of Sale">
           <div class="row">
@@ -33,7 +33,7 @@
   </div>
 
   <div class="col-md-3 col-sm-6 block">
-    <div class="card table-card">
+    <div class="card table-card" style="min-height:121px;">
       <div class="row-table" style="padding-bottom: 3px;">
         <div class="col-md-12 card-block-big card-block-pd">
           <div class="row">
@@ -91,7 +91,7 @@
   </div>
 
   <div class="col-md-3 col-sm-6 block">
-    <div class="card table-card">
+    <div class="card table-card" style="cursor:pointer" (click)="customerList()">
       <div class="row-table">
         <div class="col-md-12 card-block-big card-block-pd">
           <div class="row">
@@ -137,31 +137,21 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th style="border-bottom: 0;border-top: 0;">Call Metrics</th>
-                      <th style="border-bottom: 0;border-top: 0;font-size: 13px;color: #C0BEBE;">Last 24 hrs</th>
-                      <th style="border-bottom: 0;border-top: 0;text-align:right;">
-                        <div class="rsddropdown">
-                          <span (click)="callMatricsClick()" style="cursor:pointer;color:#b0bec5;font-size:20px;">...</span>
-                          <div id="callMatricsDropdown" class="rsddropdown-content">
-                            <a (click)="getCallMatrics('today')" style="text-align:center;font-size:14px;">Today</a>
-                            <a (click)="getCallMatrics('yesterday')" style="text-align:center;font-size:14px;">Yesterday</a>
-                            <a (click)="getCallMatrics('week')" style="text-align:center;font-size:14px;">1 Week</a>
-                          </div>
-                        </div>
-                      </th>
+                      <th style="border-bottom: 0;border-top: 0;padding-bottom: 12px;padding-top: 15px;">Call Metrics</th>
                     </tr>
                   </thead>
                   <tbody>
+                     <td><span style="display: block;">Data Center</span></td>
+                     <td><span style="display: block;">Total Calls</span></td>
+                     <td><span style="display: block;">Concurrent Calls</span></td>
                     <tr *ngFor="let data of datas">
                       <th style="vertical-align: middle;" scope="row">
                         <span style="margin-left: 10px;color: #2cd2ef;font-size: 18px;">{{data.name}}</span>
                       </th>
                       <td>
-                        <span style="display: block;">Total Calls</span>
                         <span style="color: #2cd2ef; font-size: 20px;">{{data.total}}</span>
                       </td>
                       <td>
-                        <span style="display: block;">Concurrent Calls</span>
                         <span style="color: #2cd2ef; font-size: 20px;">{{data.concurrent}}</span>
                       </td>
                     </tr>
@@ -175,7 +165,7 @@
     </div>
   </div>
 
-  <div class="col-lg-12">
+  <div id="alertDiv" class="col-lg-12">
     <div class="card">
       <div class="card-block">
         <div class="table-responsive" style="padding: 0px 10px 10px 10px !important;">
@@ -183,22 +173,11 @@
             <thead>
               <tr>
                 <th style="width: 150px;border-bottom: 0;">Notifications</th>
-                <th style="width: 800px;border-bottom: 0;font-size: 13px;color: #C0BEBE;">{{notificationFilterType}}</th>
-                <th style="text-align:right;border-bottom: 0;">
-                  <div class="rsddropdown">
-                    <span (click)="notificationClick()" style="cursor:pointer;color:#b0bec5;font-size:20px;">...</span>
-                    <div id="notificationDropDown" class="rsddropdown-content">
-                      <a (click)="getNotificationWithFilter('today')" style="text-align:center;font-size:14px;">Today</a>
-                      <a (click)="getNotificationWithFilter('Yesterday')" style="text-align:center;font-size:14px;">Yesterday</a>
-                      <a (click)="getNotificationWithFilter('1 Week')" style="text-align:center;font-size:14px;">1 Week</a>
-                    </div>
-                  </div>
-                </th>
               </tr>
               <tr>
                 <th style="width: 150px;border-top: 0;border-bottom:1px;">Data Center</th>
                 <th style="width: 800px;border-top: 0;border-bottom:1px;">Alert</th>
-                <th style="border-top: 0;border-bottom:1px;">Time</th>
+                <th style="border-top: 0;border-bottom:1px;text-align:right;padding-right:4%;">Time</th>
               </tr>
             </thead>
             <tbody>
@@ -208,7 +187,7 @@
                   <span class="notification{{notification.status}}">{{notification.name}}</span>
                 </th>
                 <td>{{notification.alert}}</td>
-                <td>{{notification.time}}</td>
+                <td style='text-align:right;padding-right:4%;'>{{notification.time}}</td>
               </tr>
             </tbody>
           </table>

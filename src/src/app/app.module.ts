@@ -16,7 +16,6 @@ import { BreadcrumbsComponent } from './layouts/admin/breadcrumbs/breadcrumbs.co
 import { TitleComponent } from './layouts/admin/title/title.component';
 import { ScrollModule } from './scroll/scroll.module';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { CookieService } from 'ngx-cookie-service';
 import { ConfigService } from './config.service';
 import { DatacenterComponent } from './components/data/datacenter/datacenter.component';
 
@@ -41,7 +40,6 @@ import { DatacenterComponent } from './components/data/datacenter/datacenter.com
   ],
   exports: [ScrollModule],
   providers: [
-    CookieService,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     ConfigService,
     DatacenterComponent

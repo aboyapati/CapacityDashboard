@@ -1,0 +1,37 @@
+.notificationGood{
+    margin-left: 10px;
+    color: #008000;
+  }
+  .notificationAlert{
+    margin-left: 10px;
+    color: #f1c40f;
+  }
+  .notificationBad{
+    margin-left: 10px;
+    color: #f00;
+  }
+  .rsddropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .rsddropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 10%;
+    border-radius: 6px;
+    border: 1px solid aliceblue;
+    cursor: pointer;
+    text-align: left;
+  }
+  .rsddropdown-content a {
+    color: #08070799;
+    padding: 5px 12px;
+    text-decoration: none;
+    display: block;
+    font-size: 12px;
+  }
+  .rsddropdown a:hover {background-color: #ddd}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../config.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
 declare const $: any;
 declare var Morris: any;
 
@@ -18,7 +19,9 @@ export class DashboardComponent implements OnInit {
   private notificationFilterType = 'Today';
   private notifications: any;
 
-  constructor(private config: ConfigService, private router: Router) { }
+  constructor(private config: ConfigService, private router: Router) {
+    sessionStorage.setItem('previousUrl', this.router.url);
+  }
 
   ngOnInit() {
 
@@ -51,6 +54,35 @@ export class DashboardComponent implements OnInit {
       this.getNotificationWithFilter(this.notificationFilterType);
 
     }, 100);
+
+    if (sessionStorage.alertMenuClicked == 'yes') {
+      sessionStorage.setItem('alertMenuClicked', '');
+      $('#leftNavAlertId').trigger('click');
+    }
+
+    Observable.interval(15000 * 60).subscribe(x => {
+      this.config.getDashboardData()
+        .subscribe(res => {
+
+          var dataset = [];
+
+          for (var data in res) {
+            var name = res[data].name;
+            var total = res[data].total_calls;
+            var concurrent = res[data].concurrent_calls;
+
+            var unit = {
+              name: name,
+              total: total,
+              concurrent: concurrent
+            }
+
+            dataset.push(unit);
+          }
+
+          this.datas = dataset;
+        });
+    });
 
   }
 
@@ -90,6 +122,10 @@ export class DashboardComponent implements OnInit {
     this.config.getNotification(type).subscribe(res => {
       this.notifications = res;
     });
+  }
+
+  customerList() {
+    this.router.navigate(['customers']);
   }
 
 }

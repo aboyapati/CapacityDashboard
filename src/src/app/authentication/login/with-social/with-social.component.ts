@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { ConfigService } from '../../../config.service';
 declare const $: any;
 @Component({
@@ -14,18 +13,18 @@ export class WithSocialComponent implements OnInit {
   loading_status: boolean = false;
   logout_clicked: string;
 
-  constructor(private router: Router, private cookieService: CookieService, private config: ConfigService) { }
+  constructor(private router: Router, private config: ConfigService) { }
 
   ngOnInit() {
-    if(sessionStorage.username && sessionStorage.id && typeof sessionStorage.username != 'undefined' && typeof sessionStorage.id != 'undefined') {
+    if (sessionStorage.username && sessionStorage.id && typeof sessionStorage.username != 'undefined' && typeof sessionStorage.id != 'undefined') {
       this.router.navigate(['dashboard']);
     }
 
-    this.logout_clicked = this.cookieService.get('logout_clicked');
+    this.logout_clicked = sessionStorage.logout_clicked;
 
     if (this.logout_clicked == 'yes') {
       this.loading_status = true;
-      this.cookieService.set('logout_clicked', 'no');
+      sessionStorage.setItem('logout_clicked', 'no');
     }
 
     var i = 1;
@@ -53,7 +52,7 @@ export class WithSocialComponent implements OnInit {
 
     setTimeout(() => {
       this.loading_status = true;
-    }, 9500);
+    }, 4500);
 
     $('#content').removeClass('fullwidth').delay(9).queue(function (next) {
       $(this).addClass('fullwidth');
@@ -66,19 +65,20 @@ export class WithSocialComponent implements OnInit {
     var username = e.target.elements[0].value;
     var password = e.target.elements[1].value;
 
-    setTimeout(()=>{
-    this.config.verifyLogin(username, password).subscribe(res => {
-      if (res.status == 1) {
-        this.login_status = true;
-        sessionStorage.setItem('username', res.username);
-        sessionStorage.setItem('id', res.id);
-        this.router.navigate(['dashboard']);
-      } else {
-        $('.rsdAlert').slideDown().text('Invalid Username or Password').css('background', 'red').slideUp(2000);
-      }
-    });
-    },100);
-    
+    setTimeout(() => {
+      this.config.verifyLogin(username, password).subscribe(res => {
+        if (res.status == 1) {
+          this.login_status = true;
+          sessionStorage.setItem('username', res.username);
+          sessionStorage.setItem('name', res.name);
+          sessionStorage.setItem('id', res.id);
+          this.router.navigate(['dashboard']);
+        } else {
+          $('.rsdAlert').slideDown().text('Invalid Username or Password').css('background', 'red').slideUp(2000);
+        }
+      });
+    }, 100);
+
   }
 
 }

@@ -141,7 +141,7 @@
                                                         <i id="Typebar" class="bar"></i>
                                                     </div>
                                                     <div class="form-group">
-                                                        <select [(ngModel)]="ComSubVersion" name="ComSubVersion" [disabled]="!subTypes" id="addComponentSubType">
+                                                        <select [(ngModel)]="ComSubVersion" name="ComSubVersion" id="addComponentSubType" disabled="disabled">
                                                             <option class="modal_placeholder">Sub Type</option>
                                                             <option value="{{subType.name}}" *ngFor='let subType of subTypes'>{{subType.name}}</option>
                                                         </select>
@@ -554,7 +554,7 @@
                     <div class="form-group">
                         <select id="editDataCenterTimezone">
                             <option class="modal_placeholder" value="Time zone*">Time zone*</option>
-                            <option *ngFor='let element of time_zone_list' [selected]="element.value === editData.time_zone" [value]="element.value">{{element.name}}</option>
+                            <option *ngFor='let element of time_zone_list' [selected]="element.value === editData.timezoneid" [value]="element.value">{{element.name}}</option>
                         </select>
                         <label class="control-label" for="select"></label>
                         <i id="timezoneBar" class="bar"></i>

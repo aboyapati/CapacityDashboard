@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-md-3 col-sm-3" style="font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;">
+        onPOINT HCS.Capacity
+    </div>
+    <div class="col-md-6 col-sm-6" style="padding-top:6px;text-align: center;">
+    </div>
+    <div class="col-md-3 col-sm-3 btn-top-bar">
+        <button class="btn btn-primary btn-sm btn-add-data" (click)="open(content, 0, 'add')">
+            <i class="fa fa-plus"></i> Add Customer</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 tab-tile-table table-responsive">
+        <div class="row">
+            <div class="col-sm-3">
+                <div id="imaginary_container">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" id="searchText" (change)="valuechange($event)" class="form-control" placeholder="Search">
+                        <span class="input-group-addon">
+                            <button type="submit" style="cursor:pointer">
+                                <span class="fa fa-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Data Centers</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <input type="hidden" id="cust_filter" name="cust_filter" value="" />
+                <tr *ngIf = "emptyCustomerFlag">
+                        <td align="center" colspan="6">
+                            <b>THERE ARE CURRENTLY NO CUSTOMER VIEW AVAILABLE.
+                                <br />TO ADD CUSTOMERS PLEASE USE THE
+                                <span style="color:#79A3BA; cursor:pointer;">ADD CUSTOMER WIZARD</span>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr *ngIf = "emptySearchCustomerFlag">
+                        <td align="center" colspan="6">
+                            <b>THERE ARE CURRENTLY NO CUSTOMER FOUND FOR YOUR SEARCH.
+                            </b>
+                        </td>
+                    </tr>
+                <tr *ngFor="let data of customerList , let j = index">
+                <td>{{ data.name }}</td>
+                <td>{{ data.location }}</td>
+                <td>{{ data.datacenters }}</td>
+                <td>
+                    <span class="rsddropdown-span" (click)="editCustomerClick(j)">...</span>
+                    <div id="editCustomerDropdown{{j}}" class="rsddropdown-content componentDropDownDiv">
+                        <a>View</a>
+                        <a>Edit</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

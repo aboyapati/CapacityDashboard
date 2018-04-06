@@ -26,7 +26,7 @@
                 </a>
               </li>
             </ul>-->
-            <ul  class="nav-right pro" >
+            <ul class="nav-right pro">
               <li class="header-notification">
                 <!--<a href="javascript:;">
                   <i class="ti-bell"></i>
@@ -71,14 +71,14 @@
               </li>
               <li class="user-profile header-notification">
                 <a href="#" (click)="disableRouterAction($event)">
-                  
+
                   <span class="pro-name" style="color: black">{{currentUser}}</span>
                   <i style="color: black; font-size: 20px;" class="pro-name1 fa fa-user"></i>
                   <i style="color: black" class="ti-angle-down pro-name"></i>
                 </a>
                 <ul class="show-notification profile-notification">
-                  <li class="pro-name1" >
-                    <a >
+                  <li class="pro-name1">
+                    <a>
                       <i class="fa fa-user"></i> {{currentUser}}
                     </a>
                   </li>
@@ -87,7 +87,7 @@
                       <i class="ti-settings"></i> About
                     </a>
                   </li>
-                 
+
                   <li (click)="logoutClicked($event)">
                     <a href="">
                       <i class="ti-power-off"></i> Logout
@@ -101,21 +101,21 @@
       </div>
     </nav>
     <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-body">
+      <div class="modal-body">
         <div class="modalForm">
-            <div class="form-modal">
-                <div class="header_title col-md-12">Version</div>
-                <p class="modal_version">1.0</p>
-                   
-                     <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
-                    <div style="position: absolute; top:25%; left:50%; transform: translate(-50%,-50%);" class="">
-                        <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="c('Close click')">Close</button>
-                    </div>
-                </div>
+          <div class="form-modal">
+            <div class="header_title col-md-12">Version</div>
+            <p class="modal_version">1.0</p>
+
+            <div class="col-md-12 form-modal" style="padding-bottom: 30px;">
+              <div style="position: absolute; top:25%; left:50%; transform: translate(-50%,-50%);" class="">
+                <button type="button" class="btn btn-primary save_btn btn-edit-save" (click)="c('Close click')">Close</button>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-</ng-template>
+      </div>
+    </ng-template>
 
     <div class="pcoded-main-container">
       <div class="pcoded-wrapper">
@@ -210,10 +210,11 @@
 
                         <ng-container *ngIf="asideChildren.subComponentChildren">
                           <div id="toEnableDc{{asideChildren.id}}" class="EnableDcBlock">
-                            <div (click)="dcComp.selectDataCenterComponents(subComponentChildren.id)" id="subCompChild{{subComponentChildren.id}}" class="subComponent" *ngFor="let subComponentChildren of asideChildren.subComponentChildren">{{subComponentChildren.name}}</div>
+                            <div (click)="dcComp.selectDataCenterComponents(subComponentChildren.id)" id="subCompChild{{subComponentChildren.id}}" class="subComponent"
+                              *ngFor="let subComponentChildren of asideChildren.subComponentChildren">{{subComponentChildren.name}}</div>
                           </div>
                         </ng-container>
-                        
+
                         <li [routerLinkActive]="['active']" class="pcoded-hasmenu" dropdown-icon="style3" subitem-icon="style6" *ngIf="asideChildren.type === 'sub'"
                           appAccordionLink group="sub-toggled">
                           <a href="javascript:;" appAccordionToggle>
@@ -241,6 +242,19 @@
                         </li>
                       </ng-template>
                     </ul>
+                  </li>
+                </ul>
+                <ul id="leftNavAlertId" (click)="leftNavAlertClicked($event)" class="pcoded-item pcoded-left-item" item-border="none" item-border-style="solid" subitem-border="solid" appAccordionLink
+                  group="alert">
+                  <li appaccordionlink="">
+                    <a appaccordiontoggle="" target="_self" href="#/alert">
+                      <span class="pcoded-micon">
+                        <i class="ti-alert"></i>
+                      </span>
+                      <span class="pcoded-mtext">ALERT</span>
+                      <span class="pcoded-badge label label-">3</span>
+                      <span class="pcoded-mcaret"></span>
+                    </a>
                   </li>
                 </ul>
               </div>
