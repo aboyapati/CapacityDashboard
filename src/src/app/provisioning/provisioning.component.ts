@@ -3,6 +3,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigService } from '../config.service';
 import { Router } from '@angular/router';
 import { MenuItems } from '../shared/menu-items/menu-items';
+import { LowerCasePipe } from '@angular/common';
 declare const $: any;
 
 @Component({
@@ -494,7 +495,7 @@ export class ProvisioningComponent implements OnInit {
     }
     //Thresholds Validation Ends
     if (this.subTypes) {
-	  if (this.ComVersion == 'Type*') {
+      if (this.ComVersion == 'Type*') {
         $('#add-ComSubVersion').css('border-bottom', '0.0625rem solid #999');
       } else if (this.ComSubVersion == 'Sub Type' && this.subTypes.length > 0) {
         $('#add-ComSubVersion').css('border-bottom', '0.0625rem solid red');
@@ -626,6 +627,8 @@ export class ProvisioningComponent implements OnInit {
           $('.modalForm').hide();
           $('.apiResponseDiv').show();
           if (res.status == 'success') {
+            sessionStorage.setItem('reloadLeftNav', 'yes');
+            this.menuItems.getAll();
             $('#callMatricsDropdown' + this.editIdIndex).hide();
             this.provisioningList(this.editData.id, true);
             $('.apiFailed').hide();
@@ -825,6 +828,8 @@ export class ProvisioningComponent implements OnInit {
           $('.modalForm').hide();
           $('.apiResponseDiv').show();
           if (res.status == 'success') {
+            sessionStorage.setItem('reloadLeftNav', 'yes');
+            this.menuItems.getAll();
             $('#editComponentDropdown' + this.currentRow).hide();
             this.setDataCenterComponnets(this.currentDC);
             $('.apiFailed').hide();
@@ -880,11 +885,15 @@ export class ProvisioningComponent implements OnInit {
         } else {
           $('#withoutdcBlock').show();
         }
+
         if (loop_status) {
           id = this.findDataCenterIndex(id);
         }
+
         this.selectedDataCenter = id;
-        this.dataCenterScrollClick(id, 'auto');
+        if (this.dataCenters.length > 0) {
+          this.dataCenterScrollClick(id, 'scroll');
+        }
       });
     }, 100);
   }
@@ -950,6 +959,7 @@ export class ProvisioningComponent implements OnInit {
             this.timezone = 'Time zone*';
             $('.apiFailed').hide();
             $('.apiSuccess').show();
+            $('#withoutdcBlock').hide();
             sucflag = true;
           } else {
             $('#apiErrorMsg').html(res.message);
@@ -1038,12 +1048,12 @@ export class ProvisioningComponent implements OnInit {
     } else {
       this.config.getSubtypes(name).subscribe(res => {
         this.subTypes = res;
-		this.ComSubVersion = "Sub Type";
-		if(this.subTypes.length == 0) {
-			$("#addComponentSubType").prop("disabled", true);
-		} else {
-			$("#addComponentSubType").prop("disabled", false);
-		}
+        this.ComSubVersion = "Sub Type";
+        if (this.subTypes.length == 0) {
+          $("#addComponentSubType").prop("disabled", true);
+        } else {
+          $("#addComponentSubType").prop("disabled", false);
+        }
       });
     }
   }
@@ -1055,12 +1065,12 @@ export class ProvisioningComponent implements OnInit {
     } else {
       this.config.getSubtypes(name).subscribe(res => {
         this.subTypesEdit = res;
-		this.editComponentVersion = "Sub Type";
-		if(this.subTypesEdit.length == 0) {
-			$("#editComponentVersion").prop("disabled", true);
-		} else {
-			$("#editComponentVersion").prop("disabled", false);
-		}
+        this.editComponentVersion = "Sub Type";
+        if (this.subTypesEdit.length == 0) {
+          $("#editComponentVersion").prop("disabled", true);
+        } else {
+          $("#editComponentVersion").prop("disabled", false);
+        }
       });
     }
     if (name == 'NEXUS') {

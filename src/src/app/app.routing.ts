@@ -47,6 +47,15 @@ export const AppRoutes: Routes = [{
     }, {
       path: 'reload',
       loadChildren: './reload/reload.module#ReloadModule'
+    }, {
+      path: 'license',
+      loadChildren: './license/license.module#LicenseModule'
+    }, {
+      path: 'customerview',
+      loadChildren: './customerview/customerview.module#CustomerviewModule'
+    }, {
+      path: 'report',
+      loadChildren: './report/report.module#ReportModule'
     }
   ]
 }, {

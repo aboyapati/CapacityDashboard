@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-sm-12" style="font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;">
+        onPOINT HCS.Capacity
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 tab-tile-table table-responsive">
+        <div class="row">
+            <div class="col-md-4">
+                <h3><b style="color: #3b4147;">Customer License</b></h3>
+            </div>
+        </div>
+        <div *ngIf="(customerFlagMessage); then thenDiv;else elseDiv">
+        </div>
+        <ng-template #thenDiv>
+            <div class="row" style="margin-top:40px;">
+                <div class="col-md-12">
+                    <span>
+                        <b>THERE ARE CURRENTLY NO CUSTOMERS AVAILABLE
+                        </b>
+                    </span>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #elseDiv>
+            <div class="row" style="margin-top: 15px;">
+                <div class="col-md-4">
+                    <div class="form-modal">
+                        <div class="form-group">
+                            <label id="customer_placeholder" class="control-label" for="select">Select Customer</label>
+                            <select class="form-control" (change)="customeOnChange(customer)" [(ngModel)]="customer" name="customer">
+                                <option *ngFor="let customer of customersList" value="{{customer.id}}">{{customer.name}}</option>
+                            </select>
+                            <i class="bar"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="row">
+                <div class="col-md-4">
+                    <span>
+                        <b>License Status</b>
+                    </span>
+                </div>
+            </div>-->
+            <br>
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">License Type</th>
+                            <th scope="col">Consumed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="licenseFlagMessage">
+                            <td align="center" colspan="2">
+                                <b>THERE ARE CURRENTLY NO LICENSE FOUND</b>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let data of licenseList , let j = index">
+                            <td>{{ data.type }}</td>
+                            <td>{{ data.consumed }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ng-template>
+    </div>
+</div>

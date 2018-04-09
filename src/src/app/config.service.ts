@@ -29,6 +29,8 @@ export class ConfigService {
   getStatesUrl: any;
   getCitiesUrl: any;
   customersUrl: any;
+  customerListUrl: any;
+  getCustomerLicenseUrl: any;
 
   constructor(private http: Http) {
     this.http.get('assets/config.json')
@@ -47,6 +49,8 @@ export class ConfigService {
         this.componentDeleteUrl = this.BASE_URL + result[0].componentDeleteUrl;
         this.countryUrl = this.BASE_URL + result[0].countryUrl;
         this.customersUrl = this.BASE_URL + result[0].customersUrl;
+        this.customerListUrl = this.BASE_URL + result[0].customerListUrl;
+        this.getCustomerLicenseUrl = this.BASE_URL + result[0].getCustomerLicenseUrl;
         this.leftNavDetailUrl = this.BASE_URL + result[0].leftNavDetailUrl;
         this.getComponentListUrl = this.BASE_URL + result[0].getComponentListUrl;
         this.getSubComponentListUrl = this.BASE_URL + result[0].getSubComponentListUrl;
@@ -86,6 +90,18 @@ export class ConfigService {
     let options = new RequestOptions({ headers: headers });
     let body = 'keyword=' + key;
     return this.http.post(this.customersUrl, body, options).map((res: Response) => res.json());
+  }
+
+  getCustomerLicense(id) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'id=' + id;
+    return this.http.post(this.getCustomerLicenseUrl, body, options).map((res: Response) => res.json());
+  }
+
+  getCustomer() {
+    return this.http.get(this.customerListUrl)
+      .map((result) => result.json());
   }
 
   getCountryList() {
@@ -208,4 +224,5 @@ export class ConfigService {
   }
 
   BASE_URL = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+
 }    

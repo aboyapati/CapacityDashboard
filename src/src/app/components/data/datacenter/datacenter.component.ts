@@ -4,6 +4,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
 import { Router } from '@angular/router';
+import { LowerCasePipe } from '@angular/common';
 declare const $: any;
 
 @Component({
@@ -155,8 +156,10 @@ export class DatacenterComponent implements OnInit {
 
   subComponentPopUp() {
     this.config.getsubComponentPopUp(this.popUptypeId, this.popUpsubComponentName).subscribe(res_pop => {
-      this.subComponentPopUpdata = res_pop;
-      this.subComponentModal(res_pop);
+      if (!$.isEmptyObject(res_pop)) {
+        this.subComponentPopUpdata = res_pop;
+        this.subComponentModal(res_pop);
+      }
     });
   }
 
@@ -178,9 +181,9 @@ export class DatacenterComponent implements OnInit {
 
       var subCoId = 1;
 
-      if (this.subComponents && (this.subComponents.length > 1)) {
+      if (this.subComponents && (this.subComponents.length > 0)) {
         this.subCoFlag = false;
-		setTimeout(() => {
+        setTimeout(() => {
           this.subComponents.forEach(subCo => {
             this.makeDynamicChart(subCoId++, subCo.status, subCo.consumed, subCo.total, (subCo.consumed / subCo.total) * 100);
           });
@@ -204,7 +207,9 @@ export class DatacenterComponent implements OnInit {
 
   filterSubcoPopup(months) {
     $('#callMatricsDropdown').hide();
-    this.subComponentModal(this.subComponentPopUpdata, months);
+    if (!$.isEmptyObject(this.subComponentPopUpdata)) {
+      this.subComponentModal(this.subComponentPopUpdata, months);
+    }
   }
 
   subCoPopupFilter() {
@@ -445,7 +450,7 @@ export class DatacenterComponent implements OnInit {
 
   makeDynamicChart(id, status, consumed, total, value) {
     value = Math.round(value * 100) / 100;
-    if(!$.isNumeric( value )) {
+    if (!$.isNumeric(value)) {
       value = 0;
     }
     if (status == 'Good') {

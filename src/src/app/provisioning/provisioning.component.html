@@ -46,7 +46,7 @@
                 </div>
             </ng-template>
             <div class="data-center-image d-flex justify-content-center">
-                <img bind-src="imgUrl" class="img-thumbnail">
+                <img src="assets/images/{{dataCenter.status | lowercase}}dc.png" class="img-thumbnail">
             </div>
             <p class="data-center">{{dataCenter.name}}</p>
             <p class="data-center-body">{{dataCenter.city}}, {{dataCenter.state}}</p>
@@ -372,7 +372,7 @@
                     <th scope="col">Type</th>
                     <th scope="col">Version</th>
                     <th scope="col">IP Address</th>
-                    <th scope="col">Credentials</th>
+                    <th scope="col" style="text-align:center;">Credentials</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -390,7 +390,7 @@
                     <td>{{ data.ipAddress }}</td>
                     <td class="text-center">
                         <span (click)="hide(j)" class="span{{j}}" style="color: #0056b3;cursor: pointer;">View</span>
-                        <p class="cred cred{{j}}">Username : {{data.componentUser}}
+                        <p class="cred cred{{j}}" style="text-align:center;">Username : {{data.componentUser}}
                             <br> Password : {{data.password}}</p>
                     </td>
                     <td>

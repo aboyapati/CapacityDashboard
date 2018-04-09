@@ -37,8 +37,8 @@ td {
     color: #73787d;
 }
 .img-thumbnail {
-    width: 100px;
-    height: 100px;
+    /*width: 100px;
+    height: 100px;*/
     background-color: unset;
     border: 0px;
 }

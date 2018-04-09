@@ -16,7 +16,7 @@
         <div [style.display]="j>=scrollLimitMin && j<=scrollLimitMax ? 'block' : 'none'" class="col-md-3 col-sm-6 tab-tile" id="cmp_div_{{component.id}}"
             (click)="componnetScrollClick(j,'direct')">
             <div class="data-center-image d-flex justify-content-center">
-                <img bind-src="imgUrl" class="comp-img-thumbnail img-thumbnail">
+                <img src="assets/images/{{component.status | lowercase}}.png" class="comp-img-thumbnail img-thumbnail">
             </div>
             <p class="data-center">{{component.name}}</p>
         </div>
