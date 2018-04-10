@@ -5,6 +5,6 @@ export const CustomerviewRoutes: Routes = [{
     path: '',
     component: CustomerviewComponent,
     data: {
-        breadcrumb: 'Blank Page'
+        breadcrumb: ''
     }
 }];

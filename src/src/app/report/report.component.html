@@ -2,13 +2,78 @@
     <div class="col-md-3 col-sm-3" style="font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;">
         onPOINT HCS.Capacity
     </div>
-</div>
-<div class="row" style="background-color: #fafafa; padding: 20px;">
-    <div class="col-md-6 col-sm-6" style="color: #3b4147; font-size: 15px; font-weight: bold;">
-        Click the Export button to Export data.
+    <div class="col-md-6 col-sm-6" style="padding-top:6px;text-align: center;">
+        <span>
+            <span *ngFor="let dC of dataCenters; let i = index">
+                <span class="icon-name">&nbsp;</span>
+                <div *ngIf="i==selectedDataCenter;then bubble1; else bubble2"></div>
+                <ng-template #bubble1>
+                    <span style="cursor: pointer;font-size:15px;" (click)="dataCenterScrollClick(i)" id="dataCenterScroll{{i}}" class="fa fa-circle"></span>
+                </ng-template>
+                <ng-template #bubble2>
+                    <span style="cursor: pointer;" (click)="dataCenterScrollClick(i)" id="dataCenterScroll{{i}}" class="ti-control-record"></span>
+                </ng-template>
+            </span>
+        </span>
     </div>
-    <div class="col-md-6" style="text-align: right;">
-        <button class="btn btn-primary btn-add-data">
-            <i class="fa fa-save"></i> Export</button>
+</div>
+<div class="row" id="withdcBlock" style="display:none">
+    <ng-container *ngFor="let dataCenter of dataCenters, let i = index">
+        <div [style.display]="i>=scrollLimitMin && i<=scrollLimitMax ? 'block' : 'none'" class="col-md-3 col-sm-6 tab-tile {{ (i == selectedDataCenter) ? 'tab-tile-active' : ''}}"
+            id="{{i}}" (click)="dataCenterScrollClick(i,'direct')">
+            <div class="data-center-image d-flex justify-content-center">
+                <img src="assets/images/icon-cube.png" class="img-thumbnail">
+            </div>
+            <p class="data-center">{{dataCenter.name}}</p>
+            <p class="data-center-body">{{dataCenter.city}}, {{dataCenter.state}}</p>
+            <p class="data-center-body">{{dataCenter.country}}</p>
+            <p class="data-center-body">{{dataCenter.time_zone}}</p>
+        </div>
+    </ng-container>
+    <div class="col-md-12 tab-tile-table table-responsive">
+        <div *ngIf="!showNullRowMessage" style="float: right;padding: 0px 0px 20px 0px;cursor: pointer;">
+            <select (change)="changeSelectComponent()" name="selectedComponents" id="selectedComponents" class="form-control">
+                <option value="">Select All</option>
+                <option *ngFor='let components of dataCentersDetails' [value]="components.id">{{components.name}}</option>
+            </select>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Report Name</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <input type="hidden" id="comp_filter" name="comp_filter" value="" />
+                <tr *ngIf="!reportStatus">
+                    <td align="center" colspan="6">
+                        <b>THERE ARE CURRENTLY NO REPORTS AVAILABLE FOR THIS DATA CENTER.
+                        </b>
+                    </td>
+                </tr>
+                <tr *ngFor="let report of reportList, let j = index">
+                    <td></td>
+                    <td>{{ report.name }}</td>
+                    <td></td>
+                    <td></td>
+                    <td (click)="downloadReport(report.id)" style="text-decoration: underline;color: blue;cursor: pointer;">Download</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row" style="clear:both;">
+    <div id="withoutdcBlock" class="col-md-12 tab-tile-table table-responsive text-center" style="display:none">
+        <span style="font-weight:bold;">
+            <b>THERE ARE CURRENTLY NO DATA CENTERS AVAILABLE.
+            </b>
+        </span>
     </div>
 </div>

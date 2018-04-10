@@ -29,9 +29,9 @@
             <thead>
                 <tr>
                     <th scope="col">Customer Name</th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Data Centers</th>
-                    <th scope="col"></th>
+                    <th scope="col" style="text-align:center;">Users</th>
+                    <th scope="col" style="text-align:center;">Data Centers</th>
+                    <th scope="col" style="text-align:center;"></th>
                 </tr>
             </thead>
             <tbody>
@@ -52,12 +52,12 @@
                     </tr>
                 <tr *ngFor="let data of customerList , let j = index">
                 <td>{{ data.name }}</td>
-                <td>{{ data.location }}</td>
-                <td>{{ data.datacenters }}</td>
+                <td style="text-align:center;">{{ data.users }}</td>
+                <td style="text-align:center;">{{ data.datacenters }}</td>
                 <td>
                     <span class="rsddropdown-span" (click)="editCustomerClick(j)">...</span>
                     <div id="editCustomerDropdown{{j}}" class="rsddropdown-content componentDropDownDiv">
-                        <a>View</a>
+                        <a (click)="redirectCustomerView(data.id)">View</a>
                         <a>Edit</a>
                     </div>
                 </td>

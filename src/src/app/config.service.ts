@@ -31,6 +31,10 @@ export class ConfigService {
   customersUrl: any;
   customerListUrl: any;
   getCustomerLicenseUrl: any;
+  getDataCenterListCustomer: any;
+  getComponetCustomer: any;
+  getReportNamesUrl: any;
+  getDownloadReportUrl: any;
 
   constructor(private http: Http) {
     this.http.get('assets/config.json')
@@ -60,6 +64,10 @@ export class ConfigService {
         this.getNotificationUrl = this.BASE_URL + result[0].getNotificationUrl;
         this.getStatesUrl = this.BASE_URL + result[0].getStatesUrl;
         this.getCitiesUrl = this.BASE_URL + result[0].getCitiesUrl;
+        this.getDataCenterListCustomer = this.BASE_URL + result[0].getDataCenterListCustomer;
+        this.getComponetCustomer = this.BASE_URL + result[0].getComponetCustomer;
+        this.getReportNamesUrl = this.BASE_URL + result[0].getReportNamesUrl;
+        this.getDownloadReportUrl = this.BASE_URL + result[0].getDownloadReportUrl;
       });
   }
 
@@ -221,6 +229,34 @@ export class ConfigService {
     let options = new RequestOptions({ headers: headers });
     let body = 'state=' + state;
     return this.http.post(this.getCitiesUrl, body, options).map((res: Response) => res.json());
+  }
+
+  getDataCenterListCusView(customerId) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'customerId=' + customerId;
+    return this.http.post(this.getDataCenterListCustomer, body, options).map((res: Response) => res.json());
+  }
+
+  getComponetCusView(id) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'id=' + id;
+    return this.http.post(this.getComponetCustomer, body, options).map((res: Response) => res.json());
+  }
+
+  getReportNames(id, componentId) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'id=' + id + '&componentId=' + componentId;
+    return this.http.post(this.getReportNamesUrl, body, options).map((res: Response) => res.json());
+  }
+
+  getDownloadReport(id, fromDate, toDate, reportId) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'id=' + id + '&fromDate=' + fromDate + '&toDate=' + toDate + '&reportId=' + reportId;
+    return this.http.post(this.getDownloadReportUrl, body, options).map((res: Response) => res.json());
   }
 
   BASE_URL = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');

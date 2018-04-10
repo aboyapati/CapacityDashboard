@@ -61,4 +61,8 @@ export class CustomersComponent implements OnInit {
     }
   }
 
+  redirectCustomerView(id) {
+    this.router.navigate(['customerview', id]);
+  }
+
 }

@@ -29,14 +29,14 @@
     margin-bottom: 1px;
     font-weight: 600;
 }
-.sub-comp-p-head {
+.comp-p-head {
     color: #415166;
     font-size: 20px;
     text-align: center;
     margin-bottom: 1px;
     font-weight: 600;
 }
-.sub-comp-p-body {
+.comp-p-body {
     color: #415166;
     font-size: 15px;
     text-align: center;
@@ -46,6 +46,7 @@
 .component-main {
     background-color: #ebebeb;
     padding: 0px;
+    min-height: 450px;
 }
 .tab-row {
     margin-left: 0px;
@@ -89,23 +90,23 @@
     margin-bottom: 45px;
     padding: 0px;
 }
-.sub-comp-body {
+.comp-body {
     padding-top: 15px;
     padding-bottom: 15px;
     border-right: 40px solid #ebebeb;
     border-left: 40px solid #ebebeb;
     background-color: #ebebeb;
 }
-.sub-comp-tile {
+.comp-tile {
     padding: 0px;
     background-color: #fafafa;
     padding-top: 15px;
     padding-bottom: 15px;
 }
-.sub-comp-active {
+.comp-active {
     background-color: #c7cacf;
 }
-.sub-comp-data {
+.comp-data {
     padding: 0px;
     background-color: #c7cacf;
     padding-top: 15px;
@@ -118,11 +119,11 @@
     margin-right: 0px;
     background-color: #ebebeb;
 }
-.sub-comp-tile:hover {
+.comp-tile:hover {
     cursor: pointer;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
 }
-.sub-comp-active:hover {
+.comp-active:hover {
     cursor: default;
     box-shadow: unset;
 }

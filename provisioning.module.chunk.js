@@ -187,7 +187,7 @@ module.exports = "<div class=\"row\">\r\n    <div class=\"col-md-3 col-sm-3\" st
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_service__ = __webpack_require__("../../../../../src/app/config.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_menu_items_menu_items__ = __webpack_require__("../../../../../src/app/shared/menu-items/menu-items.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__layouts_admin_admin_layout_component__ = __webpack_require__("../../../../../src/app/layouts/admin/admin-layout.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -203,11 +203,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var ProvisioningComponent = (function () {
-    function ProvisioningComponent(modalService, config, router, menuItems) {
+    function ProvisioningComponent(modalService, config, router, adminLayoutComponnet) {
         this.modalService = modalService;
         this.config = config;
         this.router = router;
-        this.menuItems = menuItems;
+        this.adminLayoutComponnet = adminLayoutComponnet;
         this.imgUrl = "assets/images/icon-cube.png";
         this.callMatricsFilter = false;
         this.editComponentFilter = false;
@@ -308,8 +308,7 @@ var ProvisioningComponent = (function () {
             $('.apiResponseDiv').show();
             if (res.status == 'success') {
                 _this.provisioningList();
-                sessionStorage.setItem('reloadLeftNav', 'yes');
-                _this.menuItems.getAll();
+                _this.adminLayoutComponnet.setDcLeftNav();
                 $('.apiFailed').hide();
                 $('.apiSuccess').show();
             }
@@ -442,8 +441,7 @@ var ProvisioningComponent = (function () {
                     _this.provisioningList();
                     _this.apiError = 1;
                     _this.currentDataCenterComponentId = res.component_id;
-                    sessionStorage.setItem('reloadLeftNav', 'yes');
-                    _this.menuItems.getAll();
+                    _this.adminLayoutComponnet.setDcLeftNav();
                     $('#apiErrorMsg').hide();
                     $('#complete-title').html("Complete");
                     $('#complete-title').attr('style', 'color: #7bbf6a !important');
@@ -813,8 +811,7 @@ var ProvisioningComponent = (function () {
                     $('.modalForm').hide();
                     $('.apiResponseDiv').show();
                     if (res.status == 'success') {
-                        sessionStorage.setItem('reloadLeftNav', 'yes');
-                        _this.menuItems.getAll();
+                        _this.adminLayoutComponnet.setDcLeftNav();
                         $('#callMatricsDropdown' + _this.editIdIndex).hide();
                         _this.provisioningList(_this.editData.id, true);
                         $('.apiFailed').hide();
@@ -1030,8 +1027,7 @@ var ProvisioningComponent = (function () {
                     $('.modalForm').hide();
                     $('.apiResponseDiv').show();
                     if (res.status == 'success') {
-                        sessionStorage.setItem('reloadLeftNav', 'yes');
-                        _this.menuItems.getAll();
+                        _this.adminLayoutComponnet.setDcLeftNav();
                         $('#editComponentDropdown' + _this.currentRow).hide();
                         _this.setDataCenterComponnets(_this.currentDC);
                         $('.apiFailed').hide();
@@ -1169,8 +1165,7 @@ var ProvisioningComponent = (function () {
                         $('.apiFailed').show();
                     }
                     if (sucflag != false) {
-                        sessionStorage.setItem('reloadLeftNav', 'yes');
-                        _this.menuItems.getAll();
+                        _this.adminLayoutComponnet.setDcLeftNav();
                         var lastInsertedDataCenterId = res.id;
                         _this.provisioningList(lastInsertedDataCenterId, true);
                     }
@@ -1298,8 +1293,7 @@ var ProvisioningComponent = (function () {
             $('.apiResponseDivComponent').show();
             if (res.status == 'success') {
                 componentFlag = true;
-                sessionStorage.setItem('reloadLeftNav', 'yes');
-                _this.menuItems.getAll();
+                _this.adminLayoutComponnet.setDcLeftNav();
                 $('.apiFailed').hide();
                 $('.apiSuccess').show();
             }
@@ -1382,7 +1376,7 @@ ProvisioningComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/provisioning/provisioning.component.html"),
         styles: [__webpack_require__("../../../../../src/app/provisioning/provisioning.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__config_service__["a" /* ConfigService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__config_service__["a" /* ConfigService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["f" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__shared_menu_items_menu_items__["a" /* MenuItems */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__shared_menu_items_menu_items__["a" /* MenuItems */]) === "function" && _d || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["b" /* NgbModal */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__config_service__["a" /* ConfigService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__config_service__["a" /* ConfigService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["f" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__layouts_admin_admin_layout_component__["a" /* AdminLayoutComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__layouts_admin_admin_layout_component__["a" /* AdminLayoutComponent */]) === "function" && _d || Object])
 ], ProvisioningComponent);
 
 var _a, _b, _c, _d;

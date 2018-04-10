@@ -51,7 +51,7 @@ export const AppRoutes: Routes = [{
       path: 'license',
       loadChildren: './license/license.module#LicenseModule'
     }, {
-      path: 'customerview',
+      path: 'customerview/:userId',
       loadChildren: './customerview/customerview.module#CustomerviewModule'
     }, {
       path: 'report',

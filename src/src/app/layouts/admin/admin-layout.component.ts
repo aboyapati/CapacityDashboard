@@ -5,6 +5,7 @@ import { state, style, transition, animate, trigger, AUTO_STYLE } from '@angular
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MenuItems } from '../../shared/menu-items/menu-items';
 import { DatacenterComponent } from '../../components/data/datacenter/datacenter.component';
+import { ConfigService } from '../../config.service';
 
 declare const $: any;
 
@@ -53,11 +54,166 @@ export class AdminLayoutComponent implements OnInit {
 
   public htmlButton: string;
 
-  constructor(public menuItems: MenuItems, private router: Router, private modalService: NgbModal, public dcComp: DatacenterComponent) {
+  public dynamicSubMenu: any;
+  public dynamic: any;
+  public subComponentChildren: any;
+  public MENUITEMS: any;
+
+  constructor(public menuItems: MenuItems, private router: Router, private modalService: NgbModal, public dcComp: DatacenterComponent, private config: ConfigService) {
     const scrollHeight = window.screen.height - 150;
     this.innerHeight = scrollHeight + 'px';
     this.windowWidth = window.innerWidth;
     this.setMenuAttributs(this.windowWidth);
+    this.setMenu();
+  }
+
+  setMenu() {
+    setTimeout(() => {
+      this.config.getLeftNavDetailslist().subscribe(res => {
+        this.dynamic = res;
+        this.dynamicSubMenu = [];
+        for (let i = 0; i < res.length; i++) {
+
+          this.subComponentChildren = [];
+          for (let j = 0; j < res[i].components.length; j++) {
+            this.subComponentChildren.push({
+              'id': res[i].components[j].id,
+              'name': res[i].components[j].name
+            });
+          }
+
+          if (this.dynamic[i].status == "Bad") {
+            this.dynamicSubMenu.push({
+              'id': this.dynamic[i].id,
+              'state': 'datacenter/' + this.dynamic[i].id,
+              'name': this.dynamic[i].name,
+              'img': 'assets/images/fa-exclamation.png',
+              'subComponentChildren': this.subComponentChildren
+            });
+          }
+          else if (this.dynamic[i].status == "Good") {
+            this.dynamicSubMenu.push({
+              'id': this.dynamic[i].id,
+              'state': 'datacenter/' + this.dynamic[i].id,
+              'name': this.dynamic[i].name,
+              'img': 'assets/images/status-green.png',
+              'subComponentChildren': this.subComponentChildren
+            });
+          }
+          else if (this.dynamic[i].status == "Alert") {
+            this.dynamicSubMenu.push({
+              'id': this.dynamic[i].id,
+              'state': 'datacenter/' + this.dynamic[i].id,
+              'name': this.dynamic[i].name,
+              'img': 'assets/images/status-yellow.png',
+              'subComponentChildren': this.subComponentChildren
+            });
+          }
+
+        }
+      });
+    }, 500);
+    setTimeout(() => {
+      this.MENUITEMS = [
+        {
+          label: 'Layout',
+          main: [
+            {
+              state: 'dashboard',
+              name: 'DASHBOARD',
+              type: 'link',
+              icon: 'ti-dashboard'
+            },
+            {
+              state: 'provisioning',
+              name: 'PROVISIONING',
+              type: 'link',
+              icon: 'fa fa-compress',
+            },
+            {
+              state: 'data',
+              name: 'DATA CENTERS',
+              type: 'sub',
+              icon: 'ti-world',
+              children: []
+            },
+            {
+              state: 'license',
+              name: 'CUSTOMER LICENSE',
+              type: 'link',
+              icon: 'fa fa-id-card'
+            },
+            {
+              state: 'customers',
+              name: 'CUSTOMERS',
+              type: 'link',
+              icon: 'fa fa-users'
+            },
+            {
+              state: 'report',
+              name: 'REPORT',
+              type: 'link',
+              icon: 'fa fa-file'
+            }
+          ]
+        }
+      ];
+      this.MENUITEMS[0].main[2]['children'] = this.dynamicSubMenu;
+    }, 1000);
+  }
+
+  setDcLeftNav() {
+    this.MENUITEMS[0].main[2]['children'] = [];
+    setTimeout(() => {
+      this.config.getLeftNavDetailslist().subscribe(res => {
+        this.dynamic = res;
+        this.dynamicSubMenu = [];
+        for (let i = 0; i < res.length; i++) {
+
+          this.subComponentChildren = [];
+          for (let j = 0; j < res[i].components.length; j++) {
+            this.subComponentChildren.push({
+              'id': res[i].components[j].id,
+              'name': res[i].components[j].name
+            });
+          }
+
+          if (this.dynamic[i].status == "Bad") {
+            this.dynamicSubMenu.push({
+              'id': this.dynamic[i].id,
+              'state': 'datacenter/' + this.dynamic[i].id,
+              'name': this.dynamic[i].name,
+              'img': 'assets/images/fa-exclamation.png',
+              'subComponentChildren': this.subComponentChildren
+            });
+          }
+          else if (this.dynamic[i].status == "Good") {
+            this.dynamicSubMenu.push({
+              'id': this.dynamic[i].id,
+              'state': 'datacenter/' + this.dynamic[i].id,
+              'name': this.dynamic[i].name,
+              'img': 'assets/images/status-green.png',
+              'subComponentChildren': this.subComponentChildren
+            });
+          }
+          else if (this.dynamic[i].status == "Alert") {
+            this.dynamicSubMenu.push({
+              'id': this.dynamic[i].id,
+              'state': 'datacenter/' + this.dynamic[i].id,
+              'name': this.dynamic[i].name,
+              'img': 'assets/images/status-yellow.png',
+              'subComponentChildren': this.subComponentChildren
+            });
+          }
+
+        }
+      });
+    }, 1000);
+
+    setTimeout(() => {
+      this.MENUITEMS[0].main[2]['children'] = this.dynamicSubMenu;
+    }, 2000);
+
   }
 
   ngOnInit() {

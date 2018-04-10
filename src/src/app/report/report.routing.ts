@@ -5,6 +5,6 @@ export const ReportRoutes: Routes = [{
     path: '',
     component: ReportComponent,
     data: {
-        breadcrumb: 'Blank Page'
+        breadcrumb: 'Report'
     }
 }];

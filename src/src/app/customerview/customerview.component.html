@@ -4,67 +4,48 @@
     </div>
     <div class="col-md-6 col-sm-6" style="padding-top:6px;text-align: center;">
         <span>
-            <span>
+            <span *ngFor="let dC of dataCenters">
                 <span class="icon-name">&nbsp;</span>
-                <span style="cursor: pointer;font-size:15px;" class="fa fa-circle"></span>
-                <span style="cursor: pointer;" class="ti-control-record"></span>
-                <span style="cursor: pointer;" class="ti-control-record"></span>
+                <div *ngIf="dC.id == selectedDataCenter;then bubble1; else bubble2"></div>
+                <ng-template #bubble1>
+                    <span style="cursor: pointer;font-size:15px;" (click)="dataCenterClick(dC.id)" class="fa fa-circle"></span>
+                </ng-template>
+                <ng-template #bubble2>
+                    <span style="cursor: pointer;" (click)="dataCenterClick(dC.id)" class="ti-control-record"></span>
+                </ng-template>
             </span>
         </span>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-3 col-sm-6 tab-tile tab-tile-active">
+    <div *ngFor="let dataCenter of dataCenters" id="dataCenter{{dataCenter.id}}" class="col-md-3 col-sm-6 tab-tile {{ dataCenter.id == selectedDataCenter ? 'tab-tile-active' : ''}}" (click)="dataCenterClick(dataCenter.id)">
         <div class="d-flex justify-content-center">
             <img bind-src="imgUrl" class="img-thumbnail">
         </div>
-        <p class="data-center">Data Center 1</p>
-        <p class="data-center-body">Plano, Texas</p>
-        <p class="data-center-body">United States</p>
-        <p class="data-center-body">IST</p>
-    </div>
-    <div class="col-md-3 col-sm-6 tab-tile">
-        <div class="d-flex justify-content-center">
-            <img bind-src="imgUrl" class="img-thumbnail">
-        </div>
-        <p class="data-center">Data Center 2</p>
-        <p class="data-center-body">Melbourne, Victoria</p>
-        <p class="data-center-body">Australia</p>
-        <p class="data-center-body">ATC</p>
-    </div>
-    <div class="col-md-3 col-sm-6 tab-tile">
-        <div class="d-flex justify-content-center">
-            <img bind-src="imgUrl" class="img-thumbnail">
-        </div>
-        <p class="data-center">Data Center 3</p>
-        <p class="data-center-body">Toronto, Ontario</p>
-        <p class="data-center-body">Canada</p>
-        <p class="data-center-body">CNT</p>
+        <p class="data-center">{{dataCenter.name}}</p>
+        <p class="data-center-body">{{dataCenter.city}}, {{dataCenter.state}}</p>
+        <p class="data-center-body">{{dataCenter.country}}</p>
+        <p class="data-center-body">{{dataCenter.time_zone}}</p>
     </div>
     <div class="col-md-12 component-main">
         <div class="row tab-row">
-            <div class="col-md-3 col-sm-6 component-tab tab-active">
-                <h3>NEXUS</h3>
-            </div>
-            <div class="col-md-3 col-sm-6 component-tab">
-                <h3>VCENTER</h3>
-            </div>
-            <div class="col-md-3 col-sm-6 component-tab">
-                <h3>SBC</h3>
-            </div>
-            <div class="col-md-3 col-sm-6 component-tab">
-                <h3>ASA</h3>
+            <div *ngFor="let compTabItem of compTabItems" id="compTab{{compTabItem.id}}" class="col-md-3 col-sm-6 component-tab {{ compTabItem.id == 1 ? 'tab-active' : ''}}"
+                (click)="compTabClick(compTabItem.id)">
+                <h3>{{compTabItem.name}}</h3>
             </div>
         </div>
         <div class="row">
             <div class="offset-md-3 offset-sm-3 col-md-6 col-sm-6" style="padding-top:25px;text-align: center;">
                 <span>
-                    <span>
+                    <span *ngFor="let currentCompItem of currentCompItems">
                         <span class="icon-name">&nbsp;</span>
-                        <span style="cursor: pointer;font-size:15px;" class="fa fa-circle"></span>
-                        <span style="cursor: pointer;" class="ti-control-record"></span>
-                        <span style="cursor: pointer;" class="ti-control-record"></span>
-                        <span style="cursor: pointer;" class="ti-control-record"></span>
+                        <div *ngIf="currentCompItem.id == selectedComp;then bubble3; else bubble4"></div>
+                        <ng-template #bubble3>
+                            <span style="cursor: pointer;font-size:15px;" (click)="subCompTabClick(currentCompItem.id)" class="fa fa-circle"></span>
+                        </ng-template>
+                        <ng-template #bubble4>
+                            <span style="cursor: pointer;" (click)="subCompTabClick(currentCompItem.id)" class="ti-control-record"></span>
+                        </ng-template>
                     </span>
                 </span>
             </div>
@@ -72,87 +53,62 @@
         <div class="row">
             <div class="offset-md-1 col-md-10 offset-md-1 tab-content">
                 <div class="row component-tab-row">
-                    <div class="col-md-3 col-sm-6 sub-comp-body">
-                        <div class="sub-comp-tile sub-comp-active">
+                    <div *ngFor="let currentCompItem of currentCompItems" class="col-md-3 col-sm-6 comp-body" (click)="subCompTabClick(currentCompItem.id)">
+                        <div class="comp-tile {{ currentCompItem.id == selectedComp ? 'comp-active' : ''}}" id="subCompTab{{currentCompItem.id}}">
                             <div class="d-flex justify-content-center">
                                 <img bind-src="imgUrl" class="img-thumbnail">
                             </div>
-                            <p class="sub-comp-p-head">NEXUS 1</p>
-                            <p class="sub-comp-p-body">75-K</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 sub-comp-body">
-                        <div class="sub-comp-tile">
-                            <div class="d-flex justify-content-center">
-                                <img bind-src="imgUrl" class="img-thumbnail">
-                            </div>
-                            <p class="sub-comp-p-head">NEXUS 2</p>
-                            <p class="sub-comp-p-body">5-1.0</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 sub-comp-body">
-                        <div class="sub-comp-tile">
-                            <div class="d-flex justify-content-center">
-                                <img bind-src="imgUrl" class="img-thumbnail">
-                            </div>
-                            <p class="sub-comp-p-head">NEXUS 3</p>
-                            <p class="sub-comp-p-body">5-5.0.0</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 sub-comp-body">
-                        <div class="sub-comp-tile">
-                            <div class="d-flex justify-content-center">
-                                <img bind-src="imgUrl" class="img-thumbnail">
-                            </div>
-                            <p class="sub-comp-p-head">NEXUS 4</p>
-                            <p class="sub-comp-p-body">5-1.0</p>
+                            <p class="comp-p-head">{{currentCompItem.name}}</p>
+                            <p class="comp-p-body">{{currentCompItem.version}}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="offset-md-1 col-md-10 offset-md-1 tab-content-details">
+            <div class="offset-md-1 col-md-10 offset-md-1 tab-content-details" id="subCompDetails">
                 <div class="row tab-row">
-                    <div class="col-md-12 col-sm-12 sub-comp-data">
+                    <div class="col-md-12 col-sm-12 comp-data">
                         <div class="data-content">
                             <p class="data-head">VRF CONTENTS:</p>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Vrf name:</th>
-                                        <th>ID status:</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>lorem ipsum</td>
-                                        <td>Lorem, ipsum dolor sit amet </td>
-                                    </tr>
-                                    <tr>
-                                        <td>DDP Peers : 4</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total peers: </td>
-                                        <td>Established peers: </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lorem ipsum dolor Labore , laborum et </td>
-                                        <td> sit amet consectetur adipisicing elit.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>sed voluptatibus dolores quis maiores accusamus.</td>
-                                        <td>Nam quia necessitatibus,</td>
-                                    </tr>
-                                    <tr>
-                                        <td>consequuntur delectus consectetur facilis qui sit</td>
-                                        <td>dignissimos placeat ab officiis!</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lorem ipsum dolor sit amet consectetur</td>
-                                        <td>temporibus deleniti nostrum minus magnam perspiciatis iure</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Vrf name:</th>
+                                            <th>ID status:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>lorem ipsum</td>
+                                            <td>Lorem, ipsum dolor sit amet </td>
+                                        </tr>
+                                        <tr>
+                                            <td>DDP Peers : 4</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total peers: </td>
+                                            <td>Established peers: </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lorem ipsum dolor Labore , laborum et </td>
+                                            <td> sit amet consectetur adipisicing elit.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>sed voluptatibus dolores quis maiores accusamus.</td>
+                                            <td>Nam quia necessitatibus,</td>
+                                        </tr>
+                                        <tr>
+                                            <td>consequuntur delectus consectetur facilis qui sit</td>
+                                            <td>dignissimos placeat ab officiis!</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lorem ipsum dolor sit amet consectetur</td>
+                                            <td>temporibus deleniti nostrum minus magnam perspiciatis iure</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

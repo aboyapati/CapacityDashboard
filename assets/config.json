@@ -24,6 +24,10 @@
 		"getCitiesUrl": "/assets/webservices/city.php",
 		"customersUrl": "/assets/webservices/customers.php",
 		"customerListUrl": "/assets/webservices/customerList.php",
-		"getCustomerLicenseUrl": "/assets/webservices/license.php"
+		"getCustomerLicenseUrl": "/assets/webservices/license.php",
+		"getDataCenterListCustomer": "/assets/webservices/customerDataCenters.php",
+		"getComponetCustomer": "/assets/webservices/customerComponents.php",
+		"getReportNamesUrl": "/assets/webservices/reportNames.php",
+		"getDownloadReportUrl": "/assets/webservices/downloadReport.php"
     }
 ]

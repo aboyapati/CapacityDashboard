@@ -4,6 +4,7 @@ import { ConfigService } from '../config.service';
 import { Router } from '@angular/router';
 import { MenuItems } from '../shared/menu-items/menu-items';
 import { LowerCasePipe } from '@angular/common';
+import { AdminLayoutComponent } from '../layouts/admin/admin-layout.component';
 declare const $: any;
 
 @Component({
@@ -95,7 +96,7 @@ export class ProvisioningComponent implements OnInit {
   progressPerc: any;
   next_step: boolean;
 
-  constructor(private modalService: NgbModal, private config: ConfigService, private router: Router, public menuItems: MenuItems) {
+  constructor(private modalService: NgbModal, private config: ConfigService, private router: Router, public adminLayoutComponnet: AdminLayoutComponent) {
     sessionStorage.setItem('previousUrl', this.router.url);
     this.deviceHeight = (window.screen.height);
     this.deviceWidth = (window.screen.width);
@@ -160,8 +161,7 @@ export class ProvisioningComponent implements OnInit {
       $('.apiResponseDiv').show();
       if (res.status == 'success') {
         this.provisioningList();
-        sessionStorage.setItem('reloadLeftNav', 'yes');
-        this.menuItems.getAll();
+        this.adminLayoutComponnet.setDcLeftNav();
         $('.apiFailed').hide();
         $('.apiSuccess').show();
       } else {
@@ -286,8 +286,7 @@ export class ProvisioningComponent implements OnInit {
           this.provisioningList();
           this.apiError = 1;
           this.currentDataCenterComponentId = res.component_id;
-          sessionStorage.setItem('reloadLeftNav', 'yes');
-          this.menuItems.getAll();
+          this.adminLayoutComponnet.setDcLeftNav();
           $('#apiErrorMsg').hide();
           $('#complete-title').html("Complete");
           $('#complete-title').attr('style', 'color: #7bbf6a !important');
@@ -627,8 +626,7 @@ export class ProvisioningComponent implements OnInit {
           $('.modalForm').hide();
           $('.apiResponseDiv').show();
           if (res.status == 'success') {
-            sessionStorage.setItem('reloadLeftNav', 'yes');
-            this.menuItems.getAll();
+            this.adminLayoutComponnet.setDcLeftNav();
             $('#callMatricsDropdown' + this.editIdIndex).hide();
             this.provisioningList(this.editData.id, true);
             $('.apiFailed').hide();
@@ -828,8 +826,7 @@ export class ProvisioningComponent implements OnInit {
           $('.modalForm').hide();
           $('.apiResponseDiv').show();
           if (res.status == 'success') {
-            sessionStorage.setItem('reloadLeftNav', 'yes');
-            this.menuItems.getAll();
+            this.adminLayoutComponnet.setDcLeftNav();
             $('#editComponentDropdown' + this.currentRow).hide();
             this.setDataCenterComponnets(this.currentDC);
             $('.apiFailed').hide();
@@ -968,8 +965,7 @@ export class ProvisioningComponent implements OnInit {
           }
 
           if (sucflag != false) {
-            sessionStorage.setItem('reloadLeftNav', 'yes');
-            this.menuItems.getAll();
+            this.adminLayoutComponnet.setDcLeftNav();
             let lastInsertedDataCenterId = res.id;
             this.provisioningList(lastInsertedDataCenterId, true);
           }
@@ -1092,8 +1088,7 @@ export class ProvisioningComponent implements OnInit {
       $('.apiResponseDivComponent').show();
       if (res.status == 'success') {
         componentFlag = true;
-        sessionStorage.setItem('reloadLeftNav', 'yes');
-        this.menuItems.getAll();
+        this.adminLayoutComponnet.setDcLeftNav();
         $('.apiFailed').hide();
         $('.apiSuccess').show();
       } else {

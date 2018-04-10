@@ -143,7 +143,7 @@
               </div>
             </div>
             <div>
-              <div *ngFor="let asideItems of menuItems.getAll()">
+              <div *ngFor="let asideItems of MENUITEMS">
                 <ul class="pcoded-item pcoded-left-item" item-border="none" item-border-style="solid" subitem-border="solid" *ngFor="let asideItem of asideItems.main"
                   appAccordionLink group="{{asideItem.state}}">
                   <li (click)="reloadCurrentPage()" [routerLinkActive]="['active']" *ngIf="asideItem.type === 'external'" appAccordionLink
@@ -281,7 +281,7 @@
   </div>
 </div>
 <footer>
-  &copy; 2017 tekvizion PVS Inc. All Rights Reserved | PRIVACY POLICY, YOUR PRIVACY RIGHTS
+  &copy; 2018 tekvizion PVS Inc. All Rights Reserved | PRIVACY POLICY, YOUR PRIVACY RIGHTS
 </footer>
 <go-top-button [html]="htmlButton" [animate]="true" [speed]="50" [acceleration]="2" [scrollDistance]="100" [styles]="{
                       'right': '50px',
