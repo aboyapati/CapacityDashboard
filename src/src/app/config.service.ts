@@ -34,7 +34,9 @@ export class ConfigService {
   getDataCenterListCustomer: any;
   getComponetCustomer: any;
   getReportNamesUrl: any;
+  getSubComponetCustomer: any;
   getDownloadReportUrl: any;
+  getCustomerCuntent: any;
 
   constructor(private http: Http) {
     this.http.get('assets/config.json')
@@ -66,8 +68,10 @@ export class ConfigService {
         this.getCitiesUrl = this.BASE_URL + result[0].getCitiesUrl;
         this.getDataCenterListCustomer = this.BASE_URL + result[0].getDataCenterListCustomer;
         this.getComponetCustomer = this.BASE_URL + result[0].getComponetCustomer;
-        this.getReportNamesUrl = this.BASE_URL + result[0].getReportNamesUrl;
+		    this.getReportNamesUrl = this.BASE_URL + result[0].getReportNamesUrl;
         this.getDownloadReportUrl = this.BASE_URL + result[0].getDownloadReportUrl;
+        this.getSubComponetCustomer = this.BASE_URL + result[0].getSubComponetCustomer;
+        this.getCustomerCuntent = this.BASE_URL + result[0].getCustomerCuntent;
       });
   }
 
@@ -244,6 +248,12 @@ export class ConfigService {
     let body = 'id=' + id;
     return this.http.post(this.getComponetCustomer, body, options).map((res: Response) => res.json());
   }
+  getSubComponetCusView(compId) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'compId=' + compId;
+    return this.http.post(this.getSubComponetCustomer, body, options).map((res: Response) => res.json());
+  }
 
   getReportNames(id, componentId) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
@@ -257,6 +267,13 @@ export class ConfigService {
     let options = new RequestOptions({ headers: headers });
     let body = 'id=' + id + '&fromDate=' + fromDate + '&toDate=' + toDate + '&reportId=' + reportId;
     return this.http.post(this.getDownloadReportUrl, body, options).map((res: Response) => res.json());
+  }
+
+  getCustomerContentCusView(subId) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'subId=' + subId;
+    return this.http.post(this.getCustomerCuntent, body, options).map((res: Response) => res.json());
   }
 
   BASE_URL = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');

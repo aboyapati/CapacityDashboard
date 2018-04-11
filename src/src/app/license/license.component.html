@@ -49,18 +49,20 @@
                     <thead>
                         <tr>
                             <th scope="col">License Type</th>
-                            <th scope="col">Consumed</th>
+							<th scope="col" style="text-align:center;">Product Type</th>
+                            <th scope="col" style="text-align:center;">Consumed</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngIf="licenseFlagMessage">
-                            <td align="center" colspan="2">
+                            <td align="center" colspan="3">
                                 <b>THERE ARE CURRENTLY NO LICENSE FOUND</b>
                             </td>
                         </tr>
                         <tr *ngFor="let data of licenseList , let j = index">
                             <td>{{ data.type }}</td>
-                            <td>{{ data.consumed }}</td>
+							<td style="text-align:center;">{{ data.prod_type }}</td>
+                            <td style="text-align:center;">{{ data.consumed }}</td>
                         </tr>
                     </tbody>
                 </table>

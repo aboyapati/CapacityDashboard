@@ -52,30 +52,37 @@
     margin-left: 0px;
     margin-right: 0px;
 }
-.component-tab {
+.component-tab, .component-tab-small {
     background-color: #233853;
     border-radius: 4px;
     border-right: 1px solid #ebebeb;
     border-left: 1px solid #ebebeb;
     text-align: center;
     font-weight: 400 !important;
+    margin-top: 1px;
 }
-.component-tab:hover {
+.component-tab:hover, .component-tab-small:hover {
     cursor: pointer;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
 }
-.tab-active:hover {
+.tab-active:hover, .sub-tab-active:hover {
     cursor: default;
     box-shadow: unset;
 }
-.component-tab h3 {
+.component-tab h3, .component-tab-small h4 {
    color: #ebebeb;
    padding-top: 5px;
+}
+.component-tab-small h4 {
+    font-size: 19px;
 }
 .tab-active {
     background-color: #ebebeb;
 }
-.tab-active h3 {
+.sub-tab-active {
+    background-color: #ebebeb;
+}
+.tab-active h3, .sub-tab-active h4 {
     color: #233853;
     padding-top: 5px;
 }
@@ -84,17 +91,20 @@
     margin-top: 50px;
     padding: 0px;
 }
+#subCompTab {
+    margin-top: 70px;
+}
 .tab-content-details {
     background-color: #d9dde0;
-    margin-top: 70px;
+    margin-top: 0px;
     margin-bottom: 45px;
     padding: 0px;
 }
 .comp-body {
     padding-top: 15px;
     padding-bottom: 15px;
-    border-right: 40px solid #ebebeb;
-    border-left: 40px solid #ebebeb;
+    border-right: 35px solid #ebebeb;
+    border-left: 35px solid #ebebeb;
     background-color: #ebebeb;
 }
 .comp-tile {
@@ -111,8 +121,8 @@
     background-color: #c7cacf;
     padding-top: 15px;
     padding-bottom: 15px;
-    border-right: 50px solid #ebebeb;
-    border-left: 50px solid #ebebeb;
+    border-right: 14px solid #ebebeb;
+    border-left: 15px solid #ebebeb;
 }
 .component-tab-row {
     margin-left: 0px;
@@ -130,6 +140,7 @@
 .data-content {
     padding-left: 40px;
     padding-top: 15px;
+	padding-right: 25px;
 }
 .data-head {
     font-size: 20px;
@@ -143,6 +154,7 @@
 .table thead th, .table td, .table th {
     border: unset;
     padding: .35rem;
+    white-space: inherit;
 }
 .table thead th {
     font-size: 20px;

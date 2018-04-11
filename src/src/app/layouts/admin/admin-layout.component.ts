@@ -159,7 +159,7 @@ export class AdminLayoutComponent implements OnInit {
         }
       ];
       this.MENUITEMS[0].main[2]['children'] = this.dynamicSubMenu;
-    }, 1000);
+    }, 800);
   }
 
   setDcLeftNav() {

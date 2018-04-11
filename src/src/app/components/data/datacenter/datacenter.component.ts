@@ -195,9 +195,30 @@ export class DatacenterComponent implements OnInit {
 
     if (this.selectedComponentType.toLowerCase() == 'vcenter') {
       this.config.getVcenterData(this.selectedComponentId).subscribe(res_v => {
-        this.dataUsagePercentageChart1(res_v.datastore);
-        this.dataUsagePercentageChart3(res_v.host_memory);
-        this.dataUsagePercentageChart2(res_v.host_cpu);
+        if (!$.isEmptyObject(res_v.datastore)) {
+          $('#speedochartdivErrorMsg').hide();
+          $('#speedochartdiv').css('height', '500px');
+          this.dataUsagePercentageChart1(res_v.datastore);
+        } else {
+          $('#speedochartdiv').css('height', 'auto');
+          $('#speedochartdiv').html('<div id="speedochartdivErrorMsg" style="text-align: center;font-size: 16px;">No Details Found</div>');
+        }
+        if (!$.isEmptyObject(res_v.host_cpu)) {
+          $('#speedochartdiv1ErrorMsg').hide();
+          $('#speedochartdiv1').css('height', '500px');
+          this.dataUsagePercentageChart2(res_v.host_cpu);
+        } else {
+          $('#speedochartdiv1').css('height', 'auto');
+          $('#speedochartdiv1').html('<div id="speedochartdiv1ErrorMsg" style="text-align: center;font-size: 16px;">No Details Found</div>');
+        }
+        if (!$.isEmptyObject(res_v.host_memory)) {
+          $('#speedochartdiv2ErrorMsg').hide();
+          $('#speedochartdiv2').css('height', '500px');
+          this.dataUsagePercentageChart3(res_v.host_memory);
+        } else {
+          $('#speedochartdiv2').css('height', 'auto');
+          $('#speedochartdiv2').html('<div id="speedochartdiv2ErrorMsg" style="text-align: center;font-size: 16px;">No Details Found</div>');
+        }
         $('#vcenetrDataDiv').show();
       });
     } else {

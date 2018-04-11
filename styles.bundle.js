@@ -931,7 +931,7 @@ module.exports = __webpack_require__.p + "themify.a1ecc3b826d01251eddd.woff";
 
 /***/ }),
 
-/***/ 2:
+/***/ 5:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__("../../../../bootstrap/dist/css/bootstrap.min.css");
@@ -947,5 +947,5 @@ module.exports = __webpack_require__("../../../../font-awesome/css/font-awesome.
 
 /***/ })
 
-},[2]);
+},[5]);
 //# sourceMappingURL=styles.bundle.js.map

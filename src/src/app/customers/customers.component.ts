@@ -15,9 +15,14 @@ export class CustomersComponent implements OnInit {
   emptyCustomerFlag : boolean = false;
   emptySearchCustomerFlag : boolean = false;
 
-  constructor(private modalService: NgbModal, private config: ConfigService, private router: Router) { }
+  constructor(private modalService: NgbModal, private config: ConfigService, private router: Router) {
+    sessionStorage.setItem('previousUrl', this.router.url);
+  }
 
   ngOnInit() {
+    if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
+      this.router.navigate(['login']);
+    }
     this.getCustomers();
   }
 

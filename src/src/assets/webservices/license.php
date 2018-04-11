@@ -2,13 +2,13 @@
 header("Access-Control-Allow-Origin: *"); 
 $id = $_POST['id'];
 if($id == 2) {
-    $data = '[{"id":"1","type":"HUCM_TelePresenceRoom","consumed":"0"},{"id":"2","type":"HUCM_Essential","consumed":"1"},{"id":"3","type":"HUCM_Foundation","consumed":"5009"},{"id":"4","type":"HUCM_Standard","consumed":"1"},{"id":"5","type":"HUCM_Basic","consumed":"0"}]';
+    $data = '[{"type":"HUCM_TelePresenceRoom","prod_type":"Type 1","consumed":"0"},{"type":"HUCM_Essential","prod_type":"Type 2","consumed":"1"},{"type":"HUCM_Foundation","prod_type":"Type 3","consumed":"5009"},{"type":"HUCM_Standard","prod_type":"Type 4","consumed":"1"},{"type":"HUCM_Basic","prod_type":"Type 5","consumed":"0"}]';
 }
 else if ($id == 3) {
     $data = '[]';
 }
 else{
-    $data = '[{"id":"1","type":"HUCM_TelePresenceRoom","consumed":"0"},{"id":"2","type":"HUCM_Essential","consumed":"1"},{"id":"3","type":"HUCM_Foundation","consumed":"5009"}]';
+    $data = '[{"type":"HUCM_TelePresenceRoom","prod_type":"Type 1","consumed":"0"},{"type":"HUCM_Essential","prod_type":"Type 2","consumed":"1"}]';
 }
 echo $data;
 die();

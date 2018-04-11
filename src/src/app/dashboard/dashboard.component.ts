@@ -119,21 +119,23 @@ export class DashboardComponent implements OnInit {
     }
     this.notificationFilter = false;
     $('#notificationDropDown').hide();
-    this.config.getNotification(type).subscribe(res => {
-      this.notifications = res;
-      let j = 0;
-      for (let i = 0; i < this.notifications.length; i++) {
-        if (this.notifications[i].status == 'Bad') {
-          j = j + 1;
+    setTimeout(() => {
+      this.config.getNotification(type).subscribe(res => {
+        this.notifications = res;
+        let j = 0;
+        for (let i = 0; i < this.notifications.length; i++) {
+          if (this.notifications[i].status == 'Bad') {
+            j = j + 1;
+          }
         }
-      }
-      if (j > 0) {
-        $('#alertValue').text(j);
-        $('#alertValue').show();
-      } else {
-        $('#alertValue').hide();
-      }
-    });
+        if (j > 0) {
+          $('#alertValue').text(j);
+          $('#alertValue').show();
+        } else {
+          $('#alertValue').hide();
+        }
+      });
+    }, 1000);
   }
 
   customerList() {

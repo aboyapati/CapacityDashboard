@@ -34,8 +34,8 @@ var map = {
 	],
 	"./customers/customers.module": [
 		"../../../../../src/app/customers/customers.module.ts",
-		"customers.module",
-		"common"
+		"common",
+		"customers.module"
 	],
 	"./customerview/customerview.module": [
 		"../../../../../src/app/customerview/customerview.module.ts",
@@ -68,8 +68,8 @@ var map = {
 	],
 	"./report/report.module": [
 		"../../../../../src/app/report/report.module.ts",
-		"report.module",
-		"common"
+		"common",
+		"report.module"
 	],
 	"./simple-page/simple-page.module": [
 		"../../../../../src/app/simple-page/simple-page.module.ts",
@@ -149,12 +149,14 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__angular_common__ = __webpack_require__("../../../common/@angular/common.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__config_service__ = __webpack_require__("../../../../../src/app/config.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_data_datacenter_datacenter_component__ = __webpack_require__("../../../../../src/app/components/data/datacenter/datacenter.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__excel_service__ = __webpack_require__("../../../../../src/app/excel.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -203,7 +205,8 @@ AppModule = __decorate([
         providers: [
             { provide: __WEBPACK_IMPORTED_MODULE_16__angular_common__["LocationStrategy"], useClass: __WEBPACK_IMPORTED_MODULE_16__angular_common__["HashLocationStrategy"] },
             __WEBPACK_IMPORTED_MODULE_17__config_service__["a" /* ConfigService */],
-            __WEBPACK_IMPORTED_MODULE_18__components_data_datacenter_datacenter_component__["a" /* DatacenterComponent */]
+            __WEBPACK_IMPORTED_MODULE_18__components_data_datacenter_datacenter_component__["a" /* DatacenterComponent */],
+            __WEBPACK_IMPORTED_MODULE_19__excel_service__["a" /* ExcelService */]
         ],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* AppComponent */]]
     })
@@ -495,9 +498,33 @@ var DatacenterComponent = (function () {
         });
         if (this.selectedComponentType.toLowerCase() == 'vcenter') {
             this.config.getVcenterData(this.selectedComponentId).subscribe(function (res_v) {
-                _this.dataUsagePercentageChart1(res_v.datastore);
-                _this.dataUsagePercentageChart3(res_v.host_memory);
-                _this.dataUsagePercentageChart2(res_v.host_cpu);
+                if (!$.isEmptyObject(res_v.datastore)) {
+                    $('#speedochartdivErrorMsg').hide();
+                    $('#speedochartdiv').css('height', '500px');
+                    _this.dataUsagePercentageChart1(res_v.datastore);
+                }
+                else {
+                    $('#speedochartdiv').css('height', 'auto');
+                    $('#speedochartdiv').html('<div id="speedochartdivErrorMsg" style="text-align: center;font-size: 16px;">No Details Found</div>');
+                }
+                if (!$.isEmptyObject(res_v.host_cpu)) {
+                    $('#speedochartdiv1ErrorMsg').hide();
+                    $('#speedochartdiv1').css('height', '500px');
+                    _this.dataUsagePercentageChart2(res_v.host_cpu);
+                }
+                else {
+                    $('#speedochartdiv1').css('height', 'auto');
+                    $('#speedochartdiv1').html('<div id="speedochartdiv1ErrorMsg" style="text-align: center;font-size: 16px;">No Details Found</div>');
+                }
+                if (!$.isEmptyObject(res_v.host_memory)) {
+                    $('#speedochartdiv2ErrorMsg').hide();
+                    $('#speedochartdiv2').css('height', '500px');
+                    _this.dataUsagePercentageChart3(res_v.host_memory);
+                }
+                else {
+                    $('#speedochartdiv2').css('height', 'auto');
+                    $('#speedochartdiv2').html('<div id="speedochartdiv2ErrorMsg" style="text-align: center;font-size: 16px;">No Details Found</div>');
+                }
                 $('#vcenetrDataDiv').show();
             });
         }
@@ -883,6 +910,8 @@ var ConfigService = (function () {
             _this.getComponetCustomer = _this.BASE_URL + result[0].getComponetCustomer;
             _this.getReportNamesUrl = _this.BASE_URL + result[0].getReportNamesUrl;
             _this.getDownloadReportUrl = _this.BASE_URL + result[0].getDownloadReportUrl;
+            _this.getSubComponetCustomer = _this.BASE_URL + result[0].getSubComponetCustomer;
+            _this.getCustomerCuntent = _this.BASE_URL + result[0].getCustomerCuntent;
         });
     }
     ConfigService.prototype.verifyLogin = function (username, password) {
@@ -1032,6 +1061,12 @@ var ConfigService = (function () {
         var body = 'id=' + id;
         return this.http.post(this.getComponetCustomer, body, options).map(function (res) { return res.json(); });
     };
+    ConfigService.prototype.getSubComponetCusView = function (compId) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        var body = 'compId=' + compId;
+        return this.http.post(this.getSubComponetCustomer, body, options).map(function (res) { return res.json(); });
+    };
     ConfigService.prototype.getReportNames = function (id, componentId) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
@@ -1044,6 +1079,12 @@ var ConfigService = (function () {
         var body = 'id=' + id + '&fromDate=' + fromDate + '&toDate=' + toDate + '&reportId=' + reportId;
         return this.http.post(this.getDownloadReportUrl, body, options).map(function (res) { return res.json(); });
     };
+    ConfigService.prototype.getCustomerContentCusView = function (subId) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        var body = 'subId=' + subId;
+        return this.http.post(this.getCustomerCuntent, body, options).map(function (res) { return res.json(); });
+    };
     return ConfigService;
 }());
 ConfigService = __decorate([
@@ -1053,6 +1094,175 @@ ConfigService = __decorate([
 
 var _a;
 //# sourceMappingURL=config.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/excel.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExcelService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_file_saver__ = __webpack_require__("../../../../file-saver/FileSaver.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_file_saver___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_file_saver__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_xlsx__ = __webpack_require__("../../../../xlsx/xlsx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_xlsx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_xlsx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_xlsx_style__ = __webpack_require__("../../../../xlsx-style/xlsx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_xlsx_style___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_xlsx_style__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+var EXCEL_EXTENSION = '.xlsx';
+var ExcelService = (function () {
+    function ExcelService() {
+    }
+    ExcelService.prototype.exportAsExcelFile = function (json, excelFileName) {
+        var worksheet = __WEBPACK_IMPORTED_MODULE_2_xlsx__["utils"].json_to_sheet(json);
+        // number of indexes/colomns
+        // var cols = Object.keys(json[1]).length;
+        // for (let i = 0; i < cols; i++) {
+        //   var field = this.colName(i);
+        //   console.log(field);
+        //   this.wrapAndCenterCell(worksheet.C1);
+        // }
+        if (worksheet.A1) {
+            this.wrapAndCenterCell(worksheet.A1);
+        }
+        if (worksheet.B1) {
+            this.wrapAndCenterCell(worksheet.B1);
+        }
+        if (worksheet.C1) {
+            this.wrapAndCenterCell(worksheet.C1);
+        }
+        if (worksheet.D1) {
+            this.wrapAndCenterCell(worksheet.D1);
+        }
+        if (worksheet.E1) {
+            this.wrapAndCenterCell(worksheet.E1);
+        }
+        if (worksheet.F1) {
+            this.wrapAndCenterCell(worksheet.F1);
+        }
+        if (worksheet.G1) {
+            this.wrapAndCenterCell(worksheet.G1);
+        }
+        if (worksheet.H1) {
+            this.wrapAndCenterCell(worksheet.H1);
+        }
+        if (worksheet.I1) {
+            this.wrapAndCenterCell(worksheet.I1);
+        }
+        if (worksheet.J1) {
+            this.wrapAndCenterCell(worksheet.J1);
+        }
+        if (worksheet.K1) {
+            this.wrapAndCenterCell(worksheet.K1);
+        }
+        if (worksheet.L1) {
+            this.wrapAndCenterCell(worksheet.L1);
+        }
+        if (worksheet.M1) {
+            this.wrapAndCenterCell(worksheet.M1);
+        }
+        if (worksheet.N1) {
+            this.wrapAndCenterCell(worksheet.N1);
+        }
+        if (worksheet.O1) {
+            this.wrapAndCenterCell(worksheet.O1);
+        }
+        if (worksheet.P1) {
+            this.wrapAndCenterCell(worksheet.P1);
+        }
+        if (worksheet.Q1) {
+            this.wrapAndCenterCell(worksheet.Q1);
+        }
+        if (worksheet.R1) {
+            this.wrapAndCenterCell(worksheet.R1);
+        }
+        if (worksheet.S1) {
+            this.wrapAndCenterCell(worksheet.S1);
+        }
+        if (worksheet.T1) {
+            this.wrapAndCenterCell(worksheet.T1);
+        }
+        if (worksheet.U1) {
+            this.wrapAndCenterCell(worksheet.U1);
+        }
+        if (worksheet.V1) {
+            this.wrapAndCenterCell(worksheet.V1);
+        }
+        if (worksheet.W1) {
+            this.wrapAndCenterCell(worksheet.W1);
+        }
+        if (worksheet.X1) {
+            this.wrapAndCenterCell(worksheet.X1);
+        }
+        if (worksheet.Y1) {
+            this.wrapAndCenterCell(worksheet.Y1);
+        }
+        if (worksheet.Z1) {
+            this.wrapAndCenterCell(worksheet.Z1);
+        }
+        if (worksheet.AA1) {
+            this.wrapAndCenterCell(worksheet.AA1);
+        }
+        if (worksheet.AB1) {
+            this.wrapAndCenterCell(worksheet.AB1);
+        }
+        if (worksheet.AC1) {
+            this.wrapAndCenterCell(worksheet.AC1);
+        }
+        if (worksheet.AD1) {
+            this.wrapAndCenterCell(worksheet.AD1);
+        }
+        var workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+        // Use XLSXStyle instead of XLSX write function which property writes cell styles.
+        var excelBuffer = __WEBPACK_IMPORTED_MODULE_3_xlsx_style__["write"](workbook, { bookType: 'xlsx', type: 'buffer' });
+        this.saveAsExcelFile(excelBuffer, excelFileName);
+    };
+    // private colName(n) {
+    //   var ordA = 'A'.charCodeAt(0);
+    //   var ordZ = 'Z'.charCodeAt(0);
+    //   var len = ordZ - ordA + 1;
+    //   var s = "";
+    //   while (n >= 0) {
+    //     s = String.fromCharCode(n % len + ordA) + s;
+    //     n = Math.floor(n / len) - 1;
+    //   }
+    //   return s + '1';
+    // }
+    ExcelService.prototype.wrapAndCenterCell = function (cell) {
+        var wrapAndCenterCellStyle = { alignment: { wrapText: true, vertical: 'center', horizontal: 'center' }, font: { bold: true } };
+        this.setCellStyle(cell, wrapAndCenterCellStyle);
+    };
+    ExcelService.prototype.setCellStyle = function (cell, style) {
+        cell.s = style;
+    };
+    ExcelService.prototype.saveAsExcelFile = function (buffer, fileName) {
+        var data = new Blob([buffer], {
+            type: EXCEL_TYPE
+        });
+        __WEBPACK_IMPORTED_MODULE_1_file_saver__["saveAs"](data, fileName + EXCEL_EXTENSION);
+    };
+    return ExcelService;
+}());
+ExcelService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+    __metadata("design:paramtypes", [])
+], ExcelService);
+
+//# sourceMappingURL=excel.service.js.map
 
 /***/ }),
 
@@ -1222,7 +1432,7 @@ var AdminLayoutComponent = (function () {
                 }
             ];
             _this.MENUITEMS[0].main[2]['children'] = _this.dynamicSubMenu;
-        }, 1000);
+        }, 800);
     };
     AdminLayoutComponent.prototype.setDcLeftNav = function () {
         var _this = this;
@@ -2676,12 +2886,33 @@ Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* pl
 /***/ }),
 
 /***/ 0:
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("../../../../../src/main.ts");
 
 
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 3:
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
 /***/ })
 
-},[0]);
+},[1]);
 //# sourceMappingURL=main.bundle.js.map

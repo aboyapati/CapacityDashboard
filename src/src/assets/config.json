@@ -28,6 +28,8 @@
 		"getDataCenterListCustomer": "/assets/webservices/customerDataCenters.php",
 		"getComponetCustomer": "/assets/webservices/customerComponents.php",
 		"getReportNamesUrl": "/assets/webservices/reportNames.php",
-		"getDownloadReportUrl": "/assets/webservices/downloadReport.php"
+		"getDownloadReportUrl": "/assets/webservices/downloadReport.php",
+		"getSubComponetCustomer": "/assets/webservices/customerSubComponents.php",
+		"getCustomerCuntent": "/assets/webservices/customerContent.php"
     }
 ]

@@ -18,7 +18,8 @@
     </div>
 </div>
 <div class="row">
-    <div *ngFor="let dataCenter of dataCenters" id="dataCenter{{dataCenter.id}}" class="col-md-3 col-sm-6 tab-tile {{ dataCenter.id == selectedDataCenter ? 'tab-tile-active' : ''}}" (click)="dataCenterClick(dataCenter.id)">
+    <div *ngFor="let dataCenter of dataCenters" id="dataCenter{{dataCenter.id}}" class="col-md-3 col-sm-6 tab-tile {{ dataCenter.id == selectedDataCenter ? 'tab-tile-active' : ''}}"
+        (click)="dataCenterClick(dataCenter.id)">
         <div class="d-flex justify-content-center">
             <img bind-src="imgUrl" class="img-thumbnail">
         </div>
@@ -41,10 +42,10 @@
                         <span class="icon-name">&nbsp;</span>
                         <div *ngIf="currentCompItem.id == selectedComp;then bubble3; else bubble4"></div>
                         <ng-template #bubble3>
-                            <span style="cursor: pointer;font-size:15px;" (click)="subCompTabClick(currentCompItem.id)" class="fa fa-circle"></span>
+                            <span style="cursor: pointer;font-size:15px;" (click)="ComponentClick(currentCompItem.id)" class="fa fa-circle"></span>
                         </ng-template>
                         <ng-template #bubble4>
-                            <span style="cursor: pointer;" (click)="subCompTabClick(currentCompItem.id)" class="ti-control-record"></span>
+                            <span style="cursor: pointer;" (click)="ComponentClick(currentCompItem.id)" class="ti-control-record"></span>
                         </ng-template>
                     </span>
                 </span>
@@ -53,8 +54,8 @@
         <div class="row">
             <div class="offset-md-1 col-md-10 offset-md-1 tab-content">
                 <div class="row component-tab-row">
-                    <div *ngFor="let currentCompItem of currentCompItems" class="col-md-3 col-sm-6 comp-body" (click)="subCompTabClick(currentCompItem.id)">
-                        <div class="comp-tile {{ currentCompItem.id == selectedComp ? 'comp-active' : ''}}" id="subCompTab{{currentCompItem.id}}">
+                    <div *ngFor="let currentCompItem of currentCompItems" class="col-md-3 col-sm-6 comp-body" (click)="ComponentClick(currentCompItem.id)">
+                        <div class="comp-tile {{ currentCompItem.id == selectedComp ? 'comp-active' : ''}}" id="subComponent{{currentCompItem.id}}">
                             <div class="d-flex justify-content-center">
                                 <img bind-src="imgUrl" class="img-thumbnail">
                             </div>
@@ -64,13 +65,21 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row tab-row" id="subCompTab">
+            <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.id == selectedSubComp ? 'sub-tab-active' : ''}}" id="subCompTabItem{{subCompTabItem.id}}" (click)="subCompTabClick(subCompTabItem.id, subCompTabItem.name)">
+                <h4>{{subCompTabItem.name}}</h4>
+            </div>
+        </div>
+        <div class="row">
             <div class="offset-md-1 col-md-10 offset-md-1 tab-content-details" id="subCompDetails">
                 <div class="row tab-row">
                     <div class="col-md-12 col-sm-12 comp-data">
                         <div class="data-content">
-                            <p class="data-head">VRF CONTENTS:</p>
+                            <p class="data-head">{{selectedSubCompName}} CONTENTS:</p>
                             <div class="table-responsive">
-                                <table class="table">
+                                <p>{{customerContent.content}}</p>
+                                <!-- <table class="table">
                                     <thead>
                                         <tr>
                                             <th>Vrf name:</th>
@@ -79,35 +88,35 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>lorem ipsum</td>
-                                            <td>Lorem, ipsum dolor sit amet </td>
+                                            <td>{{customerContent.content}}</td>
+                                            <td>{{customerContent.content}}</td>
                                         </tr>
                                         <tr>
-                                            <td>DDP Peers : 4</td>
-                                            <td></td>
+                                            <td>{{customerContent.content}}</td>
+                                            <td>{{customerContent.content}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Total peers: </td>
-                                            <td>Established peers: </td>
+                                            <td>{{customerContent.content}}</td>
+                                            <td>{{customerContent.content}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Lorem ipsum dolor Labore , laborum et </td>
-                                            <td> sit amet consectetur adipisicing elit.</td>
+                                            <td>{{customerContent.content}}</td>
+                                            <td>{{customerContent.content}}</td>
                                         </tr>
                                         <tr>
-                                            <td>sed voluptatibus dolores quis maiores accusamus.</td>
-                                            <td>Nam quia necessitatibus,</td>
+                                            <td>{{customerContent.content}}</td>
+                                            <td>{{customerContent.content}}</td>
                                         </tr>
                                         <tr>
-                                            <td>consequuntur delectus consectetur facilis qui sit</td>
-                                            <td>dignissimos placeat ab officiis!</td>
+                                            <td>{{customerContent.content}}</td>
+                                            <td>{{customerContent.content}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Lorem ipsum dolor sit amet consectetur</td>
-                                            <td>temporibus deleniti nostrum minus magnam perspiciatis iure</td>
+                                            <td>{{customerContent.content}}</td>
+                                            <td>{{customerContent.content}}</td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> -->
                             </div>
                         </div>
                     </div>

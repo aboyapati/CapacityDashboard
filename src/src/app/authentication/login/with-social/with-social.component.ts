@@ -68,6 +68,7 @@ export class WithSocialComponent implements OnInit {
     setTimeout(() => {
       this.config.verifyLogin(username, password).subscribe(res => {
         if (res.status == 1) {
+          sessionStorage.setItem('currentUrl', '/dashboard');
           this.login_status = true;
           sessionStorage.setItem('username', res.username);
           sessionStorage.setItem('name', res.name);

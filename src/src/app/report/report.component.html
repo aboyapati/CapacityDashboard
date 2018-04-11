@@ -50,20 +50,22 @@
             </thead>
             <tbody>
                 <input type="hidden" id="comp_filter" name="comp_filter" value="" />
-                <tr *ngIf="!reportStatus">
+                <tr *ngIf="!reportStatus || showNullRowMessage; else showReportList">
                     <td align="center" colspan="6">
                         <b>THERE ARE CURRENTLY NO REPORTS AVAILABLE FOR THIS DATA CENTER.
                         </b>
                     </td>
                 </tr>
-                <tr *ngFor="let report of reportList, let j = index">
-                    <td></td>
-                    <td>{{ report.name }}</td>
-                    <td></td>
-                    <td></td>
-                    <td (click)="downloadReport(report.id)" style="text-decoration: underline;color: blue;cursor: pointer;">Download</td>
-                    <td></td>
-                </tr>
+                <ng-template #showReportList>
+                    <tr *ngFor="let report of reportList, let j = index">
+                        <td></td>
+                        <td>{{ report.name }}</td>
+                        <td></td>
+                        <td></td>
+                        <td (click)="downloadReport(report.id)" style="text-decoration: underline;color: blue;cursor: pointer;">Download</td>
+                        <td></td>
+                    </tr>
+                </ng-template>
             </tbody>
         </table>
     </div>

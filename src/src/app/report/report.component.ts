@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigService } from '../config.service';
 import { Router } from '@angular/router';
 import { MenuItems } from '../shared/menu-items/menu-items';
 import { LowerCasePipe } from '@angular/common';
 import { AdminLayoutComponent } from '../layouts/admin/admin-layout.component';
+import { ExcelService } from '../excel.service';
+
 declare const $: any;
+
+@Injectable()
 
 @Component({
   selector: 'app-report',
@@ -34,7 +38,7 @@ export class ReportComponent implements OnInit {
   private fromDate: any;
   private downloadData: any;
 
-  constructor(private modalService: NgbModal, private config: ConfigService, private router: Router) {
+  constructor(private modalService: NgbModal, private config: ConfigService, private router: Router, private excelService: ExcelService) {
     sessionStorage.setItem('previousUrl', this.router.url);
     this.deviceHeight = (window.screen.height);
     this.deviceWidth = (window.screen.width);
@@ -148,7 +152,7 @@ export class ReportComponent implements OnInit {
     this.config.getDownloadReport(this.currentDC, this.fromDate, this.toDate, reportId).subscribe(res => {
       if (!$.isEmptyObject(res)) {
         this.downloadData = res;
-        //do download function
+        this.excelService.exportAsExcelFile(this.downloadData, "Data Center Reports");
       } else {
         alert('Oops..Something wrong happened. Please try later');
       }
