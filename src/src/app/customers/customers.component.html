@@ -11,7 +11,7 @@
 </div>
 <div class="row">
     <div class="col-md-12 tab-tile-table table-responsive">
-        <div class="row">
+        <div *ngIf="customerList.length > 0 || emptySearchCustomerFlag" class="row">
             <div class="col-sm-3">
                 <div id="imaginary_container">
                     <div class="input-group stylish-input-group">
@@ -36,32 +36,32 @@
             </thead>
             <tbody>
                 <input type="hidden" id="cust_filter" name="cust_filter" value="" />
-                <tr *ngIf = "emptyCustomerFlag">
-                        <td align="center" colspan="6">
-                            <b>THERE ARE CURRENTLY NO CUSTOMER VIEW AVAILABLE.
-                                <br />TO ADD CUSTOMERS PLEASE USE THE
-                                <span style="color:#79A3BA; cursor:pointer;">ADD CUSTOMER WIZARD</span>
-                            </b>
-                        </td>
-                    </tr>
-                    <tr *ngIf = "emptySearchCustomerFlag">
-                        <td align="center" colspan="6">
-                            <b>THERE ARE CURRENTLY NO CUSTOMER FOUND FOR YOUR SEARCH.
-                            </b>
-                        </td>
-                    </tr>
+                <tr *ngIf="customerList.length <= 0 && !emptySearchCustomerFlag">
+                    <td align="center" colspan="6">
+                        <b>THERE ARE CURRENTLY NO CUSTOMER VIEW AVAILABLE.
+                            <br />TO ADD CUSTOMERS PLEASE USE THE
+                            <span style="color:#79A3BA; cursor:pointer;">ADD CUSTOMER WIZARD</span>
+                        </b>
+                    </td>
+                </tr>
+                <tr *ngIf="emptySearchCustomerFlag">
+                    <td align="center" colspan="6">
+                        <b>THERE ARE CURRENTLY NO CUSTOMER FOUND FOR YOUR SEARCH.
+                        </b>
+                    </td>
+                </tr>
                 <tr *ngFor="let data of customerList , let j = index">
-                <td>{{ data.name }}</td>
-                <td style="text-align:center;">{{ data.users }}</td>
-                <td style="text-align:center;">{{ data.datacenters }}</td>
-                <td>
-                    <span class="rsddropdown-span" (click)="editCustomerClick(j)">...</span>
-                    <div id="editCustomerDropdown{{j}}" class="rsddropdown-content componentDropDownDiv">
-                        <a (click)="redirectCustomerView(data.id)">View</a>
-                        <a>Edit</a>
-                    </div>
-                </td>
-            </tr>
+                    <td>{{ data.name }}</td>
+                    <td style="text-align:center;">{{ data.users }}</td>
+                    <td style="text-align:center;">{{ data.datacenters }}</td>
+                    <td>
+                        <span class="rsddropdown-span" (click)="editCustomerClick(j)">...</span>
+                        <div id="editCustomerDropdown{{j}}" class="rsddropdown-content componentDropDownDiv">
+                            <a (click)="redirectCustomerView(data.id)">View</a>
+                            <a>Edit</a>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

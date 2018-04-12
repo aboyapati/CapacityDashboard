@@ -655,6 +655,9 @@ fieldset {
   -webkit-transition-delay: 0.28s;
           transition-delay: 0.28s;
 }
+.header_title{
+  font-size: 25px !important;
+}
 
 .radio + .radio,
 .checkbox + .checkbox {

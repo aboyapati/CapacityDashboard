@@ -59,8 +59,8 @@ var map = {
 	],
 	"./provisioning/provisioning.module": [
 		"../../../../../src/app/provisioning/provisioning.module.ts",
-		"provisioning.module",
-		"common"
+		"common",
+		"provisioning.module"
 	],
 	"./reload/reload.module": [
 		"../../../../../src/app/reload/reload.module.ts",
@@ -366,8 +366,8 @@ var DatacenterComponent = (function () {
         this.subComimgUrl = "assets/images/subcomponent.png";
         this.subComChartimgUrl = "assets/images/subcomponentChart.png";
         sessionStorage.setItem('previousUrl', this.router.url);
-        this.deviceHeight = (window.screen.height);
-        this.deviceWidth = (window.screen.width);
+        this.deviceHeight = (window.innerHeight);
+        this.deviceWidth = (window.innerWidth);
         if (this.deviceWidth >= 768) {
             this.scrollLimit = 4;
             this.scrollLimitMin = 0;
@@ -932,11 +932,9 @@ var ConfigService = (function () {
         return this.http.get(this.getProvisioningListUrl)
             .map(function (result) { return result.json(); });
     };
-    ConfigService.prototype.getCustomersList = function (key) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
-        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        var body = 'keyword=' + key;
-        return this.http.post(this.customersUrl, body, options).map(function (res) { return res.json(); });
+    ConfigService.prototype.getCustomersList = function () {
+        return this.http.get(this.customersUrl)
+            .map(function (result) { return result.json(); });
     };
     ConfigService.prototype.getCustomerLicense = function (id) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
@@ -1061,10 +1059,10 @@ var ConfigService = (function () {
         var body = 'id=' + id;
         return this.http.post(this.getComponetCustomer, body, options).map(function (res) { return res.json(); });
     };
-    ConfigService.prototype.getSubComponetCusView = function (compId) {
+    ConfigService.prototype.getSubComponetCusView = function (compId, type) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        var body = 'compId=' + compId;
+        var body = 'compId=' + compId + '&type=' + type;
         return this.http.post(this.getSubComponetCustomer, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getReportNames = function (id, componentId) {
@@ -1079,10 +1077,10 @@ var ConfigService = (function () {
         var body = 'id=' + id + '&fromDate=' + fromDate + '&toDate=' + toDate + '&reportId=' + reportId;
         return this.http.post(this.getDownloadReportUrl, body, options).map(function (res) { return res.json(); });
     };
-    ConfigService.prototype.getCustomerContentCusView = function (subId) {
+    ConfigService.prototype.getCustomerContentCusView = function (typeId, subComponentName) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        var body = 'subId=' + subId;
+        var body = 'typeId=' + typeId + '&subComponentName=' + subComponentName;
         return this.http.post(this.getCustomerCuntent, body, options).map(function (res) { return res.json(); });
     };
     return ConfigService;

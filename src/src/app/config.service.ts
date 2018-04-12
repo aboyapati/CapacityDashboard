@@ -68,7 +68,7 @@ export class ConfigService {
         this.getCitiesUrl = this.BASE_URL + result[0].getCitiesUrl;
         this.getDataCenterListCustomer = this.BASE_URL + result[0].getDataCenterListCustomer;
         this.getComponetCustomer = this.BASE_URL + result[0].getComponetCustomer;
-		    this.getReportNamesUrl = this.BASE_URL + result[0].getReportNamesUrl;
+        this.getReportNamesUrl = this.BASE_URL + result[0].getReportNamesUrl;
         this.getDownloadReportUrl = this.BASE_URL + result[0].getDownloadReportUrl;
         this.getSubComponetCustomer = this.BASE_URL + result[0].getSubComponetCustomer;
         this.getCustomerCuntent = this.BASE_URL + result[0].getCustomerCuntent;
@@ -97,11 +97,9 @@ export class ConfigService {
       .map((result) => result.json());
   }
 
-  getCustomersList(key) {
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
-    let options = new RequestOptions({ headers: headers });
-    let body = 'keyword=' + key;
-    return this.http.post(this.customersUrl, body, options).map((res: Response) => res.json());
+  getCustomersList() {
+    return this.http.get(this.customersUrl)
+      .map((result) => result.json());
   }
 
   getCustomerLicense(id) {
@@ -248,10 +246,10 @@ export class ConfigService {
     let body = 'id=' + id;
     return this.http.post(this.getComponetCustomer, body, options).map((res: Response) => res.json());
   }
-  getSubComponetCusView(compId) {
+  getSubComponetCusView(compId, type) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'compId=' + compId;
+    let body = 'compId=' + compId +'&type=' + type;
     return this.http.post(this.getSubComponetCustomer, body, options).map((res: Response) => res.json());
   }
 
@@ -269,13 +267,12 @@ export class ConfigService {
     return this.http.post(this.getDownloadReportUrl, body, options).map((res: Response) => res.json());
   }
 
-  getCustomerContentCusView(subId) {
+  getCustomerContentCusView(typeId, subComponentName) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'subId=' + subId;
+    let body = 'typeId=' + typeId +'&subComponentName=' + subComponentName;
     return this.http.post(this.getCustomerCuntent, body, options).map((res: Response) => res.json());
   }
 
   BASE_URL = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-
 }    

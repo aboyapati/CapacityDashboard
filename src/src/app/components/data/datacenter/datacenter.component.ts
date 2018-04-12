@@ -52,8 +52,8 @@ export class DatacenterComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private config: ConfigService, private route: ActivatedRoute, private AmCharts: AmChartsService, private router: Router) {
     sessionStorage.setItem('previousUrl', this.router.url);
-    this.deviceHeight = (window.screen.height);
-    this.deviceWidth = (window.screen.width);
+    this.deviceHeight = (window.innerHeight);
+    this.deviceWidth = (window.innerWidth);
     if (this.deviceWidth >= 768) {
       this.scrollLimit = 4;
       this.scrollLimitMin = 0;

@@ -4,22 +4,22 @@
     </div>
     <div class="col-md-6 col-sm-6" style="padding-top:6px;text-align: center;">
         <span>
-            <span *ngFor="let dC of dataCenters">
+            <span *ngFor="let dC of dataCenters, let i = index">
                 <span class="icon-name">&nbsp;</span>
                 <div *ngIf="dC.id == selectedDataCenter;then bubble1; else bubble2"></div>
                 <ng-template #bubble1>
-                    <span style="cursor: pointer;font-size:15px;" (click)="dataCenterClick(dC.id)" class="fa fa-circle"></span>
+                    <span style="cursor: pointer;font-size:15px;" (click)="dataCenterClick(dC.id,i)" class="fa fa-circle"></span>
                 </ng-template>
                 <ng-template #bubble2>
-                    <span style="cursor: pointer;" (click)="dataCenterClick(dC.id)" class="ti-control-record"></span>
+                    <span style="cursor: pointer;" (click)="dataCenterClick(dC.id,i)" class="ti-control-record"></span>
                 </ng-template>
             </span>
         </span>
     </div>
 </div>
 <div class="row">
-    <div *ngFor="let dataCenter of dataCenters" id="dataCenter{{dataCenter.id}}" class="col-md-3 col-sm-6 tab-tile {{ dataCenter.id == selectedDataCenter ? 'tab-tile-active' : ''}}"
-        (click)="dataCenterClick(dataCenter.id)">
+    <div *ngFor="let dataCenter of dataCenters, let i = index" id="dataCenter{{dataCenter.id}}" class="col-md-3 col-sm-6 tab-tile {{ dataCenter.id == selectedDataCenter ? 'tab-tile-active' : ''}}"
+        (click)="dataCenterClick(dataCenter.id,i,'direct')" [style.display]="i>=scrollLimitMin && i<=scrollLimitMax ? 'block' : 'none'">
         <div class="d-flex justify-content-center">
             <img bind-src="imgUrl" class="img-thumbnail">
         </div>
@@ -30,7 +30,7 @@
     </div>
     <div class="col-md-12 component-main">
         <div class="row tab-row">
-            <div *ngFor="let compTabItem of compTabItems" id="compTab{{compTabItem.id}}" class="col-md-3 col-sm-6 component-tab {{ compTabItem.id == 1 ? 'tab-active' : ''}}"
+            <div *ngFor="let compTabItem of compTabItems" id="compTab{{compTabItem.id}}" class="col-md-2 col-sm-3 component-tab {{ compTabItem.id == selectedCompTab ? 'tab-active' : ''}}"
                 (click)="compTabClick(compTabItem.id)">
                 <h3>{{compTabItem.name}}</h3>
             </div>
@@ -38,23 +38,23 @@
         <div class="row">
             <div class="offset-md-3 offset-sm-3 col-md-6 col-sm-6" style="padding-top:25px;text-align: center;">
                 <span>
-                    <span *ngFor="let currentCompItem of currentCompItems">
+                    <span *ngFor="let currentCompItem of currentCompItems, let y = index">
                         <span class="icon-name">&nbsp;</span>
                         <div *ngIf="currentCompItem.id == selectedComp;then bubble3; else bubble4"></div>
                         <ng-template #bubble3>
-                            <span style="cursor: pointer;font-size:15px;" (click)="ComponentClick(currentCompItem.id)" class="fa fa-circle"></span>
+                            <span style="cursor: pointer;font-size:15px;" (click)="ComponentClick(currentCompItem.id, currentCompItem.type, y)" class="fa fa-circle"></span>
                         </ng-template>
                         <ng-template #bubble4>
-                            <span style="cursor: pointer;" (click)="ComponentClick(currentCompItem.id)" class="ti-control-record"></span>
+                            <span style="cursor: pointer;" (click)="ComponentClick(currentCompItem.id, currentCompItem.type, y)" class="ti-control-record"></span>
                         </ng-template>
                     </span>
                 </span>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id=tabContent>
             <div class="offset-md-1 col-md-10 offset-md-1 tab-content">
                 <div class="row component-tab-row">
-                    <div *ngFor="let currentCompItem of currentCompItems" class="col-md-3 col-sm-6 comp-body" (click)="ComponentClick(currentCompItem.id)">
+                    <div *ngFor="let currentCompItem of currentCompItems, let x = index" class="col-md-3 col-sm-6 comp-body" (click)="ComponentClick(currentCompItem.id, currentCompItem.type,x,'direct')" [style.display]="x>=scrollLimitMin1 && x<=scrollLimitMax1 ? 'block' : 'none'">
                         <div class="comp-tile {{ currentCompItem.id == selectedComp ? 'comp-active' : ''}}" id="subComponent{{currentCompItem.id}}">
                             <div class="d-flex justify-content-center">
                                 <img bind-src="imgUrl" class="img-thumbnail">
@@ -67,12 +67,13 @@
             </div>
         </div>
         <div class="row tab-row" id="subCompTab">
-            <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.id == selectedSubComp ? 'sub-tab-active' : ''}}" id="subCompTabItem{{subCompTabItem.id}}" (click)="subCompTabClick(subCompTabItem.id, subCompTabItem.name)">
+            <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}"
+                id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
                 <h4>{{subCompTabItem.name}}</h4>
             </div>
         </div>
-        <div class="row">
-            <div class="offset-md-1 col-md-10 offset-md-1 tab-content-details" id="subCompDetails">
+        <div class="row" id="subCompDetails">
+            <div class="offset-md-1 col-md-10 offset-md-1 tab-content-details">
                 <div class="row tab-row">
                     <div class="col-md-12 col-sm-12 comp-data">
                         <div class="data-content">
@@ -91,36 +92,17 @@
                                             <td>{{customerContent.content}}</td>
                                             <td>{{customerContent.content}}</td>
                                         </tr>
-                                        <tr>
-                                            <td>{{customerContent.content}}</td>
-                                            <td>{{customerContent.content}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{customerContent.content}}</td>
-                                            <td>{{customerContent.content}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{customerContent.content}}</td>
-                                            <td>{{customerContent.content}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{customerContent.content}}</td>
-                                            <td>{{customerContent.content}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{customerContent.content}}</td>
-                                            <td>{{customerContent.content}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>{{customerContent.content}}</td>
-                                            <td>{{customerContent.content}}</td>
-                                        </tr>
                                     </tbody>
                                 </table> -->
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="compNotFound" style="padding-top: 50px;">
+            <div class="col-md-12" style="text-align: center">
+                <b>THERE ARE NO COMPONENTS FOUND FOR THIS DATA CENTER.</b>
             </div>
         </div>
     </div>

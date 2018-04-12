@@ -98,8 +98,8 @@ export class ProvisioningComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private config: ConfigService, private router: Router, public adminLayoutComponnet: AdminLayoutComponent) {
     sessionStorage.setItem('previousUrl', this.router.url);
-    this.deviceHeight = (window.screen.height);
-    this.deviceWidth = (window.screen.width);
+    this.deviceHeight = (window.innerHeight);
+    this.deviceWidth = (window.innerWidth);
     if (this.deviceWidth >= 768) {
       this.scrollLimit = 4;
       this.scrollLimitMin = 0;
@@ -561,6 +561,7 @@ export class ProvisioningComponent implements OnInit {
   }
 
   editComponentClick(i) {
+    this.clearDcActionsDropDown(0, 'clearAll');
     for (let j = 0; j < this.dataCentersDetails.length; j++) {
       if (j == i) {
         if ($('#comp_filter').val() - 1 == i) {
@@ -1006,6 +1007,23 @@ export class ProvisioningComponent implements OnInit {
     $('.fa-circle').removeClass("fa fa-circle").addClass("ti-control-record");
     $('#dataCenterScroll' + id).removeClass("ti-control-record").addClass("fa fa-circle").css('font-size', '15px');
     this.dataCenterClick(id);
+    if (sessionStorage.previousSelectedId != id) {
+      this.clearDcActionsDropDown(id);
+    }
+    sessionStorage.setItem('previousSelectedId', id);
+  }
+
+  clearDcActionsDropDown(id, type = 'clearSelected') {
+    this.callMatricsFilter = false;
+    for (let i = 0; i < this.dataCenters.length; i++) {
+      if (type == 'clearAll') {
+        $('#callMatricsDropdown' + i).hide();
+      } else {
+        if (id != i) {
+          $('#callMatricsDropdown' + i).hide();
+        }
+      }
+    }
   }
 
   dataCenterClick(id) {

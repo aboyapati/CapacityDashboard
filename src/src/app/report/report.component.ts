@@ -40,8 +40,8 @@ export class ReportComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private config: ConfigService, private router: Router, private excelService: ExcelService) {
     sessionStorage.setItem('previousUrl', this.router.url);
-    this.deviceHeight = (window.screen.height);
-    this.deviceWidth = (window.screen.width);
+    this.deviceHeight = (window.innerHeight);
+    this.deviceWidth = (window.innerWidth);
     if (this.deviceWidth >= 768) {
       this.scrollLimit = 4;
       this.scrollLimitMin = 0;

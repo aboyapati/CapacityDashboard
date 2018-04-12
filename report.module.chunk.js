@@ -61,8 +61,8 @@ var ReportComponent = (function () {
         this.showNullRowMessage = false;
         this.reportStatus = false;
         sessionStorage.setItem('previousUrl', this.router.url);
-        this.deviceHeight = (window.screen.height);
-        this.deviceWidth = (window.screen.width);
+        this.deviceHeight = (window.innerHeight);
+        this.deviceWidth = (window.innerWidth);
         if (this.deviceWidth >= 768) {
             this.scrollLimit = 4;
             this.scrollLimitMin = 0;

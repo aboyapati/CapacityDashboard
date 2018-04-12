@@ -12,8 +12,9 @@ declare const $: any;
 export class CustomersComponent implements OnInit {
 
   customerList: any;
-  emptyCustomerFlag : boolean = false;
-  emptySearchCustomerFlag : boolean = false;
+  tempcustomerList: any;
+  customerSearchList: any;
+  emptySearchCustomerFlag: boolean = false;
 
   constructor(private modalService: NgbModal, private config: ConfigService, private router: Router) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -27,27 +28,40 @@ export class CustomersComponent implements OnInit {
   }
 
   getCustomers() {
+    this.customerList = [];
     setTimeout(() => {
       var val = '';
-      this.config.getCustomersList(val).subscribe(res => {
-        if(res.length < 1){
-          this.emptyCustomerFlag = true;
-        }
+      this.config.getCustomersList().subscribe(res => {
         this.customerList = res;
+		this.tempcustomerList = res;
       });
-    }, 1000);
+    }, 100);
   }
 
   valuechange(e) {
+    this.emptySearchCustomerFlag = false;
+    this.customerSearchList = [];
     var val = $('#searchText').val();
-    this.config.getCustomersList(val).subscribe(res => {
-      if(res.length < 1){
-        this.emptySearchCustomerFlag = true;
-      }else{
-      this.emptySearchCustomerFlag = false;
+
+    if (val == '') {
+      this.customerList = this.tempcustomerList;
+    } else {
+      this.customerList = [];
+	  for (let i = 0; i < this.tempcustomerList.length; i++) {
+        var string = this.tempcustomerList[i].name,
+          substring = val;
+        if (string.toLowerCase().search(substring.toLowerCase()) == -1) {
+
+        } else {
+          this.customerList.push(this.tempcustomerList[i]);
+        }
       }
-      this.customerList = res;
-    });
+      if (this.customerList.length < 1) {
+        this.emptySearchCustomerFlag = true;
+      } else {
+        this.emptySearchCustomerFlag = false;
+      }
+    }
   }
 
   editCustomerClick(i) {
