@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ConfigService } from '../config.service';
 import { Router } from '@angular/router';
+import { chart } from 'highcharts';
 declare const $: any;
 
 @Component({
@@ -10,6 +11,9 @@ declare const $: any;
   styleUrls: ['./customerview.component.css']
 })
 export class CustomerviewComponent implements OnInit {
+
+
+  chart: Highcharts.ChartObject;
 
   imgUrl: string = 'assets/images/icon-cube.png';
   dataCenters: any[];
@@ -82,9 +86,9 @@ export class CustomerviewComponent implements OnInit {
     this.getDataCenterList(this.userId);
     this.compTabItems = [{ "id": 1, "name": "NEXUS" }, { "id": 2, "name": "VCENTER" }, { "id": 3, "name": "SBC" }, { "id": 4, "name": "ASA" }];
   }
-  
-  resetSlider(){
-  	if (this.deviceWidth >= 768) {
+
+  resetSlider() {
+    if (this.deviceWidth >= 768) {
       this.scrollLimit1 = 4;
       this.scrollLimitMin1 = 0;
       this.scrollLimitMax1 = 3;
@@ -103,8 +107,8 @@ export class CustomerviewComponent implements OnInit {
   }
 
   dataCenterClick(id, scrollIndex, clickType = 'scroll') {
-  
-  	this.resetSlider();
+
+    this.resetSlider();
 
     if (clickType == 'scroll') {
       if (scrollIndex < this.scrollLimit) {
@@ -138,9 +142,9 @@ export class CustomerviewComponent implements OnInit {
   }
 
   compTabClick(id) {
-    var selCompTabId = $('.tab-active').attr('id');
-    $('#' + selCompTabId).attr('class', 'col-md-2 col-sm-6 component-tab');
-    $('#compTab' + id).attr('class', 'col-md-2 col-sm-6 component-tab tab-active');
+
+    this.selectedCompTab = id;
+
     if (id == 1) {
       this.setConponent('nexus');
     } else if (id == 2) {
@@ -170,15 +174,16 @@ export class CustomerviewComponent implements OnInit {
       this.selectedSubCompTypeId = this.subCompTabItems[0].type_id;
       this.selectedSubCompName = this.subCompTabItems[0].name;
     });
-    if (this.selectedComp != id) {
-      var selSubCompTabId = $('.comp-active').attr('id');
-      $('#' + selSubCompTabId).attr('class', 'comp-tile');
-    }
     this.selectedComp = id;
     setTimeout(() => {
       this.config.getCustomerContentCusView(this.selectedSubCompTypeId, this.selectedSubCompName).subscribe(res => {
         this.customerContent = res;
       });
+
+      if (this.selectedCompTab == 2) {
+        this.vcenterGraphContent();
+      }
+
     }, 100);
     $("#subCompDetails").show();
     $("#subCompTab").show();
@@ -216,16 +221,15 @@ export class CustomerviewComponent implements OnInit {
     this.config.getCustomerContentCusView(type_id, name).subscribe(res => {
       this.customerContent = res;
     });
-    if (this.selectedSubCompName != name) {
-      var selSubCompTabId = $('.sub-tab-active').attr('id');
-      $('#' + selSubCompTabId).attr('class', 'col-md-2 col-sm-6 component-tab-small');
+    if (this.selectedCompTab == 2) {
+      this.vcenterGraphContent();
     }
     this.selectedSubCompTypeId = type_id;
     this.selectedSubCompName = name;
   }
 
   hideEmptyCompTab() {
-    if(typeof this.ComponentItems['nexus'] != 'undefined') {
+    if (typeof this.ComponentItems['nexus'] != 'undefined') {
       if (this.ComponentItems['nexus'].length == 0) {
         $("#compTab1").hide();
       } else {
@@ -234,7 +238,7 @@ export class CustomerviewComponent implements OnInit {
     } else {
       $("#compTab1").hide();
     }
-    if(typeof this.ComponentItems['vcenter'] != 'undefined') {
+    if (typeof this.ComponentItems['vcenter'] != 'undefined') {
       if (this.ComponentItems['vcenter'].length == 0) {
         $("#compTab2").hide();
       } else {
@@ -243,7 +247,7 @@ export class CustomerviewComponent implements OnInit {
     } else {
       $("#compTab2").hide();
     }
-    if(typeof this.ComponentItems['sbc'] != 'undefined') {
+    if (typeof this.ComponentItems['sbc'] != 'undefined') {
       if (this.ComponentItems['sbc'].length == 0) {
         $("#compTab3").hide();
       } else {
@@ -252,7 +256,7 @@ export class CustomerviewComponent implements OnInit {
     } else {
       $("#compTab3").hide();
     }
-    if(typeof this.ComponentItems['asa'] != 'undefined') {
+    if (typeof this.ComponentItems['asa'] != 'undefined') {
       if (this.ComponentItems['asa'].length == 0) {
         $("#compTab4").hide();
       } else {
@@ -262,12 +266,13 @@ export class CustomerviewComponent implements OnInit {
       $("#compTab4").hide();
     }
   }
+
   selectDefSelectedCompTab() {
     var nexus_exists = 1;
     var vcenter_exists = 1;
     var sbc_exists = 1;
     var asa_exists = 1;
-    if(typeof this.ComponentItems['nexus'] != 'undefined') {
+    if (typeof this.ComponentItems['nexus'] != 'undefined') {
       if (this.ComponentItems['nexus'].length > 0) {
         this.setConponent('nexus');
         this.selectedCompTab = 1;
@@ -279,8 +284,8 @@ export class CustomerviewComponent implements OnInit {
     } else {
       nexus_exists = 0;
     }
-    if(nexus_exists == 0) {
-      if(typeof this.ComponentItems['vcenter'] != 'undefined') {
+    if (nexus_exists == 0) {
+      if (typeof this.ComponentItems['vcenter'] != 'undefined') {
         if (this.ComponentItems['vcenter'].length > 0) {
           this.setConponent('vcenter');
           this.selectedCompTab = 2;
@@ -293,9 +298,9 @@ export class CustomerviewComponent implements OnInit {
         vcenter_exists = 0;
       }
     }
-   
-    if(vcenter_exists == 0) {
-      if(typeof this.ComponentItems['sbc'] != 'undefined') {
+
+    if (vcenter_exists == 0) {
+      if (typeof this.ComponentItems['sbc'] != 'undefined') {
         if (this.ComponentItems['sbc'].length > 0) {
           this.setConponent('sbc');
           this.selectedCompTab = 3;
@@ -308,8 +313,8 @@ export class CustomerviewComponent implements OnInit {
         sbc_exists = 0;
       }
     }
-    if(sbc_exists == 0) {
-      if(typeof this.ComponentItems['asa'] != 'undefined') {
+    if (sbc_exists == 0) {
+      if (typeof this.ComponentItems['asa'] != 'undefined') {
         if (this.ComponentItems['asa'].length > 0) {
           this.setConponent('asa');
           this.selectedCompTab = 4;
@@ -322,12 +327,74 @@ export class CustomerviewComponent implements OnInit {
         asa_exists = 0;
       }
     }
-    if(asa_exists == 0) {
+    if (asa_exists == 0) {
       $("#subCompDetails").hide();
       $("#subCompTab").hide();
       $("#tabContent").hide();
       this.compNotFound = true;
     }
+  }
+
+  vcenterGraphContent() {
+    this.config.getVcenterGraphContent(this.selectedComp, 'VCENTER', this.selectedSubCompTypeId).subscribe(res => {
+      if (res.length > 0) {
+        var date = [];
+        var cpu_percent = [];
+        var mem_percent = [];
+        res.forEach(function (element) {
+          date.push(element.date);
+          cpu_percent.push(element.cpu_percent);
+          mem_percent.push(element.memory_percent);
+        });
+
+        const options: Highcharts.Options = {
+          chart: {
+            type: 'spline'
+          },
+          title: {
+            text: 'Vcenter Data Percentage'
+          },
+          xAxis: {
+            categories: date
+          },
+          yAxis: {
+            title: {
+              text: 'Percentage (%)'
+            },
+            labels: {
+              formatter: function () {
+                return this.value;
+              }
+            },
+            min: 0,
+            max: 100
+          },
+          tooltip: {
+            crosshairs: false,
+            shared: true
+          },
+          plotOptions: {
+            spline: {
+              marker: {
+                radius: 0,
+                lineColor: '#666666',
+                lineWidth: 1
+              }
+            }
+          },
+          series: [{
+            name: 'CPU Percent',
+            data: cpu_percent
+
+          }, {
+            name: 'Memory Percent',
+            data: mem_percent
+          }]
+        };
+
+        this.chart = chart('highchartVcenterGraph', options);
+      }
+    });
   }
 
 }

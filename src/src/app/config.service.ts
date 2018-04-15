@@ -37,6 +37,7 @@ export class ConfigService {
   getSubComponetCustomer: any;
   getDownloadReportUrl: any;
   getCustomerCuntent: any;
+  getVcenterGraphContentUrl: any;
 
   constructor(private http: Http) {
     this.http.get('assets/config.json')
@@ -72,6 +73,7 @@ export class ConfigService {
         this.getDownloadReportUrl = this.BASE_URL + result[0].getDownloadReportUrl;
         this.getSubComponetCustomer = this.BASE_URL + result[0].getSubComponetCustomer;
         this.getCustomerCuntent = this.BASE_URL + result[0].getCustomerCuntent;
+        this.getVcenterGraphContentUrl = this.BASE_URL + result[0].getVcenterGraphContentUrl;
       });
   }
 
@@ -246,10 +248,11 @@ export class ConfigService {
     let body = 'id=' + id;
     return this.http.post(this.getComponetCustomer, body, options).map((res: Response) => res.json());
   }
+
   getSubComponetCusView(compId, type) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'compId=' + compId +'&type=' + type;
+    let body = 'compId=' + compId + '&type=' + type;
     return this.http.post(this.getSubComponetCustomer, body, options).map((res: Response) => res.json());
   }
 
@@ -270,8 +273,15 @@ export class ConfigService {
   getCustomerContentCusView(typeId, subComponentName) {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'typeId=' + typeId +'&subComponentName=' + subComponentName;
+    let body = 'typeId=' + typeId + '&subComponentName=' + subComponentName;
     return this.http.post(this.getCustomerCuntent, body, options).map((res: Response) => res.json());
+  }
+
+  getVcenterGraphContent(compId, type, typeId) {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId;
+    return this.http.post(this.getVcenterGraphContentUrl, body, options).map((res: Response) => res.json());
   }
 
   BASE_URL = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');

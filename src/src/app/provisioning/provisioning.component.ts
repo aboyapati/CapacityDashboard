@@ -43,29 +43,29 @@ export class ProvisioningComponent implements OnInit {
   enablePassword: string = '';
 
   //Thresholds
-  vrfWarnStart: string = '';
-  vrfWarnEnd: string = '';
-  vrfMax: string = '';
+  vrfWarnStart: any = '';
+  vrfWarnEnd: any = '';
+  vrfMax: any = '';
 
-  bgpPeersWarnStart: string = '';
-  bgpPeersWarnEnd: string = '';
-  bgpPeersMax: string = '';
+  bgpPeersWarnStart: any = '';
+  bgpPeersWarnEnd: any = '';
+  bgpPeersMax: any = '';
 
-  vlanWarnStart: string = '';
-  vlanWarnEnd: string = '';
-  vlanMax: string = '';
+  vlanWarnStart: any = '';
+  vlanWarnEnd: any = '';
+  vlanMax: any = '';
 
-  hsrpWarnStart: string = '';
-  hsrpWarnEnd: string = '';
-  hsrpMax: string = '';
+  hsrpWarnStart: any = '';
+  hsrpWarnEnd: any = '';
+  hsrpMax: any = '';
 
-  staticRoutesWarnStart: string = '';
-  staticRoutesWarnEnd: string = '';
-  staticRoutesMax: string = '';
+  staticRoutesWarnStart: any = '';
+  staticRoutesWarnEnd: any = '';
+  staticRoutesMax: any = '';
 
-  vrrpWarnStart: string = '';
-  vrrpWarnEnd: string = '';
-  vrrpMax: string = '';
+  vrrpWarnStart: any = '';
+  vrrpWarnEnd: any = '';
+  vrrpMax: any = '';
   showNullRowMessage: boolean = false;
 
   editIdIndex: any;
@@ -334,7 +334,7 @@ export class ProvisioningComponent implements OnInit {
   next(event, value) {
     this.next_step = true;
     if (value == 1) {
-      if ($('#addComponentName').val() == '') {
+      if ($('#addComponentName').val() == '' || $('#addComponentName').val().length > 100) {
         $('#NameBar').css('border-bottom', '0.0625rem solid red');
         this.next_step = false;
       } else {
@@ -401,91 +401,91 @@ export class ProvisioningComponent implements OnInit {
   thresholdsValidate() {
     var thrFlag = true;
     if (this.ComVersion == 'NEXUS') {
-      if (this.vrfWarnStart == '') {
+      if (this.vrfWarnStart == '' || isNaN(this.vrfWarnStart) || this.vrfWarnStart < 0 || parseInt(this.vrfWarnStart) >= parseInt(this.vrfWarnEnd) || parseInt(this.vrfWarnStart) >= parseInt(this.vrfMax)) {
         $('#add-vrfWarnStart').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-vrfWarnStart').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.vrfWarnEnd == '') {
+      if (this.vrfWarnEnd == '' || isNaN(this.vrfWarnEnd) || this.vrfWarnEnd < 0 || parseInt(this.vrfWarnEnd) >= parseInt(this.vrfMax)) {
         $('#add-vrfWarnEnd').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-vrfWarnEnd').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.vrfMax == '') {
+      if (this.vrfMax == '' || isNaN(this.vrfMax) || this.vrfMax < 0 || this.vrfMax % 100 != 0) {
         $('#add-vrfMax').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-vrfMax').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.bgpPeersWarnStart == '') {
+      if (this.bgpPeersWarnStart == '' || isNaN(this.bgpPeersWarnStart) || this.bgpPeersWarnStart < 0 || parseInt(this.bgpPeersWarnStart) >= parseInt(this.bgpPeersWarnEnd) || parseInt(this.bgpPeersWarnStart) >= parseInt(this.bgpPeersMax)) {
         $('#add-bgpPeersWarnStart').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-bgpPeersWarnStart').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.bgpPeersWarnEnd == '') {
+      if (this.bgpPeersWarnEnd == '' || isNaN(this.bgpPeersWarnEnd) || this.bgpPeersWarnEnd < 0 || parseInt(this.bgpPeersWarnEnd) >= parseInt(this.bgpPeersMax)) {
         $('#add-bgpPeersWarnEnd').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-bgpPeersWarnEnd').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.bgpPeersMax == '') {
+      if (this.bgpPeersMax == '' || isNaN(this.bgpPeersMax) || this.bgpPeersMax < 0 || this.bgpPeersMax % 100 != 0) {
         $('#add-bgpPeersMax').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-bgpPeersMax').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.vlanWarnStart == '') {
+      if (this.vlanWarnStart == '' || isNaN(this.vlanWarnStart) || this.vlanWarnStart < 0 || parseInt(this.vlanWarnStart) >= parseInt(this.vlanWarnEnd) || parseInt(this.vlanWarnStart) >= parseInt(this.vlanMax)) {
         $('#add-vlanWarnStart').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-vlanWarnStart').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.vlanWarnEnd == '') {
+      if (this.vlanWarnEnd == '' || isNaN(this.vlanWarnEnd) || this.vlanWarnEnd < 0 || parseInt(this.vlanWarnEnd) >= parseInt(this.vlanMax)) {
         $('#add-vlanWarnEnd').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-vlanWarnEnd').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.vlanMax == '') {
+      if (this.vlanMax == '' || isNaN(this.vlanMax) || this.vlanMax < 0 || this.vlanMax % 100 != 0) {
         $('#add-vlanMax').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-vlanMax').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.hsrpWarnStart == '') {
+      if (this.hsrpWarnStart == '' || isNaN(this.hsrpWarnStart) || this.hsrpWarnStart < 0 || parseInt(this.hsrpWarnStart) >= parseInt(this.hsrpWarnEnd) || parseInt(this.hsrpWarnStart) >= parseInt(this.hsrpMax)) {
         $('#add-hsrpWarnStart').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-hsrpWarnStart').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.hsrpWarnEnd == '') {
+      if (this.hsrpWarnEnd == '' || isNaN(this.hsrpWarnEnd) || this.hsrpWarnEnd < 0 || parseInt(this.hsrpWarnEnd) >= parseInt(this.hsrpMax)) {
         $('#add-hsrpWarnEnd').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-hsrpWarnEnd').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.hsrpMax == '') {
+      if (this.hsrpMax == '' || isNaN(this.hsrpMax) || this.hsrpMax < 0 || this.hsrpMax % 100 != 0) {
         $('#add-hsrpMax').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-hsrpMax').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.staticRoutesWarnStart == '') {
+      if (this.staticRoutesWarnStart == '' || isNaN(this.staticRoutesWarnStart) || this.staticRoutesWarnStart < 0 || parseInt(this.staticRoutesWarnStart) >= parseInt(this.staticRoutesWarnEnd) || parseInt(this.staticRoutesWarnStart) >= parseInt(this.staticRoutesMax)) {
         $('#add-staticRoutesWarnStart').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-staticRoutesWarnStart').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.staticRoutesWarnEnd == '') {
+      if (this.staticRoutesWarnEnd == '' || isNaN(this.staticRoutesWarnEnd) || this.staticRoutesWarnEnd < 0 || parseInt(this.staticRoutesWarnEnd) >= parseInt(this.staticRoutesMax)) {
         $('#add-staticRoutesWarnEnd').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-staticRoutesWarnEnd').css('border-bottom', '0.0625rem solid #999');
       }
-      if (this.staticRoutesMax == '') {
+      if (this.staticRoutesMax == '' || isNaN(this.staticRoutesMax) || this.staticRoutesMax < 0 || this.staticRoutesMax % 100 != 0) {
         $('#add-staticRoutesMax').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
@@ -644,7 +644,7 @@ export class ProvisioningComponent implements OnInit {
 
   validateEditComponent(e) {
     var flag = false;
-    if ($('#editComponentName').val() == '') {
+    if ($('#editComponentName').val() == '' || $('#editComponentName').val().length > 100) {
       $('#editComponentBar1').css('border-bottom', '0.0625rem solid red');
       flag = true;
     } else {
@@ -688,95 +688,95 @@ export class ProvisioningComponent implements OnInit {
     }
 
     if ($('#editComponentNameType').val() == 'NEXUS') {
-      if ($('#editComponentvrfWarnStart').val() == '') {
-        $('#editComponentBar7').css('border-bottom', '0.0625rem solid red');
+      if ($('#editComponentvrfWarnStart').val() == '' || isNaN($('#editComponentvrfWarnStart').val()) || $('#editComponentvrfWarnStart').val() < 0 || parseInt($('#editComponentvrfWarnStart').val()) >= parseInt($('#editComponentvrfWarnEnd').val()) || parseInt($('#editComponentvrfWarnStart').val()) >= parseInt($('#editComponentvrfMax').val())) {
+        $('#editComponentBar77').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
-        $('#editComponentBar7').css('border-bottom', '0.0625rem solid #999');
+        $('#editComponentBar77').css('border-bottom', '0.0625rem solid #999');
       }
-      if ($('#editComponentvrfWarnEnd').val() == '') {
+      if ($('#editComponentvrfWarnEnd').val() == '' || isNaN($('#editComponentvrfWarnEnd').val()) || $('#editComponentvrfWarnEnd').val() < 0 || parseInt($('#editComponentvrfWarnEnd').val()) >= parseInt($('#editComponentvrfMax').val())) {
         $('#editComponentBar8').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar8').css('border-bottom', '0.0625rem solid #999');
       }
-      if ($('#editComponentvrfMax').val() == '') {
+      if ($('#editComponentvrfMax').val() == '' || isNaN($('#editComponentvrfMax').val()) || $('#editComponentvrfMax').val() < 0 || $('#editComponentvrfMax').val() % 100 != 0) {
         $('#editComponentBar9').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar9').css('border-bottom', '0.0625rem solid #999');
       }
 
-      if ($('#editComponentbgpPeersWarnStart').val() == '') {
+      if ($('#editComponentbgpPeersWarnStart').val() == '' || isNaN($('#editComponentbgpPeersWarnStart').val()) || $('#editComponentbgpPeersWarnStart').val() < 0 || parseInt($('#editComponentbgpPeersWarnStart').val()) >= parseInt($('#editComponentbgpPeersWarnEnd').val()) || parseInt($('#editComponentbgpPeersWarnStart').val()) >= parseInt($('#editComponentbgpPeersMax').val())) {
         $('#editComponentBar10').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar10').css('border-bottom', '0.0625rem solid #999');
       }
-      if ($('#editComponentbgpPeersWarnEnd').val() == '') {
+      if ($('#editComponentbgpPeersWarnEnd').val() == '' || isNaN($('#editComponentbgpPeersWarnEnd').val()) || $('#editComponentbgpPeersWarnEnd').val() < 0 || parseInt($('#editComponentbgpPeersWarnEnd').val()) >= parseInt($('#editComponentbgpPeersMax').val())) {
         $('#editComponentBar11').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar11').css('border-bottom', '0.0625rem solid #999');
       }
-      if ($('#editComponentbgpPeersMax').val() == '') {
+      if ($('#editComponentbgpPeersMax').val() == '' || isNaN($('#editComponentbgpPeersMax').val()) || $('#editComponentbgpPeersMax').val() < 0 || $('#editComponentbgpPeersMax').val() % 100 != 0) {
         $('#editComponentBar12').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar12').css('border-bottom', '0.0625rem solid #999');
       }
 
-      if ($('#editComponentvlanWarnStart').val() == '') {
+      if ($('#editComponentvlanWarnStart').val() == '' || isNaN($('#editComponentvlanWarnStart').val()) || $('#editComponentvlanWarnStart').val() < 0 || parseInt($('#editComponentvlanWarnStart').val()) >= parseInt($('#editComponentvlanWarnEnd').val()) || parseInt($('#editComponentvlanWarnStart').val()) >= parseInt($('#editComponentvlanMax').val())) {
         $('#editComponentBar13').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar13').css('border-bottom', '0.0625rem solid #999');
       }
-      if ($('#editComponentvlanWarnEnd').val() == '') {
+      if ($('#editComponentvlanWarnEnd').val() == '' || isNaN($('#editComponentvlanWarnEnd').val()) || $('#editComponentvlanWarnEnd').val() < 0 || parseInt($('#editComponentvlanWarnEnd').val()) >= parseInt($('#editComponentvlanMax').val())) {
         $('#editComponentBar14').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar14').css('border-bottom', '0.0625rem solid #999');
       }
-      if ($('#editComponentvlanMax').val() == '') {
+      if ($('#editComponentvlanMax').val() == '' || isNaN($('#editComponentvlanMax').val()) || $('#editComponentvlanMax').val() < 0 || $('#editComponentvlanMax').val() % 100 != 0) {
         $('#editComponentBar15').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar15').css('border-bottom', '0.0625rem solid #999');
       }
 
-      if ($('#editComponenthsrpWarnStart').val() == '') {
+      if ($('#editComponenthsrpWarnStart').val() == '' || isNaN($('#editComponenthsrpWarnStart').val()) || $('#editComponenthsrpWarnStart').val() < 0 || parseInt($('#editComponenthsrpWarnStart').val()) >= parseInt($('#editComponenthsrpWarnEnd').val()) || parseInt($('#editComponenthsrpWarnStart').val()) >= parseInt($('#editComponenthsrpMax').val())) {
         $('#editComponentBar16').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar16').css('border-bottom', '0.0625rem solid #999');
       }
-      if ($('#editComponenthsrpWarnEnd').val() == '') {
+      if ($('#editComponenthsrpWarnEnd').val() == '' || isNaN($('#editComponenthsrpWarnEnd').val()) || $('#editComponenthsrpWarnEnd').val() < 0 || parseInt($('#editComponenthsrpWarnEnd').val()) >= parseInt($('#editComponenthsrpMax').val())) {
         $('#editComponentBar17').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar17').css('border-bottom', '0.0625rem solid #999');
       }
-      if ($('#editComponenthsrpMax').val() == '') {
+      if ($('#editComponenthsrpMax').val() == '' || isNaN($('#editComponenthsrpMax').val()) || $('#editComponenthsrpMax').val() < 0 || $('#editComponenthsrpMax').val() % 100 != 0) {
         $('#editComponentBar18').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar18').css('border-bottom', '0.0625rem solid #999');
       }
 
-      if ($('#editComponentstaticRoutesWarnStart').val() == '') {
+      if ($('#editComponentstaticRoutesWarnStart').val() == '' || isNaN($('#editComponentstaticRoutesWarnStart').val()) || $('#editComponentstaticRoutesWarnStart').val() < 0 || parseInt($('#editComponentstaticRoutesWarnStart').val()) >= parseInt($('#editComponentstaticRoutesWarnEnd').val()) || parseInt($('#editComponentstaticRoutesWarnStart').val()) >= parseInt($('#editComponentstaticRoutesMax').val())) {
         $('#editComponentBar19').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar19').css('border-bottom', '0.0625rem solid #999');
       }
-      if ($('#editComponentstaticRoutesWarnEnd').val() == '') {
+      if ($('#editComponentstaticRoutesWarnEnd').val() == '' || isNaN($('#editComponentstaticRoutesWarnEnd').val()) || $('#editComponentstaticRoutesWarnEnd').val() < 0 || parseInt($('#editComponentstaticRoutesWarnEnd').val()) >= parseInt($('#editComponentstaticRoutesMax').val())) {
         $('#editComponentBar20').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar20').css('border-bottom', '0.0625rem solid #999');
       }
-      if ($('#editComponentstaticRoutesMax').val() == '') {
+      if ($('#editComponentstaticRoutesMax').val() == '' || isNaN($('#editComponentstaticRoutesMax').val()) || $('#editComponentstaticRoutesMax').val() < 0 || $('#editComponentstaticRoutesMax').val() % 100 != 0) {
         $('#editComponentBar21').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {

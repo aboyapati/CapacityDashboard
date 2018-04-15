@@ -26,11 +26,11 @@
         <p class="data-center">{{dataCenter.name}}</p>
         <p class="data-center-body">{{dataCenter.city}}, {{dataCenter.state}}</p>
         <p class="data-center-body">{{dataCenter.country}}</p>
-        <p class="data-center-body">{{dataCenter.time_zone}}</p>
+        <p class="data-center-body">{{dataCenter.timezone}}</p>
     </div>
     <div class="col-md-12 component-main">
         <div class="row tab-row">
-            <div *ngFor="let compTabItem of compTabItems" id="compTab{{compTabItem.id}}" class="col-md-2 col-sm-3 component-tab {{ compTabItem.id == selectedCompTab ? 'tab-active' : ''}}"
+            <div *ngFor="let compTabItem of compTabItems" id="compTab{{compTabItem.id}}" class="col-md-3 col-sm-3 component-tab {{ compTabItem.id == selectedCompTab ? 'tab-active' : ''}}"
                 (click)="compTabClick(compTabItem.id)">
                 <h3>{{compTabItem.name}}</h3>
             </div>
@@ -54,7 +54,8 @@
         <div class="row" id=tabContent>
             <div class="offset-md-1 col-md-10 offset-md-1 tab-content">
                 <div class="row component-tab-row">
-                    <div *ngFor="let currentCompItem of currentCompItems, let x = index" class="col-md-3 col-sm-6 comp-body" (click)="ComponentClick(currentCompItem.id, currentCompItem.type,x,'direct')" [style.display]="x>=scrollLimitMin1 && x<=scrollLimitMax1 ? 'block' : 'none'">
+                    <div *ngFor="let currentCompItem of currentCompItems, let x = index" class="col-md-3 col-sm-6 comp-body" (click)="ComponentClick(currentCompItem.id, currentCompItem.type,x,'direct')"
+                        [style.display]="x>=scrollLimitMin1 && x<=scrollLimitMax1 ? 'block' : 'none'">
                         <div class="comp-tile {{ currentCompItem.id == selectedComp ? 'comp-active' : ''}}" id="subComponent{{currentCompItem.id}}">
                             <div class="d-flex justify-content-center">
                                 <img bind-src="imgUrl" class="img-thumbnail">
@@ -66,10 +67,28 @@
                 </div>
             </div>
         </div>
-        <div class="row tab-row" id="subCompTab">
-            <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}"
-                id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
-                <h4>{{subCompTabItem.name}}</h4>
+        <!-- <div class="row">
+            <div class="col-md-12">
+                <div class="tab-row" id="subCompTab">
+                    <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}" id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
+                    <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'mr-l-25' : '' }} component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}" id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
+                        <h4>{{subCompTabItem.name}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="row" id="subCompTab">
+            <div class="offset-md-1 col-md-10">
+                <div class="tab-main-div">
+                    <!-- <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}" id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
+                        <h4>{{subCompTabItem.name}}</h4>
+                    </div> -->
+                    <div class="row">
+                        <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-12 col-sm-6 col-md-2 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}" id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
+                            <h4>{{subCompTabItem.name}}</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row" id="subCompDetails">
@@ -80,21 +99,8 @@
                             <p class="data-head">{{selectedSubCompName}} CONTENTS:</p>
                             <div class="table-responsive">
                                 <p>{{customerContent.content}}</p>
-                                <!-- <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Vrf name:</th>
-                                            <th>ID status:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{{customerContent.content}}</td>
-                                            <td>{{customerContent.content}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
                             </div>
+                            <div style="margin-top: 5%;" *ngIf="selectedCompTab == 2" id='highchartVcenterGraph'></div>
                         </div>
                     </div>
                 </div>

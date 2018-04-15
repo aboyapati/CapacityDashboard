@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';

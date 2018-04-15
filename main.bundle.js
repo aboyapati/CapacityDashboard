@@ -912,6 +912,7 @@ var ConfigService = (function () {
             _this.getDownloadReportUrl = _this.BASE_URL + result[0].getDownloadReportUrl;
             _this.getSubComponetCustomer = _this.BASE_URL + result[0].getSubComponetCustomer;
             _this.getCustomerCuntent = _this.BASE_URL + result[0].getCustomerCuntent;
+            _this.getVcenterGraphContentUrl = _this.BASE_URL + result[0].getVcenterGraphContentUrl;
         });
     }
     ConfigService.prototype.verifyLogin = function (username, password) {
@@ -1082,6 +1083,12 @@ var ConfigService = (function () {
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'typeId=' + typeId + '&subComponentName=' + subComponentName;
         return this.http.post(this.getCustomerCuntent, body, options).map(function (res) { return res.json(); });
+    };
+    ConfigService.prototype.getVcenterGraphContent = function (compId, type, typeId) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        var body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId;
+        return this.http.post(this.getVcenterGraphContentUrl, body, options).map(function (res) { return res.json(); });
     };
     return ConfigService;
 }());
