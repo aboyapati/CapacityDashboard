@@ -26214,7 +26214,31 @@ body.menu-bottom .navbar-wrapper {
 }
 
 .custom_modal {
-	top:70px;
+	top: 13%;
+}
+
+.custom_modal_dcAdd{
+  top: 15%;
+}
+
+.custom_modal_dcEdit{
+  top: 15%;
+}
+
+.custom_modal_dcDelete{
+  top: 35%;
+}
+
+.custom_modal_componentView{
+  top: 25%;
+}
+
+.custom_modal_componentEdit{
+  top : 13%;
+}
+
+.custom_modal_componentDelete{
+  top: 35%;
 }
 
 .EnableDcBlock{

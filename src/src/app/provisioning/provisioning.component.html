@@ -1,9 +1,10 @@
 <div class="row">
     <div class="col-md-3 col-sm-3" style="font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;">
-        onPOINT HCS.Capacity
+        Provisioning
     </div>
     <div class="col-md-6 col-sm-6" style="padding-top:6px;text-align: center;">
         <span>
+            <span (click)="scrollLeftClick()" style="cursor: pointer;" *ngIf="dataCenters != ''" class="ti-arrow-circle-left"></span>
             <span *ngFor="let dC of dataCenters; let i = index">
                 <span class="icon-name">&nbsp;</span>
                 <div *ngIf="i==selectedDataCenter;then bubble1; else bubble2"></div>
@@ -14,6 +15,8 @@
                     <span style="cursor: pointer;" (click)="dataCenterScrollClick(i)" id="dataCenterScroll{{i}}" class="ti-control-record"></span>
                 </ng-template>
             </span>
+            <span class="icon-name">&nbsp;</span>
+            <span (click)="scrollRightClick()" style="cursor: pointer;" *ngIf="dataCenters != ''" class="ti-arrow-circle-right"></span>
         </span>
     </div>
     <div class="col-md-3 col-sm-3 btn-top-bar">
@@ -333,7 +336,7 @@
                                         <fieldset id="fieldset_4">
                                             <!-- <h3 *ngIf="apiError" class="modal-text-h3">Congratulations. Your new component has been succesfully added!</h3>
                                       <h3 *ngIf="!apiError" class="modal-text-h3">Error Occured!</h3> -->
-                                            <h3 class="modal-text-h3" style="color: green;" *ngIf="apiError">Congratulations. Your new component has been succesfully added!</h3>
+                                            <h3 class="modal-text-h3" style="color: green;" *ngIf="apiError">Congratulations. Your new component has been successfully added !</h3>
                                             <h3 class="modal-text-h3" style="color: red; padding-bottom: 10px;" *ngIf="!apiError">Something went wrong !</h3>
                                             <p id="apiErrorMsg" style="color: red; text-align: center; padding-bottom: 65px; display: none;"></p>
                                             <div class="row">
@@ -365,7 +368,7 @@
                 </div>
             </div>
         </ng-template>
-        <table class="table table-striped">
+        <table style="margin-bottom: 5%;" class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Component Name</th>
@@ -380,7 +383,10 @@
                 <input type="hidden" id="comp_filter" name="comp_filter" value="" />
                 <tr *ngIf="showNullRowMessage">
                     <td align="center" colspan="6">
-                        <b>THERE ARE CURRENTLY NO COMPONENTS AVAILABLE FOR THIS DATA CENTER. <br />TO ADD A COMPONENT PLEASE USE THE <span style="color:#79A3BA; cursor:pointer;" (click)="openComponentModal(rsdcontent)">ADD COMPONENT WIZARD</span></b>
+                        <b>THERE ARE CURRENTLY NO COMPONENTS AVAILABLE FOR THIS DATA CENTER.
+                            <br />TO ADD A COMPONENT PLEASE USE THE
+                            <span style="color:#79A3BA; cursor:pointer;" (click)="openComponentModal(rsdcontent)">ADD COMPONENT WIZARD</span>
+                        </b>
                     </td>
                 </tr>
                 <tr *ngFor="let data of dataCentersDetails, let j = index">
@@ -409,7 +415,11 @@
 
 <div class="row" style="clear:both;">
     <div id="withoutdcBlock" class="col-md-12 tab-tile-table table-responsive text-center" style="display:none">
-        <span style="font-weight:bold;"><b>THERE ARE CURRENTLY NO DATA CENTERS AVAILABLE. TO ADD DATA CENTER PLEASE USE THE <span style="color:#79A3BA; cursor:pointer;" (click)="open(content, 0, 'add')">ADD DATA CENTER WIZARD</span></b></span>
+        <span style="font-weight:bold;">
+            <b>THERE ARE CURRENTLY NO DATA CENTERS AVAILABLE. TO ADD DATA CENTER PLEASE USE THE
+                <span style="color:#79A3BA; cursor:pointer;" (click)="open(content, 0, 'add')">ADD DATA CENTER WIZARD</span>
+            </b>
+        </span>
     </div>
 </div>
 
@@ -690,9 +700,9 @@
         </div>
         <div class="apiFailed" style="display: none">
             <div class="form-modal" style="padding-bottom: 40px;">
-                    <div class="header_title" style="text-align: center;"> Delete Component</div>
-                    <div style="color: red;" class="apiMsg">Something went wrong !</div>
-                    <p id="apiErrorMsgComponent" style="color: red;"></p>
+                <div class="header_title" style="text-align: center;"> Delete Component</div>
+                <div style="color: red;" class="apiMsg">Something went wrong !</div>
+                <p id="apiErrorMsgComponent" style="color: red;"></p>
             </div>
             <div class="col-md-12 form-modal">
                 <div class="row">
@@ -730,7 +740,7 @@
                         <i id="editComponentBar2" class="bar"></i>
                     </div>
                     <div class="form-group">
-                        <select [(ngModel)]="editComponentVersion" name="editComponentVersion" id="editComponentVersion">
+                        <select name="editComponentVersion" id="editComponentVersion">
                             <option class="modal_placeholder">Sub Type</option>
                             <option value="{{subTypeEdit.name}}" *ngFor='let subTypeEdit of subTypesEdit'>{{subTypeEdit.name}}</option>
                         </select>
@@ -759,7 +769,7 @@
 
                     <!-- <div *ngIf="componentRecords.type == 'NEXUS';then threshold_edit"></div> -->
                     <div id="edit-componet-thresholds" [hidden]='componentRecords.type != "NEXUS"'>
-                    <!-- <ng-template #threshold_edit> -->
+                        <!-- <ng-template #threshold_edit> -->
                         <p class="modal-text-p">Threshold Value</p>
                         <div class="table-responsive">
                             <table class="table modal-table">
@@ -890,7 +900,7 @@
                                 </tr>
                             </table>
                         </div>
-                    <!-- </ng-template> -->
+                        <!-- </ng-template> -->
                     </div>
                 </div>
                 <div class="col-md-12 form-modal">

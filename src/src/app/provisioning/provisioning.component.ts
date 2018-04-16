@@ -95,6 +95,7 @@ export class ProvisioningComponent implements OnInit {
   private selectedDataCenter: number;
   progressPerc: any;
   next_step: boolean;
+  private modalClassName: string;
 
   constructor(private modalService: NgbModal, private config: ConfigService, private router: Router, public adminLayoutComponnet: AdminLayoutComponent) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -136,7 +137,17 @@ export class ProvisioningComponent implements OnInit {
       }
     }
 
-    this.modalService.open(content, { windowClass: 'custom_modal', backdrop: 'static' }).result.then((result) => {
+    if (type == 'add') {
+      this.modalClassName = 'custom_modal_dcAdd';
+    } else if (type == 'edit') {
+      this.modalClassName = 'custom_modal_dcEdit';
+    } else if (type == 'delete') {
+      this.modalClassName = 'custom_modal_dcDelete';
+    } else {
+      this.modalClassName = 'custom_modal';
+    }
+
+    this.modalService.open(content, { windowClass: this.modalClassName, backdrop: 'static' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       if (type == 'add' && this.closeResult == 'Closed with: Close click') {
         this.name = '';
@@ -225,7 +236,13 @@ export class ProvisioningComponent implements OnInit {
           this.config.getSubtypes(type_id).subscribe(res => {
             this.subTypesEdit = res;
           });
-          this.editComponentVersion = Subtype_id;
+
+		  if(this.subTypesEdit.length > 0) {
+          	this.editComponentVersion = Subtype_id;
+		  } else {
+			this.editComponentVersion = 'Sub Type';
+			$("#editComponentVersion").prop("disabled", true);
+		  }
         }
       });
 
@@ -237,9 +254,16 @@ export class ProvisioningComponent implements OnInit {
 
     if (type == 'view') {
       $('#editComponentSuccessClose').trigger('click');
+      this.modalClassName = 'custom_modal_componentView';
+    } else if (type == 'edit') {
+      this.modalClassName = 'custom_modal_componentEdit';
+    } else if (type == 'delete') {
+      this.modalClassName = 'custom_modal_componentDelete';
+    } else {
+      this.modalClassName = 'custom_modal';
     }
 
-    this.modalService.open(content, { windowClass: 'custom_modal', size: 'lg', backdrop: 'static' }).result.then((result) => {
+    this.modalService.open(content, { windowClass: this.modalClassName, size: 'lg', backdrop: 'static' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -283,7 +307,7 @@ export class ProvisioningComponent implements OnInit {
       }
       this.config.componentAdd(this.userId, this.comName, this.currentDC, this.ComVersion, this.ipAddress, this.ComSubVersion, '', this.componentUser, this.password, this.enablePassword, this.vrfWarnStart, this.vrfWarnEnd, this.vrfMax, this.bgpPeersWarnStart, this.bgpPeersWarnEnd, this.bgpPeersMax, this.vlanWarnStart, this.vlanWarnEnd, this.vlanMax, this.hsrpWarnStart, this.hsrpWarnEnd, this.hsrpMax, this.staticRoutesWarnStart, this.staticRoutesWarnEnd, this.staticRoutesMax, this.vrrpWarnStart, this.vrrpWarnEnd, this.vrrpMax).subscribe(res => {
         if (res.status == 'success') {
-          this.provisioningList();
+          this.setDataCenterComponnets(this.currentDC);
           this.apiError = 1;
           this.currentDataCenterComponentId = res.component_id;
           this.adminLayoutComponnet.setDcLeftNav();
@@ -820,6 +844,10 @@ export class ProvisioningComponent implements OnInit {
       let editComponentstaticRoutesWarnStart = editComponentNameType == 'NEXUS' ? $('#editComponentstaticRoutesWarnStart').val() : '';
       let editComponentstaticRoutesWarnEnd = editComponentNameType == 'NEXUS' ? $('#editComponentstaticRoutesWarnEnd').val() : '';
       let editComponentstaticRoutesMax = editComponentNameType == 'NEXUS' ? $('#editComponentstaticRoutesMax').val() : '';
+	  
+	  if(editComponentVersion == 'Sub Type') {
+        editComponentVersion = '';
+      }
 
       setTimeout(() => {
         this.config.editComponent(this.userId, this.currentDataCenterComponentId, editComponentName, editComponentNameType, editComponentVersion, editComponentIpAddress, editComponentComponentUser, editComponentPassword, editComponentEnablePassword, editComponentvrfWarnStart, editComponentvrfWarnEnd, editComponentvrfMax, editComponentbgpPeersWarnStart, editComponentbgpPeersWarnEnd, editComponentbgpPeersMax, editComponentvlanWarnStart, editComponentvlanWarnEnd, editComponentvlanMax, editComponenthsrpWarnStart, editComponenthsrpWarnEnd, editComponenthsrpMax, editComponentstaticRoutesWarnStart, editComponentstaticRoutesWarnEnd, editComponentstaticRoutesMax).subscribe(res => {
@@ -1174,6 +1202,23 @@ export class ProvisioningComponent implements OnInit {
       }
     }
   }
+
+  scrollRightClick() {
+    let nextClick = parseInt(sessionStorage.previousSelectedId) + 1;
+    if (nextClick >= this.dataCenters.length) {
+      nextClick = 0;
+    }
+    this.dataCenterScrollClick(nextClick);
+  }
+
+  scrollLeftClick() {
+    let nextClick = parseInt(sessionStorage.previousSelectedId) - 1;
+    if (nextClick < 0) {
+      nextClick = this.dataCenters.length - 1;
+    }
+    this.dataCenterScrollClick(nextClick);
+  }
+
 }
 
 interface Datacenter {

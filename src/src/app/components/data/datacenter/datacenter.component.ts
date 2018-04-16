@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
 import { Router } from '@angular/router';
 import { LowerCasePipe } from '@angular/common';
+import { AdminLayoutComponent } from '../../../layouts/admin/admin-layout.component';
 declare const $: any;
 
 @Component({
@@ -41,6 +42,8 @@ export class DatacenterComponent implements OnInit {
   private subComponentCounter: number = 0;
   private subCoFlag: boolean = false;
   private coFlag: boolean = false;
+  private selectedComponentViewId: number;
+  private dataCenterHeading: string = '';
 
   closeResult: string;
   imgUrl: string = "assets/images/icon-cube.png";
@@ -50,7 +53,7 @@ export class DatacenterComponent implements OnInit {
   components: any;
   subComponents: any;
 
-  constructor(private modalService: NgbModal, private config: ConfigService, private route: ActivatedRoute, private AmCharts: AmChartsService, private router: Router) {
+  constructor(private modalService: NgbModal, private config: ConfigService, private route: ActivatedRoute, private AmCharts: AmChartsService, private router: Router, private dynamicSubMenu: AdminLayoutComponent) {
     sessionStorage.setItem('previousUrl', this.router.url);
     this.deviceHeight = (window.innerHeight);
     this.deviceWidth = (window.innerWidth);
@@ -89,6 +92,12 @@ export class DatacenterComponent implements OnInit {
             } else {
               this.coFlag = false;
               $('#withoutComponentBlock').hide();
+            }
+            for (let i = 0; i < this.dynamicSubMenu.dynamicSubMenu.length; i++) {
+              if (this.dynamicSubMenu.dynamicSubMenu[i].id == this.dataCenterId) {
+                this.dataCenterHeading = this.dynamicSubMenu.dynamicSubMenu[i].name;
+                break;
+              }
             }
             this.subComponents = [];
             if (this.subComponentCounter == 0) {
@@ -133,6 +142,8 @@ export class DatacenterComponent implements OnInit {
       this.componentClick();
       this.selectLeftNavComponents();
     }
+
+    this.selectedComponentViewId = id;
 
   }
 
@@ -551,4 +562,21 @@ export class DatacenterComponent implements OnInit {
       return 'with: ${reason}';
     }
   }
+
+  scrollRightClick() {
+    let nextClick = this.selectedComponentViewId + 1;
+    if (nextClick >= this.components.length) {
+      nextClick = 0;
+    }
+    this.componnetScrollClick(nextClick);
+  }
+
+  scrollLeftClick() {
+    let nextClick = this.selectedComponentViewId - 1;
+    if (nextClick < 0) {
+      nextClick = this.components.length - 1;
+    }
+    this.componnetScrollClick(nextClick);
+  }
+
 }

@@ -4,6 +4,7 @@
     </div>
     <div class="col-md-6 col-sm-6" style="padding-top:6px;text-align: center;">
         <span>
+            <span (click)="scrollLeftClick()" style="cursor: pointer;" *ngIf="dataCenters != ''" class="ti-arrow-circle-left"></span>
             <span *ngFor="let dC of dataCenters, let i = index">
                 <span class="icon-name">&nbsp;</span>
                 <div *ngIf="dC.id == selectedDataCenter;then bubble1; else bubble2"></div>
@@ -14,6 +15,8 @@
                     <span style="cursor: pointer;" (click)="dataCenterClick(dC.id,i)" class="ti-control-record"></span>
                 </ng-template>
             </span>
+            <span class="icon-name">&nbsp;</span>
+            <span (click)="scrollRightClick()" style="cursor: pointer;" *ngIf="dataCenters != ''" class="ti-arrow-circle-right"></span>
         </span>
     </div>
 </div>
@@ -30,7 +33,7 @@
     </div>
     <div class="col-md-12 component-main">
         <div class="row tab-row">
-            <div *ngFor="let compTabItem of compTabItems" id="compTab{{compTabItem.id}}" class="col-md-3 col-sm-3 component-tab {{ compTabItem.id == selectedCompTab ? 'tab-active' : ''}}"
+            <div style="display: none;" *ngFor="let compTabItem of compTabItems" id="compTab{{compTabItem.id}}" class="{{ this.componentCount == 4 ? 'col-md-3 col-sm-6' : '' }} {{ this.componentCount == 3 ? 'col-md-4 col-sm-12' : '' }} {{ this.componentCount == 2 ? 'col-md-6 col-sm-12' : '' }} {{ this.componentCount == 1 ? 'col-md-12 col-sm-12' : '' }} component-tab {{ compTabItem.id == selectedCompTab ? 'tab-active' : ''}}"
                 (click)="compTabClick(compTabItem.id)">
                 <h3>{{compTabItem.name}}</h3>
             </div>
@@ -38,6 +41,7 @@
         <div class="row">
             <div class="offset-md-3 offset-sm-3 col-md-6 col-sm-6" style="padding-top:25px;text-align: center;">
                 <span>
+                    <span (click)="scrollLeftClickSub()" style="cursor: pointer;" *ngIf="currentCompItems != ''" class="ti-arrow-circle-left"></span>
                     <span *ngFor="let currentCompItem of currentCompItems, let y = index">
                         <span class="icon-name">&nbsp;</span>
                         <div *ngIf="currentCompItem.id == selectedComp;then bubble3; else bubble4"></div>
@@ -48,6 +52,8 @@
                             <span style="cursor: pointer;" (click)="ComponentClick(currentCompItem.id, currentCompItem.type, y)" class="ti-control-record"></span>
                         </ng-template>
                     </span>
+                    <span class="icon-name">&nbsp;</span>
+                    <span (click)="scrollRightClickSub()" style="cursor: pointer;" *ngIf="currentCompItems != ''" class="ti-arrow-circle-right"></span>
                 </span>
             </div>
         </div>
@@ -84,7 +90,8 @@
                         <h4>{{subCompTabItem.name}}</h4>
                     </div> -->
                     <div class="row">
-                        <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-12 col-sm-6 col-md-2 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}" id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
+                        <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-12 col-sm-6 col-md-2 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}"
+                            id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
                             <h4>{{subCompTabItem.name}}</h4>
                         </div>
                     </div>

@@ -59,22 +59,6 @@
     font-size: 22px;
     color: #424242;
 }
-.ti-arrow-circle-right:before
-{
-    content: "\E65D";
-    font-size: 24px;
-    font-weight: bold;
-}
-.ti-arrow-circle-left:before{
-    content: "\E65E";
-    font-size: 24px;
-    font-weight: bold;
-}
-.ti-control-record:before{
-    content: "\E724";
-    font-weight: bold;
-    font-size: 15px;
-}
 .subComChartimg {
     width: 100%;
 }

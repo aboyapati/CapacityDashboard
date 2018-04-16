@@ -21,7 +21,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/customerview/customerview.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n    <div class=\"col-md-3 col-sm-3\" style=\"font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;\">\r\n        onPOINT HCS.Capacity\r\n    </div>\r\n    <div class=\"col-md-6 col-sm-6\" style=\"padding-top:6px;text-align: center;\">\r\n        <span>\r\n            <span *ngFor=\"let dC of dataCenters, let i = index\">\r\n                <span class=\"icon-name\">&nbsp;</span>\r\n                <div *ngIf=\"dC.id == selectedDataCenter;then bubble1; else bubble2\"></div>\r\n                <ng-template #bubble1>\r\n                    <span style=\"cursor: pointer;font-size:15px;\" (click)=\"dataCenterClick(dC.id,i)\" class=\"fa fa-circle\"></span>\r\n                </ng-template>\r\n                <ng-template #bubble2>\r\n                    <span style=\"cursor: pointer;\" (click)=\"dataCenterClick(dC.id,i)\" class=\"ti-control-record\"></span>\r\n                </ng-template>\r\n            </span>\r\n        </span>\r\n    </div>\r\n</div>\r\n<div class=\"row\">\r\n    <div *ngFor=\"let dataCenter of dataCenters, let i = index\" id=\"dataCenter{{dataCenter.id}}\" class=\"col-md-3 col-sm-6 tab-tile {{ dataCenter.id == selectedDataCenter ? 'tab-tile-active' : ''}}\"\r\n        (click)=\"dataCenterClick(dataCenter.id,i,'direct')\" [style.display]=\"i>=scrollLimitMin && i<=scrollLimitMax ? 'block' : 'none'\">\r\n        <div class=\"d-flex justify-content-center\">\r\n            <img bind-src=\"imgUrl\" class=\"img-thumbnail\">\r\n        </div>\r\n        <p class=\"data-center\">{{dataCenter.name}}</p>\r\n        <p class=\"data-center-body\">{{dataCenter.city}}, {{dataCenter.state}}</p>\r\n        <p class=\"data-center-body\">{{dataCenter.country}}</p>\r\n        <p class=\"data-center-body\">{{dataCenter.timezone}}</p>\r\n    </div>\r\n    <div class=\"col-md-12 component-main\">\r\n        <div class=\"row tab-row\">\r\n            <div *ngFor=\"let compTabItem of compTabItems\" id=\"compTab{{compTabItem.id}}\" class=\"col-md-3 col-sm-3 component-tab {{ compTabItem.id == selectedCompTab ? 'tab-active' : ''}}\"\r\n                (click)=\"compTabClick(compTabItem.id)\">\r\n                <h3>{{compTabItem.name}}</h3>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\">\r\n            <div class=\"offset-md-3 offset-sm-3 col-md-6 col-sm-6\" style=\"padding-top:25px;text-align: center;\">\r\n                <span>\r\n                    <span *ngFor=\"let currentCompItem of currentCompItems, let y = index\">\r\n                        <span class=\"icon-name\">&nbsp;</span>\r\n                        <div *ngIf=\"currentCompItem.id == selectedComp;then bubble3; else bubble4\"></div>\r\n                        <ng-template #bubble3>\r\n                            <span style=\"cursor: pointer;font-size:15px;\" (click)=\"ComponentClick(currentCompItem.id, currentCompItem.type, y)\" class=\"fa fa-circle\"></span>\r\n                        </ng-template>\r\n                        <ng-template #bubble4>\r\n                            <span style=\"cursor: pointer;\" (click)=\"ComponentClick(currentCompItem.id, currentCompItem.type, y)\" class=\"ti-control-record\"></span>\r\n                        </ng-template>\r\n                    </span>\r\n                </span>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" id=tabContent>\r\n            <div class=\"offset-md-1 col-md-10 offset-md-1 tab-content\">\r\n                <div class=\"row component-tab-row\">\r\n                    <div *ngFor=\"let currentCompItem of currentCompItems, let x = index\" class=\"col-md-3 col-sm-6 comp-body\" (click)=\"ComponentClick(currentCompItem.id, currentCompItem.type,x,'direct')\"\r\n                        [style.display]=\"x>=scrollLimitMin1 && x<=scrollLimitMax1 ? 'block' : 'none'\">\r\n                        <div class=\"comp-tile {{ currentCompItem.id == selectedComp ? 'comp-active' : ''}}\" id=\"subComponent{{currentCompItem.id}}\">\r\n                            <div class=\"d-flex justify-content-center\">\r\n                                <img bind-src=\"imgUrl\" class=\"img-thumbnail\">\r\n                            </div>\r\n                            <p class=\"comp-p-head\">{{currentCompItem.name}}</p>\r\n                            <p class=\"comp-p-body\">{{currentCompItem.version}}</p>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <!-- <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"tab-row\" id=\"subCompTab\">\r\n                    <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\" id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\">\r\n                    <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"{{ j%5 == 0 ? 'mr-l-25' : '' }} component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\" id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\">\r\n                        <h4>{{subCompTabItem.name}}</h4>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div> -->\r\n        <div class=\"row\" id=\"subCompTab\">\r\n            <div class=\"offset-md-1 col-md-10\">\r\n                <div class=\"tab-main-div\">\r\n                    <!-- <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\" id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\">\r\n                        <h4>{{subCompTabItem.name}}</h4>\r\n                    </div> -->\r\n                    <div class=\"row\">\r\n                        <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"{{ j%5 == 0 ? 'offset-md-1' : '' }} col-12 col-sm-6 col-md-2 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\" id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\">\r\n                            <h4>{{subCompTabItem.name}}</h4>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" id=\"subCompDetails\">\r\n            <div class=\"offset-md-1 col-md-10 offset-md-1 tab-content-details\">\r\n                <div class=\"row tab-row\">\r\n                    <div class=\"col-md-12 col-sm-12 comp-data\">\r\n                        <div class=\"data-content\">\r\n                            <p class=\"data-head\">{{selectedSubCompName}} CONTENTS:</p>\r\n                            <div class=\"table-responsive\">\r\n                                <p>{{customerContent.content}}</p>\r\n                            </div>\r\n                            <div style=\"margin-top: 5%;\" *ngIf=\"selectedCompTab == 2\" id='highchartVcenterGraph'></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" *ngIf=\"compNotFound\" style=\"padding-top: 50px;\">\r\n            <div class=\"col-md-12\" style=\"text-align: center\">\r\n                <b>THERE ARE NO COMPONENTS FOUND FOR THIS DATA CENTER.</b>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"row\">\r\n    <div class=\"col-md-3 col-sm-3\" style=\"font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;\">\r\n        onPOINT HCS.Capacity\r\n    </div>\r\n    <div class=\"col-md-6 col-sm-6\" style=\"padding-top:6px;text-align: center;\">\r\n        <span>\r\n            <span (click)=\"scrollLeftClick()\" style=\"cursor: pointer;\" *ngIf=\"dataCenters != ''\" class=\"ti-arrow-circle-left\"></span>\r\n            <span *ngFor=\"let dC of dataCenters, let i = index\">\r\n                <span class=\"icon-name\">&nbsp;</span>\r\n                <div *ngIf=\"dC.id == selectedDataCenter;then bubble1; else bubble2\"></div>\r\n                <ng-template #bubble1>\r\n                    <span style=\"cursor: pointer;font-size:15px;\" (click)=\"dataCenterClick(dC.id,i)\" class=\"fa fa-circle\"></span>\r\n                </ng-template>\r\n                <ng-template #bubble2>\r\n                    <span style=\"cursor: pointer;\" (click)=\"dataCenterClick(dC.id,i)\" class=\"ti-control-record\"></span>\r\n                </ng-template>\r\n            </span>\r\n            <span class=\"icon-name\">&nbsp;</span>\r\n            <span (click)=\"scrollRightClick()\" style=\"cursor: pointer;\" *ngIf=\"dataCenters != ''\" class=\"ti-arrow-circle-right\"></span>\r\n        </span>\r\n    </div>\r\n</div>\r\n<div class=\"row\">\r\n    <div *ngFor=\"let dataCenter of dataCenters, let i = index\" id=\"dataCenter{{dataCenter.id}}\" class=\"col-md-3 col-sm-6 tab-tile {{ dataCenter.id == selectedDataCenter ? 'tab-tile-active' : ''}}\"\r\n        (click)=\"dataCenterClick(dataCenter.id,i,'direct')\" [style.display]=\"i>=scrollLimitMin && i<=scrollLimitMax ? 'block' : 'none'\">\r\n        <div class=\"d-flex justify-content-center\">\r\n            <img bind-src=\"imgUrl\" class=\"img-thumbnail\">\r\n        </div>\r\n        <p class=\"data-center\">{{dataCenter.name}}</p>\r\n        <p class=\"data-center-body\">{{dataCenter.city}}, {{dataCenter.state}}</p>\r\n        <p class=\"data-center-body\">{{dataCenter.country}}</p>\r\n        <p class=\"data-center-body\">{{dataCenter.timezone}}</p>\r\n    </div>\r\n    <div class=\"col-md-12 component-main\">\r\n        <div class=\"row tab-row\">\r\n            <div style=\"display: none;\" *ngFor=\"let compTabItem of compTabItems\" id=\"compTab{{compTabItem.id}}\" class=\"{{ this.componentCount == 4 ? 'col-md-3 col-sm-6' : '' }} {{ this.componentCount == 3 ? 'col-md-4 col-sm-12' : '' }} {{ this.componentCount == 2 ? 'col-md-6 col-sm-12' : '' }} {{ this.componentCount == 1 ? 'col-md-12 col-sm-12' : '' }} component-tab {{ compTabItem.id == selectedCompTab ? 'tab-active' : ''}}\"\r\n                (click)=\"compTabClick(compTabItem.id)\">\r\n                <h3>{{compTabItem.name}}</h3>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\">\r\n            <div class=\"offset-md-3 offset-sm-3 col-md-6 col-sm-6\" style=\"padding-top:25px;text-align: center;\">\r\n                <span>\r\n                    <span (click)=\"scrollLeftClickSub()\" style=\"cursor: pointer;\" *ngIf=\"currentCompItems != ''\" class=\"ti-arrow-circle-left\"></span>\r\n                    <span *ngFor=\"let currentCompItem of currentCompItems, let y = index\">\r\n                        <span class=\"icon-name\">&nbsp;</span>\r\n                        <div *ngIf=\"currentCompItem.id == selectedComp;then bubble3; else bubble4\"></div>\r\n                        <ng-template #bubble3>\r\n                            <span style=\"cursor: pointer;font-size:15px;\" (click)=\"ComponentClick(currentCompItem.id, currentCompItem.type, y)\" class=\"fa fa-circle\"></span>\r\n                        </ng-template>\r\n                        <ng-template #bubble4>\r\n                            <span style=\"cursor: pointer;\" (click)=\"ComponentClick(currentCompItem.id, currentCompItem.type, y)\" class=\"ti-control-record\"></span>\r\n                        </ng-template>\r\n                    </span>\r\n                    <span class=\"icon-name\">&nbsp;</span>\r\n                    <span (click)=\"scrollRightClickSub()\" style=\"cursor: pointer;\" *ngIf=\"currentCompItems != ''\" class=\"ti-arrow-circle-right\"></span>\r\n                </span>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" id=tabContent>\r\n            <div class=\"offset-md-1 col-md-10 offset-md-1 tab-content\">\r\n                <div class=\"row component-tab-row\">\r\n                    <div *ngFor=\"let currentCompItem of currentCompItems, let x = index\" class=\"col-md-3 col-sm-6 comp-body\" (click)=\"ComponentClick(currentCompItem.id, currentCompItem.type,x,'direct')\"\r\n                        [style.display]=\"x>=scrollLimitMin1 && x<=scrollLimitMax1 ? 'block' : 'none'\">\r\n                        <div class=\"comp-tile {{ currentCompItem.id == selectedComp ? 'comp-active' : ''}}\" id=\"subComponent{{currentCompItem.id}}\">\r\n                            <div class=\"d-flex justify-content-center\">\r\n                                <img bind-src=\"imgUrl\" class=\"img-thumbnail\">\r\n                            </div>\r\n                            <p class=\"comp-p-head\">{{currentCompItem.name}}</p>\r\n                            <p class=\"comp-p-body\">{{currentCompItem.version}}</p>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <!-- <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"tab-row\" id=\"subCompTab\">\r\n                    <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\" id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\">\r\n                    <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"{{ j%5 == 0 ? 'mr-l-25' : '' }} component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\" id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\">\r\n                        <h4>{{subCompTabItem.name}}</h4>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div> -->\r\n        <div class=\"row\" id=\"subCompTab\">\r\n            <div class=\"offset-md-1 col-md-10\">\r\n                <div class=\"tab-main-div\">\r\n                    <!-- <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\" id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\">\r\n                        <h4>{{subCompTabItem.name}}</h4>\r\n                    </div> -->\r\n                    <div class=\"row\">\r\n                        <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"{{ j%5 == 0 ? 'offset-md-1' : '' }} col-12 col-sm-6 col-md-2 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\"\r\n                            id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\">\r\n                            <h4>{{subCompTabItem.name}}</h4>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" id=\"subCompDetails\">\r\n            <div class=\"offset-md-1 col-md-10 offset-md-1 tab-content-details\">\r\n                <div class=\"row tab-row\">\r\n                    <div class=\"col-md-12 col-sm-12 comp-data\">\r\n                        <div class=\"data-content\">\r\n                            <p class=\"data-head\">{{selectedSubCompName}} CONTENTS:</p>\r\n                            <div class=\"table-responsive\">\r\n                                <p>{{customerContent.content}}</p>\r\n                            </div>\r\n                            <div style=\"margin-top: 5%;\" *ngIf=\"selectedCompTab == 2\" id='highchartVcenterGraph'></div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" *ngIf=\"compNotFound\" style=\"padding-top: 50px;\">\r\n            <div class=\"col-md-12\" style=\"text-align: center\">\r\n                <b>THERE ARE NO COMPONENTS FOUND FOR THIS DATA CENTER.</b>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -58,6 +58,8 @@ var CustomerviewComponent = (function () {
         this.imgUrl = 'assets/images/icon-cube.png';
         this.customerContent = '';
         this.compNotFound = false;
+        this.selectedDcViewId = 0;
+        this.selectedDcSubViewId = -1;
         sessionStorage.setItem('previousUrl', this.router.url);
         this.deviceHeight = (window.innerHeight);
         this.deviceWidth = (window.innerWidth);
@@ -153,20 +155,35 @@ var CustomerviewComponent = (function () {
         $('#compTab1').attr('class', 'col-md-2 col-sm-6 component-tab tab-active');
         $("#subCompDetails").hide();
         $("#subCompTab").hide();
+        this.selectedDcViewId = scrollIndex;
+    };
+    CustomerviewComponent.prototype.setComponent = function (type) {
+        var _this = this;
+        var that = this;
+        setTimeout(function () {
+            //this.currentCompItems = this.ComponentItems[type];     
+            $.each(_this.ComponentItems, function (key, value) {
+                if (value['type'] == type) {
+                    that.currentCompItems = value['components'];
+                }
+            });
+            $("#subCompDetails").hide();
+            $("#subCompTab").hide();
+        }, 100);
     };
     CustomerviewComponent.prototype.compTabClick = function (id) {
         this.selectedCompTab = id;
         if (id == 1) {
-            this.setConponent('nexus');
+            this.setComponent('NEXUS');
         }
         else if (id == 2) {
-            this.setConponent('vcenter');
+            this.setComponent('VCENTER');
         }
         else if (id == 3) {
-            this.setConponent('sbc');
+            this.setComponent('SBC');
         }
         else if (id == 4) {
-            this.setConponent('asa');
+            this.setComponent('ASA');
         }
         this.selectedComp = '';
     };
@@ -199,6 +216,7 @@ var CustomerviewComponent = (function () {
         }, 100);
         $("#subCompDetails").show();
         $("#subCompTab").show();
+        this.selectedDcSubViewId = scrollIndex;
     };
     CustomerviewComponent.prototype.getDataCenterList = function (id) {
         var _this = this;
@@ -216,148 +234,226 @@ var CustomerviewComponent = (function () {
         var _this = this;
         this.config.getComponetCusView(id).subscribe(function (res) {
             _this.ComponentItems = res;
+            _this.componentCount = _this.ComponentItems.length;
             _this.hideEmptyCompTab();
             _this.selectDefSelectedCompTab();
         });
-    };
-    CustomerviewComponent.prototype.setConponent = function (type) {
-        var _this = this;
-        setTimeout(function () {
-            _this.currentCompItems = _this.ComponentItems[type];
-            $("#subCompDetails").hide();
-            $("#subCompTab").hide();
-        }, 100);
     };
     CustomerviewComponent.prototype.subCompTabClick = function (type_id, name) {
         var _this = this;
         this.config.getCustomerContentCusView(type_id, name).subscribe(function (res) {
             _this.customerContent = res;
         });
+        this.selectedSubCompTypeId = type_id;
+        this.selectedSubCompName = name;
         if (this.selectedCompTab == 2) {
             this.vcenterGraphContent();
         }
-        this.selectedSubCompTypeId = type_id;
-        this.selectedSubCompName = name;
     };
     CustomerviewComponent.prototype.hideEmptyCompTab = function () {
-        if (typeof this.ComponentItems['nexus'] != 'undefined') {
-            if (this.ComponentItems['nexus'].length == 0) {
-                $("#compTab1").hide();
+        this.componentCount = 0;
+        var that = this;
+        $.each(this.ComponentItems, function (key, value) {
+            if (value['type'] == 'NEXUS') {
+                if (value['components'].length == 0) {
+                    $("#compTab1").hide();
+                }
+                else {
+                    $("#compTab1").show();
+                    that.componentCount++;
+                }
             }
-            else {
-                $("#compTab1").show();
+            else if (value['type'] == 'VCENTER') {
+                if (value['components'].length == 0) {
+                    $("#compTab2").hide();
+                }
+                else {
+                    $("#compTab2").show();
+                    that.componentCount++;
+                }
             }
-        }
-        else {
-            $("#compTab1").hide();
-        }
-        if (typeof this.ComponentItems['vcenter'] != 'undefined') {
-            if (this.ComponentItems['vcenter'].length == 0) {
-                $("#compTab2").hide();
+            else if (value['type'] == 'SBC') {
+                if (value['components'].length == 0) {
+                    $("#compTab3").hide();
+                }
+                else {
+                    $("#compTab3").show();
+                    that.componentCount++;
+                }
             }
-            else {
-                $("#compTab2").show();
+            else if (value['type'] == 'ASA') {
+                if (value['components'].length == 0) {
+                    $("#compTab4").hide();
+                }
+                else {
+                    $("#compTab4").show();
+                    that.componentCount++;
+                }
             }
-        }
-        else {
-            $("#compTab2").hide();
-        }
-        if (typeof this.ComponentItems['sbc'] != 'undefined') {
-            if (this.ComponentItems['sbc'].length == 0) {
-                $("#compTab3").hide();
-            }
-            else {
-                $("#compTab3").show();
-            }
-        }
-        else {
-            $("#compTab3").hide();
-        }
-        if (typeof this.ComponentItems['asa'] != 'undefined') {
-            if (this.ComponentItems['asa'].length == 0) {
-                $("#compTab4").hide();
-            }
-            else {
-                $("#compTab4").show();
-            }
-        }
-        else {
-            $("#compTab4").hide();
-        }
+        });
+        // if (typeof this.ComponentItems['nexus'] != 'undefined') {
+        //   if (this.ComponentItems['nexus'].length == 0) {
+        //     $("#compTab1").hide();
+        //   } else {
+        //     $("#compTab1").show();
+        //     this.componentCount++;
+        //   }
+        // } else {
+        //   $("#compTab1").hide();
+        // }
+        // if (typeof this.ComponentItems['vcenter'] != 'undefined') {
+        //   if (this.ComponentItems['vcenter'].length == 0) {
+        //     $("#compTab2").hide();
+        //   } else {
+        //     $("#compTab2").show();
+        //     this.componentCount++;
+        //   }
+        // } else {
+        //   $("#compTab2").hide();
+        // }
+        // if (typeof this.ComponentItems['sbc'] != 'undefined') {
+        //   if (this.ComponentItems['sbc'].length == 0) {
+        //     $("#compTab3").hide();
+        //   } else {
+        //     $("#compTab3").show();
+        //     this.componentCount++;
+        //   }
+        // } else {
+        //   $("#compTab3").hide();
+        // }
+        // if (typeof this.ComponentItems['asa'] != 'undefined') {
+        //   if (this.ComponentItems['asa'].length == 0) {
+        //     $("#compTab4").hide();
+        //   } else {
+        //     $("#compTab4").show();
+        //     this.componentCount++;
+        //   }
+        // } else {
+        //   $("#compTab4").hide();
+        // }
     };
     CustomerviewComponent.prototype.selectDefSelectedCompTab = function () {
-        var nexus_exists = 1;
-        var vcenter_exists = 1;
-        var sbc_exists = 1;
-        var asa_exists = 1;
-        if (typeof this.ComponentItems['nexus'] != 'undefined') {
-            if (this.ComponentItems['nexus'].length > 0) {
-                this.setConponent('nexus');
-                this.selectedCompTab = 1;
-                this.compNotFound = false;
-                $("#tabContent").show();
+        var nexus_exists = 0;
+        var vcenter_exists = 0;
+        var sbc_exists = 0;
+        var asa_exists = 0;
+        var that = this;
+        $.each(this.ComponentItems, function (key, value) {
+            if (value['type'] == 'NEXUS') {
+                if (value['components'].length > 0) {
+                    nexus_exists = 1;
+                    that.setComponent('NEXUS');
+                    that.selectedCompTab = 1;
+                    that.compNotFound = false;
+                    $("#tabContent").show();
+                }
             }
-            else {
-                nexus_exists = 0;
-            }
-        }
-        else {
-            nexus_exists = 0;
-        }
+        });
         if (nexus_exists == 0) {
-            if (typeof this.ComponentItems['vcenter'] != 'undefined') {
-                if (this.ComponentItems['vcenter'].length > 0) {
-                    this.setConponent('vcenter');
-                    this.selectedCompTab = 2;
-                    this.compNotFound = false;
-                    $("#tabContent").show();
+            $.each(this.ComponentItems, function (key, value) {
+                if (value['type'] == 'VCENTER') {
+                    if (value['components'].length > 0) {
+                        vcenter_exists = 1;
+                        that.setComponent('VCENTER');
+                        that.selectedCompTab = 2;
+                        that.compNotFound = false;
+                        $("#tabContent").show();
+                    }
                 }
-                else {
-                    vcenter_exists = 0;
-                }
-            }
-            else {
-                vcenter_exists = 0;
-            }
+            });
         }
-        if (vcenter_exists == 0) {
-            if (typeof this.ComponentItems['sbc'] != 'undefined') {
-                if (this.ComponentItems['sbc'].length > 0) {
-                    this.setConponent('sbc');
-                    this.selectedCompTab = 3;
-                    this.compNotFound = false;
-                    $("#tabContent").show();
+        if (nexus_exists == 0 && vcenter_exists == 0) {
+            $.each(this.ComponentItems, function (key, value) {
+                if (value['type'] == 'SBC') {
+                    if (value['components'].length > 0) {
+                        sbc_exists = 1;
+                        that.setComponent('SBC');
+                        that.selectedCompTab = 3;
+                        that.compNotFound = false;
+                        $("#tabContent").show();
+                    }
                 }
-                else {
-                    sbc_exists = 0;
-                }
-            }
-            else {
-                sbc_exists = 0;
-            }
+            });
         }
-        if (sbc_exists == 0) {
-            if (typeof this.ComponentItems['asa'] != 'undefined') {
-                if (this.ComponentItems['asa'].length > 0) {
-                    this.setConponent('asa');
-                    this.selectedCompTab = 4;
-                    this.compNotFound = false;
-                    $("#tabContent").show();
+        if (nexus_exists == 0 && vcenter_exists == 0 && sbc_exists == 0) {
+            $.each(this.ComponentItems, function (key, value) {
+                if (value['type'] == 'ASA') {
+                    if (value['components'].length > 0) {
+                        asa_exists = 1;
+                        that.setComponent('ASA');
+                        that.selectedCompTab = 4;
+                        that.compNotFound = false;
+                        $("#tabContent").show();
+                    }
                 }
-                else {
-                    asa_exists = 0;
-                }
-            }
-            else {
-                asa_exists = 0;
-            }
+            });
         }
-        if (asa_exists == 0) {
+        if (nexus_exists == 0 && vcenter_exists == 0 && sbc_exists == 0 && asa_exists == 0) {
             $("#subCompDetails").hide();
             $("#subCompTab").hide();
             $("#tabContent").hide();
-            this.compNotFound = true;
+            that.compNotFound = true;
         }
+        // if (typeof this.ComponentItems['nexus'] != 'undefined') {
+        //   if (this.ComponentItems['nexus'].length > 0) {
+        //     this.setComponent('nexus');
+        //     this.selectedCompTab = 1;
+        //     this.compNotFound = false;
+        //     $("#tabContent").show();
+        //   } else {
+        //     nexus_exists = 0;
+        //   }
+        // } else {
+        //   nexus_exists = 0;
+        // }
+        // if (nexus_exists == 0) {
+        //   if (typeof this.ComponentItems['vcenter'] != 'undefined') {
+        //     if (this.ComponentItems['vcenter'].length > 0) {
+        //       this.setComponent('vcenter');
+        //       this.selectedCompTab = 2;
+        //       this.compNotFound = false;
+        //       $("#tabContent").show();
+        //     } else {
+        //       vcenter_exists = 0;
+        //     }
+        //   } else {
+        //     vcenter_exists = 0;
+        //   }
+        // }
+        // if (vcenter_exists == 0) {
+        //   if (typeof this.ComponentItems['sbc'] != 'undefined') {
+        //     if (this.ComponentItems['sbc'].length > 0) {
+        //       this.setComponent('sbc');
+        //       this.selectedCompTab = 3;
+        //       this.compNotFound = false;
+        //       $("#tabContent").show();
+        //     } else {
+        //       sbc_exists = 0;
+        //     }
+        //   } else {
+        //     sbc_exists = 0;
+        //   }
+        // }
+        // if (sbc_exists == 0) {
+        //   if (typeof this.ComponentItems['asa'] != 'undefined') {
+        //     if (this.ComponentItems['asa'].length > 0) {
+        //       this.setComponent('asa');
+        //       this.selectedCompTab = 4;
+        //       this.compNotFound = false;
+        //       $("#tabContent").show();
+        //     } else {
+        //       asa_exists = 0;
+        //     }
+        //   } else {
+        //     asa_exists = 0;
+        //   }
+        // }
+        // if (asa_exists == 0) {
+        //   $("#subCompDetails").hide();
+        //   $("#subCompTab").hide();
+        //   $("#tabContent").hide();
+        //   this.compNotFound = true;
+        // }
     };
     CustomerviewComponent.prototype.vcenterGraphContent = function () {
         var _this = this;
@@ -374,6 +470,9 @@ var CustomerviewComponent = (function () {
                 var options = {
                     chart: {
                         type: 'spline'
+                    },
+                    credits: {
+                        enabled: false
                     },
                     title: {
                         text: 'Vcenter Data Percentage'
@@ -417,6 +516,34 @@ var CustomerviewComponent = (function () {
                 _this.chart = Object(__WEBPACK_IMPORTED_MODULE_3_highcharts__["chart"])('highchartVcenterGraph', options);
             }
         });
+    };
+    CustomerviewComponent.prototype.scrollRightClick = function () {
+        var nextClick = this.selectedDcViewId + 1;
+        if (nextClick >= this.dataCenters.length) {
+            nextClick = 0;
+        }
+        this.dataCenterClick(this.dataCenters[nextClick].id, nextClick);
+    };
+    CustomerviewComponent.prototype.scrollLeftClick = function () {
+        var nextClick = this.selectedDcViewId - 1;
+        if (nextClick < 0) {
+            nextClick = this.dataCenters.length - 1;
+        }
+        this.dataCenterClick(this.dataCenters[nextClick].id, nextClick);
+    };
+    CustomerviewComponent.prototype.scrollRightClickSub = function () {
+        var nextClick = this.selectedDcSubViewId + 1;
+        if (nextClick >= this.currentCompItems.length) {
+            nextClick = 0;
+        }
+        this.ComponentClick(this.currentCompItems[nextClick].id, this.currentCompItems[nextClick].type, nextClick);
+    };
+    CustomerviewComponent.prototype.scrollLeftClickSub = function () {
+        var nextClick = this.selectedDcSubViewId - 1;
+        if (nextClick < 0) {
+            nextClick = this.currentCompItems.length - 1;
+        }
+        this.ComponentClick(this.currentCompItems[nextClick].id, this.currentCompItems[nextClick].type, nextClick);
     };
     return CustomerviewComponent;
 }());

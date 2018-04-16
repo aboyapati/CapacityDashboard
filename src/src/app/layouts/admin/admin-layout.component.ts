@@ -4,7 +4,6 @@ import 'rxjs/add/operator/filter';
 import { state, style, transition, animate, trigger, AUTO_STYLE } from '@angular/animations';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MenuItems } from '../../shared/menu-items/menu-items';
-import { DatacenterComponent } from '../../components/data/datacenter/datacenter.component';
 import { ConfigService } from '../../config.service';
 
 declare const $: any;
@@ -59,7 +58,7 @@ export class AdminLayoutComponent implements OnInit {
   public subComponentChildren: any;
   public MENUITEMS: any;
 
-  constructor(public menuItems: MenuItems, private router: Router, private modalService: NgbModal, public dcComp: DatacenterComponent, private config: ConfigService) {
+  constructor(public menuItems: MenuItems, private router: Router, private modalService: NgbModal, private config: ConfigService) {
     const scrollHeight = window.screen.height - 150;
     this.innerHeight = scrollHeight + 'px';
     this.windowWidth = window.innerWidth;
@@ -139,7 +138,7 @@ export class AdminLayoutComponent implements OnInit {
             },
             {
               state: 'license',
-              name: 'CUSTOMER LICENSE',
+              name: 'USERS & LICENSING',
               type: 'link',
               icon: 'fa fa-id-card'
             },

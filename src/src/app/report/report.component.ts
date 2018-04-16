@@ -37,6 +37,7 @@ export class ReportComponent implements OnInit {
   private toDate: any;
   private fromDate: any;
   private downloadData: any;
+  private selectedDcViewId: number;
 
   constructor(private modalService: NgbModal, private config: ConfigService, private router: Router, private excelService: ExcelService) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -102,6 +103,7 @@ export class ReportComponent implements OnInit {
     $('.fa-circle').removeClass("fa fa-circle").addClass("ti-control-record");
     $('#dataCenterScroll' + id).removeClass("ti-control-record").addClass("fa fa-circle").css('font-size', '15px');
     this.dataCenterClick(id);
+    this.selectedDcViewId = id;
   }
 
   dataCenterClick(id) {
@@ -157,6 +159,22 @@ export class ReportComponent implements OnInit {
         alert('Oops..Something wrong happened. Please try later');
       }
     });
+  }
+
+  scrollRightClick() {
+    let nextClick = this.selectedDcViewId + 1;
+    if (nextClick >= this.dataCenters.length) {
+      nextClick = 0;
+    }
+    this.dataCenterScrollClick(nextClick);
+  }
+
+  scrollLeftClick() {
+    let nextClick = this.selectedDcViewId - 1;
+    if (nextClick < 0) {
+      nextClick = this.dataCenters.length - 1;
+    }
+    this.dataCenterScrollClick(nextClick);
   }
 
 }

@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
 
   callMatricsFilter: boolean = false;
   notificationFilter: boolean = false;
-  datas: any;
+  private datas: any;
   private notificationFilterType = 'Today';
   private notifications: any;
 
@@ -31,24 +31,7 @@ export class DashboardComponent implements OnInit {
     setTimeout(() => {
       this.config.getDashboardData()
         .subscribe(res => {
-
-          var dataset = [];
-
-          for (var data in res) {
-            var name = res[data].name;
-            var total = res[data].total_calls;
-            var concurrent = res[data].concurrent_calls;
-
-            var unit = {
-              name: name,
-              total: total,
-              concurrent: concurrent
-            }
-
-            dataset.push(unit);
-          }
-
-          this.datas = dataset;
+          this.datas = res;
         });
 
       this.getNotificationWithFilter(this.notificationFilterType);
@@ -63,24 +46,7 @@ export class DashboardComponent implements OnInit {
     Observable.interval(15000 * 60).subscribe(x => {
       this.config.getDashboardData()
         .subscribe(res => {
-
-          var dataset = [];
-
-          for (var data in res) {
-            var name = res[data].name;
-            var total = res[data].total_calls;
-            var concurrent = res[data].concurrent_calls;
-
-            var unit = {
-              name: name,
-              total: total,
-              concurrent: concurrent
-            }
-
-            dataset.push(unit);
-          }
-
-          this.datas = dataset;
+          this.datas = res;
         });
     });
 

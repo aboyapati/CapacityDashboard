@@ -26,6 +26,7 @@ export class CustomerviewComponent implements OnInit {
   currentCompItems: any[];
   selectedDataCenter: number;
   selectedComp: any;
+  componentCount: any;
   userId: number;
   customerContent: any = '';
   compNotFound: boolean = false;
@@ -39,8 +40,9 @@ export class CustomerviewComponent implements OnInit {
   private sliderLimit1: number;
   private scrollLimitMin1: number;
   private scrollLimitMax1: number;
-
   private observeRef: any;
+  private selectedDcViewId: number = 0;
+  private selectedDcSubViewId: number = -1;
 
   constructor(private route: ActivatedRoute, private config: ConfigService, private router: Router) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -139,6 +141,21 @@ export class CustomerviewComponent implements OnInit {
     $('#compTab1').attr('class', 'col-md-2 col-sm-6 component-tab tab-active');
     $("#subCompDetails").hide();
     $("#subCompTab").hide();
+    this.selectedDcViewId = scrollIndex;
+  }
+
+  setComponent(type) {
+    var that = this; 
+    setTimeout(() => {
+      //this.currentCompItems = this.ComponentItems[type];     
+      $.each(this.ComponentItems, function( key, value ) {
+        if(value['type'] == type) {
+          that.currentCompItems = value['components'];
+        }
+      });
+      $("#subCompDetails").hide();
+      $("#subCompTab").hide();
+    }, 100);
   }
 
   compTabClick(id) {
@@ -146,13 +163,13 @@ export class CustomerviewComponent implements OnInit {
     this.selectedCompTab = id;
 
     if (id == 1) {
-      this.setConponent('nexus');
+      this.setComponent('NEXUS');
     } else if (id == 2) {
-      this.setConponent('vcenter');
+      this.setComponent('VCENTER');
     } else if (id == 3) {
-      this.setConponent('sbc');
+      this.setComponent('SBC');
     } else if (id == 4) {
-      this.setConponent('asa');
+      this.setComponent('ASA');
     }
     this.selectedComp = '';
   }
@@ -187,6 +204,7 @@ export class CustomerviewComponent implements OnInit {
     }, 100);
     $("#subCompDetails").show();
     $("#subCompTab").show();
+    this.selectedDcSubViewId = scrollIndex;
   }
 
   getDataCenterList(id) {
@@ -204,135 +222,230 @@ export class CustomerviewComponent implements OnInit {
   getComponentList(id) {
     this.config.getComponetCusView(id).subscribe(res => {
       this.ComponentItems = res;
+      this.componentCount = this.ComponentItems.length;
       this.hideEmptyCompTab();
       this.selectDefSelectedCompTab();
     });
-  }
-
-  setConponent(type) {
-    setTimeout(() => {
-      this.currentCompItems = this.ComponentItems[type];
-      $("#subCompDetails").hide();
-      $("#subCompTab").hide();
-    }, 100);
   }
 
   subCompTabClick(type_id, name) {
     this.config.getCustomerContentCusView(type_id, name).subscribe(res => {
       this.customerContent = res;
     });
+    this.selectedSubCompTypeId = type_id;
+    this.selectedSubCompName = name;
     if (this.selectedCompTab == 2) {
       this.vcenterGraphContent();
     }
-    this.selectedSubCompTypeId = type_id;
-    this.selectedSubCompName = name;
   }
 
   hideEmptyCompTab() {
-    if (typeof this.ComponentItems['nexus'] != 'undefined') {
-      if (this.ComponentItems['nexus'].length == 0) {
-        $("#compTab1").hide();
-      } else {
-        $("#compTab1").show();
+    this.componentCount = 0;
+    var that = this;
+
+    $.each(this.ComponentItems, function( key, value ) {
+      if(value['type'] == 'NEXUS') {
+        if (value['components'].length == 0) {
+          $("#compTab1").hide();
+        } else {
+          $("#compTab1").show();
+          that.componentCount++;
+        }
+      } else if(value['type'] == 'VCENTER') {
+        if (value['components'].length == 0) {
+          $("#compTab2").hide();
+        } else {
+          $("#compTab2").show();
+          that.componentCount++;
+        }
+      } else if(value['type'] == 'SBC') {
+        if (value['components'].length == 0) {
+          $("#compTab3").hide();
+        } else {
+          $("#compTab3").show();
+          that.componentCount++;
+        }
+      } else if(value['type'] == 'ASA') {
+        if (value['components'].length == 0) {
+          $("#compTab4").hide();
+        } else {
+          $("#compTab4").show();
+          that.componentCount++;
+        }
       }
-    } else {
-      $("#compTab1").hide();
-    }
-    if (typeof this.ComponentItems['vcenter'] != 'undefined') {
-      if (this.ComponentItems['vcenter'].length == 0) {
-        $("#compTab2").hide();
-      } else {
-        $("#compTab2").show();
-      }
-    } else {
-      $("#compTab2").hide();
-    }
-    if (typeof this.ComponentItems['sbc'] != 'undefined') {
-      if (this.ComponentItems['sbc'].length == 0) {
-        $("#compTab3").hide();
-      } else {
-        $("#compTab3").show();
-      }
-    } else {
-      $("#compTab3").hide();
-    }
-    if (typeof this.ComponentItems['asa'] != 'undefined') {
-      if (this.ComponentItems['asa'].length == 0) {
-        $("#compTab4").hide();
-      } else {
-        $("#compTab4").show();
-      }
-    } else {
-      $("#compTab4").hide();
-    }
+    });
+
+
+    // if (typeof this.ComponentItems['nexus'] != 'undefined') {
+    //   if (this.ComponentItems['nexus'].length == 0) {
+    //     $("#compTab1").hide();
+    //   } else {
+    //     $("#compTab1").show();
+    //     this.componentCount++;
+    //   }
+    // } else {
+    //   $("#compTab1").hide();
+    // }
+    // if (typeof this.ComponentItems['vcenter'] != 'undefined') {
+    //   if (this.ComponentItems['vcenter'].length == 0) {
+    //     $("#compTab2").hide();
+    //   } else {
+    //     $("#compTab2").show();
+    //     this.componentCount++;
+    //   }
+    // } else {
+    //   $("#compTab2").hide();
+    // }
+    // if (typeof this.ComponentItems['sbc'] != 'undefined') {
+    //   if (this.ComponentItems['sbc'].length == 0) {
+    //     $("#compTab3").hide();
+    //   } else {
+    //     $("#compTab3").show();
+    //     this.componentCount++;
+    //   }
+    // } else {
+    //   $("#compTab3").hide();
+    // }
+    // if (typeof this.ComponentItems['asa'] != 'undefined') {
+    //   if (this.ComponentItems['asa'].length == 0) {
+    //     $("#compTab4").hide();
+    //   } else {
+    //     $("#compTab4").show();
+    //     this.componentCount++;
+    //   }
+    // } else {
+    //   $("#compTab4").hide();
+    // }
   }
 
   selectDefSelectedCompTab() {
-    var nexus_exists = 1;
-    var vcenter_exists = 1;
-    var sbc_exists = 1;
-    var asa_exists = 1;
-    if (typeof this.ComponentItems['nexus'] != 'undefined') {
-      if (this.ComponentItems['nexus'].length > 0) {
-        this.setConponent('nexus');
-        this.selectedCompTab = 1;
-        this.compNotFound = false;
-        $("#tabContent").show();
-      } else {
-        nexus_exists = 0;
-      }
-    } else {
-      nexus_exists = 0;
-    }
-    if (nexus_exists == 0) {
-      if (typeof this.ComponentItems['vcenter'] != 'undefined') {
-        if (this.ComponentItems['vcenter'].length > 0) {
-          this.setConponent('vcenter');
-          this.selectedCompTab = 2;
-          this.compNotFound = false;
-          $("#tabContent").show();
-        } else {
-          vcenter_exists = 0;
-        }
-      } else {
-        vcenter_exists = 0;
-      }
-    }
+    var nexus_exists = 0;
+    var vcenter_exists = 0;
+    var sbc_exists = 0;
+    var asa_exists = 0;
+    var that = this;
 
-    if (vcenter_exists == 0) {
-      if (typeof this.ComponentItems['sbc'] != 'undefined') {
-        if (this.ComponentItems['sbc'].length > 0) {
-          this.setConponent('sbc');
-          this.selectedCompTab = 3;
-          this.compNotFound = false;
+    $.each(this.ComponentItems, function( key, value ) {
+      if(value['type'] == 'NEXUS') {
+		if (value['components'].length > 0) {
+          nexus_exists = 1;
+		  that.setComponent('NEXUS');
+          that.selectedCompTab = 1;
+          that.compNotFound = false;
           $("#tabContent").show();
-        } else {
-          sbc_exists = 0;
         }
-      } else {
-        sbc_exists = 0;
       }
-    }
-    if (sbc_exists == 0) {
-      if (typeof this.ComponentItems['asa'] != 'undefined') {
-        if (this.ComponentItems['asa'].length > 0) {
-          this.setConponent('asa');
-          this.selectedCompTab = 4;
-          this.compNotFound = false;
-          $("#tabContent").show();
-        } else {
-          asa_exists = 0;
+    });
+    if(nexus_exists == 0) {
+      $.each(this.ComponentItems, function( key, value ) {
+        if(value['type'] == 'VCENTER') {
+          if (value['components'].length > 0) {
+            vcenter_exists = 1;
+			that.setComponent('VCENTER');
+            that.selectedCompTab = 2;
+            that.compNotFound = false;
+            $("#tabContent").show();
+          }
         }
-      } else {
-        asa_exists = 0;
-      }
+      });
     }
-    if (asa_exists == 0) {
+    if(nexus_exists == 0 && vcenter_exists == 0) {
+      $.each(this.ComponentItems, function( key, value ) {
+        if(value['type'] == 'SBC') {
+          if (value['components'].length > 0) {
+            sbc_exists = 1;
+			that.setComponent('SBC');
+            that.selectedCompTab = 3;
+            that.compNotFound = false;
+            $("#tabContent").show();
+          }
+        }
+      });
+    }
+    if(nexus_exists == 0 && vcenter_exists == 0 && sbc_exists == 0) {
+      $.each(this.ComponentItems, function( key, value ) {
+        if(value['type'] == 'ASA') {
+          if (value['components'].length > 0) {
+            asa_exists = 1;
+			that.setComponent('ASA');
+            that.selectedCompTab = 4;
+            that.compNotFound = false;
+            $("#tabContent").show();
+          }
+        }
+      });
+    }
+    if (nexus_exists == 0 && vcenter_exists == 0 && sbc_exists == 0 && asa_exists == 0) {
       $("#subCompDetails").hide();
       $("#subCompTab").hide();
       $("#tabContent").hide();
-      this.compNotFound = true;
+      that.compNotFound = true;
     }
+
+
+
+
+    // if (typeof this.ComponentItems['nexus'] != 'undefined') {
+    //   if (this.ComponentItems['nexus'].length > 0) {
+    //     this.setComponent('nexus');
+    //     this.selectedCompTab = 1;
+    //     this.compNotFound = false;
+    //     $("#tabContent").show();
+    //   } else {
+    //     nexus_exists = 0;
+    //   }
+    // } else {
+    //   nexus_exists = 0;
+    // }
+    // if (nexus_exists == 0) {
+    //   if (typeof this.ComponentItems['vcenter'] != 'undefined') {
+    //     if (this.ComponentItems['vcenter'].length > 0) {
+    //       this.setComponent('vcenter');
+    //       this.selectedCompTab = 2;
+    //       this.compNotFound = false;
+    //       $("#tabContent").show();
+    //     } else {
+    //       vcenter_exists = 0;
+    //     }
+    //   } else {
+    //     vcenter_exists = 0;
+    //   }
+    // }
+
+    // if (vcenter_exists == 0) {
+    //   if (typeof this.ComponentItems['sbc'] != 'undefined') {
+    //     if (this.ComponentItems['sbc'].length > 0) {
+    //       this.setComponent('sbc');
+    //       this.selectedCompTab = 3;
+    //       this.compNotFound = false;
+    //       $("#tabContent").show();
+    //     } else {
+    //       sbc_exists = 0;
+    //     }
+    //   } else {
+    //     sbc_exists = 0;
+    //   }
+    // }
+    // if (sbc_exists == 0) {
+    //   if (typeof this.ComponentItems['asa'] != 'undefined') {
+    //     if (this.ComponentItems['asa'].length > 0) {
+    //       this.setComponent('asa');
+    //       this.selectedCompTab = 4;
+    //       this.compNotFound = false;
+    //       $("#tabContent").show();
+    //     } else {
+    //       asa_exists = 0;
+    //     }
+    //   } else {
+    //     asa_exists = 0;
+    //   }
+    // }
+    // if (asa_exists == 0) {
+    //   $("#subCompDetails").hide();
+    //   $("#subCompTab").hide();
+    //   $("#tabContent").hide();
+    //   this.compNotFound = true;
+    // }
   }
 
   vcenterGraphContent() {
@@ -350,6 +463,9 @@ export class CustomerviewComponent implements OnInit {
         const options: Highcharts.Options = {
           chart: {
             type: 'spline'
+          },
+          credits: {
+            enabled: false
           },
           title: {
             text: 'Vcenter Data Percentage'
@@ -395,6 +511,38 @@ export class CustomerviewComponent implements OnInit {
         this.chart = chart('highchartVcenterGraph', options);
       }
     });
+  }
+
+  scrollRightClick() {
+    let nextClick = this.selectedDcViewId + 1;
+    if (nextClick >= this.dataCenters.length) {
+      nextClick = 0;
+    }
+    this.dataCenterClick(this.dataCenters[nextClick].id, nextClick);
+  }
+
+  scrollLeftClick() {
+    let nextClick = this.selectedDcViewId - 1;
+    if (nextClick < 0) {
+      nextClick = this.dataCenters.length - 1;
+    }
+    this.dataCenterClick(this.dataCenters[nextClick].id, nextClick);
+  }
+
+  scrollRightClickSub() {
+    let nextClick = this.selectedDcSubViewId + 1;
+    if (nextClick >= this.currentCompItems.length) {
+      nextClick = 0;
+    }
+    this.ComponentClick(this.currentCompItems[nextClick].id, this.currentCompItems[nextClick].type, nextClick);
+  }
+
+  scrollLeftClickSub() {
+    let nextClick = this.selectedDcSubViewId - 1;
+    if (nextClick < 0) {
+      nextClick = this.currentCompItems.length - 1;
+    }
+    this.ComponentClick(this.currentCompItems[nextClick].id, this.currentCompItems[nextClick].type, nextClick);
   }
 
 }
