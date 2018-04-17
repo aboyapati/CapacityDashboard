@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-3 col-sm-3" style="font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;">
-        onPOINT HCS.Capacity
+        Customer View
     </div>
     <div class="col-md-6 col-sm-6" style="padding-top:6px;text-align: center;">
         <span>
@@ -20,7 +20,7 @@
         </span>
     </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="dataCenters != ''">
     <div *ngFor="let dataCenter of dataCenters, let i = index" id="dataCenter{{dataCenter.id}}" class="col-md-3 col-sm-6 tab-tile {{ dataCenter.id == selectedDataCenter ? 'tab-tile-active' : ''}}"
         (click)="dataCenterClick(dataCenter.id,i,'direct')" [style.display]="i>=scrollLimitMin && i<=scrollLimitMax ? 'block' : 'none'">
         <div class="d-flex justify-content-center">
@@ -32,13 +32,13 @@
         <p class="data-center-body">{{dataCenter.timezone}}</p>
     </div>
     <div class="col-md-12 component-main">
-        <div class="row tab-row">
+        <div class="row tab-row" *ngIf="!compNotFound">
             <div style="display: none;" *ngFor="let compTabItem of compTabItems" id="compTab{{compTabItem.id}}" class="{{ this.componentCount == 4 ? 'col-md-3 col-sm-6' : '' }} {{ this.componentCount == 3 ? 'col-md-4 col-sm-12' : '' }} {{ this.componentCount == 2 ? 'col-md-6 col-sm-12' : '' }} {{ this.componentCount == 1 ? 'col-md-12 col-sm-12' : '' }} component-tab {{ compTabItem.id == selectedCompTab ? 'tab-active' : ''}}"
                 (click)="compTabClick(compTabItem.id)">
                 <h3>{{compTabItem.name}}</h3>
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="!compNotFound">
             <div class="offset-md-3 offset-sm-3 col-md-6 col-sm-6" style="padding-top:25px;text-align: center;">
                 <span>
                     <span (click)="scrollLeftClickSub()" style="cursor: pointer;" *ngIf="currentCompItems != ''" class="ti-arrow-circle-left"></span>
@@ -57,7 +57,7 @@
                 </span>
             </div>
         </div>
-        <div class="row" id=tabContent>
+        <div class="row" id=tabContent style="display: none;">
             <div class="offset-md-1 col-md-10 offset-md-1 tab-content">
                 <div class="row component-tab-row">
                     <div *ngFor="let currentCompItem of currentCompItems, let x = index" class="col-md-3 col-sm-6 comp-body" (click)="ComponentClick(currentCompItem.id, currentCompItem.type,x,'direct')"
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div> -->
-        <div class="row" id="subCompTab">
+        <div class="row" id="subCompTab" style="display: none;">
             <div class="offset-md-1 col-md-10">
                 <div class="tab-main-div">
                     <!-- <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}" id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
@@ -91,32 +91,51 @@
                     </div> -->
                     <div class="row">
                         <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-12 col-sm-6 col-md-2 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}"
-                            id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
+                            id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)" ngbTooltip="{{subCompTabItem.name}}">
+                            <!-- <h4 ngbTooltip="{{subCompTabItem.name}}">{{subCompTabItem.name.length > 8 ?  (subCompTabItem.name | slice:0:7)+'...' : subCompTabItem.name}}</h4> -->
                             <h4>{{subCompTabItem.name}}</h4>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row" id="subCompDetails">
+        <div class="row" *ngIf="subCompTabItems == ''" style="padding-top: 50px;padding-bottom: 50px;">
+            <div class="col-md-12" style="text-align: center">
+                <b>THERE ARE NO SUBCOMPONENTS FOUND FOR THIS COMPONENT.</b>
+            </div>
+        </div>
+        <div class="row" id="subCompDetails" style="display: none;">
             <div class="offset-md-1 col-md-10 offset-md-1 tab-content-details">
                 <div class="row tab-row">
                     <div class="col-md-12 col-sm-12 comp-data">
-                        <div class="data-content">
+                        <div class="data-content" id="contentDiv" style="display: none;">
                             <p class="data-head">{{selectedSubCompName}} CONTENTS:</p>
                             <div class="table-responsive">
                                 <p>{{customerContent.content}}</p>
                             </div>
                             <div style="margin-top: 5%;" *ngIf="selectedCompTab == 2" id='highchartVcenterGraph'></div>
                         </div>
+                        <div class="data-content" style="text-align: center; display: none;" id="contentErrorDiv">
+                            <b>NO CONTENTS FOUND FOR {{selectedSubCompName}}.</b>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- <div class="row" *ngIf="customerContent == ''" style="padding-top: 50px;padding-bottom: 50px;">
+            <div class="col-md-12" style="text-align: center">
+                <b>NO CONTENTS FOUND FOR {{selectedSubCompName}}.</b>
+            </div>
+        </div> -->
         <div class="row" *ngIf="compNotFound" style="padding-top: 50px;">
             <div class="col-md-12" style="text-align: center">
                 <b>THERE ARE NO COMPONENTS FOUND FOR THIS DATA CENTER.</b>
             </div>
         </div>
+    </div>
+</div>
+<div class="row" *ngIf="dataCenters == ''" style="padding-top: 50px;">
+    <div class="col-md-12" style="text-align: center">
+        <b>THERE ARE NO DATA CENTERS FOUND.</b>
     </div>
 </div>

@@ -44,6 +44,7 @@ export class DatacenterComponent implements OnInit {
   private coFlag: boolean = false;
   private selectedComponentViewId: number;
   private dataCenterHeading: string = '';
+  private dynamicSubMenu;
 
   closeResult: string;
   imgUrl: string = "assets/images/icon-cube.png";
@@ -53,7 +54,7 @@ export class DatacenterComponent implements OnInit {
   components: any;
   subComponents: any;
 
-  constructor(private modalService: NgbModal, private config: ConfigService, private route: ActivatedRoute, private AmCharts: AmChartsService, private router: Router, private dynamicSubMenu: AdminLayoutComponent) {
+  constructor(private modalService: NgbModal, private config: ConfigService, private route: ActivatedRoute, private AmCharts: AmChartsService, private router: Router) {
     sessionStorage.setItem('previousUrl', this.router.url);
     this.deviceHeight = (window.innerHeight);
     this.deviceWidth = (window.innerWidth);
@@ -93,9 +94,12 @@ export class DatacenterComponent implements OnInit {
               this.coFlag = false;
               $('#withoutComponentBlock').hide();
             }
-            for (let i = 0; i < this.dynamicSubMenu.dynamicSubMenu.length; i++) {
-              if (this.dynamicSubMenu.dynamicSubMenu[i].id == this.dataCenterId) {
-                this.dataCenterHeading = this.dynamicSubMenu.dynamicSubMenu[i].name;
+
+            this.dynamicSubMenu = JSON.parse(sessionStorage.dynamicSubMenu);
+
+            for (let i = 0; i < this.dynamicSubMenu.length; i++) {
+              if (this.dynamicSubMenu[i].id == this.dataCenterId) {
+                this.dataCenterHeading = this.dynamicSubMenu[i].name;
                 break;
               }
             }

@@ -26234,11 +26234,19 @@ body.menu-bottom .navbar-wrapper {
 }
 
 .custom_modal_componentEdit{
-  top : 13%;
+  top : 10%;
 }
 
 .custom_modal_componentDelete{
   top: 35%;
+}
+
+.custom_modal_componentNexusView {
+  top: 8%;
+}
+
+.custom_modal_componentNexusEdit {
+  top: 5%;
 }
 
 .EnableDcBlock{

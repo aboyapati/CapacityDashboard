@@ -158,7 +158,7 @@
                     </a>
                   </li>
 
-                  <li (click)="reloadCurrentPage()" [routerLinkActive]="['active']" *ngIf="asideItem.type === 'link'" appAccordionLink group="{{asideItem.state}}">
+                  <li (click)="reloadCurrentPage()" [routerLinkActive]="['active']" *ngIf="asideItem.type === 'link'" appAccordionLink group="{{asideItem.state}}" id="{{asideItem.state}}" >
                     <a [routerLink]="['/', asideItem.main_state, asideItem.state]" target="{{asideItem.target ? '_blank' : '_self'}}" appAccordionToggle
                       *ngIf="asideItem.main_state; else: mainContent">
                       <span class="pcoded-micon">

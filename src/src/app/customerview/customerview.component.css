@@ -55,6 +55,7 @@
 }
 .component-tab-small {
     width: 19%;
+    word-wrap:break-word;
 }
 .mr-l-25 {
     margin-left: 25px;
@@ -163,6 +164,7 @@
     font-size: 20px;
     font-weight: 600;
     text-transform: uppercase;
+    word-wrap:break-word;
 }
 .data-sub-head {
     font-size: 20px;
@@ -235,6 +237,9 @@
     .tab-main-div .row {
         padding-left: 40px;
         padding-right: 40px;
+    } 
+    .component-main {
+        padding-top: 0px;
     }
 }
 /* @media only screen and (max-width: 730px) { 

@@ -25,6 +25,11 @@ export class CustomersComponent implements OnInit {
       this.router.navigate(['login']);
     }
     this.getCustomers();
+
+    setTimeout(() => {
+      $('#customers').removeClass('pcoded-trigger');
+    }, 1000);
+
   }
 
   getCustomers() {

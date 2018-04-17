@@ -31,6 +31,7 @@
 		"getDownloadReportUrl": "/assets/webservices/downloadReport.php",
 		"getSubComponetCustomer": "/assets/webservices/customerSubComponents.php",
 		"getCustomerCuntent": "/assets/webservices/customerContent.php",
-		"getVcenterGraphContentUrl": "/assets/webservices/getVcenterGraphContent.php"
+		"getVcenterGraphContentUrl": "/assets/webservices/getVcenterGraphContent.php",
+		"getDashboardTileDatasUrl": "/assets/webservices/getDashboardTileData.php"
     }
 ]

@@ -18,6 +18,9 @@ export class DashboardComponent implements OnInit {
   private datas: any;
   private notificationFilterType = 'Today';
   private notifications: any;
+  private reportCount: number;
+  private usersCount: number;
+  private customersCount: number;
 
   constructor(private config: ConfigService, private router: Router) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -36,6 +39,12 @@ export class DashboardComponent implements OnInit {
 
       this.getNotificationWithFilter(this.notificationFilterType);
 
+      this.config.getDashboardTileDatas().subscribe(res => {
+        this.reportCount = res.reportCount;
+        this.usersCount = res.usersCount;
+        this.customersCount = res.customersCount;
+      });
+
     }, 100);
 
     if (sessionStorage.alertMenuClicked == 'yes') {
@@ -49,6 +58,10 @@ export class DashboardComponent implements OnInit {
           this.datas = res;
         });
     });
+
+    setTimeout(() => {
+      $('#dashboard').removeClass('pcoded-trigger');
+    }, 1000);
 
   }
 

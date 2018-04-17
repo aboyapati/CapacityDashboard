@@ -24,6 +24,14 @@
     <ng-container *ngFor="let dataCenter of dataCenters, let i = index">
         <div [style.display]="i>=scrollLimitMin && i<=scrollLimitMax ? 'block' : 'none'" class="col-md-3 col-sm-6 tab-tile {{ (i == selectedDataCenter) ? 'tab-tile-active' : ''}}"
             id="{{i}}" (click)="dataCenterScrollClick(i,'direct')">
+            <div *ngIf="i== selectedDataCenter; then thenDiv;else elseDiv">
+            </div>
+            <ng-template #thenDiv>
+                <div class="rsddropdown" id="rsddropdown{{i}}"></div>
+            </ng-template>
+            <ng-template #elseDiv>
+                <div class="rsddropdown" id="rsddropdown{{i}}" style="display: none;"></div>
+            </ng-template>
             <div class="data-center-image d-flex justify-content-center">
                 <img src="assets/images/icon-cube.png" class="img-thumbnail">
             </div>
@@ -65,7 +73,7 @@
                         <td>{{ report.name }}</td>
                         <td></td>
                         <td></td>
-                        <td (click)="downloadReport(report.id)" style="text-decoration: underline;color: blue;cursor: pointer;">Download</td>
+                        <td (click)="downloadReport(j)" style="text-decoration: underline;color: blue;cursor: pointer;">Download</td>
                         <td></td>
                     </tr>
                 </ng-template>

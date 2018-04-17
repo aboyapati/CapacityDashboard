@@ -145,11 +145,11 @@ export class CustomerviewComponent implements OnInit {
   }
 
   setComponent(type) {
-    var that = this; 
+    var that = this;
     setTimeout(() => {
       //this.currentCompItems = this.ComponentItems[type];     
-      $.each(this.ComponentItems, function( key, value ) {
-        if(value['type'] == type) {
+      $.each(this.ComponentItems, function (key, value) {
+        if (value['type'] == type) {
           that.currentCompItems = value['components'];
         }
       });
@@ -188,22 +188,42 @@ export class CustomerviewComponent implements OnInit {
 
     this.config.getSubComponetCusView(id, type).subscribe(res => {
       this.subCompTabItems = res;
-      this.selectedSubCompTypeId = this.subCompTabItems[0].type_id;
-      this.selectedSubCompName = this.subCompTabItems[0].name;
+      if(this.subCompTabItems.length != 0) {
+        this.selectedSubCompTypeId = this.subCompTabItems[0].type_id;
+        this.selectedSubCompName = this.subCompTabItems[0].name;
+        $("#subCompTab").show();
+        $("#subCompDetails").show();
+      } else {
+        this.selectedSubCompTypeId = '';
+        this.selectedSubCompName = '';
+        $("#subCompDetails").hide();
+        $("#subCompTab").hide();
+      }
     });
     this.selectedComp = id;
     setTimeout(() => {
-      this.config.getCustomerContentCusView(this.selectedSubCompTypeId, this.selectedSubCompName).subscribe(res => {
-        this.customerContent = res;
-      });
+      if(this.selectedSubCompTypeId != '' && this.selectedSubCompName != '') {
+        this.config.getCustomerContentCusView(this.selectedSubCompTypeId, this.selectedSubCompName).subscribe(res => {
+          this.customerContent = res;
+          if(typeof this.customerContent.content == 'undefined') {
+            $("#contentErrorDiv").show();
+            $("#contentDiv").hide();
+          } else {
+            if(this.customerContent.content == '') {
+              $("#contentErrorDiv").show();
+              $("#contentDiv").hide();
+            } else {
+              $("#contentErrorDiv").hide();
+              $("#contentDiv").show();
+            }
+          }
+        });
 
-      if (this.selectedCompTab == 2) {
-        this.vcenterGraphContent();
+        if (this.selectedCompTab == 2) {
+          this.vcenterGraphContent();
+        }
       }
-
     }, 100);
-    $("#subCompDetails").show();
-    $("#subCompTab").show();
     this.selectedDcSubViewId = scrollIndex;
   }
 
@@ -211,10 +231,12 @@ export class CustomerviewComponent implements OnInit {
     setTimeout(() => {
       this.config.getDataCenterListCusView(id).subscribe(res => {
         this.dataCenters = res;
-        this.selectedDataCenter = this.dataCenters[0].id;
-        setTimeout(() => {
-          this.getComponentList(this.selectedDataCenter);
-        }, 100);
+        if(this.dataCenters.length != 0) {
+          this.selectedDataCenter = this.dataCenters[0].id;
+          setTimeout(() => {
+            this.getComponentList(this.selectedDataCenter);
+          }, 100);
+        }
       });
     }, 100);
   }
@@ -222,15 +244,31 @@ export class CustomerviewComponent implements OnInit {
   getComponentList(id) {
     this.config.getComponetCusView(id).subscribe(res => {
       this.ComponentItems = res;
-      this.componentCount = this.ComponentItems.length;
-      this.hideEmptyCompTab();
-      this.selectDefSelectedCompTab();
+      if(this.ComponentItems.length != 0) {
+        this.componentCount = this.ComponentItems.length;
+        this.hideEmptyCompTab();
+        this.selectDefSelectedCompTab();
+      } else {
+        this.compNotFound = true;
+      }
     });
   }
 
   subCompTabClick(type_id, name) {
     this.config.getCustomerContentCusView(type_id, name).subscribe(res => {
       this.customerContent = res;
+      if(typeof this.customerContent.content == 'undefined') {
+        $("#contentErrorDiv").show();
+        $("#contentDiv").hide();
+      } else {
+        if(this.customerContent.content == '') {
+          $("#contentErrorDiv").show();
+          $("#contentDiv").hide();
+        } else {
+          $("#contentErrorDiv").hide();
+          $("#contentDiv").show();
+        }
+      }
     });
     this.selectedSubCompTypeId = type_id;
     this.selectedSubCompName = name;
@@ -243,29 +281,29 @@ export class CustomerviewComponent implements OnInit {
     this.componentCount = 0;
     var that = this;
 
-    $.each(this.ComponentItems, function( key, value ) {
-      if(value['type'] == 'NEXUS') {
+    $.each(this.ComponentItems, function (key, value) {
+      if (value['type'] == 'NEXUS') {
         if (value['components'].length == 0) {
           $("#compTab1").hide();
         } else {
           $("#compTab1").show();
           that.componentCount++;
         }
-      } else if(value['type'] == 'VCENTER') {
+      } else if (value['type'] == 'VCENTER') {
         if (value['components'].length == 0) {
           $("#compTab2").hide();
         } else {
           $("#compTab2").show();
           that.componentCount++;
         }
-      } else if(value['type'] == 'SBC') {
+      } else if (value['type'] == 'SBC') {
         if (value['components'].length == 0) {
           $("#compTab3").hide();
         } else {
           $("#compTab3").show();
           that.componentCount++;
         }
-      } else if(value['type'] == 'ASA') {
+      } else if (value['type'] == 'ASA') {
         if (value['components'].length == 0) {
           $("#compTab4").hide();
         } else {
@@ -325,23 +363,23 @@ export class CustomerviewComponent implements OnInit {
     var asa_exists = 0;
     var that = this;
 
-    $.each(this.ComponentItems, function( key, value ) {
-      if(value['type'] == 'NEXUS') {
-		if (value['components'].length > 0) {
+    $.each(this.ComponentItems, function (key, value) {
+      if (value['type'] == 'NEXUS') {
+        if (value['components'].length > 0) {
           nexus_exists = 1;
-		  that.setComponent('NEXUS');
+          that.setComponent('NEXUS');
           that.selectedCompTab = 1;
           that.compNotFound = false;
           $("#tabContent").show();
         }
       }
     });
-    if(nexus_exists == 0) {
-      $.each(this.ComponentItems, function( key, value ) {
-        if(value['type'] == 'VCENTER') {
+    if (nexus_exists == 0) {
+      $.each(this.ComponentItems, function (key, value) {
+        if (value['type'] == 'VCENTER') {
           if (value['components'].length > 0) {
             vcenter_exists = 1;
-			that.setComponent('VCENTER');
+            that.setComponent('VCENTER');
             that.selectedCompTab = 2;
             that.compNotFound = false;
             $("#tabContent").show();
@@ -349,12 +387,12 @@ export class CustomerviewComponent implements OnInit {
         }
       });
     }
-    if(nexus_exists == 0 && vcenter_exists == 0) {
-      $.each(this.ComponentItems, function( key, value ) {
-        if(value['type'] == 'SBC') {
+    if (nexus_exists == 0 && vcenter_exists == 0) {
+      $.each(this.ComponentItems, function (key, value) {
+        if (value['type'] == 'SBC') {
           if (value['components'].length > 0) {
             sbc_exists = 1;
-			that.setComponent('SBC');
+            that.setComponent('SBC');
             that.selectedCompTab = 3;
             that.compNotFound = false;
             $("#tabContent").show();
@@ -362,12 +400,12 @@ export class CustomerviewComponent implements OnInit {
         }
       });
     }
-    if(nexus_exists == 0 && vcenter_exists == 0 && sbc_exists == 0) {
-      $.each(this.ComponentItems, function( key, value ) {
-        if(value['type'] == 'ASA') {
+    if (nexus_exists == 0 && vcenter_exists == 0 && sbc_exists == 0) {
+      $.each(this.ComponentItems, function (key, value) {
+        if (value['type'] == 'ASA') {
           if (value['components'].length > 0) {
             asa_exists = 1;
-			that.setComponent('ASA');
+            that.setComponent('ASA');
             that.selectedCompTab = 4;
             that.compNotFound = false;
             $("#tabContent").show();

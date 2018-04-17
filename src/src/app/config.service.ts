@@ -38,6 +38,7 @@ export class ConfigService {
   getDownloadReportUrl: any;
   getCustomerCuntent: any;
   getVcenterGraphContentUrl: any;
+  getDashboardTileDatasUrl: any;
 
   constructor(private http: Http) {
     this.http.get('assets/config.json')
@@ -74,6 +75,7 @@ export class ConfigService {
         this.getSubComponetCustomer = this.BASE_URL + result[0].getSubComponetCustomer;
         this.getCustomerCuntent = this.BASE_URL + result[0].getCustomerCuntent;
         this.getVcenterGraphContentUrl = this.BASE_URL + result[0].getVcenterGraphContentUrl;
+        this.getDashboardTileDatasUrl = this.BASE_URL + result[0].getDashboardTileDatasUrl;
       });
   }
 
@@ -263,11 +265,8 @@ export class ConfigService {
     return this.http.post(this.getReportNamesUrl, body, options).map((res: Response) => res.json());
   }
 
-  getDownloadReport(id, fromDate, toDate, reportId) {
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
-    let options = new RequestOptions({ headers: headers });
-    let body = 'id=' + id + '&fromDate=' + fromDate + '&toDate=' + toDate + '&reportId=' + reportId;
-    return this.http.post(this.getDownloadReportUrl, body, options).map((res: Response) => res.json());
+  getDownloadReport(compId, fromDate, toDate, reportId, name) {
+    window.open(this.getDownloadReportUrl + '?compId=' + compId + '&reportId=' + reportId + '&fromDate=' + fromDate + '&toDate=' + toDate + '&name=' + name, "_blank");
   }
 
   getCustomerContentCusView(typeId, subComponentName) {
@@ -282,6 +281,13 @@ export class ConfigService {
     let options = new RequestOptions({ headers: headers });
     let body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId;
     return this.http.post(this.getVcenterGraphContentUrl, body, options).map((res: Response) => res.json());
+  }
+
+  getDashboardTileDatas() {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = '';
+    return this.http.post(this.getDashboardTileDatasUrl, body, options).map((res: Response) => res.json());
   }
 
   BASE_URL = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');

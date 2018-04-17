@@ -17,6 +17,7 @@ import { ScrollModule } from './scroll/scroll.module';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ConfigService } from './config.service';
 import { ExcelService } from './excel.service';
+import { DatacenterComponent } from './components/data/datacenter/datacenter.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ExcelService } from './excel.service';
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     ConfigService,
+    DatacenterComponent,
     ExcelService
   ],
   bootstrap: [AppComponent]

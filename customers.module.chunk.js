@@ -62,6 +62,9 @@ var CustomersComponent = (function () {
             this.router.navigate(['login']);
         }
         this.getCustomers();
+        setTimeout(function () {
+            $('#customers').removeClass('pcoded-trigger');
+        }, 1000);
     };
     CustomersComponent.prototype.getCustomers = function () {
         var _this = this;

@@ -96,6 +96,11 @@ export class ProvisioningComponent implements OnInit {
   progressPerc: any;
   next_step: boolean;
   private modalClassName: string;
+  private thresholdErrorMsg1: string = '';
+  private thresholdErrorMsg2: string = '';
+  private thresholdErrorMsg3: string = '';
+  private thresholdErrorMsg4: string = '';
+  private thresholdErrorMsg5: string = '';
 
   constructor(private modalService: NgbModal, private config: ConfigService, private router: Router, public adminLayoutComponnet: AdminLayoutComponent) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -233,16 +238,17 @@ export class ProvisioningComponent implements OnInit {
         var type_id = this.componentRecords.type;
         var Subtype_id = this.componentRecords.version;
         if (type == 'edit') {
+          this.subTypesEdit = [];
           this.config.getSubtypes(type_id).subscribe(res => {
             this.subTypesEdit = res;
           });
 
-		  if(this.subTypesEdit.length > 0) {
-          	this.editComponentVersion = Subtype_id;
-		  } else {
-			this.editComponentVersion = 'Sub Type';
-			$("#editComponentVersion").prop("disabled", true);
-		  }
+          if (this.subTypesEdit.length > 0) {
+            this.editComponentVersion = Subtype_id;
+          } else {
+            this.editComponentVersion = 'Sub Type';
+            $("#editComponentVersion").prop("disabled", true);
+          }
         }
       });
 
@@ -252,22 +258,33 @@ export class ProvisioningComponent implements OnInit {
       }
     }
 
-    if (type == 'view') {
-      $('#editComponentSuccessClose').trigger('click');
-      this.modalClassName = 'custom_modal_componentView';
-    } else if (type == 'edit') {
-      this.modalClassName = 'custom_modal_componentEdit';
-    } else if (type == 'delete') {
-      this.modalClassName = 'custom_modal_componentDelete';
-    } else {
-      this.modalClassName = 'custom_modal';
-    }
+    setTimeout(() => {
+      if (type == 'view') {
+        $('#editComponentSuccessClose').trigger('click');
+        if (this.componentRecords.type.toLowerCase() == 'nexus') {
+          this.modalClassName = 'custom_modal_componentNexusView';
+        } else {
+          this.modalClassName = 'custom_modal_componentView';
+        }
+      } else if (type == 'edit') {
+        if (this.componentRecords.type.toLowerCase() == 'nexus') {
+          this.modalClassName = 'custom_modal_componentNexusEdit';
+        } else {
+          this.modalClassName = 'custom_modal_componentEdit';
+        }
+      } else if (type == 'delete') {
+        this.modalClassName = 'custom_modal_componentDelete';
+      } else {
+        this.modalClassName = 'custom_modal';
+      }
 
-    this.modalService.open(content, { windowClass: this.modalClassName, size: 'lg', backdrop: 'static' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+      this.modalService.open(content, { windowClass: this.modalClassName, size: 'lg', backdrop: 'static' }).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+    }, 500);
+
   }
 
 
@@ -401,6 +418,23 @@ export class ProvisioningComponent implements OnInit {
     if (value == 2) {
       if (!this.thresholdsValidate()) {
         this.next_step = false;
+
+        if (this.thresholdErrorMsg1 != '') {
+          $('#thresholdErrorMsg1').slideDown().text(this.thresholdErrorMsg1).css('background', 'red').slideUp(5000);
+        }
+        if (this.thresholdErrorMsg2 != '') {
+          $('#thresholdErrorMsg2').slideDown().text(this.thresholdErrorMsg2).css('background', 'red').slideUp(5000);
+        }
+        if (this.thresholdErrorMsg3 != '') {
+          $('#thresholdErrorMsg3').slideDown().text(this.thresholdErrorMsg3).css('background', 'red').slideUp(5000);
+        }
+        if (this.thresholdErrorMsg4 != '') {
+          $('#thresholdErrorMsg4').slideDown().text(this.thresholdErrorMsg4).css('background', 'red').slideUp(5000);
+        }
+        if (this.thresholdErrorMsg5 != '') {
+          $('#thresholdErrorMsg5').slideDown().text(this.thresholdErrorMsg5).css('background', 'red').slideUp(5000);
+        }
+
       }
     }
     if (this.next_step) {
@@ -423,93 +457,235 @@ export class ProvisioningComponent implements OnInit {
   }
 
   thresholdsValidate() {
+
+    this.thresholdErrorMsg1 = '';
+    this.thresholdErrorMsg2 = '';
+    this.thresholdErrorMsg3 = '';
+    this.thresholdErrorMsg4 = '';
+    this.thresholdErrorMsg5 = '';
+
     var thrFlag = true;
     if (this.ComVersion == 'NEXUS') {
       if (this.vrfWarnStart == '' || isNaN(this.vrfWarnStart) || this.vrfWarnStart < 0 || parseInt(this.vrfWarnStart) >= parseInt(this.vrfWarnEnd) || parseInt(this.vrfWarnStart) >= parseInt(this.vrfMax)) {
+
+        if (isNaN(this.vrfWarnStart)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt(this.vrfWarnStart) >= parseInt(this.vrfWarnEnd)) {
+          this.thresholdErrorMsg2 = 'Warning Value should be less than Alert Value';
+        }
+        if (parseInt(this.vrfWarnStart) >= parseInt(this.vrfMax)) {
+          this.thresholdErrorMsg3 = 'Warning Value should be less than Max Value';
+        }
+
         $('#add-vrfWarnStart').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-vrfWarnStart').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.vrfWarnEnd == '' || isNaN(this.vrfWarnEnd) || this.vrfWarnEnd < 0 || parseInt(this.vrfWarnEnd) >= parseInt(this.vrfMax)) {
+
+        if (isNaN(this.vrfWarnEnd)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt(this.vrfWarnEnd) >= parseInt(this.vrfMax)) {
+          this.thresholdErrorMsg4 = 'Alert Value should be less than Max Value';
+        }
+
         $('#add-vrfWarnEnd').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-vrfWarnEnd').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.vrfMax == '' || isNaN(this.vrfMax) || this.vrfMax < 0 || this.vrfMax % 100 != 0) {
+
+        if (isNaN(this.vrfMax)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (this.vrfMax % 100 != 0) {
+          this.thresholdErrorMsg5 = 'Max value should be multiples of 100';
+        }
+
         $('#add-vrfMax').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-vrfMax').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.bgpPeersWarnStart == '' || isNaN(this.bgpPeersWarnStart) || this.bgpPeersWarnStart < 0 || parseInt(this.bgpPeersWarnStart) >= parseInt(this.bgpPeersWarnEnd) || parseInt(this.bgpPeersWarnStart) >= parseInt(this.bgpPeersMax)) {
+
+        if (isNaN(this.bgpPeersWarnStart)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt(this.bgpPeersWarnStart) >= parseInt(this.bgpPeersWarnEnd)) {
+          this.thresholdErrorMsg2 = 'Warning Value should be less than Alert Value';
+        }
+        if (parseInt(this.bgpPeersWarnStart) >= parseInt(this.bgpPeersMax)) {
+          this.thresholdErrorMsg3 = 'Warning Value should be less than Max Value';
+        }
+
         $('#add-bgpPeersWarnStart').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-bgpPeersWarnStart').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.bgpPeersWarnEnd == '' || isNaN(this.bgpPeersWarnEnd) || this.bgpPeersWarnEnd < 0 || parseInt(this.bgpPeersWarnEnd) >= parseInt(this.bgpPeersMax)) {
+
+        if (isNaN(this.bgpPeersWarnEnd)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt(this.bgpPeersWarnEnd) >= parseInt(this.bgpPeersMax)) {
+          this.thresholdErrorMsg4 = 'Alert Value should be less than Max Value';
+        }
+
         $('#add-bgpPeersWarnEnd').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-bgpPeersWarnEnd').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.bgpPeersMax == '' || isNaN(this.bgpPeersMax) || this.bgpPeersMax < 0 || this.bgpPeersMax % 100 != 0) {
+
+        if (isNaN(this.bgpPeersMax)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (this.bgpPeersMax % 100 != 0) {
+          this.thresholdErrorMsg5 = 'Max value should be multiples of 100';
+        }
+
         $('#add-bgpPeersMax').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-bgpPeersMax').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.vlanWarnStart == '' || isNaN(this.vlanWarnStart) || this.vlanWarnStart < 0 || parseInt(this.vlanWarnStart) >= parseInt(this.vlanWarnEnd) || parseInt(this.vlanWarnStart) >= parseInt(this.vlanMax)) {
+
+        if (isNaN(this.vlanWarnStart)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt(this.vlanWarnStart) >= parseInt(this.vlanWarnEnd)) {
+          this.thresholdErrorMsg2 = 'Warning Value should be less than Alert Value';
+        }
+        if (parseInt(this.vlanWarnStart) >= parseInt(this.vlanMax)) {
+          this.thresholdErrorMsg3 = 'Warning Value should be less than Max Value';
+        }
+
         $('#add-vlanWarnStart').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-vlanWarnStart').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.vlanWarnEnd == '' || isNaN(this.vlanWarnEnd) || this.vlanWarnEnd < 0 || parseInt(this.vlanWarnEnd) >= parseInt(this.vlanMax)) {
+
+        if (isNaN(this.vlanWarnEnd)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt(this.vlanWarnEnd) >= parseInt(this.vlanMax)) {
+          this.thresholdErrorMsg4 = 'Alert Value should be less than Max Value';
+        }
+
         $('#add-vlanWarnEnd').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-vlanWarnEnd').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.vlanMax == '' || isNaN(this.vlanMax) || this.vlanMax < 0 || this.vlanMax % 100 != 0) {
+
+        if (isNaN(this.vlanMax)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (this.vlanMax % 100 != 0) {
+          this.thresholdErrorMsg5 = 'Max value should be multiples of 100';
+        }
+
         $('#add-vlanMax').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-vlanMax').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.hsrpWarnStart == '' || isNaN(this.hsrpWarnStart) || this.hsrpWarnStart < 0 || parseInt(this.hsrpWarnStart) >= parseInt(this.hsrpWarnEnd) || parseInt(this.hsrpWarnStart) >= parseInt(this.hsrpMax)) {
+
+        if (isNaN(this.hsrpWarnStart)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt(this.hsrpWarnStart) >= parseInt(this.hsrpWarnEnd)) {
+          this.thresholdErrorMsg2 = 'Warning Value should be less than Alert Value';
+        }
+        if (parseInt(this.hsrpWarnStart) >= parseInt(this.hsrpMax)) {
+          this.thresholdErrorMsg3 = 'Warning Value should be less than Max Value';
+        }
+
         $('#add-hsrpWarnStart').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-hsrpWarnStart').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.hsrpWarnEnd == '' || isNaN(this.hsrpWarnEnd) || this.hsrpWarnEnd < 0 || parseInt(this.hsrpWarnEnd) >= parseInt(this.hsrpMax)) {
+
+        if (isNaN(this.hsrpWarnEnd)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt(this.hsrpWarnEnd) >= parseInt(this.hsrpMax)) {
+          this.thresholdErrorMsg4 = 'Alert Value should be less than Max Value';
+        }
+
         $('#add-hsrpWarnEnd').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-hsrpWarnEnd').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.hsrpMax == '' || isNaN(this.hsrpMax) || this.hsrpMax < 0 || this.hsrpMax % 100 != 0) {
+
+        if (isNaN(this.hsrpMax)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (this.hsrpMax % 100 != 0) {
+          this.thresholdErrorMsg5 = 'Max value should be multiples of 100';
+        }
+
         $('#add-hsrpMax').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-hsrpMax').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.staticRoutesWarnStart == '' || isNaN(this.staticRoutesWarnStart) || this.staticRoutesWarnStart < 0 || parseInt(this.staticRoutesWarnStart) >= parseInt(this.staticRoutesWarnEnd) || parseInt(this.staticRoutesWarnStart) >= parseInt(this.staticRoutesMax)) {
+
+        if (isNaN(this.staticRoutesWarnStart)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt(this.staticRoutesWarnStart) >= parseInt(this.staticRoutesWarnEnd)) {
+          this.thresholdErrorMsg2 = 'Warning Value should be less than Alert Value';
+        }
+        if (parseInt(this.staticRoutesWarnStart) >= parseInt(this.staticRoutesMax)) {
+          this.thresholdErrorMsg3 = 'Warning Value should be less than Max Value';
+        }
+
         $('#add-staticRoutesWarnStart').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-staticRoutesWarnStart').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.staticRoutesWarnEnd == '' || isNaN(this.staticRoutesWarnEnd) || this.staticRoutesWarnEnd < 0 || parseInt(this.staticRoutesWarnEnd) >= parseInt(this.staticRoutesMax)) {
+
+        if (isNaN(this.staticRoutesWarnEnd)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt(this.staticRoutesWarnEnd) >= parseInt(this.staticRoutesMax)) {
+          this.thresholdErrorMsg4 = 'Alert Value should be less than Max Value';
+        }
+
         $('#add-staticRoutesWarnEnd').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
         $('#add-staticRoutesWarnEnd').css('border-bottom', '0.0625rem solid #999');
       }
       if (this.staticRoutesMax == '' || isNaN(this.staticRoutesMax) || this.staticRoutesMax < 0 || this.staticRoutesMax % 100 != 0) {
+
+        if (isNaN(this.staticRoutesMax)) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (this.staticRoutesMax % 100 != 0) {
+          this.thresholdErrorMsg5 = 'Max value should be multiples of 100';
+        }
+
         $('#add-staticRoutesMax').css('border-bottom', '0.0625rem solid red');
         thrFlag = false;
       } else {
@@ -649,6 +825,7 @@ export class ProvisioningComponent implements OnInit {
       setTimeout(() => {
         this.config.editDataCenter(this.userId, editId, editName, editCountry, editState, editCity, editTimezone).subscribe(res => {
           $('.modalForm').hide();
+          $('.custom_modal_dcEdit').css('top','35%');
           $('.apiResponseDiv').show();
           if (res.status == 'success') {
             this.adminLayoutComponnet.setDcLeftNav();
@@ -667,6 +844,13 @@ export class ProvisioningComponent implements OnInit {
   }
 
   validateEditComponent(e) {
+
+    this.thresholdErrorMsg1 = '';
+    this.thresholdErrorMsg2 = '';
+    this.thresholdErrorMsg3 = '';
+    this.thresholdErrorMsg4 = '';
+    this.thresholdErrorMsg5 = '';
+
     var flag = false;
     if ($('#editComponentName').val() == '' || $('#editComponentName').val().length > 100) {
       $('#editComponentBar1').css('border-bottom', '0.0625rem solid red');
@@ -713,18 +897,45 @@ export class ProvisioningComponent implements OnInit {
 
     if ($('#editComponentNameType').val() == 'NEXUS') {
       if ($('#editComponentvrfWarnStart').val() == '' || isNaN($('#editComponentvrfWarnStart').val()) || $('#editComponentvrfWarnStart').val() < 0 || parseInt($('#editComponentvrfWarnStart').val()) >= parseInt($('#editComponentvrfWarnEnd').val()) || parseInt($('#editComponentvrfWarnStart').val()) >= parseInt($('#editComponentvrfMax').val())) {
+
+        if (isNaN($('#editComponentvrfWarnStart').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt($('#editComponentvrfWarnStart').val()) >= parseInt($('#editComponentvrfWarnEnd').val())) {
+          this.thresholdErrorMsg2 = 'Warning Value should be less than Alert Value';
+        }
+        if (parseInt($('#editComponentvrfWarnStart').val()) >= parseInt($('#editComponentvrfMax').val())) {
+          this.thresholdErrorMsg3 = 'Warning Value should be less than Max Value';
+        }
+
         $('#editComponentBar77').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar77').css('border-bottom', '0.0625rem solid #999');
       }
       if ($('#editComponentvrfWarnEnd').val() == '' || isNaN($('#editComponentvrfWarnEnd').val()) || $('#editComponentvrfWarnEnd').val() < 0 || parseInt($('#editComponentvrfWarnEnd').val()) >= parseInt($('#editComponentvrfMax').val())) {
+
+        if (isNaN($('#editComponentvrfWarnEnd').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt($('#editComponentvrfWarnEnd').val()) >= parseInt($('#editComponentvrfMax').val())) {
+          this.thresholdErrorMsg4 = 'Alert Value should be less than Max Value';
+        }
+
         $('#editComponentBar8').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar8').css('border-bottom', '0.0625rem solid #999');
       }
       if ($('#editComponentvrfMax').val() == '' || isNaN($('#editComponentvrfMax').val()) || $('#editComponentvrfMax').val() < 0 || $('#editComponentvrfMax').val() % 100 != 0) {
+
+        if (isNaN($('#editComponentvrfMax').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if ($('#editComponentvrfMax').val() % 100 != 0) {
+          this.thresholdErrorMsg5 = 'Max value should be multiples of 100';
+        }
+
         $('#editComponentBar9').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
@@ -732,18 +943,45 @@ export class ProvisioningComponent implements OnInit {
       }
 
       if ($('#editComponentbgpPeersWarnStart').val() == '' || isNaN($('#editComponentbgpPeersWarnStart').val()) || $('#editComponentbgpPeersWarnStart').val() < 0 || parseInt($('#editComponentbgpPeersWarnStart').val()) >= parseInt($('#editComponentbgpPeersWarnEnd').val()) || parseInt($('#editComponentbgpPeersWarnStart').val()) >= parseInt($('#editComponentbgpPeersMax').val())) {
+
+        if (isNaN($('#editComponentbgpPeersWarnStart').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt($('#editComponentbgpPeersWarnStart').val()) >= parseInt($('#editComponentbgpPeersWarnEnd').val())) {
+          this.thresholdErrorMsg2 = 'Warning Value should be less than Alert Value';
+        }
+        if (parseInt($('#editComponentbgpPeersWarnStart').val()) >= parseInt($('#editComponentbgpPeersMax').val())) {
+          this.thresholdErrorMsg3 = 'Warning Value should be less than Max Value';
+        }
+
         $('#editComponentBar10').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar10').css('border-bottom', '0.0625rem solid #999');
       }
       if ($('#editComponentbgpPeersWarnEnd').val() == '' || isNaN($('#editComponentbgpPeersWarnEnd').val()) || $('#editComponentbgpPeersWarnEnd').val() < 0 || parseInt($('#editComponentbgpPeersWarnEnd').val()) >= parseInt($('#editComponentbgpPeersMax').val())) {
+
+        if (isNaN($('#editComponentbgpPeersWarnEnd').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt($('#editComponentbgpPeersWarnEnd').val()) >= parseInt($('#editComponentbgpPeersMax').val())) {
+          this.thresholdErrorMsg4 = 'Alert Value should be less than Max Value';
+        }
+
         $('#editComponentBar11').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar11').css('border-bottom', '0.0625rem solid #999');
       }
       if ($('#editComponentbgpPeersMax').val() == '' || isNaN($('#editComponentbgpPeersMax').val()) || $('#editComponentbgpPeersMax').val() < 0 || $('#editComponentbgpPeersMax').val() % 100 != 0) {
+
+        if (isNaN($('#editComponentbgpPeersMax').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if ($('#editComponentbgpPeersMax').val() % 100 != 0) {
+          this.thresholdErrorMsg5 = 'Max value should be multiples of 100';
+        }
+
         $('#editComponentBar12').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
@@ -751,18 +989,45 @@ export class ProvisioningComponent implements OnInit {
       }
 
       if ($('#editComponentvlanWarnStart').val() == '' || isNaN($('#editComponentvlanWarnStart').val()) || $('#editComponentvlanWarnStart').val() < 0 || parseInt($('#editComponentvlanWarnStart').val()) >= parseInt($('#editComponentvlanWarnEnd').val()) || parseInt($('#editComponentvlanWarnStart').val()) >= parseInt($('#editComponentvlanMax').val())) {
+
+        if (isNaN($('#editComponentvlanWarnStart').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt($('#editComponentvlanWarnStart').val()) >= parseInt($('#editComponentvlanWarnEnd').val())) {
+          this.thresholdErrorMsg2 = 'Warning Value should be less than Alert Value';
+        }
+        if (parseInt($('#editComponentvlanWarnStart').val()) >= parseInt($('#editComponentvlanMax').val())) {
+          this.thresholdErrorMsg3 = 'Warning Value should be less than Max Value';
+        }
+
         $('#editComponentBar13').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar13').css('border-bottom', '0.0625rem solid #999');
       }
       if ($('#editComponentvlanWarnEnd').val() == '' || isNaN($('#editComponentvlanWarnEnd').val()) || $('#editComponentvlanWarnEnd').val() < 0 || parseInt($('#editComponentvlanWarnEnd').val()) >= parseInt($('#editComponentvlanMax').val())) {
+
+        if (isNaN($('#editComponentvlanWarnEnd').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt($('#editComponentvlanWarnEnd').val()) >= parseInt($('#editComponentvlanMax').val())) {
+          this.thresholdErrorMsg4 = 'Alert Value should be less than Max Value';
+        }
+
         $('#editComponentBar14').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar14').css('border-bottom', '0.0625rem solid #999');
       }
       if ($('#editComponentvlanMax').val() == '' || isNaN($('#editComponentvlanMax').val()) || $('#editComponentvlanMax').val() < 0 || $('#editComponentvlanMax').val() % 100 != 0) {
+
+        if (isNaN($('#editComponentvlanMax').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if ($('#editComponentvlanMax').val() % 100 != 0) {
+          this.thresholdErrorMsg5 = 'Max value should be multiples of 100';
+        }
+
         $('#editComponentBar15').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
@@ -770,18 +1035,45 @@ export class ProvisioningComponent implements OnInit {
       }
 
       if ($('#editComponenthsrpWarnStart').val() == '' || isNaN($('#editComponenthsrpWarnStart').val()) || $('#editComponenthsrpWarnStart').val() < 0 || parseInt($('#editComponenthsrpWarnStart').val()) >= parseInt($('#editComponenthsrpWarnEnd').val()) || parseInt($('#editComponenthsrpWarnStart').val()) >= parseInt($('#editComponenthsrpMax').val())) {
+
+        if (isNaN($('#editComponenthsrpWarnStart').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt($('#editComponenthsrpWarnStart').val()) >= parseInt($('#editComponenthsrpWarnEnd').val())) {
+          this.thresholdErrorMsg2 = 'Warning Value should be less than Alert Value';
+        }
+        if (parseInt($('#editComponenthsrpWarnStart').val()) >= parseInt($('#editComponenthsrpMax').val())) {
+          this.thresholdErrorMsg3 = 'Warning Value should be less than Max Value';
+        }
+
         $('#editComponentBar16').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar16').css('border-bottom', '0.0625rem solid #999');
       }
       if ($('#editComponenthsrpWarnEnd').val() == '' || isNaN($('#editComponenthsrpWarnEnd').val()) || $('#editComponenthsrpWarnEnd').val() < 0 || parseInt($('#editComponenthsrpWarnEnd').val()) >= parseInt($('#editComponenthsrpMax').val())) {
+
+        if (isNaN($('#editComponenthsrpWarnEnd').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt($('#editComponenthsrpWarnEnd').val()) >= parseInt($('#editComponenthsrpMax').val())) {
+          this.thresholdErrorMsg4 = 'Alert Value should be less than Max Value';
+        }
+
         $('#editComponentBar17').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar17').css('border-bottom', '0.0625rem solid #999');
       }
       if ($('#editComponenthsrpMax').val() == '' || isNaN($('#editComponenthsrpMax').val()) || $('#editComponenthsrpMax').val() < 0 || $('#editComponenthsrpMax').val() % 100 != 0) {
+
+        if (isNaN($('#editComponenthsrpMax').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if ($('#editComponenthsrpMax').val() % 100 != 0) {
+          this.thresholdErrorMsg5 = 'Max value should be multiples of 100';
+        }
+
         $('#editComponentBar18').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
@@ -789,18 +1081,45 @@ export class ProvisioningComponent implements OnInit {
       }
 
       if ($('#editComponentstaticRoutesWarnStart').val() == '' || isNaN($('#editComponentstaticRoutesWarnStart').val()) || $('#editComponentstaticRoutesWarnStart').val() < 0 || parseInt($('#editComponentstaticRoutesWarnStart').val()) >= parseInt($('#editComponentstaticRoutesWarnEnd').val()) || parseInt($('#editComponentstaticRoutesWarnStart').val()) >= parseInt($('#editComponentstaticRoutesMax').val())) {
+
+        if (isNaN($('#editComponentstaticRoutesWarnStart').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt($('#editComponentstaticRoutesWarnStart').val()) >= parseInt($('#editComponentstaticRoutesWarnEnd').val())) {
+          this.thresholdErrorMsg2 = 'Warning Value should be less than Alert Value';
+        }
+        if (parseInt($('#editComponentstaticRoutesWarnStart').val()) >= parseInt($('#editComponentstaticRoutesMax').val())) {
+          this.thresholdErrorMsg3 = 'Warning Value should be less than Max Value';
+        }
+
         $('#editComponentBar19').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar19').css('border-bottom', '0.0625rem solid #999');
       }
       if ($('#editComponentstaticRoutesWarnEnd').val() == '' || isNaN($('#editComponentstaticRoutesWarnEnd').val()) || $('#editComponentstaticRoutesWarnEnd').val() < 0 || parseInt($('#editComponentstaticRoutesWarnEnd').val()) >= parseInt($('#editComponentstaticRoutesMax').val())) {
+
+        if (isNaN($('#editComponentstaticRoutesWarnEnd').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if (parseInt($('#editComponentstaticRoutesWarnEnd').val()) >= parseInt($('#editComponentstaticRoutesMax').val())) {
+          this.thresholdErrorMsg4 = 'Alert Value should be less than Max Value';
+        }
+
         $('#editComponentBar20').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
         $('#editComponentBar20').css('border-bottom', '0.0625rem solid #999');
       }
       if ($('#editComponentstaticRoutesMax').val() == '' || isNaN($('#editComponentstaticRoutesMax').val()) || $('#editComponentstaticRoutesMax').val() < 0 || $('#editComponentstaticRoutesMax').val() % 100 != 0) {
+
+        if (isNaN($('#editComponentstaticRoutesMax').val())) {
+          this.thresholdErrorMsg1 = 'Threshold values should be numeric';
+        }
+        if ($('#editComponentstaticRoutesMax').val() % 100 != 0) {
+          this.thresholdErrorMsg5 = 'Max value should be multiples of 100';
+        }
+
         $('#editComponentBar21').css('border-bottom', '0.0625rem solid red');
         flag = true;
       } else {
@@ -844,8 +1163,8 @@ export class ProvisioningComponent implements OnInit {
       let editComponentstaticRoutesWarnStart = editComponentNameType == 'NEXUS' ? $('#editComponentstaticRoutesWarnStart').val() : '';
       let editComponentstaticRoutesWarnEnd = editComponentNameType == 'NEXUS' ? $('#editComponentstaticRoutesWarnEnd').val() : '';
       let editComponentstaticRoutesMax = editComponentNameType == 'NEXUS' ? $('#editComponentstaticRoutesMax').val() : '';
-	  
-	  if(editComponentVersion == 'Sub Type') {
+
+      if (editComponentVersion == 'Sub Type') {
         editComponentVersion = '';
       }
 
@@ -853,6 +1172,8 @@ export class ProvisioningComponent implements OnInit {
         this.config.editComponent(this.userId, this.currentDataCenterComponentId, editComponentName, editComponentNameType, editComponentVersion, editComponentIpAddress, editComponentComponentUser, editComponentPassword, editComponentEnablePassword, editComponentvrfWarnStart, editComponentvrfWarnEnd, editComponentvrfMax, editComponentbgpPeersWarnStart, editComponentbgpPeersWarnEnd, editComponentbgpPeersMax, editComponentvlanWarnStart, editComponentvlanWarnEnd, editComponentvlanMax, editComponenthsrpWarnStart, editComponenthsrpWarnEnd, editComponenthsrpMax, editComponentstaticRoutesWarnStart, editComponentstaticRoutesWarnEnd, editComponentstaticRoutesMax).subscribe(res => {
 
           $('.modalForm').hide();
+          $('.custom_modal_componentEdit').css('top','35%');
+          $('.custom_modal_componentNexusEdit').css('top','35%');
           $('.apiResponseDiv').show();
           if (res.status == 'success') {
             this.adminLayoutComponnet.setDcLeftNav();
@@ -867,6 +1188,22 @@ export class ProvisioningComponent implements OnInit {
           }
         });
       }, 100);
+    } else {
+      if (this.thresholdErrorMsg1 != '') {
+        $('#editthresholdErrorMsg1').slideDown().text(this.thresholdErrorMsg1).css('background', 'red').slideUp(5000);
+      }
+      if (this.thresholdErrorMsg2 != '') {
+        $('#editthresholdErrorMsg2').slideDown().text(this.thresholdErrorMsg2).css('background', 'red').slideUp(5000);
+      }
+      if (this.thresholdErrorMsg3 != '') {
+        $('#editthresholdErrorMsg3').slideDown().text(this.thresholdErrorMsg3).css('background', 'red').slideUp(5000);
+      }
+      if (this.thresholdErrorMsg4 != '') {
+        $('#editthresholdErrorMsg4').slideDown().text(this.thresholdErrorMsg4).css('background', 'red').slideUp(5000);
+      }
+      if (this.thresholdErrorMsg5 != '') {
+        $('#editthresholdErrorMsg5').slideDown().text(this.thresholdErrorMsg5).css('background', 'red').slideUp(5000);
+      }
     }
   }
 
@@ -879,6 +1216,11 @@ export class ProvisioningComponent implements OnInit {
     this.ComponentTypeList();
 
     this.provisioningList();
+
+    setTimeout(() => {
+      $('#provisioning').removeClass('pcoded-trigger');
+    }, 1000);
+
   }
 
   onClickedOutside(e: Event) {
@@ -975,6 +1317,7 @@ export class ProvisioningComponent implements OnInit {
       setTimeout(() => {
         this.config.addDataCenter(this.userId, this.name, this.country, this.state, this.city, this.timezone).subscribe(res => {
           $('.modalForm').hide();
+          $('.custom_modal_dcAdd').css('top','35%');
           $('.apiResponseDiv').show();
           var sucflag = false;
           if (res.status == 'success') {

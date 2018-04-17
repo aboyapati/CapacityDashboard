@@ -5,6 +5,7 @@ import { state, style, transition, animate, trigger, AUTO_STYLE } from '@angular
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MenuItems } from '../../shared/menu-items/menu-items';
 import { ConfigService } from '../../config.service';
+import { DatacenterComponent } from '../../components/data/datacenter/datacenter.component';
 
 declare const $: any;
 
@@ -58,7 +59,7 @@ export class AdminLayoutComponent implements OnInit {
   public subComponentChildren: any;
   public MENUITEMS: any;
 
-  constructor(public menuItems: MenuItems, private router: Router, private modalService: NgbModal, private config: ConfigService) {
+  constructor(public menuItems: MenuItems, private router: Router, private modalService: NgbModal, private config: ConfigService, public dcComp: DatacenterComponent) {
     const scrollHeight = window.screen.height - 150;
     this.innerHeight = scrollHeight + 'px';
     this.windowWidth = window.innerWidth;
@@ -157,6 +158,7 @@ export class AdminLayoutComponent implements OnInit {
           ]
         }
       ];
+      sessionStorage.setItem('dynamicSubMenu', JSON.stringify(this.dynamicSubMenu));
       this.MENUITEMS[0].main[2]['children'] = this.dynamicSubMenu;
     }, 800);
   }
@@ -210,6 +212,7 @@ export class AdminLayoutComponent implements OnInit {
     }, 1000);
 
     setTimeout(() => {
+      sessionStorage.setItem('dynamicSubMenu', JSON.stringify(this.dynamicSubMenu));
       this.MENUITEMS[0].main[2]['children'] = this.dynamicSubMenu;
     }, 2000);
 

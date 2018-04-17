@@ -18,11 +18,16 @@ export class LicenseComponent implements OnInit {
 
   ngOnInit() {
     this.getCustomersList();
+
+    setTimeout(() => {
+      $('#license').removeClass('pcoded-trigger');
+    }, 1000);
+
   }
 
   customeOnChange(id) {
     $("#customer_placeholder").hide();
-	this.config.getCustomerLicense(id).subscribe(res => {
+    this.config.getCustomerLicense(id).subscribe(res => {
       this.licenseList = res;
       if (this.licenseList.length < 1) {
         this.licenseFlagMessage = true;

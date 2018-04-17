@@ -52,6 +52,9 @@ var LicenseComponent = (function () {
     }
     LicenseComponent.prototype.ngOnInit = function () {
         this.getCustomersList();
+        setTimeout(function () {
+            $('#license').removeClass('pcoded-trigger');
+        }, 1000);
     };
     LicenseComponent.prototype.customeOnChange = function (id) {
         var _this = this;

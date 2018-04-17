@@ -69,6 +69,11 @@ export class ReportComponent implements OnInit {
     this.selectedComponents = '';
     this.toDate = '';
     this.fromDate = '';
+
+    setTimeout(() => {
+      $('#report').removeClass('pcoded-trigger');
+    }, 1000);
+
   }
 
   setDataCenterReportList(id = 0) {
@@ -150,15 +155,8 @@ export class ReportComponent implements OnInit {
     this.setReportNames();
   }
 
-  downloadReport(reportId) {
-    this.config.getDownloadReport(this.currentDC, this.fromDate, this.toDate, reportId).subscribe(res => {
-      if (!$.isEmptyObject(res)) {
-        this.downloadData = res;
-        this.excelService.exportAsExcelFile(this.downloadData, "Data Center Reports");
-      } else {
-        alert('Oops..Something wrong happened. Please try later');
-      }
-    });
+  downloadReport(id) {
+    this.config.getDownloadReport(this.reportList[id].componentId, this.fromDate, this.toDate, this.reportList[id].id, this.reportList[id].name);
   }
 
   scrollRightClick() {

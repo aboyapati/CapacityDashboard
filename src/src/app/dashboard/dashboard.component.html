@@ -14,7 +14,7 @@
                 <span class="round-text" style="font-size: 23px"> 4 </span>
               </span>
             </div>
-            <div class="col-sm-7 blk2" style="text-align:right;padding-right:13%;">
+            <div class="col-sm-7 blk2 dataReport" style="text-align:right;padding-right:13%;">
               <div class="tile-head" style="color: #00000073;">
                 Inventory - EOL/EOS
                 <br />
@@ -39,10 +39,10 @@
           <div class="row">
             <div class="col-sm-5 blk1">
               <span class="round-block rb-2 img-circle pull-left" style="float:right;">
-                <span class="round-text" style="font-size: 23px"> 8 </span>
+                <span class="round-text" style="font-size: 23px"> {{reportCount}} </span>
               </span>
             </div>
-            <div class="col-sm-7 blk2" style="text-align:right;padding-right:13%;">
+            <div class="col-sm-7 blk2 dataReport" style="text-align:right;padding-right:9%;">
               <div class="tile-head">
                 Data Center Reports
                 <br />
@@ -61,7 +61,7 @@
   </div>
 
   <div class="col-md-3 col-sm-6 block">
-    <div class="card table-card">
+    <div class="card table-card" style="min-height: 121px;">
       <div class="row-table">
         <div class="col-md-12 card-block-big card-block-pd">
           <div class="row">
@@ -76,14 +76,14 @@
               <div class="tile-head">
                 Active Users
                 <br />
-                <span class="tile-count" style="font-size:30px;font-weight:normal;">6381</span>
+                <span class="tile-count" style="font-size:30px;font-weight:normal;">{{usersCount}}</span>
               </div>
             </div>
-            <div class="col-md-12" style="padding-right:13%;">
+            <!-- <div class="col-md-12" style="padding-right:13%;">
               <p class="tile-footer-p" style="margin-top:7px;">
                 <span style="color: red;">
                   <i class="fa fa-arrow-down" style="font-size:15px;"></i> 534</span> more than last month</p>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -91,7 +91,7 @@
   </div>
 
   <div class="col-md-3 col-sm-6 block">
-    <div class="card table-card" style="cursor:pointer" (click)="customerList()">
+    <div class="card table-card" style="cursor:pointer;min-height: 121px;" (click)="customerList()">
       <div class="row-table">
         <div class="col-md-12 card-block-big card-block-pd">
           <div class="row">
@@ -106,14 +106,14 @@
               <div class="tile-head">
                 Customers
                 <br />
-                <span class="tile-count" style="font-size:30px;font-weight:normal;">132</span>
+                <span class="tile-count" style="font-size:30px;font-weight:normal;">{{customersCount}}</span>
               </div>
             </div>
-            <div class="col-md-12" style="padding-right:13%;">
+            <!-- <div class="col-md-12" style="padding-right:13%;">
               <p class="tile-footer-p" style="margin-top:7px;">
                 <span style="color: green;">
                   <i class="fa fa-arrow-up" style="font-size:15px;"></i> 47</span> more than last month</p>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
