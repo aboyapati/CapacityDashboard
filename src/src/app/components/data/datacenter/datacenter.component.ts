@@ -15,36 +15,36 @@ declare const $: any;
 })
 export class DatacenterComponent implements OnInit {
 
-  private chart: AmChart;
-  private chart1: AmChart;
-  private chart2: AmChart;
-  private chart3: AmChart;
-  private chart4: AmChart;
-  private observeRef: any;
-  private userId: number = sessionStorage.id;
-  private dataCenterId: any;
-  private subComponentList: any;
-  private subComponentPopUpdata: any;
-  private selectedComponentId: number = 0;
-  private selectedComponentType: string = 'default';
-  private vcenterData: any;
-  private vcenetrDataStatus: boolean;
-  private popUptypeId: number;
-  private popUpsubComponentName: string;
-  private deviceHeight: any;
-  private deviceWidth: any;
-  private scrollLimit: number;
-  private sliderLimit: number;
-  private scrollLimitMin: number;
-  private scrollLimitMax: number;
-  private popupName: string;
-  private subFilterFlag: boolean = false;
-  private subComponentCounter: number = 0;
-  private subCoFlag: boolean = false;
-  private coFlag: boolean = false;
-  private selectedComponentViewId: number;
-  private dataCenterHeading: string = '';
-  private dynamicSubMenu;
+  chart: AmChart;
+  chart1: AmChart;
+  chart2: AmChart;
+  chart3: AmChart;
+  chart4: AmChart;
+  observeRef: any;
+  userId: number = sessionStorage.id;
+  dataCenterId: any;
+  subComponentList: any;
+  subComponentPopUpdata: any;
+  selectedComponentId: number = 0;
+  selectedComponentType: string = 'default';
+  vcenterData: any;
+  vcenetrDataStatus: boolean;
+  popUptypeId: number;
+  popUpsubComponentName: string;
+  deviceHeight: any;
+  deviceWidth: any;
+  scrollLimit: number;
+  sliderLimit: number;
+  scrollLimitMin: number;
+  scrollLimitMax: number;
+  popupName: string;
+  subFilterFlag: boolean = false;
+  subComponentCounter: number = 0;
+  subCoFlag: boolean = false;
+  coFlag: boolean = false;
+  selectedComponentViewId: number;
+  dataCenterHeading: string = '';
+  dynamicSubMenu;
 
   closeResult: string;
   imgUrl: string = "assets/images/icon-cube.png";
@@ -83,35 +83,33 @@ export class DatacenterComponent implements OnInit {
       sessionStorage.setItem('leftNavSelectedSubcompId', this.dataCenterId);
 
       if (typeof this.dataCenterId !== "undefined") {
-        setTimeout(() => {
-          this.config.getComponentList(this.dataCenterId).subscribe(res_comp => {
-            this.components = res_comp;
-            sessionStorage.setItem('cookieComponnets', JSON.stringify(this.components));
-            if (this.components.length < 1) {
-              this.coFlag = true;
-              $('#withoutComponentBlock').show();
-            } else {
-              this.coFlag = false;
-              $('#withoutComponentBlock').hide();
-            }
+        this.config.getComponentList(this.dataCenterId).subscribe(res_comp => {
+          this.components = res_comp;
+          sessionStorage.setItem('cookieComponnets', JSON.stringify(this.components));
+          if (this.components.length < 1) {
+            this.coFlag = true;
+            $('#withoutComponentBlock').show();
+          } else {
+            this.coFlag = false;
+            $('#withoutComponentBlock').hide();
+          }
 
-            this.dynamicSubMenu = JSON.parse(sessionStorage.dynamicSubMenu);
+          this.dynamicSubMenu = JSON.parse(sessionStorage.dynamicSubMenu);
 
-            for (let i = 0; i < this.dynamicSubMenu.length; i++) {
-              if (this.dynamicSubMenu[i].id == this.dataCenterId) {
-                this.dataCenterHeading = this.dynamicSubMenu[i].name;
-                break;
-              }
+          for (let i = 0; i < this.dynamicSubMenu.length; i++) {
+            if (this.dynamicSubMenu[i].id == this.dataCenterId) {
+              this.dataCenterHeading = this.dynamicSubMenu[i].name;
+              break;
             }
-            this.subComponents = [];
-            if (this.subComponentCounter == 0) {
-              this.subComponentCounter = 1;
-            }
-            setTimeout(() => {
-              $('#componentScroll0').trigger('click');
-            }, 100);
-          });
-        }, 1000);
+          }
+          this.subComponents = [];
+          if (this.subComponentCounter == 0) {
+            this.subComponentCounter = 1;
+          }
+          setTimeout(() => {
+            $('#componentScroll0').trigger('click');
+          }, 100);
+        });
       }
     });
   }

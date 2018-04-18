@@ -32,6 +32,7 @@
 		"getSubComponetCustomer": "/assets/webservices/customerSubComponents.php",
 		"getCustomerCuntent": "/assets/webservices/customerContent.php",
 		"getVcenterGraphContentUrl": "/assets/webservices/getVcenterGraphContent.php",
-		"getDashboardTileDatasUrl": "/assets/webservices/getDashboardTileData.php"
+		"getDashboardTileDatasUrl": "/assets/webservices/getDashboardTileData.php",
+		"getCustomerNameUrl": "/assets/webservices/getCustomerName.php"
     }
 ]

@@ -1,6 +1,7 @@
 .tab-tile-table {
     background-color: #fff;
     padding: 30px;
+    padding-top: 15px;
 }
 /* Form Elements Select Box */
 .form-modal {
@@ -116,4 +117,11 @@
 }
 th {
     color: #3b4147;
+}
+tr {
+  height: 41px;
+}
+td, th {
+  padding: 5px 12px 5px 12px;
+  vertical-align: middle;
 }

@@ -18,26 +18,26 @@ declare const $: any;
 })
 export class ReportComponent implements OnInit {
 
-  private dataCenters: any;
-  private dataCentersDetails: any;
-  private userId: number = sessionStorage.id;
-  private dataCenterId: number;
-  private showNullRowMessage: boolean = false;
-  private currentDC: number;
-  private deviceHeight: any;
-  private deviceWidth: any;
-  private scrollLimit: number;
-  private sliderLimit: number;
-  private scrollLimitMin: number;
-  private scrollLimitMax: number;
-  private selectedDataCenter: number;
-  private reportStatus: boolean = false;
-  private reportList: any;
-  private selectedComponents: any;
-  private toDate: any;
-  private fromDate: any;
-  private downloadData: any;
-  private selectedDcViewId: number;
+  dataCenters: any;
+  dataCentersDetails: any;
+  userId: number = sessionStorage.id;
+  dataCenterId: number;
+  showNullRowMessage: boolean = false;
+  currentDC: number;
+  deviceHeight: any;
+  deviceWidth: any;
+  scrollLimit: number;
+  sliderLimit: number;
+  scrollLimitMin: number;
+  scrollLimitMax: number;
+  selectedDataCenter: number;
+  reportStatus: boolean = false;
+  reportList: any;
+  selectedComponents: any;
+  toDate: any;
+  fromDate: any;
+  downloadData: any;
+  selectedDcViewId: number;
 
   constructor(private modalService: NgbModal, private config: ConfigService, private router: Router, private excelService: ExcelService) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -77,20 +77,18 @@ export class ReportComponent implements OnInit {
   }
 
   setDataCenterReportList(id = 0) {
-    setTimeout(() => {
-      this.config.getProvisioningList().subscribe(res => {
-        this.dataCenters = res;
-        if (this.dataCenters.length >= 1) {
-          $('#withdcBlock').show();
-        } else {
-          $('#withoutdcBlock').show();
-        }
-        this.selectedDataCenter = id;
-        if (this.dataCenters.length > 0) {
-          this.dataCenterScrollClick(id, 'scroll');
-        }
-      });
-    }, 100);
+    this.config.getProvisioningList().subscribe(res => {
+      this.dataCenters = res;
+      if (this.dataCenters.length >= 1) {
+        $('#withdcBlock').show();
+      } else {
+        $('#withoutdcBlock').show();
+      }
+      this.selectedDataCenter = id;
+      if (this.dataCenters.length > 0) {
+        this.dataCenterScrollClick(id, 'scroll');
+      }
+    });
   }
 
   dataCenterScrollClick(id, clickType = 'scroll') {
@@ -117,6 +115,7 @@ export class ReportComponent implements OnInit {
     this.activateCard(id);
     $('#' + id).attr('class', 'col-md-3 col-sm-6 tab-tile tab-tile-active');
     this.setDataCenterComponnets(this.currentDC);
+    this.selectedComponents = '';
     this.setReportNames();
   }
 

@@ -21,7 +21,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/alert/alert.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n    <div class=\"col-md-3 col-sm-3\" style=\"font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;\">\r\n        onPOINT HCS.Capacity\r\n    </div>\r\n</div>\r\n<div class=\"row\">\r\n    <div class=\"col-lg-12\">\r\n        <div class=\"card\">\r\n            <div class=\"card-block\">\r\n                <div class=\"table-responsive\" style=\"padding: 0px 10px 10px 10px !important;\">\r\n                    <table style=\"width: 100%;\" class=\"table2\">\r\n                        <thead>\r\n                            <tr>\r\n                                <th style=\"width: 150px;border-bottom: 0;\">Notifications</th>\r\n                                <th style=\"width: 800px;border-bottom: 0;font-size: 13px;color: #C0BEBE;\">{{notificationFilterType}}</th>\r\n                                <th style=\"text-align:right;border-bottom: 0;\">\r\n                                    <div class=\"rsddropdown\">\r\n                                        <span (click)=\"notificationClick()\" style=\"cursor:pointer;color:#b0bec5;font-size:20px;\">...</span>\r\n                                        <div id=\"notificationDropDown\" class=\"rsddropdown-content\">\r\n                                            <a (click)=\"getNotificationWithFilter('today')\" style=\"text-align:center;font-size:14px;\">Today</a>\r\n                                            <a (click)=\"getNotificationWithFilter('Yesterday')\" style=\"text-align:center;font-size:14px;\">Yesterday</a>\r\n                                            <a (click)=\"getNotificationWithFilter('1 Week')\" style=\"text-align:center;font-size:14px;\">1 Week</a>\r\n                                        </div>\r\n                                    </div>\r\n                                </th>\r\n                            </tr>\r\n                            <tr>\r\n                                <th style=\"width: 150px;border-top: 0;border-bottom:1px;\">Data Center</th>\r\n                                <th style=\"width: 800px;border-top: 0;border-bottom:1px;\">Alert</th>\r\n                                <th style=\"border-top: 0;border-bottom:1px;\">Time</th>\r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            <tr *ngFor=\"let notification of notifications\">\r\n                                <th scope=\"row\">\r\n                                    <input type=\"checkbox\">\r\n                                    <span class=\"notification{{notification.status}}\">{{notification.name}}</span>\r\n                                </th>\r\n                                <td>{{notification.alert}}</td>\r\n                                <td>{{notification.time}}</td>\r\n                            </tr>\r\n                        </tbody>\r\n                    </table>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "alert content"
 
 /***/ }),
 
@@ -31,8 +31,7 @@ module.exports = "<div class=\"row\">\r\n    <div class=\"col-md-3 col-sm-3\" st
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AlertComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__config_service__ = __webpack_require__("../../../../../src/app/config.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -44,46 +43,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
 var AlertComponent = (function () {
-    function AlertComponent(config, router) {
-        this.config = config;
+    function AlertComponent(router) {
         this.router = router;
-        this.notificationFilterType = 'Today';
-        this.notificationFilter = false;
     }
     AlertComponent.prototype.ngOnInit = function () {
         if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
             this.router.navigate(['login']);
         }
-        this.getNotificationWithFilter(this.notificationFilterType);
-    };
-    AlertComponent.prototype.notificationClick = function () {
-        this.notificationFilter = !this.notificationFilter;
-        if (this.notificationFilter) {
-            $('#notificationDropDown').show();
-        }
-        else {
-            $('#notificationDropDown').hide();
-        }
-    };
-    AlertComponent.prototype.getNotificationWithFilter = function (type) {
-        var _this = this;
-        this.notificationFilterType = type;
-        if (this.notificationFilterType == 'Today') {
-            type = 'today';
-        }
-        else if (this.notificationFilterType == 'Yesterday') {
-            type = 'yesterday';
-        }
-        else if (this.notificationFilterType == '1 Week') {
-            type = 'week';
-        }
-        this.notificationFilter = false;
-        $('#notificationDropDown').hide();
-        this.config.getNotification(type).subscribe(function (res) {
-            _this.notifications = res;
-        });
     };
     return AlertComponent;
 }());
@@ -93,10 +60,10 @@ AlertComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/alert/alert.component.html"),
         styles: [__webpack_require__("../../../../../src/app/alert/alert.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__config_service__["a" /* ConfigService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__config_service__["a" /* ConfigService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["f" /* Router */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["f" /* Router */]) === "function" && _a || Object])
 ], AlertComponent);
 
-var _a, _b;
+var _a;
 //# sourceMappingURL=alert.component.js.map
 
 /***/ }),

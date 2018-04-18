@@ -1,10 +1,10 @@
 <div class="row">
-    <div class="col-md-3 col-sm-3" style="font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;">
-        Customer View
+    <div class="col-md-4 col-sm-4" style="font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;">
+        Customer View - {{customerName}}
     </div>
-    <div class="col-md-6 col-sm-6" style="padding-top:6px;text-align: center;">
-        <span>
-            <span (click)="scrollLeftClick()" style="cursor: pointer;" *ngIf="dataCenters != ''" class="ti-arrow-circle-left"></span>
+    <div class="col-md-8 col-sm-8" style="padding-top:6px;">
+        <span style="margin-left: 15%;">
+            <span (click)="scrollLeftClick()" style="cursor: pointer;" *ngIf="dataCenters?.length > 0" class="ti-arrow-circle-left"></span>
             <span *ngFor="let dC of dataCenters, let i = index">
                 <span class="icon-name">&nbsp;</span>
                 <div *ngIf="dC.id == selectedDataCenter;then bubble1; else bubble2"></div>
@@ -16,11 +16,11 @@
                 </ng-template>
             </span>
             <span class="icon-name">&nbsp;</span>
-            <span (click)="scrollRightClick()" style="cursor: pointer;" *ngIf="dataCenters != ''" class="ti-arrow-circle-right"></span>
+            <span (click)="scrollRightClick()" style="cursor: pointer;" *ngIf="dataCenters?.length > 0" class="ti-arrow-circle-right"></span>
         </span>
     </div>
 </div>
-<div class="row" *ngIf="dataCenters != ''">
+<div class="row" *ngIf="dataCenters?.length > 0">
     <div *ngFor="let dataCenter of dataCenters, let i = index" id="dataCenter{{dataCenter.id}}" class="col-md-3 col-sm-6 tab-tile {{ dataCenter.id == selectedDataCenter ? 'tab-tile-active' : ''}}"
         (click)="dataCenterClick(dataCenter.id,i,'direct')" [style.display]="i>=scrollLimitMin && i<=scrollLimitMax ? 'block' : 'none'">
         <div class="d-flex justify-content-center">
@@ -41,7 +41,7 @@
         <div class="row" *ngIf="!compNotFound">
             <div class="offset-md-3 offset-sm-3 col-md-6 col-sm-6" style="padding-top:25px;text-align: center;">
                 <span>
-                    <span (click)="scrollLeftClickSub()" style="cursor: pointer;" *ngIf="currentCompItems != ''" class="ti-arrow-circle-left"></span>
+                    <span (click)="scrollLeftClickSub()" style="cursor: pointer;" *ngIf="currentCompItems?.length > 0" class="ti-arrow-circle-left"></span>
                     <span *ngFor="let currentCompItem of currentCompItems, let y = index">
                         <span class="icon-name">&nbsp;</span>
                         <div *ngIf="currentCompItem.id == selectedComp;then bubble3; else bubble4"></div>
@@ -53,7 +53,7 @@
                         </ng-template>
                     </span>
                     <span class="icon-name">&nbsp;</span>
-                    <span (click)="scrollRightClickSub()" style="cursor: pointer;" *ngIf="currentCompItems != ''" class="ti-arrow-circle-right"></span>
+                    <span (click)="scrollRightClickSub()" style="cursor: pointer;" *ngIf="currentCompItems?.length > 0" class="ti-arrow-circle-right"></span>
                 </span>
             </div>
         </div>
@@ -89,9 +89,11 @@
                     <!-- <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}" id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
                         <h4>{{subCompTabItem.name}}</h4>
                     </div> -->
-                    <div class="row">
-                        <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-12 col-sm-6 col-md-2 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}"
-                            id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)" ngbTooltip="{{subCompTabItem.name}}">
+                    <div class="row subTab">
+                        <!-- <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-12 col-sm-6 col-md-2 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}" id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)" ngbTooltip="{{subCompTabItem.name}}"> -->
+                        <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}"
+                            id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)"
+                            ngbTooltip="{{subCompTabItem.name}}">
                             <!-- <h4 ngbTooltip="{{subCompTabItem.name}}">{{subCompTabItem.name.length > 8 ?  (subCompTabItem.name | slice:0:7)+'...' : subCompTabItem.name}}</h4> -->
                             <h4>{{subCompTabItem.name}}</h4>
                         </div>
@@ -122,11 +124,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="row" *ngIf="customerContent == ''" style="padding-top: 50px;padding-bottom: 50px;">
-            <div class="col-md-12" style="text-align: center">
-                <b>NO CONTENTS FOUND FOR {{selectedSubCompName}}.</b>
-            </div>
-        </div> -->
         <div class="row" *ngIf="compNotFound" style="padding-top: 50px;">
             <div class="col-md-12" style="text-align: center">
                 <b>THERE ARE NO COMPONENTS FOUND FOR THIS DATA CENTER.</b>

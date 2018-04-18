@@ -58,7 +58,7 @@
         </div>
     </ng-container>
     <div class="col-md-12 tab-tile-table table-responsive">
-        <div (click)="openComponentModal(rsdcontent)" title="Click to add component" style="float: right;padding: 0px 0px 20px 0px;cursor: pointer;">
+        <div (click)="openComponentModal(rsdcontent)" title="Click to add component" style="float: right;padding: 0px 0px 10px 0px;cursor: pointer;">
             <div class="col-md-4 col-sm-4 btn-top-bar">
                 <button class="btn btn-primary btn-sm btn-add-data">
                     <i class="fa fa-plus"></i> Add Component</button>
@@ -373,7 +373,7 @@
                 </div>
             </div>
         </ng-template>
-        <table style="margin-bottom: 5%;" class="table table-striped">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Component Name</th>
@@ -401,7 +401,7 @@
                     <td>{{ data.ipAddress }}</td>
                     <td class="text-center">
                         <span (click)="hide(j)" class="span{{j}}" style="color: #0056b3;cursor: pointer;">View</span>
-                        <p class="cred cred{{j}}" style="text-align:center;">Username : {{data.componentUser}}
+                        <p class="cred cred{{j}}" style="text-align:center;margin-bottom: 0px;">Username : {{data.componentUser}}
                             <br> Password : {{data.password}}</p>
                     </td>
                     <td>
@@ -731,45 +731,47 @@
             </div>
             <form>
                 <div class="form-modal" style="padding-top: 0;">
-                    <div class="form-group" style="margin-top: 0;">
-                        <input id="editComponentName" type="text" required="required" value="{{componentRecords.name}}" />
-                        <label class="control-label" for="input">Component Name*</label>
-                        <i id='editComponentBar1' class="bar"></i>
-                    </div>
-                    <div class="form-group">
-                        <select id="editComponentNameType" [(ngModel)]="editComponentNameType" name="editComponentNameType" (change)="onVersionChangeEdit(editComponentNameType)">
-                            <option class="modal_placeholder" value="Type*">Type*</option>
-                            <option *ngFor='let ver of version' [selected]="ver.name === componentRecords.type" [value]="ver.name">{{ver.name}}</option>
-                        </select>
-                        <label class="control-label" for="select"></label>
-                        <i id="editComponentBar2" class="bar"></i>
-                    </div>
-                    <div class="form-group">
-                        <select name="editComponentVersion" id="editComponentVersion">
-                            <option class="modal_placeholder">Sub Type</option>
-                            <option value="{{subTypeEdit.name}}" *ngFor='let subTypeEdit of subTypesEdit'>{{subTypeEdit.name}}</option>
-                        </select>
-                        <i id="editComponentBar3" class="bar"></i>
-                    </div>
-                    <div class="form-group">
-                        <input id="editComponentIpAddress" type="text" required="required" value="{{componentRecords.ipAddress}}" />
-                        <label class="control-label" for="input">IP Address*</label>
-                        <i id="editComponentBar4" class="bar"></i>
-                    </div>
-                    <div class="form-group">
-                        <input id="editComponentComponentUser" type="text" required="required" value="{{componentRecords.componentUser}}" />
-                        <label class="control-label" for="input">Username*</label>
-                        <i id="editComponentBar5" class="bar"></i>
-                    </div>
-                    <div class="form-group">
-                        <input id="editComponentPassword" type="text" required="required" value="{{componentRecords.password}}" />
-                        <label class="control-label" for="input">Password*</label>
-                        <i id="editComponentBar6" class="bar"></i>
-                    </div>
-                    <div class="form-group" [hidden]='componentRecords.type != "ASA"' id="edit-enable-password">
-                        <input id="editComponentEnablePassword" type="text" required="required" value="{{componentRecords.enablePassword}}" />
-                        <label class="control-label" for="input">Enable Password</label>
-                        <i id="editComponentBar7" class="bar"></i>
+                    <div id="editComp">
+                        <div class="form-group" style="margin-top: 0;">
+                            <input id="editComponentName" type="text" required="required" value="{{componentRecords.name}}" />
+                            <label class="control-label" for="input">Component Name*</label>
+                            <i id='editComponentBar1' class="bar"></i>
+                        </div>
+                        <div class="form-group">
+                            <select id="editComponentNameType" [(ngModel)]="editComponentNameType" name="editComponentNameType" (change)="onVersionChangeEdit(editComponentNameType)">
+                                <option class="modal_placeholder" value="Type*">Type*</option>
+                                <option *ngFor='let ver of version' [selected]="ver.name === componentRecords.type" [value]="ver.name">{{ver.name}}</option>
+                            </select>
+                            <label class="control-label" for="select"></label>
+                            <i id="editComponentBar2" class="bar"></i>
+                        </div>
+                        <div class="form-group">
+                            <select name="editComponentVersion" id="editComponentVersion">
+                                <option class="modal_placeholder">Sub Type</option>
+                                <option value="{{subTypeEdit.name}}" *ngFor='let subTypeEdit of subTypesEdit'>{{subTypeEdit.name}}</option>
+                            </select>
+                            <i id="editComponentBar3" class="bar"></i>
+                        </div>
+                        <div class="form-group">
+                            <input id="editComponentIpAddress" type="text" required="required" value="{{componentRecords.ipAddress}}" />
+                            <label class="control-label" for="input">IP Address*</label>
+                            <i id="editComponentBar4" class="bar"></i>
+                        </div>
+                        <div class="form-group">
+                            <input id="editComponentComponentUser" type="text" required="required" value="{{componentRecords.componentUser}}" />
+                            <label class="control-label" for="input">Username*</label>
+                            <i id="editComponentBar5" class="bar"></i>
+                        </div>
+                        <div class="form-group">
+                            <input id="editComponentPassword" type="text" required="required" value="{{componentRecords.password}}" />
+                            <label class="control-label" for="input">Password*</label>
+                            <i id="editComponentBar6" class="bar"></i>
+                        </div>
+                        <div class="form-group" [hidden]='componentRecords.type != "ASA"' id="edit-enable-password">
+                            <input id="editComponentEnablePassword" type="text" required="required" value="{{componentRecords.enablePassword}}" />
+                            <label class="control-label" for="input">Enable Password</label>
+                            <i id="editComponentBar7" class="bar"></i>
+                        </div>
                     </div>
 
                     <!-- <div *ngIf="componentRecords.type == 'NEXUS';then threshold_edit"></div> -->
@@ -937,7 +939,7 @@
                             <button id="editComponentSuccessClose" type="button" class="btn btn-default btn-edit btn-edit-close" (click)="c('Close click')">Close</button>
                         </div>
                         <div class="col-md-6 pull-left modal-buttons" style="text-align: right;">
-                            <button type="button" class="btn btn-primary btn-edit btn-edit-save" (click)="openComponentModalNew(viewComponent,newDeleteDataIndex,'view', currentDC)">View Component</button>
+                            <button type="button" class="btn btn-primary btn-edit-view-component" (click)="openComponentModalNew(viewComponent,newDeleteDataIndex,'view', currentDC)">View Component</button>
                         </div>
                     </div>
                 </div>
@@ -978,8 +980,8 @@
                 <div class="form-modal">
                     <h4 class="text-center">Threshold Value</h4>
                 </div>
-                <div class="table-responsive">
-                    <table class="table">
+                <div class="table-responsive" style="padding: 0px 5px 0px 5px;">
+                    <table class="table" style="text-align: center;">
                         <tr>
                             <td></td>
                             <td>WARNING</td>
@@ -987,79 +989,34 @@
                             <td>MAX</td>
                         </tr>
                         <tr>
-                            <td>VRF</td>
-                            <td>
-                                <span>{{componentRecords.vrfWarnStart}}</span>
-                                <i class="bar"></i>
-                            </td>
-                            <td>
-                                <span>{{componentRecords.vrfWarnEnd}}</span>
-                                <i class="bar"></i>
-                            </td>
-                            <td>
-                                <span>{{componentRecords.vrfMax}}</span>
-                                <i class="bar"></i>
-                            </td>
+                            <td style="text-align: left;">VRF</td>
+                            <td>{{componentRecords.vrfWarnStart}}</td>
+                            <td>{{componentRecords.vrfWarnEnd}}</td>
+                            <td>{{componentRecords.vrfMax}}</td>
                         </tr>
                         <tr>
-                            <td>BGP</td>
-                            <td>
-                                <span>{{componentRecords.bgpPeersWarnStart}}</span>
-                                <i class="bar"></i>
-                            </td>
-                            <td>
-                                <span>{{componentRecords.bgpPeersWarnEnd}}</span>
-                                <i class="bar"></i>
-                            </td>
-                            <td>
-                                <span>{{componentRecords.bgpPeersMax}}</span>
-                                <i class="bar"></i>
-                            </td>
+                            <td style="text-align: left;">BGP</td>
+                            <td>{{componentRecords.bgpPeersWarnStart}}</td>
+                            <td>{{componentRecords.bgpPeersWarnEnd}}</td>
+                            <td>{{componentRecords.bgpPeersMax}}</td>
                         </tr>
                         <tr>
-                            <td>Vlan</td>
-                            <td>
-                                <span>{{componentRecords.vlanWarnStart}}</span>
-                                <i class="bar"></i>
-                            </td>
-                            <td>
-                                <span>{{componentRecords.vlanWarnEnd}}</span>
-                                <i class="bar"></i>
-                            </td>
-                            <td>
-                                <span>{{componentRecords.vlanMax}}</span>
-                                <i class="bar"></i>
-                            </td>
+                            <td style="text-align: left;">Vlan</td>
+                            <td>{{componentRecords.vlanWarnStart}}</td>
+                            <td>{{componentRecords.vlanWarnEnd}}</td>
+                            <td>{{componentRecords.vlanMax}}</td>
                         </tr>
                         <tr>
-                            <td>Harp</td>
-                            <td>
-                                <span>{{componentRecords.hsrpWarnStart}}</span>
-                                <i class="bar"></i>
-                            </td>
-                            <td>
-                                <span>{{componentRecords.hsrpWarnEnd}}</span>
-                                <i class="bar"></i>
-                            </td>
-                            <td>
-                                <span>{{componentRecords.hsrpMax}}</span>
-                                <i class="bar"></i>
-                            </td>
+                            <td style="text-align: left;">Harp</td>
+                            <td>{{componentRecords.hsrpWarnStart}}</td>
+                            <td>{{componentRecords.hsrpWarnEnd}}</td>
+                            <td>{{componentRecords.hsrpMax}}</td>
                         </tr>
                         <tr>
-                            <td>Static Router</td>
-                            <td>
-                                <span>{{componentRecords.staticRoutesWarnStart}}</span>
-                                <i class="bar"></i>
-                            </td>
-                            <td>
-                                <span>{{componentRecords.staticRoutesWarnEnd}}</span>
-                                <i class="bar"></i>
-                            </td>
-                            <td>
-                                <span>{{componentRecords.staticRoutesMax}}</span>
-                                <i class="bar"></i>
-                            </td>
+                            <td style="text-align: left;">Static Router</td>
+                            <td>{{componentRecords.staticRoutesWarnStart}}</td>
+                            <td>{{componentRecords.staticRoutesWarnEnd}}</td>
+                            <td>{{componentRecords.staticRoutesMax}}</td>
                         </tr>
                     </table>
                 </div>

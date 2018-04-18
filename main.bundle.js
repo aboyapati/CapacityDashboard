@@ -305,7 +305,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "\r\n.tab-tile:hover {\r\n    cursor: pointer;\r\n    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);\r\n}\r\n.tab-tile {\r\n    padding: 30px 0px 75px;\r\n}\r\n.tab-tile-active {\r\n    padding: 30px 0px 31px;\r\n    background-color: #fff; \r\n}\r\n.tab-tile-table {\r\n    background-color: #fff;\r\n    padding: 30px;\r\n}\r\n.data-center {\r\n    color: #3b4147;\r\n    font-size: 15px;\r\n    font-weight: bold;\r\n    text-align: center;\r\n    padding: 6px 0 4px;\r\n}\r\n.data-center-body {\r\n    color: #73787d;\r\n    font-size: 13px;\r\n    text-align: center;\r\n    margin-bottom: 1px;\r\n    font-weight: 600;\r\n}\r\n.comp-img-thumbnail {\r\n    width: 100px;\r\n    height: 100px;\r\n    background-color: unset;\r\n    border: 0px;\r\n}\r\n.sub-component {\r\n    text-align: center;\r\n    padding-right: 0px;\r\n    padding-left: 0px;\r\n}\r\n.sub-component-body {\r\n    border: 1px solid #e8e8e8;\r\n    border-radius: .25rem;\r\n    margin: 15px;\r\n\tcursor:pointer;\r\n}\r\n.sub-component-text {\r\n    color: #73787d;\r\n    font-size: 13px;\r\n    text-align: center;\r\n    font-weight: 600;\r\n    margin-top: 1rem;\r\n}\r\n.sub-component-title {\r\n\tcolor: #424242;\r\n}\r\n.sub-component-text span { \r\n    font-size: 22px;\r\n    color: #424242;\r\n}\r\n.subComChartimg {\r\n    width: 100%;\r\n}\r\n.chartdiv {\r\n    width: 100%;\r\n    height: 250px;\r\n}\r\n#speedochartdiv {\r\n\twidth\t\t: 100%;\r\n\theight\t\t: 500px;\r\n\tfont-size\t: 11px;\r\n}\t\r\n#speedochartdiv1 {\r\n\twidth\t\t: 100%;\r\n\theight\t\t: 500px;\r\n\tfont-size\t: 11px;\r\n}\t\r\n#speedochartdiv2 {\r\n\twidth\t\t: 100%;\r\n\theight\t\t: 500px;\r\n\tfont-size\t: 11px;\r\n}\t\t\r\n#speedochartpopup {\r\n\twidth\t\t: 100%;\r\n\theight\t\t: 500px;\r\n\tfont-size\t: 11px;\r\n}\t\r\n.rsddropdown-span {\r\n    cursor:pointer;\r\n    color:#b0bec5;\r\n    font-size:20px;\r\n}\t\r\n.rsddropdown {\r\n    text-align: right;\r\n    padding-right: 15px;\r\n    height: 15px;\r\n}\r\n.rsddropdown-content {\r\n    display: none;\r\n    position: absolute;\r\n    background-color: #fff;\r\n    overflow: auto;\r\n    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\r\n    z-index: 1;\r\n    right: 10%;\r\n    border-radius: 6px;\r\n    border: 1px solid aliceblue;\r\n    cursor: pointer;\r\n    text-align: left;\r\n} \r\n.rsddropdown-content a {\r\n    color: #08070799;\r\n    padding: 5px 12px;\r\n    text-decoration: none;\r\n    display: block;\r\n    font-size: 14px;\r\n    font-weight: 600;\r\n} \r\n@media screen and (max-width: 1094px) {\r\n\t.sub-component {\r\n\t\t-webkit-box-flex: 0;\r\n\t\t    -ms-flex: 0 0 50%;\r\n\t\t        flex: 0 0 50%;\r\n\t\tmax-width:50%;\r\n\t}\r\n}\r\n@media screen and (max-width: 602px) {\r\n\t.sub-component {\r\n\t\t-webkit-box-flex: 0;\r\n\t\t    -ms-flex: 0 0 100%;\r\n\t\t        flex: 0 0 100%;\r\n\t\tmax-width:100%;\r\n\t}\r\n}\r\n@media screen and (max-width: 575px) {\r\n\t.data_center_view {\r\n\t\ttext-align:center;\r\n\t\tmargin-bottom: 10px;\r\n\t}\r\n}\r\n\r\n#withoutComponentBlock {\r\n  min-height: 200px;\r\n  padding: 80px 15px;\r\n}", ""]);
+exports.push([module.i, "\r\n.tab-tile:hover {\r\n    cursor: pointer;\r\n    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);\r\n}\r\n.tab-tile {\r\n    padding: 15px 0px 15px;\r\n}\r\n.tab-tile-active {\r\n    padding: 15px 0px 15px;\r\n    background-color: #fff; \r\n}\r\n.tab-tile-table {\r\n    background-color: #fff;\r\n    padding: 15px 30px;\r\n}\r\n.data-center {\r\n    color: #3b4147;\r\n    font-size: 15px;\r\n    font-weight: bold;\r\n    text-align: center;\r\n    padding: 6px 0 4px;\r\n    margin-bottom: 10px;\r\n}\r\n.data-center-body {\r\n    color: #73787d;\r\n    font-size: 13px;\r\n    text-align: center;\r\n    margin-bottom: 1px;\r\n    font-weight: 600;\r\n}\r\n.comp-img-thumbnail {\r\n    width: 100px;\r\n    height: 100px;\r\n    background-color: unset;\r\n    border: 0px;\r\n}\r\n.sub-component {\r\n    text-align: center;\r\n    padding-right: 0px;\r\n    padding-left: 0px;\r\n}\r\n.sub-component-body {\r\n    border: 1px solid #e8e8e8;\r\n    border-radius: .25rem;\r\n    margin: 15px;\r\n\tcursor:pointer;\r\n}\r\n.sub-component-text {\r\n    color: #73787d;\r\n    font-size: 13px;\r\n    text-align: center;\r\n    font-weight: 600;\r\n    margin-top: 1rem;\r\n}\r\n.sub-component-title {\r\n\tcolor: #424242;\r\n}\r\n.sub-component-text span { \r\n    font-size: 22px;\r\n    color: #424242;\r\n}\r\n.subComChartimg {\r\n    width: 100%;\r\n}\r\n.chartdiv {\r\n    width: 100%;\r\n    height: 250px;\r\n}\r\n#speedochartdiv {\r\n\twidth\t\t: 100%;\r\n\theight\t\t: 500px;\r\n\tfont-size\t: 11px;\r\n}\t\r\n#speedochartdiv1 {\r\n\twidth\t\t: 100%;\r\n\theight\t\t: 500px;\r\n\tfont-size\t: 11px;\r\n}\t\r\n#speedochartdiv2 {\r\n\twidth\t\t: 100%;\r\n\theight\t\t: 500px;\r\n\tfont-size\t: 11px;\r\n}\t\t\r\n#speedochartpopup {\r\n\twidth\t\t: 100%;\r\n\theight\t\t: 500px;\r\n\tfont-size\t: 11px;\r\n}\t\r\n.rsddropdown-span {\r\n    cursor:pointer;\r\n    color:#b0bec5;\r\n    font-size:20px;\r\n}\t\r\n.rsddropdown {\r\n    text-align: right;\r\n    padding-right: 15px;\r\n    height: 15px;\r\n}\r\n.rsddropdown-content {\r\n    display: none;\r\n    position: absolute;\r\n    background-color: #fff;\r\n    overflow: auto;\r\n    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\r\n    z-index: 1;\r\n    right: 10%;\r\n    border-radius: 6px;\r\n    border: 1px solid aliceblue;\r\n    cursor: pointer;\r\n    text-align: left;\r\n} \r\n.rsddropdown-content a {\r\n    color: #08070799;\r\n    padding: 5px 12px;\r\n    text-decoration: none;\r\n    display: block;\r\n    font-size: 14px;\r\n    font-weight: 600;\r\n} \r\n@media screen and (max-width: 1094px) {\r\n\t.sub-component {\r\n\t\t-webkit-box-flex: 0;\r\n\t\t    -ms-flex: 0 0 50%;\r\n\t\t        flex: 0 0 50%;\r\n\t\tmax-width:50%;\r\n\t}\r\n}\r\n@media screen and (max-width: 602px) {\r\n\t.sub-component {\r\n\t\t-webkit-box-flex: 0;\r\n\t\t    -ms-flex: 0 0 100%;\r\n\t\t        flex: 0 0 100%;\r\n\t\tmax-width:100%;\r\n\t}\r\n}\r\n@media screen and (max-width: 575px) {\r\n\t.data_center_view {\r\n\t\ttext-align:center;\r\n\t\tmargin-bottom: 10px;\r\n\t}\r\n}\r\n\r\n#withoutComponentBlock {\r\n  min-height: 200px;\r\n  padding: 80px 15px;\r\n}", ""]);
 
 // exports
 
@@ -393,34 +393,32 @@ var DatacenterComponent = (function () {
             $('#toEnableDc' + _this.dataCenterId).addClass('EnableDcDis').removeClass('EnableDcBlock');
             sessionStorage.setItem('leftNavSelectedSubcompId', _this.dataCenterId);
             if (typeof _this.dataCenterId !== "undefined") {
-                setTimeout(function () {
-                    _this.config.getComponentList(_this.dataCenterId).subscribe(function (res_comp) {
-                        _this.components = res_comp;
-                        sessionStorage.setItem('cookieComponnets', JSON.stringify(_this.components));
-                        if (_this.components.length < 1) {
-                            _this.coFlag = true;
-                            $('#withoutComponentBlock').show();
+                _this.config.getComponentList(_this.dataCenterId).subscribe(function (res_comp) {
+                    _this.components = res_comp;
+                    sessionStorage.setItem('cookieComponnets', JSON.stringify(_this.components));
+                    if (_this.components.length < 1) {
+                        _this.coFlag = true;
+                        $('#withoutComponentBlock').show();
+                    }
+                    else {
+                        _this.coFlag = false;
+                        $('#withoutComponentBlock').hide();
+                    }
+                    _this.dynamicSubMenu = JSON.parse(sessionStorage.dynamicSubMenu);
+                    for (var i = 0; i < _this.dynamicSubMenu.length; i++) {
+                        if (_this.dynamicSubMenu[i].id == _this.dataCenterId) {
+                            _this.dataCenterHeading = _this.dynamicSubMenu[i].name;
+                            break;
                         }
-                        else {
-                            _this.coFlag = false;
-                            $('#withoutComponentBlock').hide();
-                        }
-                        _this.dynamicSubMenu = JSON.parse(sessionStorage.dynamicSubMenu);
-                        for (var i = 0; i < _this.dynamicSubMenu.length; i++) {
-                            if (_this.dynamicSubMenu[i].id == _this.dataCenterId) {
-                                _this.dataCenterHeading = _this.dynamicSubMenu[i].name;
-                                break;
-                            }
-                        }
-                        _this.subComponents = [];
-                        if (_this.subComponentCounter == 0) {
-                            _this.subComponentCounter = 1;
-                        }
-                        setTimeout(function () {
-                            $('#componentScroll0').trigger('click');
-                        }, 100);
-                    });
-                }, 1000);
+                    }
+                    _this.subComponents = [];
+                    if (_this.subComponentCounter == 0) {
+                        _this.subComponentCounter = 1;
+                    }
+                    setTimeout(function () {
+                        $('#componentScroll0').trigger('click');
+                    }, 100);
+                });
             }
         });
     }
@@ -902,220 +900,369 @@ var ConfigService = (function () {
         var _this = this;
         this.http = http;
         this.BASE_URL = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-        this.http.get('assets/config.json')
-            .map(function (result) { return result.json(); }).subscribe(function (result) {
-            _this.getDashboardDataUrl = _this.BASE_URL + result[0].callMetricsUrl;
-            _this.verifyLoginUrl = _this.BASE_URL + result[0].verifyLoginUrl;
-            _this.mapUrl = _this.BASE_URL + result[0].mapUrl;
-            _this.getProvisioningListUrl = _this.BASE_URL + result[0].getProvisioningListUrl;
-            _this.addDataCenterUrl = _this.BASE_URL + result[0].addDataCenterUrl;
-            _this.editDataCenterUrl = _this.BASE_URL + result[0].editDataCenterUrl;
-            _this.deleteDataCenterUrl = _this.BASE_URL + result[0].deleteDataCenterUrl;
-            _this.editComponentUrl = _this.BASE_URL + result[0].editComponentUrl;
-            _this.componentAddUrl = _this.BASE_URL + result[0].componentAddUrl;
-            _this.getTypesUrl = _this.BASE_URL + result[0].getTypesUrl;
-            _this.getSubtypesUrl = _this.BASE_URL + result[0].getSubtypesUrl;
-            _this.componentDeleteUrl = _this.BASE_URL + result[0].componentDeleteUrl;
-            _this.countryUrl = _this.BASE_URL + result[0].countryUrl;
-            _this.customersUrl = _this.BASE_URL + result[0].customersUrl;
-            _this.customerListUrl = _this.BASE_URL + result[0].customerListUrl;
-            _this.getCustomerLicenseUrl = _this.BASE_URL + result[0].getCustomerLicenseUrl;
-            _this.leftNavDetailUrl = _this.BASE_URL + result[0].leftNavDetailUrl;
-            _this.getComponentListUrl = _this.BASE_URL + result[0].getComponentListUrl;
-            _this.getSubComponentListUrl = _this.BASE_URL + result[0].getSubComponentListUrl;
-            _this.getsubComponentPopUpUrl = _this.BASE_URL + result[0].getsubComponentPopUpUrl;
-            _this.getVcenterDataUrl = _this.BASE_URL + result[0].getVcenterDataUrl;
-            _this.getDataCenterComponentRecordsUrl = _this.BASE_URL + result[0].getDataCenterComponentRecordsUrl;
-            _this.getNotificationUrl = _this.BASE_URL + result[0].getNotificationUrl;
-            _this.getStatesUrl = _this.BASE_URL + result[0].getStatesUrl;
-            _this.getCitiesUrl = _this.BASE_URL + result[0].getCitiesUrl;
-            _this.getDataCenterListCustomer = _this.BASE_URL + result[0].getDataCenterListCustomer;
-            _this.getComponetCustomer = _this.BASE_URL + result[0].getComponetCustomer;
-            _this.getReportNamesUrl = _this.BASE_URL + result[0].getReportNamesUrl;
-            _this.getDownloadReportUrl = _this.BASE_URL + result[0].getDownloadReportUrl;
-            _this.getSubComponetCustomer = _this.BASE_URL + result[0].getSubComponetCustomer;
-            _this.getCustomerCuntent = _this.BASE_URL + result[0].getCustomerCuntent;
-            _this.getVcenterGraphContentUrl = _this.BASE_URL + result[0].getVcenterGraphContentUrl;
-            _this.getDashboardTileDatasUrl = _this.BASE_URL + result[0].getDashboardTileDatasUrl;
-        });
+        if (!sessionStorage.urlSessionSet) {
+            this.http.get('assets/config.json')
+                .map(function (result) { return result.json(); }).subscribe(function (result) {
+                _this.verifyLoginUrl = _this.BASE_URL + result[0].verifyLoginUrl;
+                _this.getDashboardDataUrl = _this.BASE_URL + result[0].callMetricsUrl;
+                _this.mapUrl = _this.BASE_URL + result[0].mapUrl;
+                _this.getProvisioningListUrl = _this.BASE_URL + result[0].getProvisioningListUrl;
+                _this.addDataCenterUrl = _this.BASE_URL + result[0].addDataCenterUrl;
+                _this.editDataCenterUrl = _this.BASE_URL + result[0].editDataCenterUrl;
+                _this.deleteDataCenterUrl = _this.BASE_URL + result[0].deleteDataCenterUrl;
+                _this.editComponentUrl = _this.BASE_URL + result[0].editComponentUrl;
+                _this.componentAddUrl = _this.BASE_URL + result[0].componentAddUrl;
+                _this.getTypesUrl = _this.BASE_URL + result[0].getTypesUrl;
+                _this.getSubtypesUrl = _this.BASE_URL + result[0].getSubtypesUrl;
+                _this.componentDeleteUrl = _this.BASE_URL + result[0].componentDeleteUrl;
+                _this.countryUrl = _this.BASE_URL + result[0].countryUrl;
+                _this.customersUrl = _this.BASE_URL + result[0].customersUrl;
+                _this.customerListUrl = _this.BASE_URL + result[0].customerListUrl;
+                _this.getCustomerLicenseUrl = _this.BASE_URL + result[0].getCustomerLicenseUrl;
+                _this.leftNavDetailUrl = _this.BASE_URL + result[0].leftNavDetailUrl;
+                _this.getComponentListUrl = _this.BASE_URL + result[0].getComponentListUrl;
+                _this.getSubComponentListUrl = _this.BASE_URL + result[0].getSubComponentListUrl;
+                _this.getsubComponentPopUpUrl = _this.BASE_URL + result[0].getsubComponentPopUpUrl;
+                _this.getVcenterDataUrl = _this.BASE_URL + result[0].getVcenterDataUrl;
+                _this.getDataCenterComponentRecordsUrl = _this.BASE_URL + result[0].getDataCenterComponentRecordsUrl;
+                _this.getNotificationUrl = _this.BASE_URL + result[0].getNotificationUrl;
+                _this.getStatesUrl = _this.BASE_URL + result[0].getStatesUrl;
+                _this.getCitiesUrl = _this.BASE_URL + result[0].getCitiesUrl;
+                _this.getDataCenterListCustomer = _this.BASE_URL + result[0].getDataCenterListCustomer;
+                _this.getComponetCustomer = _this.BASE_URL + result[0].getComponetCustomer;
+                _this.getReportNamesUrl = _this.BASE_URL + result[0].getReportNamesUrl;
+                _this.getDownloadReportUrl = _this.BASE_URL + result[0].getDownloadReportUrl;
+                _this.getSubComponetCustomer = _this.BASE_URL + result[0].getSubComponetCustomer;
+                _this.getCustomerCuntentUrl = _this.BASE_URL + result[0].getCustomerCuntent;
+                _this.getVcenterGraphContentUrl = _this.BASE_URL + result[0].getVcenterGraphContentUrl;
+                _this.getDashboardTileDatasUrl = _this.BASE_URL + result[0].getDashboardTileDatasUrl;
+                _this.getCustomerNameUrl = _this.BASE_URL + result[0].getCustomerNameUrl;
+                _this.setUrlInSession();
+            });
+        }
     }
+    ConfigService.prototype.setUrlInSession = function () {
+        sessionStorage.setItem('urlSessionSet', 'yes');
+        sessionStorage.setItem('verifyLoginUrl', this.verifyLoginUrl);
+        sessionStorage.setItem('getDashboardDataUrl', this.getDashboardDataUrl);
+        sessionStorage.setItem('mapUrl', this.mapUrl);
+        sessionStorage.setItem('getProvisioningListUrl', this.getProvisioningListUrl);
+        sessionStorage.setItem('addDataCenterUrl', this.addDataCenterUrl);
+        sessionStorage.setItem('editDataCenterUrl', this.editDataCenterUrl);
+        sessionStorage.setItem('deleteDataCenterUrl', this.deleteDataCenterUrl);
+        sessionStorage.setItem('editComponentUrl', this.editComponentUrl);
+        sessionStorage.setItem('componentAddUrl', this.componentAddUrl);
+        sessionStorage.setItem('getTypesUrl', this.getTypesUrl);
+        sessionStorage.setItem('getSubtypesUrl', this.getSubtypesUrl);
+        sessionStorage.setItem('componentDeleteUrl', this.componentDeleteUrl);
+        sessionStorage.setItem('countryUrl', this.countryUrl);
+        sessionStorage.setItem('customersUrl', this.customersUrl);
+        sessionStorage.setItem('customerListUrl', this.customerListUrl);
+        sessionStorage.setItem('getCustomerLicenseUrl', this.getCustomerLicenseUrl);
+        sessionStorage.setItem('leftNavDetailUrl', this.leftNavDetailUrl);
+        sessionStorage.setItem('getComponentListUrl', this.getComponentListUrl);
+        sessionStorage.setItem('getSubComponentListUrl', this.getSubComponentListUrl);
+        sessionStorage.setItem('getsubComponentPopUpUrl', this.getsubComponentPopUpUrl);
+        sessionStorage.setItem('getVcenterDataUrl', this.getVcenterDataUrl);
+        sessionStorage.setItem('getDataCenterComponentRecordsUrl', this.getDataCenterComponentRecordsUrl);
+        sessionStorage.setItem('getNotificationUrl', this.getNotificationUrl);
+        sessionStorage.setItem('getStatesUrl', this.getStatesUrl);
+        sessionStorage.setItem('getCitiesUrl', this.getCitiesUrl);
+        sessionStorage.setItem('getDataCenterListCustomer', this.getDataCenterListCustomer);
+        sessionStorage.setItem('getComponetCustomer', this.getComponetCustomer);
+        sessionStorage.setItem('getReportNamesUrl', this.getReportNamesUrl);
+        sessionStorage.setItem('getDownloadReportUrl', this.getDownloadReportUrl);
+        sessionStorage.setItem('getSubComponetCustomer', this.getSubComponetCustomer);
+        sessionStorage.setItem('getCustomerCuntentUrl', this.getCustomerCuntentUrl);
+        sessionStorage.setItem('getVcenterGraphContentUrl', this.getVcenterGraphContentUrl);
+        sessionStorage.setItem('getDashboardTileDatasUrl', this.getDashboardTileDatasUrl);
+        sessionStorage.setItem('getCustomerNameUrl', this.getCustomerNameUrl);
+    };
     ConfigService.prototype.verifyLogin = function (username, password) {
+        if (sessionStorage.verifyLoginUrl) {
+            this.verifyLoginUrl = sessionStorage.verifyLoginUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'username=' + username + '&password=' + password + '';
         return this.http.post(this.verifyLoginUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getDashboardData = function () {
+        if (sessionStorage.getDashboardDataUrl) {
+            this.getDashboardDataUrl = sessionStorage.getDashboardDataUrl;
+        }
         return this.http.get(this.getDashboardDataUrl)
             .map(function (result) { return result.json(); });
     };
     ConfigService.prototype.getMap = function () {
+        if (sessionStorage.mapUrl) {
+            this.mapUrl = sessionStorage.mapUrl;
+        }
         return this.http.get(this.mapUrl)
             .map(function (result) { return result.json(); });
     };
     ConfigService.prototype.getProvisioningList = function () {
+        if (sessionStorage.getProvisioningListUrl) {
+            this.getProvisioningListUrl = sessionStorage.getProvisioningListUrl;
+        }
         return this.http.get(this.getProvisioningListUrl)
             .map(function (result) { return result.json(); });
     };
     ConfigService.prototype.getCustomersList = function () {
+        if (sessionStorage.customersUrl) {
+            this.customersUrl = sessionStorage.customersUrl;
+        }
         return this.http.get(this.customersUrl)
             .map(function (result) { return result.json(); });
     };
     ConfigService.prototype.getCustomerLicense = function (id) {
+        if (sessionStorage.getCustomerLicenseUrl) {
+            this.getCustomerLicenseUrl = sessionStorage.getCustomerLicenseUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'id=' + id;
         return this.http.post(this.getCustomerLicenseUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getCustomer = function () {
+        if (sessionStorage.customerListUrl) {
+            this.customerListUrl = sessionStorage.customerListUrl;
+        }
         return this.http.get(this.customerListUrl)
             .map(function (result) { return result.json(); });
     };
     ConfigService.prototype.getCountryList = function () {
+        if (sessionStorage.countryUrl) {
+            this.countryUrl = sessionStorage.countryUrl;
+        }
         return this.http.get(this.countryUrl)
             .map(function (result) { return result.json(); });
     };
     ConfigService.prototype.getLeftNavDetailslist = function () {
+        if (sessionStorage.leftNavDetailUrl) {
+            this.leftNavDetailUrl = sessionStorage.leftNavDetailUrl;
+        }
         return this.http.get(this.leftNavDetailUrl)
             .map(function (result) { return result.json(); });
     };
     ConfigService.prototype.addDataCenter = function (userId, name, country, state, city, timezone) {
+        if (sessionStorage.addDataCenterUrl) {
+            this.addDataCenterUrl = sessionStorage.addDataCenterUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'userId=' + userId + '&name=' + name + '&country=' + country + '&state=' + state + '&city=' + city + '&timezone=' + timezone;
         return this.http.post(this.addDataCenterUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.editDataCenter = function (userId, id, name, country, state, city, timezone) {
+        if (sessionStorage.editDataCenterUrl) {
+            this.editDataCenterUrl = sessionStorage.editDataCenterUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'userId=' + userId + '&id=' + id + '&name=' + name + '&country=' + country + '&state=' + state + '&city=' + city + '&timezone=' + timezone;
         return this.http.post(this.editDataCenterUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.deleteDataCenter = function (userId, id) {
+        if (sessionStorage.deleteDataCenterUrl) {
+            this.deleteDataCenterUrl = sessionStorage.deleteDataCenterUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'userId=' + userId + '&id=' + id;
         return this.http.post(this.deleteDataCenterUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.editComponent = function (userId, componentId, name, version, subVersion, ipAddress, componentUser, password, enablePassword, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax) {
+        if (sessionStorage.editComponentUrl) {
+            this.editComponentUrl = sessionStorage.editComponentUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'userId=' + userId + '&componentId=' + componentId + '&name=' + name + '&type=' + version + '&version=' + subVersion + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&enablePassword=' + enablePassword + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax;
         return this.http.post(this.editComponentUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.componentAdd = function (userId, name, dataCenterId, type, ipAddress, version, subVersion, componentUser, password, enablePassword, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax, vrrpWarnStart, vrrpWarnEnd, vrrpMax) {
+        if (sessionStorage.componentAddUrl) {
+            this.componentAddUrl = sessionStorage.componentAddUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'userId=' + userId + '&name=' + name + '&dataCenterId=' + dataCenterId + '&type=' + type + '&version=' + version + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&enablePassword=' + enablePassword + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax + '&vrrpWarnStart=' + vrrpWarnStart + '&vrrpWarnEnd=' + vrrpWarnEnd + '&vrrpMax=' + vrrpMax;
         return this.http.post(this.componentAddUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getTypes = function () {
+        if (sessionStorage.getTypesUrl) {
+            this.getTypesUrl = sessionStorage.getTypesUrl;
+        }
         return this.http.get(this.getTypesUrl).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getSubtypes = function (id) {
+        if (sessionStorage.getSubtypesUrl) {
+            this.getSubtypesUrl = sessionStorage.getSubtypesUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'typeId=' + id;
         return this.http.post(this.getSubtypesUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.componentDelete = function (userId, componentId) {
+        if (sessionStorage.componentDeleteUrl) {
+            this.componentDeleteUrl = sessionStorage.componentDeleteUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'userId=' + userId + '&componentId=' + componentId;
         return this.http.post(this.componentDeleteUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getComponentList = function (id) {
+        if (sessionStorage.getComponentListUrl) {
+            this.getComponentListUrl = sessionStorage.getComponentListUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'id=' + id;
         return this.http.post(this.getComponentListUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getSubComponentList = function (id, type) {
+        if (sessionStorage.getSubComponentListUrl) {
+            this.getSubComponentListUrl = sessionStorage.getSubComponentListUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'id=' + id + '&type=' + type;
         return this.http.post(this.getSubComponentListUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getsubComponentPopUp = function (typeId, subComponentName) {
+        if (sessionStorage.getsubComponentPopUpUrl) {
+            this.getsubComponentPopUpUrl = sessionStorage.getsubComponentPopUpUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'typeId=' + typeId + '&subComponentName=' + subComponentName;
         return this.http.post(this.getsubComponentPopUpUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getVcenterData = function (id) {
+        if (sessionStorage.getVcenterDataUrl) {
+            this.getVcenterDataUrl = sessionStorage.getVcenterDataUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'id=' + id;
         return this.http.post(this.getVcenterDataUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getDataCenterComponentRecords = function (componentId) {
+        if (sessionStorage.getDataCenterComponentRecordsUrl) {
+            this.getDataCenterComponentRecordsUrl = sessionStorage.getDataCenterComponentRecordsUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'componentId=' + componentId;
         return this.http.post(this.getDataCenterComponentRecordsUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getNotification = function (type) {
+        if (sessionStorage.getNotificationUrl) {
+            this.getNotificationUrl = sessionStorage.getNotificationUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'type=' + type;
         return this.http.post(this.getNotificationUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getStates = function (country) {
+        if (sessionStorage.getStatesUrl) {
+            this.getStatesUrl = sessionStorage.getStatesUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'country=' + country;
         return this.http.post(this.getStatesUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getCities = function (state) {
+        if (sessionStorage.getCitiesUrl) {
+            this.getCitiesUrl = sessionStorage.getCitiesUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'state=' + state;
         return this.http.post(this.getCitiesUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getDataCenterListCusView = function (customerId) {
+        if (sessionStorage.getDataCenterListCustomer) {
+            this.getDataCenterListCustomer = sessionStorage.getDataCenterListCustomer;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'customerId=' + customerId;
         return this.http.post(this.getDataCenterListCustomer, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getComponetCusView = function (id) {
+        if (sessionStorage.getComponetCustomer) {
+            this.getComponetCustomer = sessionStorage.getComponetCustomer;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'id=' + id;
         return this.http.post(this.getComponetCustomer, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getSubComponetCusView = function (compId, type) {
+        if (sessionStorage.getSubComponetCustomer) {
+            this.getSubComponetCustomer = sessionStorage.getSubComponetCustomer;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'compId=' + compId + '&type=' + type;
         return this.http.post(this.getSubComponetCustomer, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getReportNames = function (id, componentId) {
+        if (sessionStorage.getReportNamesUrl) {
+            this.getReportNamesUrl = sessionStorage.getReportNamesUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'id=' + id + '&componentId=' + componentId;
         return this.http.post(this.getReportNamesUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getDownloadReport = function (compId, fromDate, toDate, reportId, name) {
+        if (sessionStorage.getDownloadReportUrl) {
+            this.getDownloadReportUrl = sessionStorage.getDownloadReportUrl;
+        }
         window.open(this.getDownloadReportUrl + '?compId=' + compId + '&reportId=' + reportId + '&fromDate=' + fromDate + '&toDate=' + toDate + '&name=' + name, "_blank");
     };
     ConfigService.prototype.getCustomerContentCusView = function (typeId, subComponentName) {
+        if (sessionStorage.getCustomerCuntentUrl) {
+            this.getCustomerCuntentUrl = sessionStorage.getCustomerCuntentUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'typeId=' + typeId + '&subComponentName=' + subComponentName;
-        return this.http.post(this.getCustomerCuntent, body, options).map(function (res) { return res.json(); });
+        return this.http.post(this.getCustomerCuntentUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getVcenterGraphContent = function (compId, type, typeId) {
+        if (sessionStorage.getVcenterGraphContentUrl) {
+            this.getVcenterGraphContentUrl = sessionStorage.getVcenterGraphContentUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId;
         return this.http.post(this.getVcenterGraphContentUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getDashboardTileDatas = function () {
+        if (sessionStorage.getDashboardTileDatasUrl) {
+            this.getDashboardTileDatasUrl = sessionStorage.getDashboardTileDatasUrl;
+        }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = '';
         return this.http.post(this.getDashboardTileDatasUrl, body, options).map(function (res) { return res.json(); });
+    };
+    ConfigService.prototype.getCustomerName = function (customerId) {
+        if (sessionStorage.getCustomerNameUrl) {
+            this.getCustomerNameUrl = sessionStorage.getCustomerNameUrl;
+        }
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        var body = 'customerId=' + customerId;
+        return this.http.post(this.getCustomerNameUrl, body, options).map(function (res) { return res.json(); });
     };
     return ConfigService;
 }());
@@ -1376,49 +1523,45 @@ var AdminLayoutComponent = (function () {
     }
     AdminLayoutComponent.prototype.setMenu = function () {
         var _this = this;
-        setTimeout(function () {
-            _this.config.getLeftNavDetailslist().subscribe(function (res) {
-                _this.dynamic = res;
-                _this.dynamicSubMenu = [];
-                for (var i = 0; i < res.length; i++) {
-                    _this.subComponentChildren = [];
-                    for (var j = 0; j < res[i].components.length; j++) {
-                        _this.subComponentChildren.push({
-                            'id': res[i].components[j].id,
-                            'name': res[i].components[j].name
-                        });
-                    }
-                    if (_this.dynamic[i].status == "Bad") {
-                        _this.dynamicSubMenu.push({
-                            'id': _this.dynamic[i].id,
-                            'state': 'datacenter/' + _this.dynamic[i].id,
-                            'name': _this.dynamic[i].name,
-                            'img': 'assets/images/fa-exclamation.png',
-                            'subComponentChildren': _this.subComponentChildren
-                        });
-                    }
-                    else if (_this.dynamic[i].status == "Good") {
-                        _this.dynamicSubMenu.push({
-                            'id': _this.dynamic[i].id,
-                            'state': 'datacenter/' + _this.dynamic[i].id,
-                            'name': _this.dynamic[i].name,
-                            'img': 'assets/images/status-green.png',
-                            'subComponentChildren': _this.subComponentChildren
-                        });
-                    }
-                    else if (_this.dynamic[i].status == "Alert") {
-                        _this.dynamicSubMenu.push({
-                            'id': _this.dynamic[i].id,
-                            'state': 'datacenter/' + _this.dynamic[i].id,
-                            'name': _this.dynamic[i].name,
-                            'img': 'assets/images/status-yellow.png',
-                            'subComponentChildren': _this.subComponentChildren
-                        });
-                    }
+        this.config.getLeftNavDetailslist().subscribe(function (res) {
+            _this.dynamic = res;
+            _this.dynamicSubMenu = [];
+            for (var i = 0; i < res.length; i++) {
+                _this.subComponentChildren = [];
+                for (var j = 0; j < res[i].components.length; j++) {
+                    _this.subComponentChildren.push({
+                        'id': res[i].components[j].id,
+                        'name': res[i].components[j].name
+                    });
                 }
-            });
-        }, 500);
-        setTimeout(function () {
+                if (_this.dynamic[i].status == "Bad") {
+                    _this.dynamicSubMenu.push({
+                        'id': _this.dynamic[i].id,
+                        'state': 'datacenter/' + _this.dynamic[i].id,
+                        'name': _this.dynamic[i].name,
+                        'img': 'assets/images/fa-exclamation.png',
+                        'subComponentChildren': _this.subComponentChildren
+                    });
+                }
+                else if (_this.dynamic[i].status == "Good") {
+                    _this.dynamicSubMenu.push({
+                        'id': _this.dynamic[i].id,
+                        'state': 'datacenter/' + _this.dynamic[i].id,
+                        'name': _this.dynamic[i].name,
+                        'img': 'assets/images/status-green.png',
+                        'subComponentChildren': _this.subComponentChildren
+                    });
+                }
+                else if (_this.dynamic[i].status == "Alert") {
+                    _this.dynamicSubMenu.push({
+                        'id': _this.dynamic[i].id,
+                        'state': 'datacenter/' + _this.dynamic[i].id,
+                        'name': _this.dynamic[i].name,
+                        'img': 'assets/images/status-yellow.png',
+                        'subComponentChildren': _this.subComponentChildren
+                    });
+                }
+            }
             _this.MENUITEMS = [
                 {
                     label: 'Layout',
@@ -1465,57 +1608,7 @@ var AdminLayoutComponent = (function () {
             ];
             sessionStorage.setItem('dynamicSubMenu', JSON.stringify(_this.dynamicSubMenu));
             _this.MENUITEMS[0].main[2]['children'] = _this.dynamicSubMenu;
-        }, 800);
-    };
-    AdminLayoutComponent.prototype.setDcLeftNav = function () {
-        var _this = this;
-        this.MENUITEMS[0].main[2]['children'] = [];
-        setTimeout(function () {
-            _this.config.getLeftNavDetailslist().subscribe(function (res) {
-                _this.dynamic = res;
-                _this.dynamicSubMenu = [];
-                for (var i = 0; i < res.length; i++) {
-                    _this.subComponentChildren = [];
-                    for (var j = 0; j < res[i].components.length; j++) {
-                        _this.subComponentChildren.push({
-                            'id': res[i].components[j].id,
-                            'name': res[i].components[j].name
-                        });
-                    }
-                    if (_this.dynamic[i].status == "Bad") {
-                        _this.dynamicSubMenu.push({
-                            'id': _this.dynamic[i].id,
-                            'state': 'datacenter/' + _this.dynamic[i].id,
-                            'name': _this.dynamic[i].name,
-                            'img': 'assets/images/fa-exclamation.png',
-                            'subComponentChildren': _this.subComponentChildren
-                        });
-                    }
-                    else if (_this.dynamic[i].status == "Good") {
-                        _this.dynamicSubMenu.push({
-                            'id': _this.dynamic[i].id,
-                            'state': 'datacenter/' + _this.dynamic[i].id,
-                            'name': _this.dynamic[i].name,
-                            'img': 'assets/images/status-green.png',
-                            'subComponentChildren': _this.subComponentChildren
-                        });
-                    }
-                    else if (_this.dynamic[i].status == "Alert") {
-                        _this.dynamicSubMenu.push({
-                            'id': _this.dynamic[i].id,
-                            'state': 'datacenter/' + _this.dynamic[i].id,
-                            'name': _this.dynamic[i].name,
-                            'img': 'assets/images/status-yellow.png',
-                            'subComponentChildren': _this.subComponentChildren
-                        });
-                    }
-                }
-            });
-        }, 1000);
-        setTimeout(function () {
-            sessionStorage.setItem('dynamicSubMenu', JSON.stringify(_this.dynamicSubMenu));
-            _this.MENUITEMS[0].main[2]['children'] = _this.dynamicSubMenu;
-        }, 2000);
+        });
     };
     AdminLayoutComponent.prototype.ngOnInit = function () {
         if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
@@ -1568,8 +1661,8 @@ var AdminLayoutComponent = (function () {
     };
     AdminLayoutComponent.prototype.logoutClicked = function (e) {
         e.preventDefault();
-        sessionStorage.setItem('logout_clicked', 'yes');
         sessionStorage.clear();
+        sessionStorage.setItem('logout_clicked', 'yes');
         this.router.navigate(['login']);
     };
     AdminLayoutComponent.prototype.disableRouterAction = function (e) {

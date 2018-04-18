@@ -34,13 +34,11 @@ export class CustomersComponent implements OnInit {
 
   getCustomers() {
     this.customerList = [];
-    setTimeout(() => {
-      var val = '';
-      this.config.getCustomersList().subscribe(res => {
-        this.customerList = res;
-		this.tempcustomerList = res;
-      });
-    }, 100);
+    var val = '';
+    this.config.getCustomersList().subscribe(res => {
+      this.customerList = res;
+      this.tempcustomerList = res;
+    });
   }
 
   valuechange(e) {
@@ -52,7 +50,7 @@ export class CustomersComponent implements OnInit {
       this.customerList = this.tempcustomerList;
     } else {
       this.customerList = [];
-	  for (let i = 0; i < this.tempcustomerList.length; i++) {
+      for (let i = 0; i < this.tempcustomerList.length; i++) {
         var string = this.tempcustomerList[i].name,
           substring = val;
         if (string.toLowerCase().search(substring.toLowerCase()) == -1) {

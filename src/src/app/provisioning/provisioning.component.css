@@ -7,6 +7,7 @@
     font-weight: bold;
     text-align: center;
     padding: 6px 0 4px;
+    margin-bottom: 10px;
 }
 .tab-tile:hover {
     cursor: pointer;
@@ -23,12 +24,13 @@
     padding: 15px 0px 15px;
 }
 .tab-tile-active {
-    padding: 0px 0px 31px;
+    padding: 0px 0px 15px;
     background-color: #fff; 
 }
 .tab-tile-table {
     background-color: #fff;
     padding: 30px;
+    padding-top: 15px;
 }
 th {
     color: #3b4147;
@@ -151,8 +153,7 @@ td {
 	font-family: "Open Sans", Bold;
 }
 
-@media only screen 
-and (max-device-width : 767px) {
+@media only screen and (max-width : 767px) {
   .modal-buttons {
     text-align: center !important;
     padding-top: 5px;
@@ -174,8 +175,8 @@ and (max-device-width : 767px) {
     padding-right: 106px !important;
   }
   .btn-edit-view-component{
-  	padding-left: 69px !important;
-	padding-right: 69px !important;
+  	padding-left: 62px !important;
+	padding-right: 62px !important;
   }
   .btn-delete {
   	padding-left: 42px !important;
@@ -190,8 +191,8 @@ and (max-device-width : 767px) {
 	padding-right: 101px !important;
   }
   .btn-edit-close {
-  	padding-left: 97px !important;
-	padding-right: 97px !important;
+  	padding-left: 105px !important;
+	padding-right: 105px !important;
   }
   .btn-edit-next {
   	padding-left: 108px !important;
@@ -206,9 +207,7 @@ and (max-device-width : 767px) {
   text-align: right;
   padding-right: 0px;
 }
-@media only screen 
-and (min-device-width : 320px) 
-and (max-device-width : 568px) { 
+@media only screen and (min-width : 320px) and (max-width : 568px) { 
   /*.btn-edit-cancel {
     padding-left: 80px !important;
     padding-right: 80px !important;
@@ -218,8 +217,7 @@ and (max-device-width : 568px) {
     padding-right: 87px !important;
   }*/
 }
-@media only screen 
-and (max-device-width : 575px) { 
+@media only screen and (max-width : 575px) { 
   .btn-top-bar {
     padding-bottom: 5px;
   }
@@ -785,6 +783,11 @@ fieldset {
   display:none;
 }
 
+.btn_step2 {
+	padding-right: 15px !important;
+	padding-left: 10px !important;
+}
+
 @media only screen and (max-width: 992px) {
 	.btn_step1 {
 		padding-left:0px;
@@ -812,8 +815,15 @@ fieldset {
   min-height: 200px;
   padding: 80px 15px;
 }
-.f1-progress-error { position: absolute; top: 0; left: 0; height: 1px; background: red; height: 5px; width: 100%; display: none;}
-
+.f1-progress-error {
+  position: absolute; 
+  top: 0; left: 0; 
+  height: 1px; 
+  background: red; 
+  height: 5px; 
+  width: 100%; 
+  display: none;
+}
 .rsdAlert {
   display: none;
   color: white;
@@ -821,4 +831,14 @@ fieldset {
   margin-bottom: 10px;
   text-align: center;
   font-size: 16px;
+}
+tr {
+  height: 41px;
+}
+td, th {
+  padding: 5px 12px 5px 12px;
+  vertical-align: middle;
+}
+#withdcBlock {
+  /* min-height: 645px; */
 }

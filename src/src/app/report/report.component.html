@@ -42,7 +42,7 @@
         </div>
     </ng-container>
     <div class="col-md-12 tab-tile-table table-responsive">
-        <div *ngIf="!showNullRowMessage" style="float: right;padding: 0px 0px 20px 0px;cursor: pointer;">
+        <div *ngIf="!showNullRowMessage" style="float: right;padding: 0px 0px 10px 0px;cursor: pointer;">
             <select (change)="changeSelectComponent()" name="selectedComponents" id="selectedComponents" class="form-control">
                 <option value="">Select All</option>
                 <option *ngFor='let components of dataCentersDetails' [value]="components.id">{{components.name}}</option>

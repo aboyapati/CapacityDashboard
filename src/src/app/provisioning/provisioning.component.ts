@@ -17,7 +17,7 @@ export class ProvisioningComponent implements OnInit {
   imgUrl: string = "assets/images/icon-cube.png";
   callMatricsFilter: boolean = false;
   editComponentFilter: boolean = false;
-  dataCenters: Datacenter[];
+  dataCenters: any;
   dataCentersDetails: any;
   apiStatus: boolean = false;
   apiStatusMsg: boolean = false;
@@ -86,21 +86,21 @@ export class ProvisioningComponent implements OnInit {
   currentDataCenterComponentId: number;
   subTypes: any;
   subTypesEdit: any;
-  private deviceHeight: any;
-  private deviceWidth: any;
-  private scrollLimit: number;
-  private sliderLimit: number;
-  private scrollLimitMin: number;
-  private scrollLimitMax: number;
-  private selectedDataCenter: number;
+  deviceHeight: any;
+  deviceWidth: any;
+  scrollLimit: number;
+  sliderLimit: number;
+  scrollLimitMin: number;
+  scrollLimitMax: number;
+  selectedDataCenter: number;
   progressPerc: any;
   next_step: boolean;
-  private modalClassName: string;
-  private thresholdErrorMsg1: string = '';
-  private thresholdErrorMsg2: string = '';
-  private thresholdErrorMsg3: string = '';
-  private thresholdErrorMsg4: string = '';
-  private thresholdErrorMsg5: string = '';
+  modalClassName: string;
+  thresholdErrorMsg1: string = '';
+  thresholdErrorMsg2: string = '';
+  thresholdErrorMsg3: string = '';
+  thresholdErrorMsg4: string = '';
+  thresholdErrorMsg5: string = '';
 
   constructor(private modalService: NgbModal, private config: ConfigService, private router: Router, public adminLayoutComponnet: AdminLayoutComponent) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -177,7 +177,7 @@ export class ProvisioningComponent implements OnInit {
       $('.apiResponseDiv').show();
       if (res.status == 'success') {
         this.provisioningList();
-        this.adminLayoutComponnet.setDcLeftNav();
+        this.adminLayoutComponnet.setMenu();
         $('.apiFailed').hide();
         $('.apiSuccess').show();
       } else {
@@ -250,41 +250,47 @@ export class ProvisioningComponent implements OnInit {
             $("#editComponentVersion").prop("disabled", true);
           }
         }
-      });
 
-      this.currentRow = id;
-      if (editFromView == true) {
-        $('#closeViewComponentModal').trigger('click');
-      }
+        this.currentRow = id;
+        if (editFromView == true) {
+          $('#closeViewComponentModal').trigger('click');
+        }
+
+        if (type == 'view') {
+          $('#editComponentSuccessClose').trigger('click');
+          if (this.componentRecords.type.toLowerCase() == 'nexus') {
+            this.modalClassName = 'custom_modal_componentNexusView';
+          } else {
+            this.modalClassName = 'custom_modal_componentView';
+          }
+        } else if (type == 'edit') {
+          if (this.componentRecords.type.toLowerCase() == 'nexus') {
+            this.modalClassName = 'custom_modal_componentNexusEdit';
+          } else {
+            this.modalClassName = 'custom_modal_componentEdit';
+          }
+        } else if (type == 'delete') {
+          this.modalClassName = 'custom_modal_componentDelete';
+        } else {
+          this.modalClassName = 'custom_modal';
+        }
+
+        if(type == 'view' || type == 'edit') {
+          this.modalService.open(content, { windowClass: this.modalClassName, backdrop: 'static' }).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+          }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          });
+        } else {
+          this.modalService.open(content, { windowClass: this.modalClassName, size: 'lg', backdrop: 'static' }).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+          }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+          });
+        }
+
+      });
     }
-
-    setTimeout(() => {
-      if (type == 'view') {
-        $('#editComponentSuccessClose').trigger('click');
-        if (this.componentRecords.type.toLowerCase() == 'nexus') {
-          this.modalClassName = 'custom_modal_componentNexusView';
-        } else {
-          this.modalClassName = 'custom_modal_componentView';
-        }
-      } else if (type == 'edit') {
-        if (this.componentRecords.type.toLowerCase() == 'nexus') {
-          this.modalClassName = 'custom_modal_componentNexusEdit';
-        } else {
-          this.modalClassName = 'custom_modal_componentEdit';
-        }
-      } else if (type == 'delete') {
-        this.modalClassName = 'custom_modal_componentDelete';
-      } else {
-        this.modalClassName = 'custom_modal';
-      }
-
-      this.modalService.open(content, { windowClass: this.modalClassName, size: 'lg', backdrop: 'static' }).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      });
-    }, 500);
-
   }
 
 
@@ -326,8 +332,8 @@ export class ProvisioningComponent implements OnInit {
         if (res.status == 'success') {
           this.setDataCenterComponnets(this.currentDC);
           this.apiError = 1;
-          this.currentDataCenterComponentId = res.component_id;
-          this.adminLayoutComponnet.setDcLeftNav();
+          this.currentDataCenterComponentId = res.id;
+          this.adminLayoutComponnet.setMenu();
           $('#apiErrorMsg').hide();
           $('#complete-title').html("Complete");
           $('#complete-title').attr('style', 'color: #7bbf6a !important');
@@ -822,24 +828,22 @@ export class ProvisioningComponent implements OnInit {
       let editCity = $('#editDataCenterCity').val();
       let editTimezone = $('#editDataCenterTimezone').val();
 
-      setTimeout(() => {
-        this.config.editDataCenter(this.userId, editId, editName, editCountry, editState, editCity, editTimezone).subscribe(res => {
-          $('.modalForm').hide();
-          $('.custom_modal_dcEdit').css('top','35%');
-          $('.apiResponseDiv').show();
-          if (res.status == 'success') {
-            this.adminLayoutComponnet.setDcLeftNav();
-            $('#callMatricsDropdown' + this.editIdIndex).hide();
-            this.provisioningList(this.editData.id, true);
-            $('.apiFailed').hide();
-            $('.apiSuccess').show();
-          } else {
-            $('#editApiErrorMsg').html(res.message);
-            $('.apiSuccess').hide();
-            $('.apiFailed').show();
-          }
-        });
-      }, 100);
+      this.config.editDataCenter(this.userId, editId, editName, editCountry, editState, editCity, editTimezone).subscribe(res => {
+        $('.modalForm').hide();
+        $('.custom_modal_dcEdit').css('top', '35%');
+        $('.apiResponseDiv').show();
+        if (res.status == 'success') {
+          this.adminLayoutComponnet.setMenu();
+          $('#callMatricsDropdown' + this.editIdIndex).hide();
+          this.provisioningList(this.editData.id, true);
+          $('.apiFailed').hide();
+          $('.apiSuccess').show();
+        } else {
+          $('#editApiErrorMsg').html(res.message);
+          $('.apiSuccess').hide();
+          $('.apiFailed').show();
+        }
+      });
     }
   }
 
@@ -1168,26 +1172,24 @@ export class ProvisioningComponent implements OnInit {
         editComponentVersion = '';
       }
 
-      setTimeout(() => {
-        this.config.editComponent(this.userId, this.currentDataCenterComponentId, editComponentName, editComponentNameType, editComponentVersion, editComponentIpAddress, editComponentComponentUser, editComponentPassword, editComponentEnablePassword, editComponentvrfWarnStart, editComponentvrfWarnEnd, editComponentvrfMax, editComponentbgpPeersWarnStart, editComponentbgpPeersWarnEnd, editComponentbgpPeersMax, editComponentvlanWarnStart, editComponentvlanWarnEnd, editComponentvlanMax, editComponenthsrpWarnStart, editComponenthsrpWarnEnd, editComponenthsrpMax, editComponentstaticRoutesWarnStart, editComponentstaticRoutesWarnEnd, editComponentstaticRoutesMax).subscribe(res => {
+      this.config.editComponent(this.userId, this.currentDataCenterComponentId, editComponentName, editComponentNameType, editComponentVersion, editComponentIpAddress, editComponentComponentUser, editComponentPassword, editComponentEnablePassword, editComponentvrfWarnStart, editComponentvrfWarnEnd, editComponentvrfMax, editComponentbgpPeersWarnStart, editComponentbgpPeersWarnEnd, editComponentbgpPeersMax, editComponentvlanWarnStart, editComponentvlanWarnEnd, editComponentvlanMax, editComponenthsrpWarnStart, editComponenthsrpWarnEnd, editComponenthsrpMax, editComponentstaticRoutesWarnStart, editComponentstaticRoutesWarnEnd, editComponentstaticRoutesMax).subscribe(res => {
 
-          $('.modalForm').hide();
-          $('.custom_modal_componentEdit').css('top','35%');
-          $('.custom_modal_componentNexusEdit').css('top','35%');
-          $('.apiResponseDiv').show();
-          if (res.status == 'success') {
-            this.adminLayoutComponnet.setDcLeftNav();
-            $('#editComponentDropdown' + this.currentRow).hide();
-            this.setDataCenterComponnets(this.currentDC);
-            $('.apiFailed').hide();
-            $('.apiSuccess').show();
-          } else {
-            $('#editComponentApiErrorMsg').html(res.message);
-            $('.apiSuccess').hide();
-            $('.apiFailed').show();
-          }
-        });
-      }, 100);
+        $('.modalForm').hide();
+        $('.custom_modal_componentEdit').css('top', '35%');
+        $('.custom_modal_componentNexusEdit').css('top', '35%');
+        $('.apiResponseDiv').show();
+        if (res.status == 'success') {
+          this.adminLayoutComponnet.setMenu();
+          $('#editComponentDropdown' + this.currentRow).hide();
+          this.setDataCenterComponnets(this.currentDC);
+          $('.apiFailed').hide();
+          $('.apiSuccess').show();
+        } else {
+          $('#editComponentApiErrorMsg').html(res.message);
+          $('.apiSuccess').hide();
+          $('.apiFailed').show();
+        }
+      });
     } else {
       if (this.thresholdErrorMsg1 != '') {
         $('#editthresholdErrorMsg1').slideDown().text(this.thresholdErrorMsg1).css('background', 'red').slideUp(5000);
@@ -1228,42 +1230,36 @@ export class ProvisioningComponent implements OnInit {
   }
 
   CountryTimezoneList() {
-    setTimeout(() => {
-      this.config.getCountryList().subscribe(res => {
-        this.country_list = res.country;
-        this.time_zone_list = res.timezone;
-      });
-    }, 100);
+    this.config.getCountryList().subscribe(res => {
+      this.country_list = res.country;
+      this.time_zone_list = res.timezone;
+    });
   }
 
   ComponentTypeList() {
-    setTimeout(() => {
-      this.config.getTypes().subscribe(res => {
-        this.version = res;
-      });
-    }, 100);
+    this.config.getTypes().subscribe(res => {
+      this.version = res;
+    });
   }
 
   provisioningList(id = 0, loop_status = false) {
-    setTimeout(() => {
-      this.config.getProvisioningList().subscribe(res => {
-        this.dataCenters = res;
-        if (this.dataCenters.length >= 1) {
-          $('#withdcBlock').show();
-        } else {
-          $('#withoutdcBlock').show();
-        }
+    this.config.getProvisioningList().subscribe(res => {
+      this.dataCenters = res;
+      if (this.dataCenters.length >= 1) {
+        $('#withdcBlock').show();
+      } else {
+        $('#withoutdcBlock').show();
+      }
 
-        if (loop_status) {
-          id = this.findDataCenterIndex(id);
-        }
+      if (loop_status) {
+        id = this.findDataCenterIndex(id);
+      }
 
-        this.selectedDataCenter = id;
-        if (this.dataCenters.length > 0) {
-          this.dataCenterScrollClick(id, 'scroll');
-        }
-      });
-    }, 100);
+      this.selectedDataCenter = id;
+      if (this.dataCenters.length > 0) {
+        this.dataCenterScrollClick(id, 'scroll');
+      }
+    });
   }
 
   findDataCenterIndex(responseId) {
@@ -1313,36 +1309,33 @@ export class ProvisioningComponent implements OnInit {
     }
 
     if (flag != true) {
+      this.config.addDataCenter(this.userId, this.name, this.country, this.state, this.city, this.timezone).subscribe(res => {
+        $('.modalForm').hide();
+        $('.custom_modal_dcAdd').css('top', '35%');
+        $('.apiResponseDiv').show();
+        var sucflag = false;
+        if (res.status == 'success') {
+          this.name = '';
+          this.country = 'Country*';
+          this.state = 'State*';
+          this.city = 'City*';
+          this.timezone = 'Time zone*';
+          $('.apiFailed').hide();
+          $('.apiSuccess').show();
+          $('#withoutdcBlock').hide();
+          sucflag = true;
+        } else {
+          $('#apiErrorMsg').html(res.message);
+          $('.apiSuccess').hide();
+          $('.apiFailed').show();
+        }
 
-      setTimeout(() => {
-        this.config.addDataCenter(this.userId, this.name, this.country, this.state, this.city, this.timezone).subscribe(res => {
-          $('.modalForm').hide();
-          $('.custom_modal_dcAdd').css('top','35%');
-          $('.apiResponseDiv').show();
-          var sucflag = false;
-          if (res.status == 'success') {
-            this.name = '';
-            this.country = 'Country*';
-            this.state = 'State*';
-            this.city = 'City*';
-            this.timezone = 'Time zone*';
-            $('.apiFailed').hide();
-            $('.apiSuccess').show();
-            $('#withoutdcBlock').hide();
-            sucflag = true;
-          } else {
-            $('#apiErrorMsg').html(res.message);
-            $('.apiSuccess').hide();
-            $('.apiFailed').show();
-          }
-
-          if (sucflag != false) {
-            this.adminLayoutComponnet.setDcLeftNav();
-            let lastInsertedDataCenterId = res.id;
-            this.provisioningList(lastInsertedDataCenterId, true);
-          }
-        });
-      }, 100);
+        if (sucflag != false) {
+          this.adminLayoutComponnet.setMenu();
+          let lastInsertedDataCenterId = res.id;
+          this.provisioningList(lastInsertedDataCenterId, true);
+        }
+      });
     }
   }
 
@@ -1477,7 +1470,7 @@ export class ProvisioningComponent implements OnInit {
       $('.apiResponseDivComponent').show();
       if (res.status == 'success') {
         componentFlag = true;
-        this.adminLayoutComponnet.setDcLeftNav();
+        this.adminLayoutComponnet.setMenu();
         $('.apiFailed').hide();
         $('.apiSuccess').show();
       } else {
@@ -1562,14 +1555,4 @@ export class ProvisioningComponent implements OnInit {
     this.dataCenterScrollClick(nextClick);
   }
 
-}
-
-interface Datacenter {
-  id: number;
-  name: string;
-  country: string;
-  state: string;
-  city: string;
-  time_zone: string;
-  components: any;
 }

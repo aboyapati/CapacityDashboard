@@ -38,17 +38,15 @@ export class LicenseComponent implements OnInit {
   }
 
   getCustomersList() {
-    setTimeout(() => {
-      this.config.getCustomer().subscribe(res => {
-        this.customersList = res;
-        if (this.customersList.length < 1) {
-          this.customerFlagMessage = true;
-        }
-        else {
-          this.customerFlagMessage = false;
-        }
-      });
-    }, 100);
+    this.config.getCustomer().subscribe(res => {
+      this.customersList = res;
+      if (this.customersList.length < 1) {
+        this.customerFlagMessage = true;
+      }
+      else {
+        this.customerFlagMessage = false;
+      }
+    });
   }
 
 }

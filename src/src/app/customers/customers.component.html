@@ -5,7 +5,7 @@
     <div class="col-md-6 col-sm-6" style="padding-top:6px;text-align: center;">
     </div>
     <div class="col-md-3 col-sm-3 btn-top-bar">
-        <button class="btn btn-primary btn-sm btn-add-data" (click)="open(content, 0, 'add')">
+        <button class="btn btn-primary btn-sm btn-add-data">
             <i class="fa fa-plus"></i> Add Customer</button>
     </div>
 </div>
@@ -13,8 +13,8 @@
     <div class="col-md-12 tab-tile-table table-responsive">
         <div *ngIf="customerList.length > 0 || emptySearchCustomerFlag" class="row">
             <div class="col-sm-3">
-                <div id="imaginary_container">
-                    <div class="input-group stylish-input-group">
+                <div id="imaginary_container" style="margin-top: 0px;">
+                    <div class="input-group stylish-input-group" style="margin-bottom: 10px;">
                         <input type="text" id="searchText" (change)="valuechange($event)" class="form-control" placeholder="Search">
                         <span class="input-group-addon">
                             <button type="submit" style="cursor:pointer">

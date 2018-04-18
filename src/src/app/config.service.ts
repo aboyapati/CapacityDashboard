@@ -36,50 +36,96 @@ export class ConfigService {
   getReportNamesUrl: any;
   getSubComponetCustomer: any;
   getDownloadReportUrl: any;
-  getCustomerCuntent: any;
+  getCustomerCuntentUrl: any;
   getVcenterGraphContentUrl: any;
   getDashboardTileDatasUrl: any;
+  getCustomerNameUrl: any;
 
   constructor(private http: Http) {
-    this.http.get('assets/config.json')
-      .map((result) => result.json()).subscribe(result => {
-        this.getDashboardDataUrl = this.BASE_URL + result[0].callMetricsUrl;
-        this.verifyLoginUrl = this.BASE_URL + result[0].verifyLoginUrl;
-        this.mapUrl = this.BASE_URL + result[0].mapUrl;
-        this.getProvisioningListUrl = this.BASE_URL + result[0].getProvisioningListUrl;
-        this.addDataCenterUrl = this.BASE_URL + result[0].addDataCenterUrl;
-        this.editDataCenterUrl = this.BASE_URL + result[0].editDataCenterUrl;
-        this.deleteDataCenterUrl = this.BASE_URL + result[0].deleteDataCenterUrl;
-        this.editComponentUrl = this.BASE_URL + result[0].editComponentUrl;
-        this.componentAddUrl = this.BASE_URL + result[0].componentAddUrl;
-        this.getTypesUrl = this.BASE_URL + result[0].getTypesUrl;
-        this.getSubtypesUrl = this.BASE_URL + result[0].getSubtypesUrl;
-        this.componentDeleteUrl = this.BASE_URL + result[0].componentDeleteUrl;
-        this.countryUrl = this.BASE_URL + result[0].countryUrl;
-        this.customersUrl = this.BASE_URL + result[0].customersUrl;
-        this.customerListUrl = this.BASE_URL + result[0].customerListUrl;
-        this.getCustomerLicenseUrl = this.BASE_URL + result[0].getCustomerLicenseUrl;
-        this.leftNavDetailUrl = this.BASE_URL + result[0].leftNavDetailUrl;
-        this.getComponentListUrl = this.BASE_URL + result[0].getComponentListUrl;
-        this.getSubComponentListUrl = this.BASE_URL + result[0].getSubComponentListUrl;
-        this.getsubComponentPopUpUrl = this.BASE_URL + result[0].getsubComponentPopUpUrl;
-        this.getVcenterDataUrl = this.BASE_URL + result[0].getVcenterDataUrl;
-        this.getDataCenterComponentRecordsUrl = this.BASE_URL + result[0].getDataCenterComponentRecordsUrl;
-        this.getNotificationUrl = this.BASE_URL + result[0].getNotificationUrl;
-        this.getStatesUrl = this.BASE_URL + result[0].getStatesUrl;
-        this.getCitiesUrl = this.BASE_URL + result[0].getCitiesUrl;
-        this.getDataCenterListCustomer = this.BASE_URL + result[0].getDataCenterListCustomer;
-        this.getComponetCustomer = this.BASE_URL + result[0].getComponetCustomer;
-        this.getReportNamesUrl = this.BASE_URL + result[0].getReportNamesUrl;
-        this.getDownloadReportUrl = this.BASE_URL + result[0].getDownloadReportUrl;
-        this.getSubComponetCustomer = this.BASE_URL + result[0].getSubComponetCustomer;
-        this.getCustomerCuntent = this.BASE_URL + result[0].getCustomerCuntent;
-        this.getVcenterGraphContentUrl = this.BASE_URL + result[0].getVcenterGraphContentUrl;
-        this.getDashboardTileDatasUrl = this.BASE_URL + result[0].getDashboardTileDatasUrl;
-      });
+    if (!sessionStorage.urlSessionSet) {
+      this.http.get('assets/config.json')
+        .map((result) => result.json()).subscribe(result => {
+          this.verifyLoginUrl = this.BASE_URL + result[0].verifyLoginUrl;
+          this.getDashboardDataUrl = this.BASE_URL + result[0].callMetricsUrl;
+          this.mapUrl = this.BASE_URL + result[0].mapUrl;
+          this.getProvisioningListUrl = this.BASE_URL + result[0].getProvisioningListUrl;
+          this.addDataCenterUrl = this.BASE_URL + result[0].addDataCenterUrl;
+          this.editDataCenterUrl = this.BASE_URL + result[0].editDataCenterUrl;
+          this.deleteDataCenterUrl = this.BASE_URL + result[0].deleteDataCenterUrl;
+          this.editComponentUrl = this.BASE_URL + result[0].editComponentUrl;
+          this.componentAddUrl = this.BASE_URL + result[0].componentAddUrl;
+          this.getTypesUrl = this.BASE_URL + result[0].getTypesUrl;
+          this.getSubtypesUrl = this.BASE_URL + result[0].getSubtypesUrl;
+          this.componentDeleteUrl = this.BASE_URL + result[0].componentDeleteUrl;
+          this.countryUrl = this.BASE_URL + result[0].countryUrl;
+          this.customersUrl = this.BASE_URL + result[0].customersUrl;
+          this.customerListUrl = this.BASE_URL + result[0].customerListUrl;
+          this.getCustomerLicenseUrl = this.BASE_URL + result[0].getCustomerLicenseUrl;
+          this.leftNavDetailUrl = this.BASE_URL + result[0].leftNavDetailUrl;
+          this.getComponentListUrl = this.BASE_URL + result[0].getComponentListUrl;
+          this.getSubComponentListUrl = this.BASE_URL + result[0].getSubComponentListUrl;
+          this.getsubComponentPopUpUrl = this.BASE_URL + result[0].getsubComponentPopUpUrl;
+          this.getVcenterDataUrl = this.BASE_URL + result[0].getVcenterDataUrl;
+          this.getDataCenterComponentRecordsUrl = this.BASE_URL + result[0].getDataCenterComponentRecordsUrl;
+          this.getNotificationUrl = this.BASE_URL + result[0].getNotificationUrl;
+          this.getStatesUrl = this.BASE_URL + result[0].getStatesUrl;
+          this.getCitiesUrl = this.BASE_URL + result[0].getCitiesUrl;
+          this.getDataCenterListCustomer = this.BASE_URL + result[0].getDataCenterListCustomer;
+          this.getComponetCustomer = this.BASE_URL + result[0].getComponetCustomer;
+          this.getReportNamesUrl = this.BASE_URL + result[0].getReportNamesUrl;
+          this.getDownloadReportUrl = this.BASE_URL + result[0].getDownloadReportUrl;
+          this.getSubComponetCustomer = this.BASE_URL + result[0].getSubComponetCustomer;
+          this.getCustomerCuntentUrl = this.BASE_URL + result[0].getCustomerCuntent;
+          this.getVcenterGraphContentUrl = this.BASE_URL + result[0].getVcenterGraphContentUrl;
+          this.getDashboardTileDatasUrl = this.BASE_URL + result[0].getDashboardTileDatasUrl;
+          this.getCustomerNameUrl = this.BASE_URL + result[0].getCustomerNameUrl;
+          this.setUrlInSession();
+        });
+    }
+  }
+
+  setUrlInSession() {
+    sessionStorage.setItem('urlSessionSet', 'yes');
+    sessionStorage.setItem('verifyLoginUrl', this.verifyLoginUrl);
+    sessionStorage.setItem('getDashboardDataUrl', this.getDashboardDataUrl);
+    sessionStorage.setItem('mapUrl', this.mapUrl);
+    sessionStorage.setItem('getProvisioningListUrl', this.getProvisioningListUrl);
+    sessionStorage.setItem('addDataCenterUrl', this.addDataCenterUrl);
+    sessionStorage.setItem('editDataCenterUrl', this.editDataCenterUrl);
+    sessionStorage.setItem('deleteDataCenterUrl', this.deleteDataCenterUrl);
+    sessionStorage.setItem('editComponentUrl', this.editComponentUrl);
+    sessionStorage.setItem('componentAddUrl', this.componentAddUrl);
+    sessionStorage.setItem('getTypesUrl', this.getTypesUrl);
+    sessionStorage.setItem('getSubtypesUrl', this.getSubtypesUrl);
+    sessionStorage.setItem('componentDeleteUrl', this.componentDeleteUrl);
+    sessionStorage.setItem('countryUrl', this.countryUrl);
+    sessionStorage.setItem('customersUrl', this.customersUrl);
+    sessionStorage.setItem('customerListUrl', this.customerListUrl);
+    sessionStorage.setItem('getCustomerLicenseUrl', this.getCustomerLicenseUrl);
+    sessionStorage.setItem('leftNavDetailUrl', this.leftNavDetailUrl);
+    sessionStorage.setItem('getComponentListUrl', this.getComponentListUrl);
+    sessionStorage.setItem('getSubComponentListUrl', this.getSubComponentListUrl);
+    sessionStorage.setItem('getsubComponentPopUpUrl', this.getsubComponentPopUpUrl);
+    sessionStorage.setItem('getVcenterDataUrl', this.getVcenterDataUrl);
+    sessionStorage.setItem('getDataCenterComponentRecordsUrl', this.getDataCenterComponentRecordsUrl);
+    sessionStorage.setItem('getNotificationUrl', this.getNotificationUrl);
+    sessionStorage.setItem('getStatesUrl', this.getStatesUrl);
+    sessionStorage.setItem('getCitiesUrl', this.getCitiesUrl);
+    sessionStorage.setItem('getDataCenterListCustomer', this.getDataCenterListCustomer);
+    sessionStorage.setItem('getComponetCustomer', this.getComponetCustomer);
+    sessionStorage.setItem('getReportNamesUrl', this.getReportNamesUrl);
+    sessionStorage.setItem('getDownloadReportUrl', this.getDownloadReportUrl);
+    sessionStorage.setItem('getSubComponetCustomer', this.getSubComponetCustomer);
+    sessionStorage.setItem('getCustomerCuntentUrl', this.getCustomerCuntentUrl);
+    sessionStorage.setItem('getVcenterGraphContentUrl', this.getVcenterGraphContentUrl);
+    sessionStorage.setItem('getDashboardTileDatasUrl', this.getDashboardTileDatasUrl);
+    sessionStorage.setItem('getCustomerNameUrl', this.getCustomerNameUrl);
   }
 
   verifyLogin(username, password) {
+    if (sessionStorage.verifyLoginUrl) {
+      this.verifyLoginUrl = sessionStorage.verifyLoginUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'username=' + username + '&password=' + password + '';
@@ -87,26 +133,41 @@ export class ConfigService {
   }
 
   getDashboardData() {
+    if (sessionStorage.getDashboardDataUrl) {
+      this.getDashboardDataUrl = sessionStorage.getDashboardDataUrl;
+    }
     return this.http.get(this.getDashboardDataUrl)
       .map((result) => result.json());
   }
 
   getMap() {
+    if (sessionStorage.mapUrl) {
+      this.mapUrl = sessionStorage.mapUrl;
+    }
     return this.http.get(this.mapUrl)
       .map((result) => result.json());
   }
 
   getProvisioningList() {
+    if (sessionStorage.getProvisioningListUrl) {
+      this.getProvisioningListUrl = sessionStorage.getProvisioningListUrl;
+    }
     return this.http.get(this.getProvisioningListUrl)
       .map((result) => result.json());
   }
 
   getCustomersList() {
+    if (sessionStorage.customersUrl) {
+      this.customersUrl = sessionStorage.customersUrl;
+    }
     return this.http.get(this.customersUrl)
       .map((result) => result.json());
   }
 
   getCustomerLicense(id) {
+    if (sessionStorage.getCustomerLicenseUrl) {
+      this.getCustomerLicenseUrl = sessionStorage.getCustomerLicenseUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'id=' + id;
@@ -114,21 +175,33 @@ export class ConfigService {
   }
 
   getCustomer() {
+    if (sessionStorage.customerListUrl) {
+      this.customerListUrl = sessionStorage.customerListUrl;
+    }
     return this.http.get(this.customerListUrl)
       .map((result) => result.json());
   }
 
   getCountryList() {
+    if (sessionStorage.countryUrl) {
+      this.countryUrl = sessionStorage.countryUrl;
+    }
     return this.http.get(this.countryUrl)
       .map((result) => result.json());
   }
 
   getLeftNavDetailslist() {
+    if (sessionStorage.leftNavDetailUrl) {
+      this.leftNavDetailUrl = sessionStorage.leftNavDetailUrl;
+    }
     return this.http.get(this.leftNavDetailUrl)
       .map((result) => result.json());
   }
 
   addDataCenter(userId, name, country, state, city, timezone) {
+    if (sessionStorage.addDataCenterUrl) {
+      this.addDataCenterUrl = sessionStorage.addDataCenterUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'userId=' + userId + '&name=' + name + '&country=' + country + '&state=' + state + '&city=' + city + '&timezone=' + timezone;
@@ -136,6 +209,9 @@ export class ConfigService {
   }
 
   editDataCenter(userId, id, name, country, state, city, timezone) {
+    if (sessionStorage.editDataCenterUrl) {
+      this.editDataCenterUrl = sessionStorage.editDataCenterUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'userId=' + userId + '&id=' + id + '&name=' + name + '&country=' + country + '&state=' + state + '&city=' + city + '&timezone=' + timezone;
@@ -143,6 +219,9 @@ export class ConfigService {
   }
 
   deleteDataCenter(userId, id) {
+    if (sessionStorage.deleteDataCenterUrl) {
+      this.deleteDataCenterUrl = sessionStorage.deleteDataCenterUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'userId=' + userId + '&id=' + id;
@@ -150,6 +229,9 @@ export class ConfigService {
   }
 
   editComponent(userId, componentId, name, version, subVersion, ipAddress, componentUser, password, enablePassword, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax) {
+    if (sessionStorage.editComponentUrl) {
+      this.editComponentUrl = sessionStorage.editComponentUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'userId=' + userId + '&componentId=' + componentId + '&name=' + name + '&type=' + version + '&version=' + subVersion + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&enablePassword=' + enablePassword + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax;
@@ -157,6 +239,9 @@ export class ConfigService {
   }
 
   componentAdd(userId, name, dataCenterId, type, ipAddress, version, subVersion, componentUser, password, enablePassword, vrfWarnStart, vrfWarnEnd, vrfMax, bgpPeersWarnStart, bgpPeersWarnEnd, bgpPeersMax, vlanWarnStart, vlanWarnEnd, vlanMax, hsrpWarnStart, hsrpWarnEnd, hsrpMax, staticRoutesWarnStart, staticRoutesWarnEnd, staticRoutesMax, vrrpWarnStart, vrrpWarnEnd, vrrpMax) {
+    if (sessionStorage.componentAddUrl) {
+      this.componentAddUrl = sessionStorage.componentAddUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'userId=' + userId + '&name=' + name + '&dataCenterId=' + dataCenterId + '&type=' + type + '&version=' + version + '&ipAddress=' + ipAddress + '&componentUser=' + componentUser + '&password=' + password + '&enablePassword=' + enablePassword + '&vrfWarnStart=' + vrfWarnStart + '&vrfWarnEnd=' + vrfWarnEnd + '&vrfMax=' + vrfMax + '&bgpPeersWarnStart=' + bgpPeersWarnStart + '&bgpPeersWarnEnd=' + bgpPeersWarnEnd + '&bgpPeersMax=' + bgpPeersMax + '&vlanWarnStart=' + vlanWarnStart + '&vlanWarnEnd=' + vlanWarnEnd + '&vlanMax=' + vlanMax + '&hsrpWarnStart=' + hsrpWarnStart + '&hsrpWarnEnd=' + hsrpWarnEnd + '&hsrpMax=' + hsrpMax + '&staticRoutesWarnStart=' + staticRoutesWarnStart + '&staticRoutesWarnEnd=' + staticRoutesWarnEnd + '&staticRoutesMax=' + staticRoutesMax + '&vrrpWarnStart=' + vrrpWarnStart + '&vrrpWarnEnd=' + vrrpWarnEnd + '&vrrpMax=' + vrrpMax;
@@ -164,10 +249,16 @@ export class ConfigService {
   }
 
   getTypes() {
+    if (sessionStorage.getTypesUrl) {
+      this.getTypesUrl = sessionStorage.getTypesUrl;
+    }
     return this.http.get(this.getTypesUrl).map((res: Response) => res.json());
   }
 
   getSubtypes(id) {
+    if (sessionStorage.getSubtypesUrl) {
+      this.getSubtypesUrl = sessionStorage.getSubtypesUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'typeId=' + id;
@@ -175,6 +266,9 @@ export class ConfigService {
   }
 
   componentDelete(userId, componentId) {
+    if (sessionStorage.componentDeleteUrl) {
+      this.componentDeleteUrl = sessionStorage.componentDeleteUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'userId=' + userId + '&componentId=' + componentId;
@@ -182,6 +276,9 @@ export class ConfigService {
   }
 
   getComponentList(id) {
+    if (sessionStorage.getComponentListUrl) {
+      this.getComponentListUrl = sessionStorage.getComponentListUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'id=' + id;
@@ -189,6 +286,9 @@ export class ConfigService {
   }
 
   getSubComponentList(id, type) {
+    if (sessionStorage.getSubComponentListUrl) {
+      this.getSubComponentListUrl = sessionStorage.getSubComponentListUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'id=' + id + '&type=' + type;
@@ -196,6 +296,9 @@ export class ConfigService {
   }
 
   getsubComponentPopUp(typeId, subComponentName) {
+    if (sessionStorage.getsubComponentPopUpUrl) {
+      this.getsubComponentPopUpUrl = sessionStorage.getsubComponentPopUpUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'typeId=' + typeId + '&subComponentName=' + subComponentName;
@@ -203,6 +306,9 @@ export class ConfigService {
   }
 
   getVcenterData(id) {
+    if (sessionStorage.getVcenterDataUrl) {
+      this.getVcenterDataUrl = sessionStorage.getVcenterDataUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'id=' + id;
@@ -210,6 +316,9 @@ export class ConfigService {
   }
 
   getDataCenterComponentRecords(componentId) {
+    if (sessionStorage.getDataCenterComponentRecordsUrl) {
+      this.getDataCenterComponentRecordsUrl = sessionStorage.getDataCenterComponentRecordsUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'componentId=' + componentId;
@@ -217,6 +326,9 @@ export class ConfigService {
   }
 
   getNotification(type) {
+    if (sessionStorage.getNotificationUrl) {
+      this.getNotificationUrl = sessionStorage.getNotificationUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'type=' + type;
@@ -224,6 +336,9 @@ export class ConfigService {
   }
 
   getStates(country) {
+    if (sessionStorage.getStatesUrl) {
+      this.getStatesUrl = sessionStorage.getStatesUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'country=' + country;
@@ -231,6 +346,9 @@ export class ConfigService {
   }
 
   getCities(state) {
+    if (sessionStorage.getCitiesUrl) {
+      this.getCitiesUrl = sessionStorage.getCitiesUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'state=' + state;
@@ -238,6 +356,9 @@ export class ConfigService {
   }
 
   getDataCenterListCusView(customerId) {
+    if (sessionStorage.getDataCenterListCustomer) {
+      this.getDataCenterListCustomer = sessionStorage.getDataCenterListCustomer;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'customerId=' + customerId;
@@ -245,6 +366,9 @@ export class ConfigService {
   }
 
   getComponetCusView(id) {
+    if (sessionStorage.getComponetCustomer) {
+      this.getComponetCustomer = sessionStorage.getComponetCustomer;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'id=' + id;
@@ -252,6 +376,9 @@ export class ConfigService {
   }
 
   getSubComponetCusView(compId, type) {
+    if (sessionStorage.getSubComponetCustomer) {
+      this.getSubComponetCustomer = sessionStorage.getSubComponetCustomer;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'compId=' + compId + '&type=' + type;
@@ -259,6 +386,9 @@ export class ConfigService {
   }
 
   getReportNames(id, componentId) {
+    if (sessionStorage.getReportNamesUrl) {
+      this.getReportNamesUrl = sessionStorage.getReportNamesUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'id=' + id + '&componentId=' + componentId;
@@ -266,17 +396,26 @@ export class ConfigService {
   }
 
   getDownloadReport(compId, fromDate, toDate, reportId, name) {
+    if (sessionStorage.getDownloadReportUrl) {
+      this.getDownloadReportUrl = sessionStorage.getDownloadReportUrl;
+    }
     window.open(this.getDownloadReportUrl + '?compId=' + compId + '&reportId=' + reportId + '&fromDate=' + fromDate + '&toDate=' + toDate + '&name=' + name, "_blank");
   }
 
   getCustomerContentCusView(typeId, subComponentName) {
+    if (sessionStorage.getCustomerCuntentUrl) {
+      this.getCustomerCuntentUrl = sessionStorage.getCustomerCuntentUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'typeId=' + typeId + '&subComponentName=' + subComponentName;
-    return this.http.post(this.getCustomerCuntent, body, options).map((res: Response) => res.json());
+    return this.http.post(this.getCustomerCuntentUrl, body, options).map((res: Response) => res.json());
   }
 
   getVcenterGraphContent(compId, type, typeId) {
+    if (sessionStorage.getVcenterGraphContentUrl) {
+      this.getVcenterGraphContentUrl = sessionStorage.getVcenterGraphContentUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId;
@@ -284,10 +423,23 @@ export class ConfigService {
   }
 
   getDashboardTileDatas() {
+    if (sessionStorage.getDashboardTileDatasUrl) {
+      this.getDashboardTileDatasUrl = sessionStorage.getDashboardTileDatasUrl;
+    }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
     let body = '';
     return this.http.post(this.getDashboardTileDatasUrl, body, options).map((res: Response) => res.json());
+  }
+
+  getCustomerName(customerId) {
+    if (sessionStorage.getCustomerNameUrl) {
+      this.getCustomerNameUrl = sessionStorage.getCustomerNameUrl;
+    }
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+    let body = 'customerId=' + customerId;
+    return this.http.post(this.getCustomerNameUrl, body, options).map((res: Response) => res.json());
   }
 
   BASE_URL = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');

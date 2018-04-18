@@ -15,12 +15,12 @@ export class DashboardComponent implements OnInit {
 
   callMatricsFilter: boolean = false;
   notificationFilter: boolean = false;
-  private datas: any;
-  private notificationFilterType = 'Today';
-  private notifications: any;
-  private reportCount: number;
-  private usersCount: number;
-  private customersCount: number;
+  datas: any;
+  notificationFilterType = 'Today';
+  notifications: any;
+  reportCount: number;
+  usersCount: number;
+  customersCount: number;
 
   constructor(private config: ConfigService, private router: Router) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -31,21 +31,19 @@ export class DashboardComponent implements OnInit {
     if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
       this.router.navigate(['login']);
     }
-    setTimeout(() => {
-      this.config.getDashboardData()
-        .subscribe(res => {
-          this.datas = res;
-        });
 
-      this.getNotificationWithFilter(this.notificationFilterType);
-
-      this.config.getDashboardTileDatas().subscribe(res => {
-        this.reportCount = res.reportCount;
-        this.usersCount = res.usersCount;
-        this.customersCount = res.customersCount;
+    this.config.getDashboardData()
+      .subscribe(res => {
+        this.datas = res;
       });
 
-    }, 100);
+    this.getNotificationWithFilter(this.notificationFilterType);
+
+    this.config.getDashboardTileDatas().subscribe(res => {
+      this.reportCount = res.reportCount;
+      this.usersCount = res.usersCount;
+      this.customersCount = res.customersCount;
+    });
 
     if (sessionStorage.alertMenuClicked == 'yes') {
       sessionStorage.setItem('alertMenuClicked', '');
@@ -98,23 +96,21 @@ export class DashboardComponent implements OnInit {
     }
     this.notificationFilter = false;
     $('#notificationDropDown').hide();
-    setTimeout(() => {
-      this.config.getNotification(type).subscribe(res => {
-        this.notifications = res;
-        let j = 0;
-        for (let i = 0; i < this.notifications.length; i++) {
-          if (this.notifications[i].status == 'Bad') {
-            j = j + 1;
-          }
+    this.config.getNotification(type).subscribe(res => {
+      this.notifications = res;
+      let j = 0;
+      for (let i = 0; i < this.notifications.length; i++) {
+        if (this.notifications[i].status == 'Bad') {
+          j = j + 1;
         }
-        if (j > 0) {
-          $('#alertValue').text(j);
-          $('#alertValue').show();
-        } else {
-          $('#alertValue').hide();
-        }
-      });
-    }, 1000);
+      }
+      if (j > 0) {
+        $('#alertValue').text(j);
+        $('#alertValue').show();
+      } else {
+        $('#alertValue').hide();
+      }
+    });
   }
 
   customerList() {

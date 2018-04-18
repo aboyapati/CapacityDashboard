@@ -68,52 +68,48 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   setMenu() {
-    setTimeout(() => {
-      this.config.getLeftNavDetailslist().subscribe(res => {
-        this.dynamic = res;
-        this.dynamicSubMenu = [];
-        for (let i = 0; i < res.length; i++) {
+    this.config.getLeftNavDetailslist().subscribe(res => {
+      this.dynamic = res;
+      this.dynamicSubMenu = [];
+      for (let i = 0; i < res.length; i++) {
 
-          this.subComponentChildren = [];
-          for (let j = 0; j < res[i].components.length; j++) {
-            this.subComponentChildren.push({
-              'id': res[i].components[j].id,
-              'name': res[i].components[j].name
-            });
-          }
-
-          if (this.dynamic[i].status == "Bad") {
-            this.dynamicSubMenu.push({
-              'id': this.dynamic[i].id,
-              'state': 'datacenter/' + this.dynamic[i].id,
-              'name': this.dynamic[i].name,
-              'img': 'assets/images/fa-exclamation.png',
-              'subComponentChildren': this.subComponentChildren
-            });
-          }
-          else if (this.dynamic[i].status == "Good") {
-            this.dynamicSubMenu.push({
-              'id': this.dynamic[i].id,
-              'state': 'datacenter/' + this.dynamic[i].id,
-              'name': this.dynamic[i].name,
-              'img': 'assets/images/status-green.png',
-              'subComponentChildren': this.subComponentChildren
-            });
-          }
-          else if (this.dynamic[i].status == "Alert") {
-            this.dynamicSubMenu.push({
-              'id': this.dynamic[i].id,
-              'state': 'datacenter/' + this.dynamic[i].id,
-              'name': this.dynamic[i].name,
-              'img': 'assets/images/status-yellow.png',
-              'subComponentChildren': this.subComponentChildren
-            });
-          }
-
+        this.subComponentChildren = [];
+        for (let j = 0; j < res[i].components.length; j++) {
+          this.subComponentChildren.push({
+            'id': res[i].components[j].id,
+            'name': res[i].components[j].name
+          });
         }
-      });
-    }, 500);
-    setTimeout(() => {
+
+        if (this.dynamic[i].status == "Bad") {
+          this.dynamicSubMenu.push({
+            'id': this.dynamic[i].id,
+            'state': 'datacenter/' + this.dynamic[i].id,
+            'name': this.dynamic[i].name,
+            'img': 'assets/images/fa-exclamation.png',
+            'subComponentChildren': this.subComponentChildren
+          });
+        }
+        else if (this.dynamic[i].status == "Good") {
+          this.dynamicSubMenu.push({
+            'id': this.dynamic[i].id,
+            'state': 'datacenter/' + this.dynamic[i].id,
+            'name': this.dynamic[i].name,
+            'img': 'assets/images/status-green.png',
+            'subComponentChildren': this.subComponentChildren
+          });
+        }
+        else if (this.dynamic[i].status == "Alert") {
+          this.dynamicSubMenu.push({
+            'id': this.dynamic[i].id,
+            'state': 'datacenter/' + this.dynamic[i].id,
+            'name': this.dynamic[i].name,
+            'img': 'assets/images/status-yellow.png',
+            'subComponentChildren': this.subComponentChildren
+          });
+        }
+
+      }
       this.MENUITEMS = [
         {
           label: 'Layout',
@@ -160,62 +156,7 @@ export class AdminLayoutComponent implements OnInit {
       ];
       sessionStorage.setItem('dynamicSubMenu', JSON.stringify(this.dynamicSubMenu));
       this.MENUITEMS[0].main[2]['children'] = this.dynamicSubMenu;
-    }, 800);
-  }
-
-  setDcLeftNav() {
-    this.MENUITEMS[0].main[2]['children'] = [];
-    setTimeout(() => {
-      this.config.getLeftNavDetailslist().subscribe(res => {
-        this.dynamic = res;
-        this.dynamicSubMenu = [];
-        for (let i = 0; i < res.length; i++) {
-
-          this.subComponentChildren = [];
-          for (let j = 0; j < res[i].components.length; j++) {
-            this.subComponentChildren.push({
-              'id': res[i].components[j].id,
-              'name': res[i].components[j].name
-            });
-          }
-
-          if (this.dynamic[i].status == "Bad") {
-            this.dynamicSubMenu.push({
-              'id': this.dynamic[i].id,
-              'state': 'datacenter/' + this.dynamic[i].id,
-              'name': this.dynamic[i].name,
-              'img': 'assets/images/fa-exclamation.png',
-              'subComponentChildren': this.subComponentChildren
-            });
-          }
-          else if (this.dynamic[i].status == "Good") {
-            this.dynamicSubMenu.push({
-              'id': this.dynamic[i].id,
-              'state': 'datacenter/' + this.dynamic[i].id,
-              'name': this.dynamic[i].name,
-              'img': 'assets/images/status-green.png',
-              'subComponentChildren': this.subComponentChildren
-            });
-          }
-          else if (this.dynamic[i].status == "Alert") {
-            this.dynamicSubMenu.push({
-              'id': this.dynamic[i].id,
-              'state': 'datacenter/' + this.dynamic[i].id,
-              'name': this.dynamic[i].name,
-              'img': 'assets/images/status-yellow.png',
-              'subComponentChildren': this.subComponentChildren
-            });
-          }
-
-        }
-      });
-    }, 1000);
-
-    setTimeout(() => {
-      sessionStorage.setItem('dynamicSubMenu', JSON.stringify(this.dynamicSubMenu));
-      this.MENUITEMS[0].main[2]['children'] = this.dynamicSubMenu;
-    }, 2000);
-
+    });
   }
 
   ngOnInit() {
@@ -269,8 +210,8 @@ export class AdminLayoutComponent implements OnInit {
 
   logoutClicked(e) {
     e.preventDefault();
-    sessionStorage.setItem('logout_clicked', 'yes');
     sessionStorage.clear();
+    sessionStorage.setItem('logout_clicked', 'yes');
     this.router.navigate(['login']);
   }
 

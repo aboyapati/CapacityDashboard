@@ -16,33 +16,34 @@ export class CustomerviewComponent implements OnInit {
   chart: Highcharts.ChartObject;
 
   imgUrl: string = 'assets/images/icon-cube.png';
-  dataCenters: any[];
-  compTabItems: any[];
+  dataCenters: any;
+  compTabItems: any;
   selectedCompTab: any;
-  subCompTabItems: any[];
+  subCompTabItems: any;
   selectedSubCompTypeId: any;
   selectedSubCompName: string;
-  ComponentItems: any[];
-  currentCompItems: any[];
+  ComponentItems: any;
+  currentCompItems: any;
   selectedDataCenter: number;
   selectedComp: any;
   componentCount: any;
   userId: number;
-  customerContent: any = '';
+  customerContent: any = 0;
   compNotFound: boolean = false;
-  private deviceHeight: any;
-  private deviceWidth: any;
-  private scrollLimit: number;
-  private sliderLimit: number;
-  private scrollLimitMin: number;
-  private scrollLimitMax: number;
-  private scrollLimit1: number;
-  private sliderLimit1: number;
-  private scrollLimitMin1: number;
-  private scrollLimitMax1: number;
-  private observeRef: any;
-  private selectedDcViewId: number = 0;
-  private selectedDcSubViewId: number = -1;
+  deviceHeight: any;
+  deviceWidth: any;
+  scrollLimit: number;
+  sliderLimit: number;
+  scrollLimitMin: number;
+  scrollLimitMax: number;
+  scrollLimit1: number;
+  sliderLimit1: number;
+  scrollLimitMin1: number;
+  scrollLimitMax1: number;
+  observeRef: any;
+  selectedDcViewId: number = 0;
+  selectedDcSubViewId: number = -1;
+  customerName: string;
 
   constructor(private route: ActivatedRoute, private config: ConfigService, private router: Router) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -87,6 +88,9 @@ export class CustomerviewComponent implements OnInit {
     }
     this.getDataCenterList(this.userId);
     this.compTabItems = [{ "id": 1, "name": "NEXUS" }, { "id": 2, "name": "VCENTER" }, { "id": 3, "name": "SBC" }, { "id": 4, "name": "ASA" }];
+    this.config.getCustomerName(this.userId).subscribe(res => {
+      this.customerName = res.customerName;
+    });
   }
 
   resetSlider() {
@@ -188,7 +192,7 @@ export class CustomerviewComponent implements OnInit {
 
     this.config.getSubComponetCusView(id, type).subscribe(res => {
       this.subCompTabItems = res;
-      if(this.subCompTabItems.length != 0) {
+      if (this.subCompTabItems.length != 0) {
         this.selectedSubCompTypeId = this.subCompTabItems[0].type_id;
         this.selectedSubCompName = this.subCompTabItems[0].name;
         $("#subCompTab").show();
@@ -202,14 +206,14 @@ export class CustomerviewComponent implements OnInit {
     });
     this.selectedComp = id;
     setTimeout(() => {
-      if(this.selectedSubCompTypeId != '' && this.selectedSubCompName != '') {
+      if (this.selectedSubCompTypeId != '' && this.selectedSubCompName != '') {
         this.config.getCustomerContentCusView(this.selectedSubCompTypeId, this.selectedSubCompName).subscribe(res => {
           this.customerContent = res;
-          if(typeof this.customerContent.content == 'undefined') {
+          if (typeof this.customerContent.content == 'undefined') {
             $("#contentErrorDiv").show();
             $("#contentDiv").hide();
           } else {
-            if(this.customerContent.content == '') {
+            if (this.customerContent.content == '') {
               $("#contentErrorDiv").show();
               $("#contentDiv").hide();
             } else {
@@ -231,7 +235,7 @@ export class CustomerviewComponent implements OnInit {
     setTimeout(() => {
       this.config.getDataCenterListCusView(id).subscribe(res => {
         this.dataCenters = res;
-        if(this.dataCenters.length != 0) {
+        if (this.dataCenters.length != 0) {
           this.selectedDataCenter = this.dataCenters[0].id;
           setTimeout(() => {
             this.getComponentList(this.selectedDataCenter);
@@ -244,7 +248,7 @@ export class CustomerviewComponent implements OnInit {
   getComponentList(id) {
     this.config.getComponetCusView(id).subscribe(res => {
       this.ComponentItems = res;
-      if(this.ComponentItems.length != 0) {
+      if (this.ComponentItems.length != 0) {
         this.componentCount = this.ComponentItems.length;
         this.hideEmptyCompTab();
         this.selectDefSelectedCompTab();
@@ -257,11 +261,11 @@ export class CustomerviewComponent implements OnInit {
   subCompTabClick(type_id, name) {
     this.config.getCustomerContentCusView(type_id, name).subscribe(res => {
       this.customerContent = res;
-      if(typeof this.customerContent.content == 'undefined') {
+      if (typeof this.customerContent.content == 'undefined') {
         $("#contentErrorDiv").show();
         $("#contentDiv").hide();
       } else {
-        if(this.customerContent.content == '') {
+        if (this.customerContent.content == '') {
           $("#contentErrorDiv").show();
           $("#contentDiv").hide();
         } else {

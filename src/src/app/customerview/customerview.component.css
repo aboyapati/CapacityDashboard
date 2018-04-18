@@ -6,7 +6,7 @@
     padding: 15px 0px 15px;
 }
 .tab-tile-active {
-    padding: 15px 0px 31px;
+    padding: 15px 0px 15px;
     background-color: #fff; 
 }
 .img-thumbnail {
@@ -21,6 +21,7 @@
     font-weight: bold;
     text-align: center;
     padding: 6px 0 4px;
+    margin-bottom: 10px;
 }
 .data-center-body {
     color: #73787d;
@@ -47,24 +48,30 @@
     background-color: #ffffff;
     padding: 0px;
     min-height: 450px;
-    padding-top: 50px;
+    padding-top: 30px;
 }
 .tab-row {
     margin-left: 0px;
     margin-right: 0px;
 }
 .component-tab-small {
-    width: 19%;
+    /* width: 19%; */
     word-wrap:break-word;
+    padding: 0px 10px 0px 10px;
+    min-width: 80px;
+    border-right: 1px solid #c7cacf;
+    border-left: 1px solid #c7cacf;
+}
+.component-tab {
+    border-right: 1px solid #fff;
+    border-left: 1px solid #fff; 
 }
 .mr-l-25 {
     margin-left: 25px;
 }
 .component-tab, .component-tab-small {
-    background-color: #233853;
+    background-color: #ebebeb;
     border-radius: 4px;
-    border-right: 1px solid #ffffff;
-    border-left: 1px solid #ffffff;
     text-align: center;
     font-weight: 400 !important;
     margin-top: 1px;
@@ -78,7 +85,7 @@
     box-shadow: unset;
 }
 .component-tab h3, .component-tab-small h4 {
-   color: #ffffff;
+   color: #233853;
    padding-top: 5px;
 }
 .component-tab-small h4 {
@@ -88,19 +95,19 @@
     font-size: 19px;
 }
 .tab-active, .sub-tab-active {
-    background-color: #ebebeb;
+    background-color: #233853;
 }
 .sub-tab-active {
     border: 1px solid #233853;
 }
 .tab-active h3, .sub-tab-active h4 {
-    color: #233853;
+    color: #ffffff;
     padding-top: 5px;
     /* font-weight: bold; */
 }
 .tab-content {
     background-color: #d9dde0;
-    margin-top: 50px;
+    margin-top: 15px;
     padding: 0px;
 }
 /* #subCompTab {
@@ -116,7 +123,7 @@
     padding: 0px;
 }
 .comp-body {
-    padding-top: 15px;
+    padding-top: 0px;
     border-right: 35px solid #ffffff;
     border-left: 35px solid #ffffff;
     background-color: #ffffff;
@@ -234,10 +241,10 @@
         border-right: 0px solid #ffffff !important;
         border-left: 0px solid #ffffff !important;
     }
-    .tab-main-div .row {
+    /* .tab-main-div .row {
         padding-left: 40px;
         padding-right: 40px;
-    } 
+    }  */
     .component-main {
         padding-top: 0px;
     }
@@ -285,5 +292,10 @@
     margin-right: 0px;
     border-left: 35px solid #fff;
     border-right: 35px solid #fff;
-    padding-top: 40px;
+    padding-top: 25px;
+}
+.subTab {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 24px;
 }

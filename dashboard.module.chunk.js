@@ -62,18 +62,16 @@ var DashboardComponent = (function () {
         if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
             this.router.navigate(['login']);
         }
-        setTimeout(function () {
-            _this.config.getDashboardData()
-                .subscribe(function (res) {
-                _this.datas = res;
-            });
-            _this.getNotificationWithFilter(_this.notificationFilterType);
-            _this.config.getDashboardTileDatas().subscribe(function (res) {
-                _this.reportCount = res.reportCount;
-                _this.usersCount = res.usersCount;
-                _this.customersCount = res.customersCount;
-            });
-        }, 100);
+        this.config.getDashboardData()
+            .subscribe(function (res) {
+            _this.datas = res;
+        });
+        this.getNotificationWithFilter(this.notificationFilterType);
+        this.config.getDashboardTileDatas().subscribe(function (res) {
+            _this.reportCount = res.reportCount;
+            _this.usersCount = res.usersCount;
+            _this.customersCount = res.customersCount;
+        });
         if (sessionStorage.alertMenuClicked == 'yes') {
             sessionStorage.setItem('alertMenuClicked', '');
             $('#leftNavAlertId').trigger('click');
@@ -123,24 +121,22 @@ var DashboardComponent = (function () {
         }
         this.notificationFilter = false;
         $('#notificationDropDown').hide();
-        setTimeout(function () {
-            _this.config.getNotification(type).subscribe(function (res) {
-                _this.notifications = res;
-                var j = 0;
-                for (var i = 0; i < _this.notifications.length; i++) {
-                    if (_this.notifications[i].status == 'Bad') {
-                        j = j + 1;
-                    }
+        this.config.getNotification(type).subscribe(function (res) {
+            _this.notifications = res;
+            var j = 0;
+            for (var i = 0; i < _this.notifications.length; i++) {
+                if (_this.notifications[i].status == 'Bad') {
+                    j = j + 1;
                 }
-                if (j > 0) {
-                    $('#alertValue').text(j);
-                    $('#alertValue').show();
-                }
-                else {
-                    $('#alertValue').hide();
-                }
-            });
-        }, 1000);
+            }
+            if (j > 0) {
+                $('#alertValue').text(j);
+                $('#alertValue').show();
+            }
+            else {
+                $('#alertValue').hide();
+            }
+        });
     };
     DashboardComponent.prototype.customerList = function () {
         this.router.navigate(['customers']);

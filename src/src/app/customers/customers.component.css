@@ -29,6 +29,7 @@
 .tab-tile-table {
     background-color: #fff;
     padding: 30px;
+    padding-top: 15px;
 }
 th {
     color: #3b4147;
@@ -852,4 +853,11 @@ fieldset {
 }
 .form-control:focus{
   border-color: #ccc !important;
+}
+tr {
+  height: 41px;
+}
+td, th {
+  padding: 5px 12px 5px 12px;
+  vertical-align: middle;
 }
