@@ -373,7 +373,7 @@
                 </div>
             </div>
         </ng-template>
-        <table class="table table-striped">
+        <table style="margin-bottom: 6%;" class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Component Name</th>
@@ -738,7 +738,7 @@
                             <i id='editComponentBar1' class="bar"></i>
                         </div>
                         <div class="form-group">
-                            <select id="editComponentNameType" [(ngModel)]="editComponentNameType" name="editComponentNameType" (change)="onVersionChangeEdit(editComponentNameType)">
+                            <select id="editComponentNameType" name="editComponentNameType" (change)="onVersionChangeEdit()">
                                 <option class="modal_placeholder" value="Type*">Type*</option>
                                 <option *ngFor='let ver of version' [selected]="ver.name === componentRecords.type" [value]="ver.name">{{ver.name}}</option>
                             </select>
@@ -748,7 +748,7 @@
                         <div class="form-group">
                             <select name="editComponentVersion" id="editComponentVersion">
                                 <option class="modal_placeholder">Sub Type</option>
-                                <option value="{{subTypeEdit.name}}" *ngFor='let subTypeEdit of subTypesEdit'>{{subTypeEdit.name}}</option>
+                                <option *ngFor='let subTypeEdit of subTypesEdit' [selected]="subTypeEdit.name === componentRecords.version" [value]="subTypeEdit.name">{{subTypeEdit.name}}</option>
                             </select>
                             <i id="editComponentBar3" class="bar"></i>
                         </div>

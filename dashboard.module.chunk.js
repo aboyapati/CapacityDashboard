@@ -21,7 +21,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <div class=\"col-sm-12\" style=\"font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;\">\r\n    Dashboard\r\n  </div>\r\n</div>\r\n<div class=\"row\">\r\n  <div class=\"col-md-3 col-sm-6 block\">\r\n    <div class=\"card table-card\" style=\"border: unset; background-color: #8a89891f; min-height:121px;\" ngbTooltip=\"Inventory - End of Life / End of Sale\">\r\n      <div class=\"row-table\" style=\"padding-bottom: 3px;\">\r\n        <div class=\"col-md-12 card-block-big card-block-pd\" placement=\"top\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-5 blk1\">\r\n              <span class=\"round-block rb-1 img-circle pull-left\" style=\"float:right;background: #2dd2ef5e;\">\r\n                <span class=\"round-text\" style=\"font-size: 23px\"> 4 </span>\r\n              </span>\r\n            </div>\r\n            <div class=\"col-sm-7 blk2 dataReport\" style=\"text-align:right;padding-right:13%;\">\r\n              <div class=\"tile-head\" style=\"color: #00000073;\">\r\n                Inventory - EOL/EOS\r\n                <br />\r\n                <span class=\"tile-count\" style=\"font-size:30px;font-weight:normal;min-height:45px;\"></span>\r\n              </div>\r\n            </div>\r\n            <!-- <div class=\"col-md-12\" style=\"padding-right:13%;\">\r\n              <p class=\"tile-footer-p\" style=\"margin-top:7px;\">\r\n                <span style=\"color: green;\">\r\n                  <i class=\"fa fa-arrow-up\" style=\"font-size:15px;\"></i> 2</span> more than last month</p>\r\n            </div> -->\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"col-md-3 col-sm-6 block\">\r\n    <div class=\"card table-card\" style=\"min-height:121px;cursor:pointer;\" (click)=\"redirectReport()\">\r\n      <div class=\"row-table\" style=\"padding-bottom: 3px;\">\r\n        <div class=\"col-md-12 card-block-big card-block-pd\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-5 blk1\">\r\n              <span class=\"round-block rb-2 img-circle pull-left\" style=\"float:right;\">\r\n                <span class=\"round-text\" style=\"font-size: 23px\"> {{reportCount}} </span>\r\n              </span>\r\n            </div>\r\n            <div class=\"col-sm-7 blk2 dataReport\" style=\"text-align:right;padding-right:9%;\">\r\n              <div class=\"tile-head\">\r\n                Data Center Reports\r\n                <br />\r\n                <span class=\"tile-count\" style=\"font-size:30px;font-weight:normal;min-height:45px;\"></span>\r\n              </div>\r\n            </div>\r\n            <!-- <div class=\"col-md-12\" style=\"padding-right:13%;\">\r\n              <p class=\"tile-footer-p\" style=\"margin-top:7px;\">\r\n                <span style=\"color: green;\">\r\n                  <i class=\"fa fa-arrow-up\" style=\"font-size:15px;\"></i> 1</span> more than last month</p>\r\n            </div> -->\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"col-md-3 col-sm-6 block\">\r\n    <div class=\"card table-card\" style=\"min-height: 121px;\">\r\n      <div class=\"row-table\">\r\n        <div class=\"col-md-12 card-block-big card-block-pd\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-5 blk1\">\r\n              <span class=\"round-block rb-3 img-circle pull-left\" style=\"float:right;\">\r\n                <span class=\"round-text\" style=\"font-size: 23px\">\r\n                  <i class=\"fa fa-users\"></i>\r\n                </span>\r\n              </span>\r\n            </div>\r\n            <div class=\"col-sm-7 blk2\" style=\"text-align:right;padding-right:13%;\">\r\n              <div class=\"tile-head\">\r\n                Active Users\r\n                <br />\r\n                <span class=\"tile-count\" style=\"font-size:30px;font-weight:normal;\">{{usersCount}}</span>\r\n              </div>\r\n            </div>\r\n            <!-- <div class=\"col-md-12\" style=\"padding-right:13%;\">\r\n              <p class=\"tile-footer-p\" style=\"margin-top:7px;\">\r\n                <span style=\"color: red;\">\r\n                  <i class=\"fa fa-arrow-down\" style=\"font-size:15px;\"></i> 534</span> more than last month</p>\r\n            </div> -->\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"col-md-3 col-sm-6 block\">\r\n    <div class=\"card table-card\" style=\"cursor:pointer;min-height: 121px;\" (click)=\"customerList()\">\r\n      <div class=\"row-table\">\r\n        <div class=\"col-md-12 card-block-big card-block-pd\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-5 blk1\">\r\n              <span class=\"round-block rb-4 img-circle pull-left\" style=\"float:right;\">\r\n                <span class=\"round-text\" style=\"font-size: 23px\">\r\n                  <i class=\"fa fa-user-circle\"></i>\r\n                </span>\r\n              </span>\r\n            </div>\r\n            <div class=\"col-sm-7 blk2\" style=\"text-align:right;padding-right:13%;\">\r\n              <div class=\"tile-head\">\r\n                Customers\r\n                <br />\r\n                <span class=\"tile-count\" style=\"font-size:30px;font-weight:normal;\">{{customersCount}}</span>\r\n              </div>\r\n            </div>\r\n            <!-- <div class=\"col-md-12\" style=\"padding-right:13%;\">\r\n              <p class=\"tile-footer-p\" style=\"margin-top:7px;\">\r\n                <span style=\"color: green;\">\r\n                  <i class=\"fa fa-arrow-up\" style=\"font-size:15px;\"></i> 47</span> more than last month</p>\r\n            </div> -->\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"map_part1\" class=\"col-lg-7\">\r\n    <div class=\"card part1_div\" style=\"max-height:300px;\">\r\n      <div class=\"card-block\">\r\n        <app-world-map></app-world-map>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div id=\"map_part2\" class=\"col-lg-5\">\r\n    <div class=\"card\" style=\"height: 300px;overflow: auto;\">\r\n      <div class=\"card-block\">\r\n        <div class=\"\" style=\"opacity: 1;\">\r\n          <div class=\"\" style=\"\">\r\n            <div class=\"card-body table-border-style\">\r\n              <div class=\"table-responsive\" style=\"padding: 0px 10px 10px 10px !important;\">\r\n                <table class=\"table\">\r\n                  <thead>\r\n                    <tr>\r\n                      <th style=\"border-bottom: 0;border-top: 0;padding-bottom: 12px;padding-top: 15px;\">Call Metrics</th>\r\n                    </tr>\r\n                  </thead>\r\n                  <tbody *ngIf=\"datas != ''; else elseTbody\">\r\n                    <td>\r\n                      <span style=\"display: block;\">Data Center</span>\r\n                    </td>\r\n                    <td>\r\n                      <span style=\"display: block;\">Total Calls</span>\r\n                    </td>\r\n                    <td>\r\n                      <span style=\"display: block;\">Concurrent Calls</span>\r\n                    </td>\r\n                    <tr *ngFor=\"let data of datas\">\r\n                      <th style=\"vertical-align: middle;\" scope=\"row\">\r\n                        <span style=\"margin-left: 10px;color: #2cd2ef;font-size: 18px;\">{{data.name}}</span>\r\n                      </th>\r\n                      <td>\r\n                        <span style=\"color: #2cd2ef; font-size: 20px;\">{{data.total_calls}}</span>\r\n                      </td>\r\n                      <td>\r\n                        <span style=\"color: #2cd2ef; font-size: 20px;\">{{data.concurrent_calls}}</span>\r\n                      </td>\r\n                    </tr>\r\n                  </tbody>\r\n                  <ng-template #elseTbody>\r\n                    <tbody>\r\n                      <tr>\r\n                        <td style=\"text-align: center; padding-top:10%;\">No Details Found !</td>\r\n                      </tr>\r\n                    </tbody>\r\n                  </ng-template>\r\n                </table>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"alertDiv\" class=\"col-lg-12\">\r\n    <div class=\"card\">\r\n      <div class=\"card-block\">\r\n        <div class=\"table-responsive\" style=\"padding: 0px 10px 10px 10px !important;\">\r\n          <table style=\"width: 100%;\" class=\"table2\">\r\n            <thead>\r\n              <tr>\r\n                <th style=\"width: 150px;border-bottom: 0;\">Notifications</th>\r\n              </tr>\r\n              <tr>\r\n                <th style=\"width: 150px;border-top: 0;border-bottom:1px;\">Data Center</th>\r\n                <th style=\"width: 800px;border-top: 0;border-bottom:1px;\">Alert</th>\r\n                <th style=\"border-top: 0;border-bottom:1px;text-align:right;padding-right:4%;\">Time</th>\r\n              </tr>\r\n            </thead>\r\n            <tbody>\r\n              <tr *ngFor=\"let notification of notifications\">\r\n                <th scope=\"row\">\r\n                  <span class=\"notification{{notification.status}}\">{{notification.name}}</span>\r\n                </th>\r\n                <td>{{notification.alert}}</td>\r\n                <td style='text-align:right;padding-right:4%;'>{{notification.time}}</td>\r\n              </tr>\r\n            </tbody>\r\n          </table>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"row\">\r\n  <div class=\"col-sm-12\" style=\"font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;\">\r\n    Dashboard\r\n  </div>\r\n</div>\r\n<div class=\"row\">\r\n  <div class=\"col-md-3 col-sm-6 block\">\r\n    <div class=\"card table-card\" style=\"border: unset; background-color: #8a89891f; min-height:121px;\" ngbTooltip=\"Inventory - End of Life / End of Sale\">\r\n      <div class=\"row-table\" style=\"padding-bottom: 3px;\">\r\n        <div class=\"col-md-12 card-block-big card-block-pd\" placement=\"top\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-5 blk1\">\r\n              <span class=\"round-block rb-1 img-circle pull-left\" style=\"float:right;background: #2dd2ef5e;\">\r\n                <span class=\"round-text\" style=\"font-size: 23px\"> 4 </span>\r\n              </span>\r\n            </div>\r\n            <div class=\"col-sm-7 blk2 dataReport\" style=\"text-align:right;padding-right:13%;\">\r\n              <div class=\"tile-head\" style=\"color: #00000073;\">\r\n                Inventory - EOL/EOS\r\n                <br />\r\n                <span class=\"tile-count\" style=\"font-size:30px;font-weight:normal;min-height:45px;\"></span>\r\n              </div>\r\n            </div>\r\n            <!-- <div class=\"col-md-12\" style=\"padding-right:13%;\">\r\n              <p class=\"tile-footer-p\" style=\"margin-top:7px;\">\r\n                <span style=\"color: green;\">\r\n                  <i class=\"fa fa-arrow-up\" style=\"font-size:15px;\"></i> 2</span> more than last month</p>\r\n            </div> -->\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"col-md-3 col-sm-6 block\">\r\n    <div class=\"card table-card\" style=\"min-height:121px;cursor:pointer;\" (click)=\"redirectReport()\">\r\n      <div class=\"row-table\" style=\"padding-bottom: 3px;\">\r\n        <div class=\"col-md-12 card-block-big card-block-pd\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-5 blk1\">\r\n              <span class=\"round-block rb-2 img-circle pull-left\" style=\"float:right;\">\r\n                <span class=\"round-text\" style=\"font-size: 23px\"> {{reportCount}} </span>\r\n              </span>\r\n            </div>\r\n            <div class=\"col-sm-7 blk2 dataReport\" style=\"text-align:right;padding-right:9%;\">\r\n              <div class=\"tile-head\">\r\n                Data Center Reports\r\n                <br />\r\n                <span class=\"tile-count\" style=\"font-size:30px;font-weight:normal;min-height:45px;\"></span>\r\n              </div>\r\n            </div>\r\n            <!-- <div class=\"col-md-12\" style=\"padding-right:13%;\">\r\n              <p class=\"tile-footer-p\" style=\"margin-top:7px;\">\r\n                <span style=\"color: green;\">\r\n                  <i class=\"fa fa-arrow-up\" style=\"font-size:15px;\"></i> 1</span> more than last month</p>\r\n            </div> -->\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"col-md-3 col-sm-6 block\">\r\n    <div class=\"card table-card\" style=\"min-height: 121px;\">\r\n      <div class=\"row-table\">\r\n        <div class=\"col-md-12 card-block-big card-block-pd\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-5 blk1\">\r\n              <span class=\"round-block rb-3 img-circle pull-left\" style=\"float:right;\">\r\n                <span class=\"round-text\" style=\"font-size: 23px\">\r\n                  <i class=\"fa fa-users\"></i>\r\n                </span>\r\n              </span>\r\n            </div>\r\n            <div class=\"col-sm-7 blk2\" style=\"text-align:right;padding-right:13%;\">\r\n              <div class=\"tile-head\">\r\n                Active Users\r\n                <br />\r\n                <span class=\"tile-count\" style=\"font-size:30px;font-weight:normal;\">{{usersCount}}</span>\r\n              </div>\r\n            </div>\r\n            <!-- <div class=\"col-md-12\" style=\"padding-right:13%;\">\r\n              <p class=\"tile-footer-p\" style=\"margin-top:7px;\">\r\n                <span style=\"color: red;\">\r\n                  <i class=\"fa fa-arrow-down\" style=\"font-size:15px;\"></i> 534</span> more than last month</p>\r\n            </div> -->\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"col-md-3 col-sm-6 block\">\r\n    <div class=\"card table-card\" style=\"cursor:pointer;min-height: 121px;\" (click)=\"customerList()\">\r\n      <div class=\"row-table\">\r\n        <div class=\"col-md-12 card-block-big card-block-pd\">\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-5 blk1\">\r\n              <span class=\"round-block rb-4 img-circle pull-left\" style=\"float:right;\">\r\n                <span class=\"round-text\" style=\"font-size: 23px\">\r\n                  <i class=\"fa fa-user-circle\"></i>\r\n                </span>\r\n              </span>\r\n            </div>\r\n            <div class=\"col-sm-7 blk2\" style=\"text-align:right;padding-right:13%;\">\r\n              <div class=\"tile-head\">\r\n                Customers\r\n                <br />\r\n                <span class=\"tile-count\" style=\"font-size:30px;font-weight:normal;\">{{customersCount}}</span>\r\n              </div>\r\n            </div>\r\n            <!-- <div class=\"col-md-12\" style=\"padding-right:13%;\">\r\n              <p class=\"tile-footer-p\" style=\"margin-top:7px;\">\r\n                <span style=\"color: green;\">\r\n                  <i class=\"fa fa-arrow-up\" style=\"font-size:15px;\"></i> 47</span> more than last month</p>\r\n            </div> -->\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"map_part1\" class=\"col-lg-7\">\r\n    <div class=\"card part1_div\" style=\"max-height:300px;\">\r\n      <div class=\"card-block\">\r\n        <app-world-map></app-world-map>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div id=\"map_part2\" class=\"col-lg-5\">\r\n    <div class=\"card\" style=\"height: 300px;overflow: auto;\">\r\n      <div class=\"card-block\">\r\n        <div class=\"\" style=\"opacity: 1;\">\r\n          <div class=\"\" style=\"\">\r\n            <div class=\"card-body table-border-style\">\r\n              <div class=\"table-responsive\" style=\"padding: 0px 10px 10px 10px !important;\">\r\n                <table class=\"table\">\r\n                  <thead>\r\n                    <tr>\r\n                      <th style=\"border-bottom: 0;border-top: 0;padding-bottom: 12px;padding-top: 15px;\">Call Metrics</th>\r\n                    </tr>\r\n                  </thead>\r\n                  <tbody *ngIf=\"datas != ''; else elseTbody\">\r\n                    <td>\r\n                      <span style=\"display: block;\">Data Center</span>\r\n                    </td>\r\n                    <td>\r\n                      <span style=\"display: block;\">Total Calls</span>\r\n                    </td>\r\n                    <td>\r\n                      <span style=\"display: block;\">Concurrent Calls</span>\r\n                    </td>\r\n                    <tr *ngIf=\"callMetricsLoading\">\r\n                      <td></td>\r\n                      <td>\r\n                        <img src=\"assets/images/loading.gif\">\r\n                      </td>\r\n                      <td></td>\r\n                    </tr>\r\n                    <tr *ngFor=\"let data of datas\">\r\n                      <th style=\"vertical-align: middle;\" scope=\"row\">\r\n                        <span style=\"margin-left: 10px;color: #2cd2ef;font-size: 18px;\">{{data.name}}</span>\r\n                      </th>\r\n                      <td>\r\n                        <span style=\"color: #2cd2ef; font-size: 20px;\">{{data.total_calls}}</span>\r\n                      </td>\r\n                      <td>\r\n                        <span style=\"color: #2cd2ef; font-size: 20px;\">{{data.concurrent_calls}}</span>\r\n                      </td>\r\n                    </tr>\r\n                  </tbody>\r\n                  <ng-template #elseTbody>\r\n                    <tbody>\r\n                      <tr>\r\n                        <td style=\"text-align: center; padding-top:10%;\">No Details Found !</td>\r\n                      </tr>\r\n                    </tbody>\r\n                  </ng-template>\r\n                </table>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div id=\"alertDiv\" class=\"col-lg-12\">\r\n    <div class=\"card\">\r\n      <div class=\"card-block\">\r\n        <div class=\"table-responsive\" style=\"padding: 0px 10px 10px 10px !important;\">\r\n          <table style=\"width: 100%;\" class=\"table2\">\r\n            <thead>\r\n              <tr>\r\n                <th style=\"width: 150px;border-bottom: 0;\">Notifications</th>\r\n              </tr>\r\n              <tr>\r\n                <th style=\"width: 150px;border-top: 0;border-bottom:1px;\">Data Center</th>\r\n                <th style=\"width: 800px;border-top: 0;border-bottom:1px;\">Alert</th>\r\n                <th style=\"border-top: 0;border-bottom:1px;text-align:right;padding-right:4%;\">Time</th>\r\n              </tr>\r\n            </thead>\r\n            <tbody>\r\n              <tr *ngIf=\"notificationsLoading\">\r\n                <td></td>\r\n                <td style=\"text-align: center;\">\r\n                  <img src=\"assets/images/loading.gif\">\r\n                </td>\r\n                <td></td>\r\n              </tr>\r\n              <tr *ngFor=\"let notification of notifications\">\r\n                <th scope=\"row\">\r\n                  <span class=\"notification{{notification.status}}\">{{notification.name}}</span>\r\n                </th>\r\n                <td>{{notification.alert}}</td>\r\n                <td style='text-align:right;padding-right:4%;'>{{notification.time}}</td>\r\n              </tr>\r\n            </tbody>\r\n          </table>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -55,6 +55,8 @@ var DashboardComponent = (function () {
         this.callMatricsFilter = false;
         this.notificationFilter = false;
         this.notificationFilterType = 'Today';
+        this.callMetricsLoading = true;
+        this.notificationsLoading = true;
         sessionStorage.setItem('previousUrl', this.router.url);
     }
     DashboardComponent.prototype.ngOnInit = function () {
@@ -65,6 +67,7 @@ var DashboardComponent = (function () {
         this.config.getDashboardData()
             .subscribe(function (res) {
             _this.datas = res;
+            _this.callMetricsLoading = false;
         });
         this.getNotificationWithFilter(this.notificationFilterType);
         this.config.getDashboardTileDatas().subscribe(function (res) {
@@ -123,6 +126,7 @@ var DashboardComponent = (function () {
         $('#notificationDropDown').hide();
         this.config.getNotification(type).subscribe(function (res) {
             _this.notifications = res;
+            _this.notificationsLoading = false;
             var j = 0;
             for (var i = 0; i < _this.notifications.length; i++) {
                 if (_this.notifications[i].status == 'Bad') {
@@ -247,7 +251,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/world-map/world-map.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"chartdiv\"></div>"
+module.exports = "<div id=\"chartdiv\">\r\n    <div style=\"text-align: center;margin-top: 14%;\">\r\n        <img src=\"assets/images/loading.gif\">\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -283,142 +287,140 @@ var WorldMapComponent = (function () {
     };
     WorldMapComponent.prototype.ngOnInit = function () {
         var _this = this;
-        setTimeout(function () {
-            _this.config.getMap().subscribe(function (res) {
-                if (res.length > 0) {
-                    var details = res;
-                    var mapData = [];
-                    for (var data in details) {
-                        var dc_id = details[data].id;
-                        var latitude = details[data].latitude;
-                        var longitude = details[data].longitude;
-                        var name = details[data].city + ', ' + details[data].state + ', ' + details[data].country;
-                        if (details[data].status == 'Good') {
-                            var color = 'green';
-                        }
-                        else if (details[data].status == 'Bad') {
-                            var color = 'red';
-                        }
-                        else {
-                            var color = '#f1c40f';
-                        }
-                        var unit = {
-                            id: dc_id,
-                            name: name,
-                            value: 34349561,
-                            color: color,
-                            latitude: latitude,
-                            longitude: longitude
-                        };
-                        mapData.push(unit);
+        this.config.getMap().subscribe(function (res) {
+            if (res.length > 0) {
+                var details = res;
+                var mapData = [];
+                for (var data in details) {
+                    var dc_id = details[data].id;
+                    var latitude = details[data].latitude;
+                    var longitude = details[data].longitude;
+                    var name = details[data].city + ', ' + details[data].state + ', ' + details[data].country;
+                    if (details[data].status == 'Good') {
+                        var color = 'green';
                     }
-                    // get min and max values
-                    var minBulletSize = 3;
-                    var maxBulletSize = 70;
-                    var min = Infinity;
-                    var max = -Infinity;
-                    for (var i = 0; i < mapData.length; i++) {
-                        var value = mapData[i].value;
-                        if (value < min) {
-                            min = value;
-                        }
-                        if (value > max) {
-                            max = value;
-                        }
+                    else if (details[data].status == 'Bad') {
+                        var color = 'red';
                     }
-                    // it's better to use circle square to show difference between values, not a radius
-                    var maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI;
-                    var minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
-                    // create circle for each country
-                    var images = [];
-                    for (var i = 0; i < mapData.length; i++) {
-                        var dataItem = mapData[i];
-                        var value = dataItem.value;
-                        // calculate size of a bubble
-                        var square = (value - min) / (max - min) * (maxSquare - minSquare) + minSquare;
-                        if (square < minSquare) {
-                            square = minSquare;
-                        }
-                        var size = Math.sqrt(square / (Math.PI * 2));
-                        var id = dataItem.code;
-                        var pinIcon = "M16 0c-5.523 0-10 4.477-10 10 0 10 10 22 10 22s10-12 10-22c0-5.523-4.477-10-10-10zM16 16.125c-3.383 0-6.125-2.742-6.125-6.125s2.742-6.125 6.125-6.125 6.125 2.742 6.125 6.125-2.742 6.125-6.125 6.125zM12.125 10c0-2.14 1.735-3.875 3.875-3.875s3.875 1.735 3.875 3.875c0 2.14-1.735 3.875-3.875 3.875s-3.875-1.735-3.875-3.875z";
-                        images.push({
-                            "svgPath": pinIcon,
-                            "theme": "light",
-                            "scale": 0.5,
-                            "width": 10,
-                            "height": 10,
-                            "color": dataItem.color,
-                            "longitude": dataItem.longitude,
-                            "latitude": dataItem.latitude,
-                            "title": dataItem.name,
-                            "value": value,
-                            "id": dataItem.id,
-                            "zoomLevel": 1,
-                            "dcUrl": "#/data/datacenter/" + dataItem.id
-                        });
+                    else {
+                        var color = '#f1c40f';
+                    }
+                    var unit = {
+                        id: dc_id,
+                        name: name,
+                        value: 34349561,
+                        color: color,
+                        latitude: latitude,
+                        longitude: longitude
+                    };
+                    mapData.push(unit);
+                }
+                // get min and max values
+                var minBulletSize = 3;
+                var maxBulletSize = 70;
+                var min = Infinity;
+                var max = -Infinity;
+                for (var i = 0; i < mapData.length; i++) {
+                    var value = mapData[i].value;
+                    if (value < min) {
+                        min = value;
+                    }
+                    if (value > max) {
+                        max = value;
                     }
                 }
-                else {
-                    var images = [];
+                // it's better to use circle square to show difference between values, not a radius
+                var maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI;
+                var minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
+                // create circle for each country
+                var images = [];
+                for (var i = 0; i < mapData.length; i++) {
+                    var dataItem = mapData[i];
+                    var value = dataItem.value;
+                    // calculate size of a bubble
+                    var square = (value - min) / (max - min) * (maxSquare - minSquare) + minSquare;
+                    if (square < minSquare) {
+                        square = minSquare;
+                    }
+                    var size = Math.sqrt(square / (Math.PI * 2));
+                    var id = dataItem.code;
+                    var pinIcon = "M16 0c-5.523 0-10 4.477-10 10 0 10 10 22 10 22s10-12 10-22c0-5.523-4.477-10-10-10zM16 16.125c-3.383 0-6.125-2.742-6.125-6.125s2.742-6.125 6.125-6.125 6.125 2.742 6.125 6.125-2.742 6.125-6.125 6.125zM12.125 10c0-2.14 1.735-3.875 3.875-3.875s3.875 1.735 3.875 3.875c0 2.14-1.735 3.875-3.875 3.875s-3.875-1.735-3.875-3.875z";
                     images.push({
-                        "svgPath": '',
+                        "svgPath": pinIcon,
                         "theme": "light",
+                        "scale": 0.5,
                         "width": 10,
                         "height": 10,
-                        "color": '',
-                        "longitude": '',
-                        "latitude": '',
-                        "title": '',
-                        "value": '',
-                        "id": '',
+                        "color": dataItem.color,
+                        "longitude": dataItem.longitude,
+                        "latitude": dataItem.latitude,
+                        "title": dataItem.name,
+                        "value": value,
+                        "id": dataItem.id,
                         "zoomLevel": 1,
-                        "dcUrl": ""
+                        "dcUrl": "#/data/datacenter/" + dataItem.id
                     });
                 }
-                // build map
-                _this.map = _this.AmCharts.makeChart("chartdiv", {
-                    "type": "map",
-                    "addClassNames": true,
-                    "projection": "",
-                    "hideCredits": true,
-                    "titles": [{
-                            "text": "",
-                            "id": "main",
-                            "size": 14,
-                            "bold": true
-                        }, {
-                            "text": "",
-                            "size": 11
-                        }],
-                    "areasSettings": {},
-                    "dataProvider": {
-                        "map": "worldLow",
-                        "images": images
-                    },
-                    "export": {
-                        "enabled": true
-                    },
-                    "balloon": {
-                        "adjustBorderColor": true,
-                        "color": "#33B86C",
-                        "cornerRadius": 5,
-                        "fillColor": "#FFFFFF",
-                        "fontSize": 10,
-                        "fontWeight": "bold"
-                    },
-                    "listeners": [{
-                            "event": "clickMapObject",
-                            "method": function (event) {
-                                window.location.href = event.mapObject.dcUrl;
-                            }
-                        }]
+            }
+            else {
+                var images = [];
+                images.push({
+                    "svgPath": '',
+                    "theme": "light",
+                    "width": 10,
+                    "height": 10,
+                    "color": '',
+                    "longitude": '',
+                    "latitude": '',
+                    "title": '',
+                    "value": '',
+                    "id": '',
+                    "zoomLevel": 1,
+                    "dcUrl": ""
                 });
-                _this.map.addListener("drawn", function () {
-                    $(".amcharts-title-main").css("font-family", "Open Sans");
-                });
+            }
+            // build map
+            _this.map = _this.AmCharts.makeChart("chartdiv", {
+                "type": "map",
+                "addClassNames": true,
+                "projection": "",
+                "hideCredits": true,
+                "titles": [{
+                        "text": "",
+                        "id": "main",
+                        "size": 14,
+                        "bold": true
+                    }, {
+                        "text": "",
+                        "size": 11
+                    }],
+                "areasSettings": {},
+                "dataProvider": {
+                    "map": "worldLow",
+                    "images": images
+                },
+                "export": {
+                    "enabled": true
+                },
+                "balloon": {
+                    "adjustBorderColor": true,
+                    "color": "#33B86C",
+                    "cornerRadius": 5,
+                    "fillColor": "#FFFFFF",
+                    "fontSize": 10,
+                    "fontWeight": "bold"
+                },
+                "listeners": [{
+                        "event": "clickMapObject",
+                        "method": function (event) {
+                            window.location.href = event.mapObject.dcUrl;
+                        }
+                    }]
             });
-        }, 100);
+            _this.map.addListener("drawn", function () {
+                $(".amcharts-title-main").css("font-family", "Open Sans");
+            });
+        });
     };
     return WorldMapComponent;
 }());

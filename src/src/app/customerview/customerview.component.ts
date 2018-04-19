@@ -44,6 +44,7 @@ export class CustomerviewComponent implements OnInit {
   selectedDcViewId: number = 0;
   selectedDcSubViewId: number = -1;
   customerName: string;
+  selectedVcenterGraphFilter: number;
 
   constructor(private route: ActivatedRoute, private config: ConfigService, private router: Router) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -116,6 +117,8 @@ export class CustomerviewComponent implements OnInit {
 
     this.resetSlider();
 
+    this.compTabItems = [{ "id": 1, "name": "NEXUS" }, { "id": 2, "name": "VCENTER" }, { "id": 3, "name": "SBC" }, { "id": 4, "name": "ASA" }];
+
     if (clickType == 'scroll') {
       if (scrollIndex < this.scrollLimit) {
         this.scrollLimitMin = 0;
@@ -126,8 +129,7 @@ export class CustomerviewComponent implements OnInit {
       }
     }
 
-    this.compTabItems = [{ "id": 1, "name": "NEXUS" }, { "id": 2, "name": "VCENTER" }, { "id": 3, "name": "SBC" }, { "id": 4, "name": "ASA" }];
-
+    this.compNotFound = false;
     this.config.getComponetCusView(id).subscribe(res => {
       this.ComponentItems = res;
       this.hideEmptyCompTab();
@@ -207,6 +209,7 @@ export class CustomerviewComponent implements OnInit {
     this.selectedComp = id;
     setTimeout(() => {
       if (this.selectedSubCompTypeId != '' && this.selectedSubCompName != '') {
+        this.selectedVcenterGraphFilter = 12;
         this.config.getCustomerContentCusView(this.selectedSubCompTypeId, this.selectedSubCompName).subscribe(res => {
           this.customerContent = res;
           if (typeof this.customerContent.content == 'undefined') {
@@ -258,7 +261,12 @@ export class CustomerviewComponent implements OnInit {
     });
   }
 
-  subCompTabClick(type_id, name) {
+  subCompTabClick() {
+    var myString = $('#selectedSubComp').val();
+    var arr = myString.split('|');
+    var type_id = arr[0];
+    var name = arr[1];
+    this.selectedVcenterGraphFilter = 12;
     this.config.getCustomerContentCusView(type_id, name).subscribe(res => {
       this.customerContent = res;
       if (typeof this.customerContent.content == 'undefined') {
@@ -288,6 +296,7 @@ export class CustomerviewComponent implements OnInit {
     $.each(this.ComponentItems, function (key, value) {
       if (value['type'] == 'NEXUS') {
         if (value['components'].length == 0) {
+          alert("jdsbf");
           $("#compTab1").hide();
         } else {
           $("#compTab1").show();
@@ -491,15 +500,15 @@ export class CustomerviewComponent implements OnInit {
   }
 
   vcenterGraphContent() {
-    this.config.getVcenterGraphContent(this.selectedComp, 'VCENTER', this.selectedSubCompTypeId).subscribe(res => {
+    this.config.getVcenterGraphContent(this.selectedComp, 'VCENTER', this.selectedSubCompTypeId, this.selectedVcenterGraphFilter).subscribe(res => {
       if (res.length > 0) {
         var date = [];
         var cpu_percent = [];
         var mem_percent = [];
         res.forEach(function (element) {
           date.push(element.date);
-          cpu_percent.push(element.cpu_percent);
-          mem_percent.push(element.memory_percent);
+          cpu_percent.push(parseInt(element.cpu_percent));
+          mem_percent.push(parseInt(element.memory_percent));
         });
 
         const options: Highcharts.Options = {
@@ -585,6 +594,11 @@ export class CustomerviewComponent implements OnInit {
       nextClick = this.currentCompItems.length - 1;
     }
     this.ComponentClick(this.currentCompItems[nextClick].id, this.currentCompItems[nextClick].type, nextClick);
+  }
+
+  changeVcenterGraphContent() {
+    this.selectedVcenterGraphFilter = $('#selectHighchartVcenterGraph').val();
+    this.vcenterGraphContent();
   }
 
 }

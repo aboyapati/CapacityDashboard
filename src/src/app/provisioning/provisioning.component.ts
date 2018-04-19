@@ -275,7 +275,7 @@ export class ProvisioningComponent implements OnInit {
           this.modalClassName = 'custom_modal';
         }
 
-        if(type == 'view' || type == 'edit') {
+        if (type == 'view' || type == 'edit') {
           this.modalService.open(content, { windowClass: this.modalClassName, backdrop: 'static' }).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
           }, (reason) => {
@@ -1436,7 +1436,8 @@ export class ProvisioningComponent implements OnInit {
     }
   }
 
-  onVersionChangeEdit(name) {
+  onVersionChangeEdit() {
+    let name = $('#editComponentNameType').val();
     if (name == 'Type*') {
       this.editComponentVersion = "Sub Type";
       $("#editComponentVersion").prop("disabled", true);
@@ -1478,7 +1479,7 @@ export class ProvisioningComponent implements OnInit {
         $('.apiSuccess').hide();
         $('.apiFailed').show();
       }
-      if (componentFlag = true) {
+      if (componentFlag == true) {
         this.dataCentersDetails.splice(this.newDeleteDataIndex, 1);
       }
     });

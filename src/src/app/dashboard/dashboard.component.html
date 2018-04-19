@@ -150,6 +150,13 @@
                     <td>
                       <span style="display: block;">Concurrent Calls</span>
                     </td>
+                    <tr *ngIf="callMetricsLoading">
+                      <td></td>
+                      <td>
+                        <img src="assets/images/loading.gif">
+                      </td>
+                      <td></td>
+                    </tr>
                     <tr *ngFor="let data of datas">
                       <th style="vertical-align: middle;" scope="row">
                         <span style="margin-left: 10px;color: #2cd2ef;font-size: 18px;">{{data.name}}</span>
@@ -194,6 +201,13 @@
               </tr>
             </thead>
             <tbody>
+              <tr *ngIf="notificationsLoading">
+                <td></td>
+                <td style="text-align: center;">
+                  <img src="assets/images/loading.gif">
+                </td>
+                <td></td>
+              </tr>
               <tr *ngFor="let notification of notifications">
                 <th scope="row">
                   <span class="notification{{notification.status}}">{{notification.name}}</span>

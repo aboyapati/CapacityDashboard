@@ -1237,13 +1237,13 @@ var ConfigService = (function () {
         var body = 'typeId=' + typeId + '&subComponentName=' + subComponentName;
         return this.http.post(this.getCustomerCuntentUrl, body, options).map(function (res) { return res.json(); });
     };
-    ConfigService.prototype.getVcenterGraphContent = function (compId, type, typeId) {
+    ConfigService.prototype.getVcenterGraphContent = function (compId, type, typeId, duration) {
         if (sessionStorage.getVcenterGraphContentUrl) {
             this.getVcenterGraphContentUrl = sessionStorage.getVcenterGraphContentUrl;
         }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        var body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId;
+        var body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId + '&duration=' + duration;
         return this.http.post(this.getVcenterGraphContentUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getDashboardTileDatas = function () {

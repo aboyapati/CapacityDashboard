@@ -412,13 +412,13 @@ export class ConfigService {
     return this.http.post(this.getCustomerCuntentUrl, body, options).map((res: Response) => res.json());
   }
 
-  getVcenterGraphContent(compId, type, typeId) {
+  getVcenterGraphContent(compId, type, typeId, duration) {
     if (sessionStorage.getVcenterGraphContentUrl) {
       this.getVcenterGraphContentUrl = sessionStorage.getVcenterGraphContentUrl;
     }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId;
+    let body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId + '&duration=' + duration;
     return this.http.post(this.getVcenterGraphContentUrl, body, options).map((res: Response) => res.json());
   }
 

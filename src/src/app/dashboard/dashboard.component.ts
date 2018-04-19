@@ -21,6 +21,8 @@ export class DashboardComponent implements OnInit {
   reportCount: number;
   usersCount: number;
   customersCount: number;
+  callMetricsLoading: boolean = true;
+  notificationsLoading: boolean = true;
 
   constructor(private config: ConfigService, private router: Router) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -35,6 +37,7 @@ export class DashboardComponent implements OnInit {
     this.config.getDashboardData()
       .subscribe(res => {
         this.datas = res;
+        this.callMetricsLoading = false;
       });
 
     this.getNotificationWithFilter(this.notificationFilterType);
@@ -98,6 +101,7 @@ export class DashboardComponent implements OnInit {
     $('#notificationDropDown').hide();
     this.config.getNotification(type).subscribe(res => {
       this.notifications = res;
+      this.notificationsLoading = false;
       let j = 0;
       for (let i = 0; i < this.notifications.length; i++) {
         if (this.notifications[i].status == 'Bad') {
