@@ -402,23 +402,23 @@ export class ConfigService {
     window.open(this.getDownloadReportUrl + '?compId=' + compId + '&reportId=' + reportId + '&fromDate=' + fromDate + '&toDate=' + toDate + '&name=' + name, "_blank");
   }
 
-  getCustomerContentCusView(typeId, subComponentName) {
+  getCustomerContentCusView(typeId, subComponentName, CustomerID) {
     if (sessionStorage.getCustomerCuntentUrl) {
       this.getCustomerCuntentUrl = sessionStorage.getCustomerCuntentUrl;
     }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'typeId=' + typeId + '&subComponentName=' + subComponentName;
+    let body = 'typeId=' + typeId + '&subComponentName=' + subComponentName + '&CustomerID=' + CustomerID;
     return this.http.post(this.getCustomerCuntentUrl, body, options).map((res: Response) => res.json());
   }
 
-  getVcenterGraphContent(compId, type, typeId, duration) {
+  getVcenterGraphContent(compId, type, typeId, duration, CustomerID, subComponentName) {
     if (sessionStorage.getVcenterGraphContentUrl) {
       this.getVcenterGraphContentUrl = sessionStorage.getVcenterGraphContentUrl;
     }
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
-    let body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId + '&duration=' + duration;
+    let body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId + '&duration=' + duration + '&CustomerID=' + CustomerID + '&subComponentName=' + subComponentName;
     return this.http.post(this.getVcenterGraphContentUrl, body, options).map((res: Response) => res.json());
   }
 

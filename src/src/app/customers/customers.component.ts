@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener, Input } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigService } from '../config.service';
 import { Router } from '@angular/router';
@@ -15,6 +15,19 @@ export class CustomersComponent implements OnInit {
   tempcustomerList: any;
   customerSearchList: any;
   emptySearchCustomerFlag: boolean = false;
+
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if (event.target.className == 'rsddropdown-span') {
+      sessionStorage.setItem('lastSelectedDropDownId', event.target.nextElementSibling.attributes.id.nodeValue);
+    } else {
+      $('#' + sessionStorage.lastSelectedDropDownId).hide();
+      if (sessionStorage.selectedComponentActionButtonIdCustomerPage != '') {
+        this.editCustomerClick(sessionStorage.selectedComponentActionButtonIdCustomerPage);
+        sessionStorage.setItem('selectedComponentActionButtonIdCustomerPage', '');
+      }
+    }
+  }
 
   constructor(private modalService: NgbModal, private config: ConfigService, private router: Router) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -68,6 +81,7 @@ export class CustomersComponent implements OnInit {
   }
 
   editCustomerClick(i) {
+    sessionStorage.setItem('selectedComponentActionButtonIdCustomerPage', i);
     for (let j = 0; j < this.customerList.length; j++) {
       if (j == i) {
         if ($('#cust_filter').val() - 1 == i) {

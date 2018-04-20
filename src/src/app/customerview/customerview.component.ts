@@ -205,32 +205,32 @@ export class CustomerviewComponent implements OnInit {
         $("#subCompDetails").hide();
         $("#subCompTab").hide();
       }
-    });
-    this.selectedComp = id;
-    setTimeout(() => {
-      if (this.selectedSubCompTypeId != '' && this.selectedSubCompName != '') {
-        this.selectedVcenterGraphFilter = 12;
-        this.config.getCustomerContentCusView(this.selectedSubCompTypeId, this.selectedSubCompName).subscribe(res => {
-          this.customerContent = res;
-          if (typeof this.customerContent.content == 'undefined') {
-            $("#contentErrorDiv").show();
-            $("#contentDiv").hide();
-          } else {
-            if (this.customerContent.content == '') {
+      this.selectedComp = id;
+      setTimeout(() => {
+        if (this.selectedSubCompTypeId != '' && this.selectedSubCompName != '') {
+          this.selectedVcenterGraphFilter = 12;
+          this.config.getCustomerContentCusView(this.selectedSubCompTypeId, this.selectedSubCompName, this.userId).subscribe(res => {
+            this.customerContent = res;
+            if (typeof this.customerContent.content == 'undefined') {
               $("#contentErrorDiv").show();
               $("#contentDiv").hide();
             } else {
-              $("#contentErrorDiv").hide();
-              $("#contentDiv").show();
+              if (this.customerContent.content == '') {
+                $("#contentErrorDiv").show();
+                $("#contentDiv").hide();
+              } else {
+                $("#contentErrorDiv").hide();
+                $("#contentDiv").show();
+              }
             }
-          }
-        });
+          });
 
-        if (this.selectedCompTab == 2) {
-          this.vcenterGraphContent();
+          if (this.selectedCompTab == 2) {
+            this.vcenterGraphContent();
+          }
         }
-      }
-    }, 100);
+      }, 100);
+    });
     this.selectedDcSubViewId = scrollIndex;
   }
 
@@ -267,7 +267,7 @@ export class CustomerviewComponent implements OnInit {
     var type_id = arr[0];
     var name = arr[1];
     this.selectedVcenterGraphFilter = 12;
-    this.config.getCustomerContentCusView(type_id, name).subscribe(res => {
+    this.config.getCustomerContentCusView(type_id, name, this.userId).subscribe(res => {
       this.customerContent = res;
       if (typeof this.customerContent.content == 'undefined') {
         $("#contentErrorDiv").show();
@@ -500,7 +500,7 @@ export class CustomerviewComponent implements OnInit {
   }
 
   vcenterGraphContent() {
-    this.config.getVcenterGraphContent(this.selectedComp, 'VCENTER', this.selectedSubCompTypeId, this.selectedVcenterGraphFilter).subscribe(res => {
+    this.config.getVcenterGraphContent(this.selectedComp, 'VCENTER', this.selectedSubCompTypeId, this.selectedVcenterGraphFilter, this.userId, this.selectedSubCompName).subscribe(res => {
       if (res.length > 0) {
         var date = [];
         var cpu_percent = [];

@@ -1228,22 +1228,22 @@ var ConfigService = (function () {
         }
         window.open(this.getDownloadReportUrl + '?compId=' + compId + '&reportId=' + reportId + '&fromDate=' + fromDate + '&toDate=' + toDate + '&name=' + name, "_blank");
     };
-    ConfigService.prototype.getCustomerContentCusView = function (typeId, subComponentName) {
+    ConfigService.prototype.getCustomerContentCusView = function (typeId, subComponentName, CustomerID) {
         if (sessionStorage.getCustomerCuntentUrl) {
             this.getCustomerCuntentUrl = sessionStorage.getCustomerCuntentUrl;
         }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        var body = 'typeId=' + typeId + '&subComponentName=' + subComponentName;
+        var body = 'typeId=' + typeId + '&subComponentName=' + subComponentName + '&CustomerID=' + CustomerID;
         return this.http.post(this.getCustomerCuntentUrl, body, options).map(function (res) { return res.json(); });
     };
-    ConfigService.prototype.getVcenterGraphContent = function (compId, type, typeId, duration) {
+    ConfigService.prototype.getVcenterGraphContent = function (compId, type, typeId, duration, CustomerID, subComponentName) {
         if (sessionStorage.getVcenterGraphContentUrl) {
             this.getVcenterGraphContentUrl = sessionStorage.getVcenterGraphContentUrl;
         }
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        var body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId + '&duration=' + duration;
+        var body = 'compId=' + compId + '&type=' + type + '&typeId=' + typeId + '&duration=' + duration + '&CustomerID=' + CustomerID + '&subComponentName=' + subComponentName;
         return this.http.post(this.getVcenterGraphContentUrl, body, options).map(function (res) { return res.json(); });
     };
     ConfigService.prototype.getDashboardTileDatas = function () {

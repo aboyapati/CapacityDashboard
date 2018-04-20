@@ -57,6 +57,18 @@ var CustomersComponent = (function () {
         this.emptySearchCustomerFlag = false;
         sessionStorage.setItem('previousUrl', this.router.url);
     }
+    CustomersComponent.prototype.clickout = function (event) {
+        if (event.target.className == 'rsddropdown-span') {
+            sessionStorage.setItem('lastSelectedDropDownId', event.target.nextElementSibling.attributes.id.nodeValue);
+        }
+        else {
+            $('#' + sessionStorage.lastSelectedDropDownId).hide();
+            if (sessionStorage.selectedComponentActionButtonIdCustomerPage != '') {
+                this.editCustomerClick(sessionStorage.selectedComponentActionButtonIdCustomerPage);
+                sessionStorage.setItem('selectedComponentActionButtonIdCustomerPage', '');
+            }
+        }
+    };
     CustomersComponent.prototype.ngOnInit = function () {
         if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
             this.router.navigate(['login']);
@@ -101,6 +113,7 @@ var CustomersComponent = (function () {
         }
     };
     CustomersComponent.prototype.editCustomerClick = function (i) {
+        sessionStorage.setItem('selectedComponentActionButtonIdCustomerPage', i);
         for (var j = 0; j < this.customerList.length; j++) {
             if (j == i) {
                 if ($('#cust_filter').val() - 1 == i) {
@@ -122,6 +135,12 @@ var CustomersComponent = (function () {
     };
     return CustomersComponent;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["HostListener"])('document:click', ['$event']),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], CustomersComponent.prototype, "clickout", null);
 CustomersComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-customers',

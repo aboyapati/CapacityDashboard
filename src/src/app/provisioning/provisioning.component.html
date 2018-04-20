@@ -74,7 +74,7 @@
                                 <!-- <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box"> -->
                                 <div class="col-sm-12 col-md-12 col-lg-12  form-box">
                                     <form class="f1" (submit)="addComponent()">
-                                        <div class="form-modal">
+                                        <div class="form-modal add_title">
                                             <div class="header_title" style="text-align: center;">Add new component</div>
                                         </div>
                                         <div class="f1-steps" style="text-align: center;">
@@ -86,25 +86,25 @@
                                                 <div class="f1-step-icon" (click)="tabClick($event, 1)">
                                                     <i class="fa fa-check"></i>
                                                 </div>
-                                                <p>Name</p>
+                                                <p class="add_sub_title">Name</p>
                                             </div>
                                             <div class="f1-step next" id="f1-step_2">
                                                 <div class="f1-step-icon" (click)="tabClick($event, 2)">
                                                     <i class="fa fa-check"></i>
                                                 </div>
-                                                <p>Component Type</p>
+                                                <p class="add_sub_title">Component Type</p>
                                             </div>
                                             <div class="f1-step">
                                                 <div class="f1-step-icon" (click)="tabClick($event, 3)">
                                                     <i class="fa fa-check"></i>
                                                 </div>
-                                                <p>Configuration</p>
+                                                <p class="add_sub_title">Configuration</p>
                                             </div>
                                             <div class="f1-step" id="complete">
                                                 <div id="complete-step" class="f1-step-icon">
                                                     <i id="complete-icon" class="fa fa-check"></i>
                                                 </div>
-                                                <p id="complete-title">Complete</p>
+                                                <p class="add_sub_title" id="complete-title">Complete</p>
                                             </div>
                                         </div>
 
@@ -275,7 +275,7 @@
                                                 </table>
                                             </div>
                                             <div class="row">
-                                                <div class="offset-md-2 col-md-8 outer_step2">
+                                                <div class="offset-md-1 col-md-10 outer_step2">
                                                     <div class="col-md-12 form-modal btn_step2">
                                                         <div class="row">
                                                             <div class="col-md-4 pull-left modal-buttons">
@@ -320,7 +320,7 @@
                                                         <i class="bar"></i>
                                                     </div>
                                                 </div>
-                                                <div class="offset-md-2 col-md-8 outer_step2">
+                                                <div class="offset-md-1 col-md-10 outer_step2">
                                                     <div class="col-md-12 form-modal btn_step2">
                                                         <div class="row">
                                                             <div class="col-md-4 pull-left modal-buttons">
@@ -345,7 +345,7 @@
                                             <h3 class="modal-text-h3" style="color: red; padding-bottom: 10px;" *ngIf="!apiError">Something went wrong !</h3>
                                             <p id="apiErrorMsg" style="color: red; text-align: center; padding-bottom: 65px; display: none;"></p>
                                             <div class="row">
-                                                <div class="offset-md-2 col-md-8">
+                                                <div class="offset-md-1 col-md-10">
                                                     <div class="col-md-12 form-modal btn_step4">
                                                         <div class="row">
                                                             <div class="col-md-6 pull-left modal-buttons" *ngIf="!apiError">
@@ -362,7 +362,6 @@
                                                 </div>
                                             </div>
                                         </fieldset>
-
                                     </form>
                                 </div>
                             </div>

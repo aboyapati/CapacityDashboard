@@ -222,6 +222,34 @@ td {
     padding-bottom: 5px;
   }
 }
+@media only screen and (max-width : 450px) {
+  .f1 {
+  	padding-left:0px;
+	padding-right:0px;
+  }
+  .add_title {
+  	padding-left:0px;
+	padding-right:0px;
+  }
+}
+
+@media only screen and (max-width : 380px) {
+  .add_sub_title {
+  	font-size:12px;
+  }
+}
+
+@media only screen and (max-width : 350px) {
+  .add_sub_title {
+  	font-size:11px;
+  }
+}
+
+@media only screen and (max-width : 328px) {
+  .add_sub_title {
+  	font-size:10.5px;
+  }
+}
 
 /* Modal popup Add Component */
 .header_title {
@@ -377,7 +405,7 @@ h1 small {
 }
 
 fieldset {
-  margin: 0 0 3rem;
+  margin: 0 0 0rem;
   padding: 0;
   border: none;
 }
@@ -783,28 +811,26 @@ fieldset {
   display:none;
 }
 
+.btn_step1 {
+	padding-left:0px;
+	padding-right:0px;
+}
+
 .btn_step2 {
-	padding-right: 15px !important;
-	padding-left: 10px !important;
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.btn_step4 {
+	padding-left:0px;
+	padding-right:0px;
 }
 
 @media only screen and (max-width: 992px) {
-	.btn_step1 {
-		padding-left:0px;
-		padding-right:0px;
-	}
-	.btn_step2 {
-		padding-left:0px;
-		padding-right:0px;
-	}
 	.outer_step2 {
 		margin-left:0px;
 		flex: 0 0 100%;
 		max-width: 100%;
-	}
-	.btn_step4 {
-		padding-left:0px;
-		padding-right:0px;
 	}
 }
 @media only screen and (max-width: 568px) {

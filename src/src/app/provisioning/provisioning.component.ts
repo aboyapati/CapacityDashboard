@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener, Input } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigService } from '../config.service';
 import { Router } from '@angular/router';
@@ -102,6 +102,20 @@ export class ProvisioningComponent implements OnInit {
   thresholdErrorMsg4: string = '';
   thresholdErrorMsg5: string = '';
 
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if (event.target.className == 'rsddropdown-span') {
+      sessionStorage.setItem('lastSelectedDropDownId', event.target.nextElementSibling.attributes.id.nodeValue);
+    } else {
+      $('#' + sessionStorage.lastSelectedDropDownId).hide();
+      this.callMatricsFilter = false;
+      if (sessionStorage.selectedComponentActionButtonId != '') {
+        this.editComponentClick(sessionStorage.selectedComponentActionButtonId);
+        sessionStorage.setItem('selectedComponentActionButtonId', '');
+      }
+    }
+  }
+
   constructor(private modalService: NgbModal, private config: ConfigService, private router: Router, public adminLayoutComponnet: AdminLayoutComponent) {
     sessionStorage.setItem('previousUrl', this.router.url);
     this.deviceHeight = (window.innerHeight);
@@ -189,7 +203,7 @@ export class ProvisioningComponent implements OnInit {
   }
 
   openComponentModal(content) {
-    this.modalService.open(content, { windowClass: 'custom_modal', size: 'lg', backdrop: 'static' }).result.then((result) => {
+    this.modalService.open(content, { windowClass: 'custom_modal', backdrop: 'static' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       if (this.closeResult == 'Closed with: Close click') {
         this.comName = '';
@@ -767,6 +781,7 @@ export class ProvisioningComponent implements OnInit {
   }
 
   editComponentClick(i) {
+    sessionStorage.setItem('selectedComponentActionButtonId', i);
     this.clearDcActionsDropDown(0, 'clearAll');
     for (let j = 0; j < this.dataCentersDetails.length; j++) {
       if (j == i) {

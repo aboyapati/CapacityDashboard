@@ -219,33 +219,33 @@ var CustomerviewComponent = (function () {
                 $("#subCompDetails").hide();
                 $("#subCompTab").hide();
             }
-        });
-        this.selectedComp = id;
-        setTimeout(function () {
-            if (_this.selectedSubCompTypeId != '' && _this.selectedSubCompName != '') {
-                _this.selectedVcenterGraphFilter = 12;
-                _this.config.getCustomerContentCusView(_this.selectedSubCompTypeId, _this.selectedSubCompName).subscribe(function (res) {
-                    _this.customerContent = res;
-                    if (typeof _this.customerContent.content == 'undefined') {
-                        $("#contentErrorDiv").show();
-                        $("#contentDiv").hide();
-                    }
-                    else {
-                        if (_this.customerContent.content == '') {
+            _this.selectedComp = id;
+            setTimeout(function () {
+                if (_this.selectedSubCompTypeId != '' && _this.selectedSubCompName != '') {
+                    _this.selectedVcenterGraphFilter = 12;
+                    _this.config.getCustomerContentCusView(_this.selectedSubCompTypeId, _this.selectedSubCompName, _this.userId).subscribe(function (res) {
+                        _this.customerContent = res;
+                        if (typeof _this.customerContent.content == 'undefined') {
                             $("#contentErrorDiv").show();
                             $("#contentDiv").hide();
                         }
                         else {
-                            $("#contentErrorDiv").hide();
-                            $("#contentDiv").show();
+                            if (_this.customerContent.content == '') {
+                                $("#contentErrorDiv").show();
+                                $("#contentDiv").hide();
+                            }
+                            else {
+                                $("#contentErrorDiv").hide();
+                                $("#contentDiv").show();
+                            }
                         }
+                    });
+                    if (_this.selectedCompTab == 2) {
+                        _this.vcenterGraphContent();
                     }
-                });
-                if (_this.selectedCompTab == 2) {
-                    _this.vcenterGraphContent();
                 }
-            }
-        }, 100);
+            }, 100);
+        });
         this.selectedDcSubViewId = scrollIndex;
     };
     CustomerviewComponent.prototype.getDataCenterList = function (id) {
@@ -283,7 +283,7 @@ var CustomerviewComponent = (function () {
         var type_id = arr[0];
         var name = arr[1];
         this.selectedVcenterGraphFilter = 12;
-        this.config.getCustomerContentCusView(type_id, name).subscribe(function (res) {
+        this.config.getCustomerContentCusView(type_id, name, this.userId).subscribe(function (res) {
             _this.customerContent = res;
             if (typeof _this.customerContent.content == 'undefined') {
                 $("#contentErrorDiv").show();
@@ -514,7 +514,7 @@ var CustomerviewComponent = (function () {
     };
     CustomerviewComponent.prototype.vcenterGraphContent = function () {
         var _this = this;
-        this.config.getVcenterGraphContent(this.selectedComp, 'VCENTER', this.selectedSubCompTypeId, this.selectedVcenterGraphFilter).subscribe(function (res) {
+        this.config.getVcenterGraphContent(this.selectedComp, 'VCENTER', this.selectedSubCompTypeId, this.selectedVcenterGraphFilter, this.userId, this.selectedSubCompName).subscribe(function (res) {
             if (res.length > 0) {
                 var date = [];
                 var cpu_percent = [];
