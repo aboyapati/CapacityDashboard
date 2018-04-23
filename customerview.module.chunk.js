@@ -166,17 +166,21 @@ var CustomerviewComponent = (function () {
     };
     CustomerviewComponent.prototype.setComponent = function (type) {
         var _this = this;
+        var subComponentExist = false;
         this.subCompNotFound = false;
         var that = this;
         setTimeout(function () {
-            //this.currentCompItems = this.ComponentItems[type];     
             $.each(_this.ComponentItems, function (key, value) {
                 if (value['type'] == type) {
+                    subComponentExist = true;
                     that.currentCompItems = value['components'];
                 }
             });
             $("#subCompDetails").hide();
             $("#subCompTab").hide();
+            if (subComponentExist) {
+                _this.ComponentClick(that.currentCompItems[0].id, that.currentCompItems[0].type, 0);
+            }
         }, 100);
     };
     CustomerviewComponent.prototype.compTabClick = function (id) {

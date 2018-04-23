@@ -279,7 +279,7 @@ var ProvisioningComponent = (function () {
             $('#' + sessionStorage.lastSelectedDropDownId).hide();
             this.callMatricsFilter = false;
             if (sessionStorage.selectedComponentActionButtonId != '') {
-                this.editComponentClick(sessionStorage.selectedComponentActionButtonId);
+                this.editComponentClick(sessionStorage.selectedComponentActionButtonId, 'manual');
                 sessionStorage.setItem('selectedComponentActionButtonId', '');
             }
         }
@@ -931,8 +931,11 @@ var ProvisioningComponent = (function () {
             }
         }
     };
-    ProvisioningComponent.prototype.editComponentClick = function (i) {
-        sessionStorage.setItem('selectedComponentActionButtonId', i);
+    ProvisioningComponent.prototype.editComponentClick = function (i, type) {
+        if (type === void 0) { type = 'auto'; }
+        if (type == 'auto') {
+            sessionStorage.setItem('selectedComponentActionButtonId', i);
+        }
         this.clearDcActionsDropDown(0, 'clearAll');
         for (var j = 0; j < this.dataCentersDetails.length; j++) {
             if (j == i) {
@@ -1365,6 +1368,7 @@ var ProvisioningComponent = (function () {
         }
     };
     ProvisioningComponent.prototype.ngOnInit = function () {
+        sessionStorage.setItem('selectedComponentActionButtonId', '');
         if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
             this.router.navigate(['login']);
         }
