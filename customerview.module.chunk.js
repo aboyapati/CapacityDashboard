@@ -8,7 +8,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".tab-tile:hover {\r\n    cursor: pointer;\r\n    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);\r\n}\r\n.tab-tile {\r\n    padding: 15px 0px 15px;\r\n}\r\n.tab-tile-active {\r\n    padding: 15px 0px 15px;\r\n    background-color: #fff; \r\n}\r\n.img-thumbnail {\r\n    width: 100px;\r\n    height: 100px;\r\n    background-color: unset;\r\n    border: 0px;\r\n}\r\n.data-center {\r\n    color: #3b4147;\r\n    font-size: 15px;\r\n    font-weight: bold;\r\n    text-align: center;\r\n    padding: 6px 0 4px;\r\n    margin-bottom: 10px;\r\n}\r\n.data-center-body {\r\n    color: #73787d;\r\n    font-size: 13px;\r\n    text-align: center;\r\n    margin-bottom: 1px;\r\n    font-weight: 600;\r\n}\r\n.comp-p-head {\r\n    color: #415166;\r\n    font-size: 20px;\r\n    text-align: center;\r\n    margin-bottom: 1px;\r\n    font-weight: 600;\r\n}\r\n.comp-p-body {\r\n    color: #415166;\r\n    font-size: 15px;\r\n    text-align: center;\r\n    margin-bottom: 1px;\r\n    font-weight: 600;\r\n}\r\n.component-main {\r\n    background-color: #ffffff;\r\n    padding: 0px;\r\n    min-height: 450px;\r\n    padding-top: 30px;\r\n}\r\n.tab-row {\r\n    margin-left: 0px;\r\n    margin-right: 0px;\r\n}\r\n.component-tab-small {\r\n    /* width: 19%; */\r\n    word-wrap:break-word;\r\n    padding: 0px 10px 0px 10px;\r\n    min-width: 80px;\r\n    border-right: 1px solid #c7cacf;\r\n    border-left: 1px solid #c7cacf;\r\n}\r\n.component-tab {\r\n    border-right: 1px solid #fff;\r\n    border-left: 1px solid #fff; \r\n}\r\n.mr-l-25 {\r\n    margin-left: 25px;\r\n}\r\n.component-tab, .component-tab-small {\r\n    background-color: #ebebeb;\r\n    border-radius: 4px;\r\n    text-align: center;\r\n    font-weight: 400 !important;\r\n    margin-top: 1px;\r\n}\r\n.component-tab:hover, .component-tab-small:hover {\r\n    cursor: pointer;\r\n    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);\r\n}\r\n.tab-active:hover, .sub-tab-active:hover {\r\n    cursor: default;\r\n    box-shadow: unset;\r\n}\r\n.component-tab h3, .component-tab-small h4 {\r\n   color: #233853;\r\n   padding-top: 5px;\r\n}\r\n.component-tab-small h4 {\r\n    font-size: 15px;\r\n}\r\n.component-tab h3 {\r\n    font-size: 19px;\r\n}\r\n.tab-active, .sub-tab-active {\r\n    background-color: #233853;\r\n}\r\n.sub-tab-active {\r\n    border: 1px solid #233853;\r\n}\r\n.tab-active h3, .sub-tab-active h4 {\r\n    color: #ffffff;\r\n    padding-top: 5px;\r\n    /* font-weight: bold; */\r\n}\r\n.tab-content {\r\n    background-color: #d9dde0;\r\n    margin-top: 15px;\r\n    padding: 0px;\r\n}\r\n/* #subCompTab {\r\n    padding-top: 50px;\r\n    background-color: #c7cacf;\r\n    margin-left: 11.22%;\r\n    margin-right: 11.22%;\r\n} */\r\n.tab-content-details {\r\n    background-color: #d9dde0;\r\n    margin-top: 0px;\r\n    margin-bottom: 45px;\r\n    padding: 0px;\r\n}\r\n.comp-body {\r\n    padding-top: 0px;\r\n    border-right: 35px solid #ffffff;\r\n    border-left: 35px solid #ffffff;\r\n    background-color: #ffffff;\r\n}\r\n.comp-tile {\r\n    padding: 0px;\r\n    background-color: #ebebeb;\r\n    padding-top: 15px;\r\n    border-bottom: 15px solid #ffffff;\r\n    padding-bottom: 5px;\r\n}\r\n.comp-active {\r\n    background-color: #c7cacf;\r\n    border-bottom: 16px solid #c7cacf;\r\n}\r\n.comp-data {\r\n    padding: 0px;\r\n    background-color: #c7cacf;\r\n    border-right: 50px solid #ffffff;\r\n    border-left: 50px solid #ffffff;\r\n}\r\n.component-tab-row {\r\n    margin-left: 0px;\r\n    margin-right: 0px;\r\n    background-color: #ffffff;\r\n}\r\n.comp-tile:hover {\r\n    cursor: pointer;\r\n    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);\r\n    border-bottom: 15px solid #ebebeb;\r\n}\r\n.comp-active:hover {\r\n    cursor: default;\r\n    box-shadow: unset;\r\n    border-bottom: 16px solid #c7cacf;\r\n}\r\n.data-content {\r\n    padding: 25px;\r\n    background-color: #fff;\r\n    margin-left: 25px;\r\n    margin-right: 25px;\r\n    margin-bottom: 25px;\r\n}\r\n.data-head {\r\n    font-size: 20px;\r\n    font-weight: 600;\r\n    text-transform: uppercase;\r\n    word-wrap:break-word;\r\n}\r\n.data-sub-head {\r\n    font-size: 20px;\r\n    font-weight: 600;\r\n}\r\n.table thead th, .table td, .table th {\r\n    border: unset;\r\n    padding: .35rem;\r\n    white-space: inherit;\r\n}\r\n.table thead th {\r\n    font-size: 20px;\r\n    font-weight: 600;\r\n}\r\n\r\n@media only screen \r\n  and (max-width: 767px) {\r\n    .component-tab-row {\r\n        margin-left: 15px;\r\n        margin-right: 15px;\r\n    }\r\n}\r\n\r\n@media only screen and (max-width: 1330px) and (min-width: 900px) {\r\n    .comp-body {\r\n        border-right: 10px solid #ffffff;\r\n        border-left: 10px solid #ffffff;\r\n    }\r\n    .tab-main-div {\r\n        border-right: 10px solid #ffffff !important;\r\n        border-left: 10px solid #ffffff !important;\r\n    }\r\n    .comp-data {\r\n        border-right: 25px solid #ffffff !important;\r\n        border-left: 25px solid #ffffff !important;\r\n    }\r\n}\r\n\r\n@media only screen and (max-width: 900px) and (min-width: 768px) {\r\n    .comp-body {\r\n        border-right: 0px solid #ffffff;\r\n        border-left: 0px solid #ffffff;\r\n    }\r\n    .tab-main-div {\r\n        border-right: 0px solid #ffffff !important;\r\n        border-left: 0px solid #ffffff !important;\r\n    }\r\n    .comp-data {\r\n        border-right: 15px solid #ffffff !important;\r\n        border-left: 15px solid #ffffff !important;\r\n    }\r\n}\r\n\r\n@media only screen and (max-width: 767px) {\r\n    .tab-content-details {\r\n        padding-right: 15px;\r\n        padding-left: 15px;\r\n    }\r\n    .comp-data {\r\n        border-right: unset;\r\n        border-left: unset;\r\n    }\r\n    .tab-content-details {\r\n        margin-bottom: 0px;\r\n    }\r\n    .tab-main-div {\r\n        border-right: 0px solid #ffffff !important;\r\n        border-left: 0px solid #ffffff !important;\r\n    }\r\n    /* .tab-main-div .row {\r\n        padding-left: 40px;\r\n        padding-right: 40px;\r\n    }  */\r\n    .component-main {\r\n        padding-top: 0px;\r\n    }\r\n}\r\n/* @media only screen and (max-width: 730px) { \r\n    .tab-main-div .row {\r\n        padding-right: 6px;\r\n    }\r\n} */\r\n/* @media only screen and (max-width: 650px) { \r\n    .tab-main-div .row {\r\n        padding-right: 10px;\r\n    }\r\n}\r\n@media only screen and (max-width: 600px) { \r\n    .tab-main-div .row {\r\n        padding-right: 12px;\r\n    }\r\n} */\r\n/* @media only screen and (max-width: 575px) { \r\n    .component-main {\r\n        padding-top: 0px;\r\n    }\r\n    .tab-main-div .row {\r\n        padding-right: 14px;\r\n    }\r\n} */\r\n/* @media only screen and (max-width: 550px) { \r\n    .tab-main-div .row {\r\n        padding-right: 15px;\r\n    }\r\n}\r\n@media only screen and (max-width: 500px) { \r\n    .tab-main-div .row {\r\n        padding-right: 18px;\r\n    }\r\n    .component-tab-small h4 {\r\n        font-size: 12px;\r\n    }\r\n} */\r\n\r\n.tab-main-div {\r\n    background-color: #c7cacf;\r\n    margin-left: 0px;\r\n    margin-right: 0px;\r\n    border-left: 35px solid #fff;\r\n    border-right: 35px solid #fff;\r\n    padding-top: 25px;\r\n}\r\n.subTab {\r\n    margin-left: 0px;\r\n    margin-right: 0px;\r\n    padding-left: 24px;\r\n}\r\n\r\n.selectHighchartVcenterGraphFilter {\r\n    margin-top: 5%;\r\n    float: right;\r\n    z-index: 999;\r\n    position: relative;\r\n    top: 30px;\r\n}\r\n\r\n@media only screen and (max-width: 560px) {\r\n    .selectHighchartVcenterGraphFilter {\r\n        z-index: 0;\r\n        top: 0;\r\n    }\r\n}\r\n", ""]);
+exports.push([module.i, ".tab-tile:hover {\r\n    cursor: pointer;\r\n    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);\r\n}\r\n.tab-tile {\r\n    padding: 15px 0px 15px;\r\n}\r\n.tab-tile-active {\r\n    padding: 15px 0px 15px;\r\n    background-color: #fff; \r\n}\r\n.img-thumbnail {\r\n    width: 100px;\r\n    height: 100px;\r\n    background-color: unset;\r\n    border: 0px;\r\n}\r\n.data-center {\r\n    color: #3b4147;\r\n    font-size: 15px;\r\n    font-weight: bold;\r\n    text-align: center;\r\n    padding: 6px 0 4px;\r\n    margin-bottom: 10px;\r\n}\r\n.data-center-body {\r\n    color: #73787d;\r\n    font-size: 13px;\r\n    text-align: center;\r\n    margin-bottom: 1px;\r\n    font-weight: 600;\r\n}\r\n.comp-p-head {\r\n    color: #415166;\r\n    font-size: 20px;\r\n    text-align: center;\r\n    margin-bottom: 1px;\r\n    font-weight: 600;\r\n}\r\n.comp-p-body {\r\n    color: #415166;\r\n    font-size: 15px;\r\n    text-align: center;\r\n    margin-bottom: 1px;\r\n    font-weight: 600;\r\n}\r\n.component-main {\r\n    background-color: #ffffff;\r\n    padding: 0px;\r\n    min-height: 450px;\r\n    padding-top: 30px;\r\n}\r\n.tab-row {\r\n    margin-left: 0px;\r\n    margin-right: 0px;\r\n}\r\n.component-tab-small {\r\n    /* width: 19%; */\r\n    word-wrap:break-word;\r\n    padding: 0px 10px 0px 10px;\r\n    min-width: 80px;\r\n    border-right: 1px solid #c7cacf;\r\n    border-left: 1px solid #c7cacf;\r\n}\r\n.component-tab {\r\n    border-right: 1px solid #fff;\r\n    border-left: 1px solid #fff; \r\n    border-top: 1px solid #fff;\r\n}\r\n.mr-l-25 {\r\n    margin-left: 25px;\r\n}\r\n.component-tab, .component-tab-small {\r\n    background-color: #ebebeb;\r\n    border-radius: 4px;\r\n    text-align: center;\r\n    font-weight: 400 !important;\r\n    /* margin-top: 1px; */\r\n}\r\n.component-tab:hover, .component-tab-small:hover {\r\n    cursor: pointer;\r\n    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);\r\n}\r\n.tab-active:hover, .sub-tab-active:hover {\r\n    cursor: default;\r\n    box-shadow: unset;\r\n}\r\n.component-tab h3, .component-tab-small h4 {\r\n   color: #233853;\r\n   padding-top: 5px;\r\n}\r\n.component-tab-small h4 {\r\n    font-size: 15px;\r\n}\r\n.component-tab h3 {\r\n    font-size: 19px;\r\n}\r\n.tab-active, .sub-tab-active {\r\n    background-color: #233853;\r\n}\r\n.sub-tab-active {\r\n    border: 1px solid #233853;\r\n}\r\n.tab-active h3, .sub-tab-active h4 {\r\n    color: #ffffff;\r\n    padding-top: 5px;\r\n    /* font-weight: bold; */\r\n}\r\n.tab-content {\r\n    background-color: #d9dde0;\r\n    margin-top: 15px;\r\n    padding: 0px;\r\n}\r\n/* #subCompTab {\r\n    padding-top: 50px;\r\n    background-color: #c7cacf;\r\n    margin-left: 11.22%;\r\n    margin-right: 11.22%;\r\n} */\r\n.tab-content-details {\r\n    background-color: #d9dde0;\r\n    margin-top: 0px;\r\n    margin-bottom: 45px;\r\n    padding: 0px;\r\n}\r\n.comp-body {\r\n    padding-top: 0px;\r\n    border-right: 35px solid #ffffff;\r\n    border-left: 35px solid #ffffff;\r\n    background-color: #ffffff;\r\n}\r\n.comp-tile {\r\n    padding: 0px;\r\n    background-color: #ebebeb;\r\n    padding-top: 15px;\r\n    border-bottom: 15px solid #ffffff;\r\n    padding-bottom: 5px;\r\n}\r\n.comp-active {\r\n    background-color: #c7cacf;\r\n    border-bottom: 16px solid #c7cacf;\r\n}\r\n.comp-data {\r\n    padding: 0px;\r\n    background-color: #c7cacf;\r\n    border-right: 50px solid #ffffff;\r\n    border-left: 50px solid #ffffff;\r\n}\r\n.component-tab-row {\r\n    margin-left: 0px;\r\n    margin-right: 0px;\r\n    background-color: #ffffff;\r\n}\r\n.comp-tile:hover {\r\n    cursor: pointer;\r\n    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);\r\n    border-bottom: 15px solid #ebebeb;\r\n}\r\n.comp-active:hover {\r\n    cursor: default;\r\n    box-shadow: unset;\r\n    border-bottom: 16px solid #c7cacf;\r\n}\r\n.data-content {\r\n    padding: 25px;\r\n    background-color: #fff;\r\n    margin-left: 25px;\r\n    margin-right: 25px;\r\n    margin-bottom: 25px;\r\n}\r\n.data-head {\r\n    font-size: 20px;\r\n    font-weight: 600;\r\n    text-transform: uppercase;\r\n    word-wrap:break-word;\r\n}\r\n.data-sub-head {\r\n    font-size: 20px;\r\n    font-weight: 600;\r\n}\r\n.table thead th, .table td, .table th {\r\n    border: unset;\r\n    padding: .35rem;\r\n    white-space: inherit;\r\n}\r\n.table thead th {\r\n    font-size: 20px;\r\n    font-weight: 600;\r\n}\r\n\r\n@media only screen \r\n  and (max-width: 767px) {\r\n    .component-tab-row {\r\n        margin-left: 15px;\r\n        margin-right: 15px;\r\n    }\r\n}\r\n\r\n@media only screen and (max-width: 1330px) and (min-width: 900px) {\r\n    .comp-body {\r\n        border-right: 10px solid #ffffff;\r\n        border-left: 10px solid #ffffff;\r\n    }\r\n    .tab-main-div {\r\n        border-right: 10px solid #ffffff !important;\r\n        border-left: 10px solid #ffffff !important;\r\n    }\r\n    .comp-data {\r\n        border-right: 25px solid #ffffff !important;\r\n        border-left: 25px solid #ffffff !important;\r\n    }\r\n}\r\n\r\n@media only screen and (max-width: 900px) and (min-width: 768px) {\r\n    .comp-body {\r\n        border-right: 0px solid #ffffff;\r\n        border-left: 0px solid #ffffff;\r\n    }\r\n    .tab-main-div {\r\n        border-right: 0px solid #ffffff !important;\r\n        border-left: 0px solid #ffffff !important;\r\n    }\r\n    .comp-data {\r\n        border-right: 15px solid #ffffff !important;\r\n        border-left: 15px solid #ffffff !important;\r\n    }\r\n}\r\n\r\n@media only screen and (max-width: 767px) {\r\n    .tab-content-details {\r\n        padding-right: 15px;\r\n        padding-left: 15px;\r\n    }\r\n    .comp-data {\r\n        border-right: unset;\r\n        border-left: unset;\r\n    }\r\n    .tab-content-details {\r\n        margin-bottom: 0px;\r\n    }\r\n    .tab-main-div {\r\n        border-right: 0px solid #ffffff !important;\r\n        border-left: 0px solid #ffffff !important;\r\n    }\r\n    /* .tab-main-div .row {\r\n        padding-left: 40px;\r\n        padding-right: 40px;\r\n    }  */\r\n    .component-main {\r\n        padding-top: 0px;\r\n    }\r\n}\r\n/* @media only screen and (max-width: 730px) { \r\n    .tab-main-div .row {\r\n        padding-right: 6px;\r\n    }\r\n} */\r\n/* @media only screen and (max-width: 650px) { \r\n    .tab-main-div .row {\r\n        padding-right: 10px;\r\n    }\r\n}\r\n@media only screen and (max-width: 600px) { \r\n    .tab-main-div .row {\r\n        padding-right: 12px;\r\n    }\r\n} */\r\n/* @media only screen and (max-width: 575px) { \r\n    .component-main {\r\n        padding-top: 0px;\r\n    }\r\n    .tab-main-div .row {\r\n        padding-right: 14px;\r\n    }\r\n} */\r\n/* @media only screen and (max-width: 550px) { \r\n    .tab-main-div .row {\r\n        padding-right: 15px;\r\n    }\r\n}\r\n@media only screen and (max-width: 500px) { \r\n    .tab-main-div .row {\r\n        padding-right: 18px;\r\n    }\r\n    .component-tab-small h4 {\r\n        font-size: 12px;\r\n    }\r\n} */\r\n\r\n.tab-main-div {\r\n    background-color: #c7cacf;\r\n    margin-left: 0px;\r\n    margin-right: 0px;\r\n    border-left: 35px solid #fff;\r\n    border-right: 35px solid #fff;\r\n    padding-top: 25px;\r\n}\r\n.subTab {\r\n    margin-left: 0px;\r\n    margin-right: 0px;\r\n    padding-left: 24px;\r\n}\r\n\r\n.selectHighchartVcenterGraphFilter {\r\n    margin-top: 5%;\r\n    float: right;\r\n    z-index: 999;\r\n    position: relative;\r\n    top: 30px;\r\n}\r\n\r\n@media only screen and (max-width: 560px) {\r\n    .selectHighchartVcenterGraphFilter {\r\n        z-index: 0;\r\n        top: 0;\r\n    }\r\n}\r\n", ""]);
 
 // exports
 
@@ -21,7 +21,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/customerview/customerview.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n    <div class=\"col-md-4 col-sm-4\" style=\"font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;\">\r\n        Customer View - {{customerName}}\r\n    </div>\r\n    <div class=\"col-md-8 col-sm-8\" style=\"padding-top:6px;\">\r\n        <span style=\"margin-left: 15%;\">\r\n            <span (click)=\"scrollLeftClick()\" style=\"cursor: pointer;\" *ngIf=\"dataCenters?.length > 0\" class=\"ti-arrow-circle-left\"></span>\r\n            <span *ngFor=\"let dC of dataCenters, let i = index\">\r\n                <span class=\"icon-name\">&nbsp;</span>\r\n                <div *ngIf=\"dC.id == selectedDataCenter;then bubble1; else bubble2\"></div>\r\n                <ng-template #bubble1>\r\n                    <span style=\"cursor: pointer;font-size:15px;\" (click)=\"dataCenterClick(dC.id,i)\" class=\"fa fa-circle\"></span>\r\n                </ng-template>\r\n                <ng-template #bubble2>\r\n                    <span style=\"cursor: pointer;\" (click)=\"dataCenterClick(dC.id,i)\" class=\"ti-control-record\"></span>\r\n                </ng-template>\r\n            </span>\r\n            <span class=\"icon-name\">&nbsp;</span>\r\n            <span (click)=\"scrollRightClick()\" style=\"cursor: pointer;\" *ngIf=\"dataCenters?.length > 0\" class=\"ti-arrow-circle-right\"></span>\r\n        </span>\r\n    </div>\r\n</div>\r\n<div class=\"row\" *ngIf=\"dataCenters?.length > 0\">\r\n    <div *ngFor=\"let dataCenter of dataCenters, let i = index\" id=\"dataCenter{{dataCenter.id}}\" class=\"col-md-3 col-sm-6 tab-tile {{ dataCenter.id == selectedDataCenter ? 'tab-tile-active' : ''}}\"\r\n        (click)=\"dataCenterClick(dataCenter.id,i,'direct')\" [style.display]=\"i>=scrollLimitMin && i<=scrollLimitMax ? 'block' : 'none'\">\r\n        <div class=\"d-flex justify-content-center\">\r\n            <img bind-src=\"imgUrl\" class=\"img-thumbnail\">\r\n        </div>\r\n        <p class=\"data-center\">{{dataCenter.name}}</p>\r\n        <p class=\"data-center-body\">{{dataCenter.city}}, {{dataCenter.state}}</p>\r\n        <p class=\"data-center-body\">{{dataCenter.country}}</p>\r\n        <p class=\"data-center-body\">{{dataCenter.timezone}}</p>\r\n    </div>\r\n    <div class=\"col-md-12 component-main\">\r\n        <div class=\"row tab-row\" *ngIf=\"!compNotFound\">\r\n            <div style=\"display: none;\" *ngFor=\"let compTabItem of compTabItems\" id=\"compTab{{compTabItem.id}}\" class=\"{{ this.componentCount == 4 ? 'col-md-3 col-sm-6' : '' }} {{ this.componentCount == 3 ? 'col-md-4 col-sm-12' : '' }} {{ this.componentCount == 2 ? 'col-md-6 col-sm-12' : '' }} {{ this.componentCount == 1 ? 'col-md-12 col-sm-12' : '' }} component-tab {{ compTabItem.id == selectedCompTab ? 'tab-active' : ''}}\"\r\n                (click)=\"compTabClick(compTabItem.id)\">\r\n                <h3>{{compTabItem.name}}</h3>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" *ngIf=\"!compNotFound\">\r\n            <div class=\"offset-md-3 offset-sm-3 col-md-6 col-sm-6\" style=\"padding-top:25px;text-align: center;\">\r\n                <span>\r\n                    <span (click)=\"scrollLeftClickSub()\" style=\"cursor: pointer;\" *ngIf=\"currentCompItems?.length > 0\" class=\"ti-arrow-circle-left\"></span>\r\n                    <span *ngFor=\"let currentCompItem of currentCompItems, let y = index\">\r\n                        <span class=\"icon-name\">&nbsp;</span>\r\n                        <div *ngIf=\"currentCompItem.id == selectedComp;then bubble3; else bubble4\"></div>\r\n                        <ng-template #bubble3>\r\n                            <span style=\"cursor: pointer;font-size:15px;\" (click)=\"ComponentClick(currentCompItem.id, currentCompItem.type, y)\" class=\"fa fa-circle\"></span>\r\n                        </ng-template>\r\n                        <ng-template #bubble4>\r\n                            <span style=\"cursor: pointer;\" (click)=\"ComponentClick(currentCompItem.id, currentCompItem.type, y)\" class=\"ti-control-record\"></span>\r\n                        </ng-template>\r\n                    </span>\r\n                    <span class=\"icon-name\">&nbsp;</span>\r\n                    <span (click)=\"scrollRightClickSub()\" style=\"cursor: pointer;\" *ngIf=\"currentCompItems?.length > 0\" class=\"ti-arrow-circle-right\"></span>\r\n                </span>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" id=tabContent style=\"display: none;\">\r\n            <div class=\"offset-md-1 col-md-10 offset-md-1 tab-content\">\r\n                <div class=\"row component-tab-row\">\r\n                    <div *ngFor=\"let currentCompItem of currentCompItems, let x = index\" class=\"col-md-3 col-sm-6 comp-body\" (click)=\"ComponentClick(currentCompItem.id, currentCompItem.type,x,'direct')\"\r\n                        [style.display]=\"x>=scrollLimitMin1 && x<=scrollLimitMax1 ? 'block' : 'none'\">\r\n                        <div class=\"comp-tile {{ currentCompItem.id == selectedComp ? 'comp-active' : ''}}\" id=\"subComponent{{currentCompItem.id}}\">\r\n                            <div class=\"d-flex justify-content-center\">\r\n                                <img bind-src=\"imgUrl\" class=\"img-thumbnail\">\r\n                            </div>\r\n                            <p class=\"comp-p-head\">{{currentCompItem.name}}</p>\r\n                            <p class=\"comp-p-body\">{{currentCompItem.version}}</p>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <!-- <div class=\"row\">\r\n            <div class=\"col-md-12\">\r\n                <div class=\"tab-row\" id=\"subCompTab\">\r\n                    <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\" id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\">\r\n                    <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"{{ j%5 == 0 ? 'mr-l-25' : '' }} component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\" id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\">\r\n                        <h4>{{subCompTabItem.name}}</h4>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div> -->\r\n        <!-- <div class=\"row\" id=\"subCompTab\" style=\"display: none;\">\r\n            <div class=\"offset-md-1 col-md-10\">\r\n                <div class=\"tab-main-div\"> -->\r\n                    <!-- <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\" id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\">\r\n                        <h4>{{subCompTabItem.name}}</h4>\r\n                    </div> -->\r\n                    <!-- <div class=\"row subTab\"> -->\r\n                        <!-- <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"{{ j%5 == 0 ? 'offset-md-1' : '' }} col-12 col-sm-6 col-md-2 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\" id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\" ngbTooltip=\"{{subCompTabItem.name}}\"> -->\r\n                        <!-- <div *ngFor=\"let subCompTabItem of subCompTabItems,let j=index\" class=\"component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}\"\r\n                            id=\"subCompTabItem_{{subCompTabItem.name}}\" (click)=\"subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)\"\r\n                            ngbTooltip=\"{{subCompTabItem.name}}\"> -->\r\n                            <!-- <h4 ngbTooltip=\"{{subCompTabItem.name}}\">{{subCompTabItem.name.length > 8 ?  (subCompTabItem.name | slice:0:7)+'...' : subCompTabItem.name}}</h4> -->\r\n                            <!-- <h4>{{subCompTabItem.name}}</h4>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div> -->\r\n        <div class=\"row\" id=\"subCompTab\" style=\"display: none;\">\r\n            <div class=\"offset-md-1 col-md-10\">\r\n                <div class=\"tab-main-div\" style=\"padding-right: 24px; padding-left: 24px;padding-bottom: 10px;\r\n                \">\r\n                    <div class=\"row\">\r\n                        <div class=\"offset-md-8 col-md-4\">\r\n                            <select class=\"form-control\" name=\"selectedSubComp\" id=\"selectedSubComp\" (change)=\"subCompTabClick()\">\r\n                                <option *ngFor='let subCompTabItem of subCompTabItems' selected=\"{{subCompTabItem.name == selectedSubCompName ? 'selected' : ''}}\" value=\"{{subCompTabItem.type_id}}|{{subCompTabItem.name}}\" >{{subCompTabItem.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" *ngIf=\"subCompNotFound\" style=\"padding-top: 50px;padding-bottom: 50px;\">\r\n            <div class=\"col-md-12\" style=\"text-align: center\">\r\n                <b>THERE ARE NO SUB COMPONENTS FOUND FOR THIS COMPONENT.</b>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" id=\"subCompDetails\" style=\"display: none;\">\r\n            <div class=\"offset-md-1 col-md-10 offset-md-1 tab-content-details\">\r\n                <div class=\"row tab-row\">\r\n                    <div class=\"col-md-12 col-sm-12 comp-data\">\r\n                        <div class=\"data-content\" id=\"contentDiv\" style=\"display: none;\">\r\n                            <p class=\"data-head\">{{selectedSubCompName}} CONTENTS:</p>\r\n                            <div class=\"table-responsive\" *ngFor='let content of customerContent'>\r\n                                <p>{{content}}</p>\r\n                            </div>\r\n                            <div *ngIf=\"selectedCompTab == 2\" class=\"selectHighchartVcenterGraphFilter\">\r\n                                <select (change)=\"changeVcenterGraphContent()\" name='selectHighchartVcenterGraph' id=\"selectHighchartVcenterGraph\">\r\n                                    <option [selected]=\"selectedVcenterGraphFilter === 1\" value=\"1\">1 Month</option>\r\n                                    <option [selected]=\"selectedVcenterGraphFilter === 3\" value=\"3\">3 Months</option>\r\n                                    <option [selected]=\"selectedVcenterGraphFilter === 6\" value=\"6\">6 Months</option>\r\n                                    <option [selected]=\"selectedVcenterGraphFilter === 9\" value=\"9\">9 Months</option>\r\n                                    <option [selected]=\"selectedVcenterGraphFilter === 12\" value=\"12\">12 Months</option>\r\n                                </select>\r\n                            </div>\r\n                            <div *ngIf=\"selectedCompTab == 2\" id='highchartVcenterGraph'></div>\r\n                        </div>\r\n                        <div class=\"data-content\" style=\"text-align: center; display: none;\" id=\"contentErrorDiv\">\r\n                            <b>NO CONTENTS FOUND FOR {{selectedSubCompName}}.</b>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" *ngIf=\"compNotFound\" style=\"padding-top: 50px;\">\r\n            <div class=\"col-md-12\" style=\"text-align: center\">\r\n                <b>THERE ARE NO COMPONENTS FOUND FOR THIS DATA CENTER.</b>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"row\" *ngIf=\"dataCenters == ''\" style=\"padding-top: 50px;\">\r\n    <div class=\"col-md-12\" style=\"text-align: center\">\r\n        <b>THERE ARE NO DATA CENTERS FOUND.</b>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"row\">\r\n    <div class=\"col-md-4 col-sm-4\" style=\"font-weight:600; font-size:20px; color:#4a6076; padding-bottom:15px;\">\r\n        Customer View - {{customerName}}\r\n    </div>\r\n    <div class=\"col-md-8 col-sm-8\" style=\"padding-top:6px;\">\r\n        <span style=\"margin-left: 15%;\">\r\n            <span (click)=\"scrollLeftClick()\" style=\"cursor: pointer;\" *ngIf=\"dataCenters?.length > 0\" class=\"ti-arrow-circle-left\"></span>\r\n            <span *ngFor=\"let dC of dataCenters, let i = index\">\r\n                <span class=\"icon-name\">&nbsp;</span>\r\n                <div *ngIf=\"dC.id == selectedDataCenter;then bubble1; else bubble2\"></div>\r\n                <ng-template #bubble1>\r\n                    <span style=\"cursor: pointer;font-size:15px;\" (click)=\"dataCenterClick(dC.id,i)\" class=\"fa fa-circle\"></span>\r\n                </ng-template>\r\n                <ng-template #bubble2>\r\n                    <span style=\"cursor: pointer;\" (click)=\"dataCenterClick(dC.id,i)\" class=\"ti-control-record\"></span>\r\n                </ng-template>\r\n            </span>\r\n            <span class=\"icon-name\">&nbsp;</span>\r\n            <span (click)=\"scrollRightClick()\" style=\"cursor: pointer;\" *ngIf=\"dataCenters?.length > 0\" class=\"ti-arrow-circle-right\"></span>\r\n        </span>\r\n    </div>\r\n</div>\r\n<div class=\"row\" *ngIf=\"dataCenters?.length > 0\">\r\n    <div *ngFor=\"let dataCenter of dataCenters, let i = index\" id=\"dataCenter{{dataCenter.id}}\" class=\"col-md-3 col-sm-6 tab-tile {{ dataCenter.id == selectedDataCenter ? 'tab-tile-active' : ''}}\"\r\n        (click)=\"dataCenterClick(dataCenter.id,i,'direct')\" [style.display]=\"i>=scrollLimitMin && i<=scrollLimitMax ? 'block' : 'none'\">\r\n        <div class=\"d-flex justify-content-center\">\r\n            <img bind-src=\"imgUrl\" class=\"img-thumbnail\">\r\n        </div>\r\n        <p class=\"data-center\">{{dataCenter.name}}</p>\r\n        <p class=\"data-center-body\">{{dataCenter.city}}, {{dataCenter.state}}</p>\r\n        <p class=\"data-center-body\">{{dataCenter.country}}</p>\r\n        <p class=\"data-center-body\">{{dataCenter.timezone}}</p>\r\n    </div>\r\n    <div class=\"col-md-12 component-main\">\r\n        <div class=\"row tab-row\" *ngIf=\"!compNotFound\">\r\n            <!-- <div style=\"display: none;\" *ngFor=\"let compTabItem of compTabItems\" id=\"compTab{{compTabItem.id}}\" class=\"{{ this.componentCount == 4 ? 'col-md-3 col-sm-6' : '' }} {{ this.componentCount == 3 ? 'col-md-4 col-sm-12' : '' }} {{ this.componentCount == 2 ? 'col-md-6 col-sm-12' : '' }} {{ this.componentCount == 1 ? 'col-md-12 col-sm-12' : '' }} component-tab {{ compTabItem.id == selectedCompTab ? 'tab-active' : ''}}\"\r\n                (click)=\"compTabClick(compTabItem.id)\"> -->\r\n            <div [style.width.%]=\"minTabWidth\" *ngFor=\"let compTabItem of compTabItems\" id=\"compTab{{compTabItem.id}}\" class=\"component-tab {{ compTabItem.name == selectedCompTab ? 'tab-active' : ''}}\" (click)=\"compTabClick(compTabItem.name)\">\r\n                <h3>{{compTabItem.name}}</h3>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" *ngIf=\"!compNotFound\">\r\n            <div class=\"offset-md-3 offset-sm-3 col-md-6 col-sm-6\" style=\"padding-top:25px;text-align: center;\">\r\n                <span>\r\n                    <span (click)=\"scrollLeftClickSub()\" style=\"cursor: pointer;\" *ngIf=\"currentCompItems?.length > 0\" class=\"ti-arrow-circle-left\"></span>\r\n                    <span *ngFor=\"let currentCompItem of currentCompItems, let y = index\">\r\n                        <span class=\"icon-name\">&nbsp;</span>\r\n                        <div *ngIf=\"currentCompItem.id == selectedComp;then bubble3; else bubble4\"></div>\r\n                        <ng-template #bubble3>\r\n                            <span style=\"cursor: pointer;font-size:15px;\" (click)=\"ComponentClick(currentCompItem.id, currentCompItem.type, y)\" class=\"fa fa-circle\"></span>\r\n                        </ng-template>\r\n                        <ng-template #bubble4>\r\n                            <span style=\"cursor: pointer;\" (click)=\"ComponentClick(currentCompItem.id, currentCompItem.type, y)\" class=\"ti-control-record\"></span>\r\n                        </ng-template>\r\n                    </span>\r\n                    <span class=\"icon-name\">&nbsp;</span>\r\n                    <span (click)=\"scrollRightClickSub()\" style=\"cursor: pointer;\" *ngIf=\"currentCompItems?.length > 0\" class=\"ti-arrow-circle-right\"></span>\r\n                </span>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" id=tabContent style=\"display: none;\">\r\n            <div class=\"offset-md-1 col-md-10 offset-md-1 tab-content\">\r\n                <div class=\"row component-tab-row\">\r\n                    <div *ngFor=\"let currentCompItem of currentCompItems, let x = index\" class=\"col-md-3 col-sm-6 comp-body\" (click)=\"ComponentClick(currentCompItem.id, currentCompItem.type,x,'direct')\"\r\n                        [style.display]=\"x>=scrollLimitMin1 && x<=scrollLimitMax1 ? 'block' : 'none'\">\r\n                        <div class=\"comp-tile {{ currentCompItem.id == selectedComp ? 'comp-active' : ''}}\" id=\"subComponent{{currentCompItem.id}}\">\r\n                            <div class=\"d-flex justify-content-center\">\r\n                                <img bind-src=\"imgUrl\" class=\"img-thumbnail\">\r\n                            </div>\r\n                            <p class=\"comp-p-head\">{{currentCompItem.name}}</p>\r\n                            <p class=\"comp-p-body\">{{currentCompItem.version}}</p>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" id=\"subCompTab\" style=\"display: none;\">\r\n            <div class=\"offset-md-1 col-md-10\">\r\n                <div class=\"tab-main-div\" style=\"padding-right: 24px; padding-left: 24px;padding-bottom: 10px;\r\n                \">\r\n                    <div class=\"row\">\r\n                        <div class=\"offset-md-8 col-md-4\">\r\n                            <select class=\"form-control\" name=\"selectedSubComp\" id=\"selectedSubComp\" (change)=\"subCompTabClick()\">\r\n                                <option *ngFor='let subCompTabItem of subCompTabItems' selected=\"{{subCompTabItem.name == selectedSubCompName ? 'selected' : ''}}\" value=\"{{subCompTabItem.type_id}}|{{subCompTabItem.name}}\" >{{subCompTabItem.name}}</option>\r\n                            </select>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" *ngIf=\"subCompNotFound\" style=\"padding-top: 50px;padding-bottom: 50px;\">\r\n            <div class=\"col-md-12\" style=\"text-align: center\">\r\n                <b>THERE ARE NO SUB COMPONENTS FOUND FOR THIS COMPONENT.</b>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" id=\"subCompDetails\" style=\"display: none;\">\r\n            <div class=\"offset-md-1 col-md-10 offset-md-1 tab-content-details\">\r\n                <div class=\"row tab-row\">\r\n                    <div class=\"col-md-12 col-sm-12 comp-data\">\r\n                        <div class=\"data-content\" id=\"contentDiv\" style=\"display: none;\">\r\n                            <p class=\"data-head\">{{selectedSubCompName}} CONTENTS:</p>\r\n                            <div class=\"table-responsive\" *ngFor='let content of customerContent'>\r\n                                <p>{{content}}</p>\r\n                            </div>\r\n                            <div *ngIf=\"selectedCompTab == 2\" class=\"selectHighchartVcenterGraphFilter\">\r\n                                <select (change)=\"changeVcenterGraphContent()\" name='selectHighchartVcenterGraph' id=\"selectHighchartVcenterGraph\">\r\n                                    <option [selected]=\"selectedVcenterGraphFilter === 1\" value=\"1\">1 Month</option>\r\n                                    <option [selected]=\"selectedVcenterGraphFilter === 3\" value=\"3\">3 Months</option>\r\n                                    <option [selected]=\"selectedVcenterGraphFilter === 6\" value=\"6\">6 Months</option>\r\n                                    <option [selected]=\"selectedVcenterGraphFilter === 9\" value=\"9\">9 Months</option>\r\n                                    <option [selected]=\"selectedVcenterGraphFilter === 12\" value=\"12\">12 Months</option>\r\n                                </select>\r\n                            </div>\r\n                            <div *ngIf=\"selectedCompTab == 'VCENTER'\" id='highchartVcenterGraph'></div>\r\n                        </div>\r\n                        <div class=\"data-content\" style=\"text-align: center; display: none;\" id=\"contentErrorDiv\">\r\n                            <b>NO CONTENTS FOUND FOR {{selectedSubCompName}}.</b>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"row\" *ngIf=\"compNotFound\" style=\"padding-top: 50px;\">\r\n            <div class=\"col-md-12\" style=\"text-align: center\">\r\n                <b>THERE ARE NO COMPONENTS FOUND FOR THIS DATA CENTER.</b>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"row\" *ngIf=\"dataCenters == ''\" style=\"padding-top: 50px;\">\r\n    <div class=\"col-md-12\" style=\"text-align: center\">\r\n        <b>THERE ARE NO DATA CENTERS FOUND.</b>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -61,6 +61,7 @@ var CustomerviewComponent = (function () {
         this.subCompNotFound = false;
         this.selectedDcViewId = 0;
         this.selectedDcSubViewId = -1;
+        this.minTabWidth = '50';
         sessionStorage.setItem('previousUrl', this.router.url);
         this.deviceHeight = (window.innerHeight);
         this.deviceWidth = (window.innerWidth);
@@ -104,7 +105,6 @@ var CustomerviewComponent = (function () {
             this.router.navigate(['login']);
         }
         this.getDataCenterList(this.userId);
-        this.compTabItems = [{ "id": 1, "name": "NEXUS" }, { "id": 2, "name": "VCENTER" }, { "id": 3, "name": "SBC" }, { "id": 4, "name": "ASA" }];
         this.config.getCustomerName(this.userId).subscribe(function (res) {
             _this.customerName = res.customerName;
         });
@@ -133,7 +133,6 @@ var CustomerviewComponent = (function () {
         var _this = this;
         if (clickType === void 0) { clickType = 'scroll'; }
         this.resetSlider();
-        this.compTabItems = [{ "id": 1, "name": "NEXUS" }, { "id": 2, "name": "VCENTER" }, { "id": 3, "name": "SBC" }, { "id": 4, "name": "ASA" }];
         if (clickType == 'scroll') {
             if (scrollIndex < this.scrollLimit) {
                 this.scrollLimitMin = 0;
@@ -148,8 +147,28 @@ var CustomerviewComponent = (function () {
         this.subCompNotFound = false;
         this.config.getComponetCusView(id).subscribe(function (res) {
             _this.ComponentItems = res;
-            _this.hideEmptyCompTab();
-            _this.selectDefSelectedCompTab();
+            if (_this.ComponentItems.length != 0) {
+                var j = 1;
+                _this.compTabItems = [];
+                for (var i = 0; i < _this.ComponentItems.length; i++) {
+                    if (_this.ComponentItems[i].components.length != 0) {
+                        _this.compTabItems.push({
+                            'id': j,
+                            'name': _this.ComponentItems[i].type
+                        });
+                        j++;
+                    }
+                }
+                _this.minTabWidth = 100 / _this.compTabItems.length;
+                _this.selectDefSelectedCompTab();
+            }
+            else {
+                $("#subCompDetails").hide();
+                $("#subCompTab").hide();
+                $("#tabContent").hide();
+                _this.compNotFound = true;
+                _this.currentCompItems = [];
+            }
         });
         if (this.selectedDataCenter != id) {
             var selDataTabId = $('.tab-tile-active').attr('id');
@@ -183,20 +202,9 @@ var CustomerviewComponent = (function () {
             }
         }, 100);
     };
-    CustomerviewComponent.prototype.compTabClick = function (id) {
-        this.selectedCompTab = id;
-        if (id == 1) {
-            this.setComponent('NEXUS');
-        }
-        else if (id == 2) {
-            this.setComponent('VCENTER');
-        }
-        else if (id == 3) {
-            this.setComponent('SBC');
-        }
-        else if (id == 4) {
-            this.setComponent('ASA');
-        }
+    CustomerviewComponent.prototype.compTabClick = function (name) {
+        this.selectedCompTab = name.toUpperCase();
+        this.setComponent(this.selectedCompTab);
         this.selectedComp = '';
     };
     CustomerviewComponent.prototype.ComponentClick = function (id, type, scrollIndex, clickType) {
@@ -242,20 +250,8 @@ var CustomerviewComponent = (function () {
                             $("#contentErrorDiv").show();
                             $("#contentDiv").hide();
                         }
-                        /*if (typeof this.customerContent.content == 'undefined') {
-                          $("#contentErrorDiv").show();
-                          $("#contentDiv").hide();
-                        } else {
-                          if (this.customerContent.content == '') {
-                            $("#contentErrorDiv").show();
-                            $("#contentDiv").hide();
-                          } else {
-                            $("#contentErrorDiv").hide();
-                            $("#contentDiv").show();
-                          }
-                        }*/
                     });
-                    if (_this.selectedCompTab == 2) {
+                    if (_this.selectedCompTab == 'VCENTER') {
                         _this.vcenterGraphContent();
                     }
                 }
@@ -283,8 +279,19 @@ var CustomerviewComponent = (function () {
         this.config.getComponetCusView(id).subscribe(function (res) {
             _this.ComponentItems = res;
             if (_this.ComponentItems.length != 0) {
+                var j = 1;
+                _this.compTabItems = [];
+                for (var i = 0; i < _this.ComponentItems.length; i++) {
+                    if (_this.ComponentItems[i].components.length != 0) {
+                        _this.compTabItems.push({
+                            'id': j,
+                            'name': _this.ComponentItems[i].type
+                        });
+                        j++;
+                    }
+                }
+                _this.minTabWidth = 100 / _this.compTabItems.length;
                 _this.componentCount = _this.ComponentItems.length;
-                _this.hideEmptyCompTab();
                 _this.selectDefSelectedCompTab();
             }
             else {
@@ -309,22 +316,10 @@ var CustomerviewComponent = (function () {
                 $("#contentErrorDiv").show();
                 $("#contentDiv").hide();
             }
-            /*if (typeof this.customerContent.content == 'undefined') {
-              $("#contentErrorDiv").show();
-              $("#contentDiv").hide();
-            } else {
-              if (this.customerContent.content == '') {
-                $("#contentErrorDiv").show();
-                $("#contentDiv").hide();
-              } else {
-                $("#contentErrorDiv").hide();
-                $("#contentDiv").show();
-              }
-            }*/
         });
         this.selectedSubCompTypeId = type_id;
         this.selectedSubCompName = name;
-        if (this.selectedCompTab == 2) {
+        if (this.selectedCompTab == 'VCENTER') {
             this.vcenterGraphContent();
         }
     };
@@ -369,169 +364,28 @@ var CustomerviewComponent = (function () {
                 }
             }
         });
-        // if (typeof this.ComponentItems['nexus'] != 'undefined') {
-        //   if (this.ComponentItems['nexus'].length == 0) {
-        //     $("#compTab1").hide();
-        //   } else {
-        //     $("#compTab1").show();
-        //     this.componentCount++;
-        //   }
-        // } else {
-        //   $("#compTab1").hide();
-        // }
-        // if (typeof this.ComponentItems['vcenter'] != 'undefined') {
-        //   if (this.ComponentItems['vcenter'].length == 0) {
-        //     $("#compTab2").hide();
-        //   } else {
-        //     $("#compTab2").show();
-        //     this.componentCount++;
-        //   }
-        // } else {
-        //   $("#compTab2").hide();
-        // }
-        // if (typeof this.ComponentItems['sbc'] != 'undefined') {
-        //   if (this.ComponentItems['sbc'].length == 0) {
-        //     $("#compTab3").hide();
-        //   } else {
-        //     $("#compTab3").show();
-        //     this.componentCount++;
-        //   }
-        // } else {
-        //   $("#compTab3").hide();
-        // }
-        // if (typeof this.ComponentItems['asa'] != 'undefined') {
-        //   if (this.ComponentItems['asa'].length == 0) {
-        //     $("#compTab4").hide();
-        //   } else {
-        //     $("#compTab4").show();
-        //     this.componentCount++;
-        //   }
-        // } else {
-        //   $("#compTab4").hide();
-        // }
     };
     CustomerviewComponent.prototype.selectDefSelectedCompTab = function () {
-        var nexus_exists = 0;
-        var vcenter_exists = 0;
-        var sbc_exists = 0;
-        var asa_exists = 0;
         var that = this;
-        $.each(this.ComponentItems, function (key, value) {
-            if (value['type'] == 'NEXUS') {
-                if (value['components'].length > 0) {
-                    nexus_exists = 1;
-                    that.setComponent('NEXUS');
-                    that.selectedCompTab = 1;
-                    that.compNotFound = false;
-                    $("#tabContent").show();
-                }
+        var selectFirstComponent = false;
+        var x;
+        for (var k = this.ComponentItems.length - 1; k >= 0; k--) {
+            if (this.ComponentItems[k].components.length > 0) {
+                selectFirstComponent = true;
+                //that.setComponent(this.ComponentItems[k].type);
+                that.selectedCompTab = this.ComponentItems[k].type;
+                that.compNotFound = false;
+                $("#tabContent").show();
+                x = k;
             }
-        });
-        if (nexus_exists == 0) {
-            $.each(this.ComponentItems, function (key, value) {
-                if (value['type'] == 'VCENTER') {
-                    if (value['components'].length > 0) {
-                        vcenter_exists = 1;
-                        that.setComponent('VCENTER');
-                        that.selectedCompTab = 2;
-                        that.compNotFound = false;
-                        $("#tabContent").show();
-                    }
-                }
-            });
         }
-        if (nexus_exists == 0 && vcenter_exists == 0) {
-            $.each(this.ComponentItems, function (key, value) {
-                if (value['type'] == 'SBC') {
-                    if (value['components'].length > 0) {
-                        sbc_exists = 1;
-                        that.setComponent('SBC');
-                        that.selectedCompTab = 3;
-                        that.compNotFound = false;
-                        $("#tabContent").show();
-                    }
-                }
-            });
-        }
-        if (nexus_exists == 0 && vcenter_exists == 0 && sbc_exists == 0) {
-            $.each(this.ComponentItems, function (key, value) {
-                if (value['type'] == 'ASA') {
-                    if (value['components'].length > 0) {
-                        asa_exists = 1;
-                        that.setComponent('ASA');
-                        that.selectedCompTab = 4;
-                        that.compNotFound = false;
-                        $("#tabContent").show();
-                    }
-                }
-            });
-        }
-        if (nexus_exists == 0 && vcenter_exists == 0 && sbc_exists == 0 && asa_exists == 0) {
+        this.setComponent(this.ComponentItems[x].type);
+        if (!selectFirstComponent) {
             $("#subCompDetails").hide();
             $("#subCompTab").hide();
             $("#tabContent").hide();
             that.compNotFound = true;
         }
-        // if (typeof this.ComponentItems['nexus'] != 'undefined') {
-        //   if (this.ComponentItems['nexus'].length > 0) {
-        //     this.setComponent('nexus');
-        //     this.selectedCompTab = 1;
-        //     this.compNotFound = false;
-        //     $("#tabContent").show();
-        //   } else {
-        //     nexus_exists = 0;
-        //   }
-        // } else {
-        //   nexus_exists = 0;
-        // }
-        // if (nexus_exists == 0) {
-        //   if (typeof this.ComponentItems['vcenter'] != 'undefined') {
-        //     if (this.ComponentItems['vcenter'].length > 0) {
-        //       this.setComponent('vcenter');
-        //       this.selectedCompTab = 2;
-        //       this.compNotFound = false;
-        //       $("#tabContent").show();
-        //     } else {
-        //       vcenter_exists = 0;
-        //     }
-        //   } else {
-        //     vcenter_exists = 0;
-        //   }
-        // }
-        // if (vcenter_exists == 0) {
-        //   if (typeof this.ComponentItems['sbc'] != 'undefined') {
-        //     if (this.ComponentItems['sbc'].length > 0) {
-        //       this.setComponent('sbc');
-        //       this.selectedCompTab = 3;
-        //       this.compNotFound = false;
-        //       $("#tabContent").show();
-        //     } else {
-        //       sbc_exists = 0;
-        //     }
-        //   } else {
-        //     sbc_exists = 0;
-        //   }
-        // }
-        // if (sbc_exists == 0) {
-        //   if (typeof this.ComponentItems['asa'] != 'undefined') {
-        //     if (this.ComponentItems['asa'].length > 0) {
-        //       this.setComponent('asa');
-        //       this.selectedCompTab = 4;
-        //       this.compNotFound = false;
-        //       $("#tabContent").show();
-        //     } else {
-        //       asa_exists = 0;
-        //     }
-        //   } else {
-        //     asa_exists = 0;
-        //   }
-        // }
-        // if (asa_exists == 0) {
-        //   $("#subCompDetails").hide();
-        //   $("#subCompTab").hide();
-        //   $("#tabContent").hide();
-        //   this.compNotFound = true;
-        // }
     };
     CustomerviewComponent.prototype.vcenterGraphContent = function () {
         var _this = this;

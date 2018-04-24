@@ -1,6 +1,6 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-    $data = '{"content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys."}';
+    $data = '["VRF contents Line 1 Data","VRF contents Line 2 Data","VRF contents Line 3 Data","VRF contents Line 4 Data"]';
 
 echo $data;
 die();

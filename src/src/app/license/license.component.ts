@@ -10,7 +10,7 @@ declare const $: any;
 export class LicenseComponent implements OnInit {
 
   customer: string = 'Customers';
-  customersList: string[];
+  customersList: any;
   licenseList: any;
   customerFlagMessage: boolean = false;
   licenseFlagMessage: boolean = false;
@@ -25,8 +25,10 @@ export class LicenseComponent implements OnInit {
 
   }
 
-  customeOnChange(id) {
-    $("#customer_placeholder").hide();
+  customeOnChange(id = 0) {
+    if (id == 0) {
+      id = $('#customer').val();
+    }
     this.config.getCustomerLicense(id).subscribe(res => {
       this.licenseList = res;
       if (this.licenseList.length < 1) {
@@ -42,8 +44,8 @@ export class LicenseComponent implements OnInit {
       this.customersList = res;
       if (this.customersList.length < 1) {
         this.customerFlagMessage = true;
-      }
-      else {
+      } else {
+        this.customeOnChange(this.customersList[0].id);
         this.customerFlagMessage = false;
       }
     });

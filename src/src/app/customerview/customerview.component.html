@@ -33,8 +33,9 @@
     </div>
     <div class="col-md-12 component-main">
         <div class="row tab-row" *ngIf="!compNotFound">
-            <div style="display: none;" *ngFor="let compTabItem of compTabItems" id="compTab{{compTabItem.id}}" class="{{ this.componentCount == 4 ? 'col-md-3 col-sm-6' : '' }} {{ this.componentCount == 3 ? 'col-md-4 col-sm-12' : '' }} {{ this.componentCount == 2 ? 'col-md-6 col-sm-12' : '' }} {{ this.componentCount == 1 ? 'col-md-12 col-sm-12' : '' }} component-tab {{ compTabItem.id == selectedCompTab ? 'tab-active' : ''}}"
-                (click)="compTabClick(compTabItem.id)">
+            <!-- <div style="display: none;" *ngFor="let compTabItem of compTabItems" id="compTab{{compTabItem.id}}" class="{{ this.componentCount == 4 ? 'col-md-3 col-sm-6' : '' }} {{ this.componentCount == 3 ? 'col-md-4 col-sm-12' : '' }} {{ this.componentCount == 2 ? 'col-md-6 col-sm-12' : '' }} {{ this.componentCount == 1 ? 'col-md-12 col-sm-12' : '' }} component-tab {{ compTabItem.id == selectedCompTab ? 'tab-active' : ''}}"
+                (click)="compTabClick(compTabItem.id)"> -->
+            <div [style.width.%]="minTabWidth" *ngFor="let compTabItem of compTabItems" id="compTab{{compTabItem.id}}" class="component-tab {{ compTabItem.name == selectedCompTab ? 'tab-active' : ''}}" (click)="compTabClick(compTabItem.name)">
                 <h3>{{compTabItem.name}}</h3>
             </div>
         </div>
@@ -73,34 +74,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="row">
-            <div class="col-md-12">
-                <div class="tab-row" id="subCompTab">
-                    <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}" id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
-                    <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'mr-l-25' : '' }} component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}" id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
-                        <h4>{{subCompTabItem.name}}</h4>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- <div class="row" id="subCompTab" style="display: none;">
-            <div class="offset-md-1 col-md-10">
-                <div class="tab-main-div"> -->
-                    <!-- <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-md-2 col-sm-6 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}" id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)">
-                        <h4>{{subCompTabItem.name}}</h4>
-                    </div> -->
-                    <!-- <div class="row subTab"> -->
-                        <!-- <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="{{ j%5 == 0 ? 'offset-md-1' : '' }} col-12 col-sm-6 col-md-2 component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}" id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)" ngbTooltip="{{subCompTabItem.name}}"> -->
-                        <!-- <div *ngFor="let subCompTabItem of subCompTabItems,let j=index" class="component-tab-small {{subCompTabItem.name == selectedSubCompName ? 'sub-tab-active' : ''}}"
-                            id="subCompTabItem_{{subCompTabItem.name}}" (click)="subCompTabClick(subCompTabItem.type_id, subCompTabItem.name)"
-                            ngbTooltip="{{subCompTabItem.name}}"> -->
-                            <!-- <h4 ngbTooltip="{{subCompTabItem.name}}">{{subCompTabItem.name.length > 8 ?  (subCompTabItem.name | slice:0:7)+'...' : subCompTabItem.name}}</h4> -->
-                            <!-- <h4>{{subCompTabItem.name}}</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="row" id="subCompTab" style="display: none;">
             <div class="offset-md-1 col-md-10">
                 <div class="tab-main-div" style="padding-right: 24px; padding-left: 24px;padding-bottom: 10px;
@@ -115,9 +88,9 @@
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="subCompTabItems == ''" style="padding-top: 50px;padding-bottom: 50px;">
+        <div class="row" *ngIf="subCompNotFound" style="padding-top: 50px;padding-bottom: 50px;">
             <div class="col-md-12" style="text-align: center">
-                <b>THERE ARE NO SUBCOMPONENTS FOUND FOR THIS COMPONENT.</b>
+                <b>THERE ARE NO SUB COMPONENTS FOUND FOR THIS COMPONENT.</b>
             </div>
         </div>
         <div class="row" id="subCompDetails" style="display: none;">
@@ -126,8 +99,8 @@
                     <div class="col-md-12 col-sm-12 comp-data">
                         <div class="data-content" id="contentDiv" style="display: none;">
                             <p class="data-head">{{selectedSubCompName}} CONTENTS:</p>
-                            <div class="table-responsive">
-                                <p>{{customerContent.content}}</p>
+                            <div class="table-responsive" *ngFor='let content of customerContent'>
+                                <p>{{content}}</p>
                             </div>
                             <div *ngIf="selectedCompTab == 2" class="selectHighchartVcenterGraphFilter">
                                 <select (change)="changeVcenterGraphContent()" name='selectHighchartVcenterGraph' id="selectHighchartVcenterGraph">
@@ -138,7 +111,7 @@
                                     <option [selected]="selectedVcenterGraphFilter === 12" value="12">12 Months</option>
                                 </select>
                             </div>
-                            <div *ngIf="selectedCompTab == 2" id='highchartVcenterGraph'></div>
+                            <div *ngIf="selectedCompTab == 'VCENTER'" id='highchartVcenterGraph'></div>
                         </div>
                         <div class="data-content" style="text-align: center; display: none;" id="contentErrorDiv">
                             <b>NO CONTENTS FOUND FOR {{selectedSubCompName}}.</b>

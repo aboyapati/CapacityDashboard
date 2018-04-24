@@ -29,8 +29,7 @@
                 <div class="col-md-4">
                     <div class="form-modal">
                         <div class="form-group" style="margin-bottom: 10px;">
-                            <label id="customer_placeholder" class="control-label" for="select">Select Customer</label>
-                            <select class="form-control" (change)="customeOnChange(customer)" [(ngModel)]="customer" name="customer">
+                            <select class="form-control" (change)="customeOnChange()" id="customer">
                                 <option *ngFor="let customer of customersList" value="{{customer.id}}">{{customer.name}}</option>
                             </select>
                             <i class="bar"></i>

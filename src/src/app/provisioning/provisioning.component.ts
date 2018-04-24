@@ -110,7 +110,7 @@ export class ProvisioningComponent implements OnInit {
       $('#' + sessionStorage.lastSelectedDropDownId).hide();
       this.callMatricsFilter = false;
       if (sessionStorage.selectedComponentActionButtonId != '') {
-        this.editComponentClick(sessionStorage.selectedComponentActionButtonId);
+        this.editComponentClick(sessionStorage.selectedComponentActionButtonId, 'manual');
         sessionStorage.setItem('selectedComponentActionButtonId', '');
       }
     }
@@ -780,8 +780,10 @@ export class ProvisioningComponent implements OnInit {
     }
   }
 
-  editComponentClick(i) {
-    sessionStorage.setItem('selectedComponentActionButtonId', i);
+  editComponentClick(i, type = 'auto') {
+    if (type == 'auto') {
+      sessionStorage.setItem('selectedComponentActionButtonId', i);
+    }
     this.clearDcActionsDropDown(0, 'clearAll');
     for (let j = 0; j < this.dataCentersDetails.length; j++) {
       if (j == i) {
@@ -1225,6 +1227,8 @@ export class ProvisioningComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    sessionStorage.setItem('selectedComponentActionButtonId', '');
 
     if (!sessionStorage.username || !sessionStorage.id || typeof sessionStorage.username == 'undefined' || typeof sessionStorage.id == 'undefined') {
       this.router.navigate(['login']);

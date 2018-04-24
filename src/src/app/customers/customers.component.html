@@ -5,7 +5,7 @@
     <div class="col-md-6 col-sm-6" style="padding-top:6px;text-align: center;">
     </div>
     <div class="col-md-3 col-sm-3 btn-top-bar">
-        <button class="btn btn-primary btn-sm btn-add-data">
+        <button class="btn btn-primary btn-sm btn-add-data nohover">
             <i class="fa fa-plus"></i> Add Customer</button>
     </div>
 </div>
@@ -58,7 +58,7 @@
                         <span class="rsddropdown-span" (click)="editCustomerClick(j)">...</span>
                         <div id="editCustomerDropdown{{j}}" class="rsddropdown-content componentDropDownDiv">
                             <a (click)="redirectCustomerView(data.id)">View</a>
-                            <a>Edit</a>
+                            <a style="color: #80808080;cursor: default;">Edit</a>
                         </div>
                     </td>
                 </tr>

@@ -30,6 +30,7 @@ export class CustomerviewComponent implements OnInit {
   userId: number;
   customerContent: any = 0;
   compNotFound: boolean = false;
+  subCompNotFound: boolean = false;
   deviceHeight: any;
   deviceWidth: any;
   scrollLimit: number;
@@ -45,6 +46,7 @@ export class CustomerviewComponent implements OnInit {
   selectedDcSubViewId: number = -1;
   customerName: string;
   selectedVcenterGraphFilter: number;
+  minTabWidth: any = '50';
 
   constructor(private route: ActivatedRoute, private config: ConfigService, private router: Router) {
     sessionStorage.setItem('previousUrl', this.router.url);
@@ -88,7 +90,7 @@ export class CustomerviewComponent implements OnInit {
       this.router.navigate(['login']);
     }
     this.getDataCenterList(this.userId);
-    this.compTabItems = [{ "id": 1, "name": "NEXUS" }, { "id": 2, "name": "VCENTER" }, { "id": 3, "name": "SBC" }, { "id": 4, "name": "ASA" }];
+
     this.config.getCustomerName(this.userId).subscribe(res => {
       this.customerName = res.customerName;
     });
@@ -117,8 +119,6 @@ export class CustomerviewComponent implements OnInit {
 
     this.resetSlider();
 
-    this.compTabItems = [{ "id": 1, "name": "NEXUS" }, { "id": 2, "name": "VCENTER" }, { "id": 3, "name": "SBC" }, { "id": 4, "name": "ASA" }];
-
     if (clickType == 'scroll') {
       if (scrollIndex < this.scrollLimit) {
         this.scrollLimitMin = 0;
@@ -130,10 +130,30 @@ export class CustomerviewComponent implements OnInit {
     }
 
     this.compNotFound = false;
+    this.subCompNotFound = false;
     this.config.getComponetCusView(id).subscribe(res => {
       this.ComponentItems = res;
-      this.hideEmptyCompTab();
-      this.selectDefSelectedCompTab();
+      if (this.ComponentItems.length != 0) {
+        let j = 1;
+        this.compTabItems = [];
+        for (let i = 0; i < this.ComponentItems.length; i++) {
+          if (this.ComponentItems[i].components.length != 0) {
+            this.compTabItems.push({
+              'id': j,
+              'name': this.ComponentItems[i].type
+            });
+            j++;
+          }
+        }
+        this.minTabWidth = 100 / this.compTabItems.length;
+        this.selectDefSelectedCompTab();
+      } else {
+        $("#subCompDetails").hide();
+        $("#subCompTab").hide();
+        $("#tabContent").hide();
+        this.compNotFound = true;
+        this.currentCompItems = [];
+      }
     });
     if (this.selectedDataCenter != id) {
       var selDataTabId = $('.tab-tile-active').attr('id');
@@ -151,32 +171,27 @@ export class CustomerviewComponent implements OnInit {
   }
 
   setComponent(type) {
+    let subComponentExist = false;
+    this.subCompNotFound = false;
     var that = this;
     setTimeout(() => {
-      //this.currentCompItems = this.ComponentItems[type];     
       $.each(this.ComponentItems, function (key, value) {
         if (value['type'] == type) {
+          subComponentExist = true;
           that.currentCompItems = value['components'];
         }
       });
       $("#subCompDetails").hide();
       $("#subCompTab").hide();
+      if (subComponentExist) {
+        this.ComponentClick(that.currentCompItems[0].id, that.currentCompItems[0].type, 0);
+      }
     }, 100);
   }
 
-  compTabClick(id) {
-
-    this.selectedCompTab = id;
-
-    if (id == 1) {
-      this.setComponent('NEXUS');
-    } else if (id == 2) {
-      this.setComponent('VCENTER');
-    } else if (id == 3) {
-      this.setComponent('SBC');
-    } else if (id == 4) {
-      this.setComponent('ASA');
-    }
+  compTabClick(name) {
+    this.selectedCompTab = name.toUpperCase();
+    this.setComponent(this.selectedCompTab);
     this.selectedComp = '';
   }
 
@@ -195,11 +210,13 @@ export class CustomerviewComponent implements OnInit {
     this.config.getSubComponetCusView(id, type).subscribe(res => {
       this.subCompTabItems = res;
       if (this.subCompTabItems.length != 0) {
+        this.subCompNotFound = false;
         this.selectedSubCompTypeId = this.subCompTabItems[0].type_id;
         this.selectedSubCompName = this.subCompTabItems[0].name;
         $("#subCompTab").show();
         $("#subCompDetails").show();
       } else {
+        this.subCompNotFound = true;
         this.selectedSubCompTypeId = '';
         this.selectedSubCompName = '';
         $("#subCompDetails").hide();
@@ -211,21 +228,16 @@ export class CustomerviewComponent implements OnInit {
           this.selectedVcenterGraphFilter = 12;
           this.config.getCustomerContentCusView(this.selectedSubCompTypeId, this.selectedSubCompName, this.userId).subscribe(res => {
             this.customerContent = res;
-            if (typeof this.customerContent.content == 'undefined') {
+            if (this.customerContent.length > 0) {
+              $("#contentErrorDiv").hide();
+              $("#contentDiv").show();
+            } else {
               $("#contentErrorDiv").show();
               $("#contentDiv").hide();
-            } else {
-              if (this.customerContent.content == '') {
-                $("#contentErrorDiv").show();
-                $("#contentDiv").hide();
-              } else {
-                $("#contentErrorDiv").hide();
-                $("#contentDiv").show();
-              }
             }
           });
 
-          if (this.selectedCompTab == 2) {
+          if (this.selectedCompTab == 'VCENTER') {
             this.vcenterGraphContent();
           }
         }
@@ -249,11 +261,23 @@ export class CustomerviewComponent implements OnInit {
   }
 
   getComponentList(id) {
+    this.subCompNotFound = false;
     this.config.getComponetCusView(id).subscribe(res => {
       this.ComponentItems = res;
       if (this.ComponentItems.length != 0) {
+        let j = 1;
+        this.compTabItems = [];
+        for (let i = 0; i < this.ComponentItems.length; i++) {
+          if (this.ComponentItems[i].components.length != 0) {
+            this.compTabItems.push({
+              'id': j,
+              'name': this.ComponentItems[i].type
+            });
+            j++;
+          }
+        }
+        this.minTabWidth = 100 / this.compTabItems.length;
         this.componentCount = this.ComponentItems.length;
-        this.hideEmptyCompTab();
         this.selectDefSelectedCompTab();
       } else {
         this.compNotFound = true;
@@ -269,22 +293,17 @@ export class CustomerviewComponent implements OnInit {
     this.selectedVcenterGraphFilter = 12;
     this.config.getCustomerContentCusView(type_id, name, this.userId).subscribe(res => {
       this.customerContent = res;
-      if (typeof this.customerContent.content == 'undefined') {
+      if (this.customerContent.length > 0) {
+        $("#contentErrorDiv").hide();
+        $("#contentDiv").show();
+      } else {
         $("#contentErrorDiv").show();
         $("#contentDiv").hide();
-      } else {
-        if (this.customerContent.content == '') {
-          $("#contentErrorDiv").show();
-          $("#contentDiv").hide();
-        } else {
-          $("#contentErrorDiv").hide();
-          $("#contentDiv").show();
-        }
       }
     });
     this.selectedSubCompTypeId = type_id;
     this.selectedSubCompName = name;
-    if (this.selectedCompTab == 2) {
+    if (this.selectedCompTab == 'VCENTER') {
       this.vcenterGraphContent();
     }
   }
@@ -296,7 +315,6 @@ export class CustomerviewComponent implements OnInit {
     $.each(this.ComponentItems, function (key, value) {
       if (value['type'] == 'NEXUS') {
         if (value['components'].length == 0) {
-          alert("jdsbf");
           $("#compTab1").hide();
         } else {
           $("#compTab1").show();
@@ -325,178 +343,29 @@ export class CustomerviewComponent implements OnInit {
         }
       }
     });
-
-
-    // if (typeof this.ComponentItems['nexus'] != 'undefined') {
-    //   if (this.ComponentItems['nexus'].length == 0) {
-    //     $("#compTab1").hide();
-    //   } else {
-    //     $("#compTab1").show();
-    //     this.componentCount++;
-    //   }
-    // } else {
-    //   $("#compTab1").hide();
-    // }
-    // if (typeof this.ComponentItems['vcenter'] != 'undefined') {
-    //   if (this.ComponentItems['vcenter'].length == 0) {
-    //     $("#compTab2").hide();
-    //   } else {
-    //     $("#compTab2").show();
-    //     this.componentCount++;
-    //   }
-    // } else {
-    //   $("#compTab2").hide();
-    // }
-    // if (typeof this.ComponentItems['sbc'] != 'undefined') {
-    //   if (this.ComponentItems['sbc'].length == 0) {
-    //     $("#compTab3").hide();
-    //   } else {
-    //     $("#compTab3").show();
-    //     this.componentCount++;
-    //   }
-    // } else {
-    //   $("#compTab3").hide();
-    // }
-    // if (typeof this.ComponentItems['asa'] != 'undefined') {
-    //   if (this.ComponentItems['asa'].length == 0) {
-    //     $("#compTab4").hide();
-    //   } else {
-    //     $("#compTab4").show();
-    //     this.componentCount++;
-    //   }
-    // } else {
-    //   $("#compTab4").hide();
-    // }
   }
 
   selectDefSelectedCompTab() {
-    var nexus_exists = 0;
-    var vcenter_exists = 0;
-    var sbc_exists = 0;
-    var asa_exists = 0;
     var that = this;
-
-    $.each(this.ComponentItems, function (key, value) {
-      if (value['type'] == 'NEXUS') {
-        if (value['components'].length > 0) {
-          nexus_exists = 1;
-          that.setComponent('NEXUS');
-          that.selectedCompTab = 1;
-          that.compNotFound = false;
-          $("#tabContent").show();
-        }
+    let selectFirstComponent = false;
+    var x;
+    for (let k = this.ComponentItems.length - 1; k >= 0; k--) {
+      if (this.ComponentItems[k].components.length > 0) {
+        selectFirstComponent = true;
+        //that.setComponent(this.ComponentItems[k].type);
+        that.selectedCompTab = this.ComponentItems[k].type;
+        that.compNotFound = false;
+        $("#tabContent").show();
+        x = k;
       }
-    });
-    if (nexus_exists == 0) {
-      $.each(this.ComponentItems, function (key, value) {
-        if (value['type'] == 'VCENTER') {
-          if (value['components'].length > 0) {
-            vcenter_exists = 1;
-            that.setComponent('VCENTER');
-            that.selectedCompTab = 2;
-            that.compNotFound = false;
-            $("#tabContent").show();
-          }
-        }
-      });
     }
-    if (nexus_exists == 0 && vcenter_exists == 0) {
-      $.each(this.ComponentItems, function (key, value) {
-        if (value['type'] == 'SBC') {
-          if (value['components'].length > 0) {
-            sbc_exists = 1;
-            that.setComponent('SBC');
-            that.selectedCompTab = 3;
-            that.compNotFound = false;
-            $("#tabContent").show();
-          }
-        }
-      });
-    }
-    if (nexus_exists == 0 && vcenter_exists == 0 && sbc_exists == 0) {
-      $.each(this.ComponentItems, function (key, value) {
-        if (value['type'] == 'ASA') {
-          if (value['components'].length > 0) {
-            asa_exists = 1;
-            that.setComponent('ASA');
-            that.selectedCompTab = 4;
-            that.compNotFound = false;
-            $("#tabContent").show();
-          }
-        }
-      });
-    }
-    if (nexus_exists == 0 && vcenter_exists == 0 && sbc_exists == 0 && asa_exists == 0) {
+    this.setComponent(this.ComponentItems[x].type);
+    if (!selectFirstComponent) {
       $("#subCompDetails").hide();
       $("#subCompTab").hide();
       $("#tabContent").hide();
       that.compNotFound = true;
     }
-
-
-
-
-    // if (typeof this.ComponentItems['nexus'] != 'undefined') {
-    //   if (this.ComponentItems['nexus'].length > 0) {
-    //     this.setComponent('nexus');
-    //     this.selectedCompTab = 1;
-    //     this.compNotFound = false;
-    //     $("#tabContent").show();
-    //   } else {
-    //     nexus_exists = 0;
-    //   }
-    // } else {
-    //   nexus_exists = 0;
-    // }
-    // if (nexus_exists == 0) {
-    //   if (typeof this.ComponentItems['vcenter'] != 'undefined') {
-    //     if (this.ComponentItems['vcenter'].length > 0) {
-    //       this.setComponent('vcenter');
-    //       this.selectedCompTab = 2;
-    //       this.compNotFound = false;
-    //       $("#tabContent").show();
-    //     } else {
-    //       vcenter_exists = 0;
-    //     }
-    //   } else {
-    //     vcenter_exists = 0;
-    //   }
-    // }
-
-    // if (vcenter_exists == 0) {
-    //   if (typeof this.ComponentItems['sbc'] != 'undefined') {
-    //     if (this.ComponentItems['sbc'].length > 0) {
-    //       this.setComponent('sbc');
-    //       this.selectedCompTab = 3;
-    //       this.compNotFound = false;
-    //       $("#tabContent").show();
-    //     } else {
-    //       sbc_exists = 0;
-    //     }
-    //   } else {
-    //     sbc_exists = 0;
-    //   }
-    // }
-    // if (sbc_exists == 0) {
-    //   if (typeof this.ComponentItems['asa'] != 'undefined') {
-    //     if (this.ComponentItems['asa'].length > 0) {
-    //       this.setComponent('asa');
-    //       this.selectedCompTab = 4;
-    //       this.compNotFound = false;
-    //       $("#tabContent").show();
-    //     } else {
-    //       asa_exists = 0;
-    //     }
-    //   } else {
-    //     asa_exists = 0;
-    //   }
-    // }
-    // if (asa_exists == 0) {
-    //   $("#subCompDetails").hide();
-    //   $("#subCompTab").hide();
-    //   $("#tabContent").hide();
-    //   this.compNotFound = true;
-    // }
   }
 
   vcenterGraphContent() {

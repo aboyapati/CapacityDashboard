@@ -861,3 +861,15 @@ td, th {
   padding: 5px 12px 5px 12px;
   vertical-align: middle;
 }
+.btn.nohover{
+  outline: 0;
+  opacity: 0.6;
+  color: #fff;
+}
+.btn.nohover:hover {
+  cursor: default;
+  background-color: #203c66 !important;
+}
+.btn.nohover:focus {
+  background-color: #203c66 !important;
+}
