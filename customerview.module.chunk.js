@@ -379,12 +379,14 @@ var CustomerviewComponent = (function () {
                 x = k;
             }
         }
-        this.setComponent(this.ComponentItems[x].type);
         if (!selectFirstComponent) {
             $("#subCompDetails").hide();
             $("#subCompTab").hide();
             $("#tabContent").hide();
             that.compNotFound = true;
+        }
+        else {
+            this.setComponent(this.ComponentItems[x].type);
         }
     };
     CustomerviewComponent.prototype.vcenterGraphContent = function () {

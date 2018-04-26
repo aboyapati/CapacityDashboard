@@ -359,12 +359,13 @@ export class CustomerviewComponent implements OnInit {
         x = k;
       }
     }
-    this.setComponent(this.ComponentItems[x].type);
     if (!selectFirstComponent) {
       $("#subCompDetails").hide();
       $("#subCompTab").hide();
       $("#tabContent").hide();
       that.compNotFound = true;
+    } else {
+      this.setComponent(this.ComponentItems[x].type);
     }
   }
 
